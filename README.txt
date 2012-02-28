@@ -4,6 +4,7 @@ This is an initial prototype of the library directory website and widgets.
 
 Code boilerplate based on www.initializr.com (html5boilerplate, Boostrap Responsive 2, LESS etc..)
 
+This file syntax is Markdown (http://daringfireball.net/projects/markdown/)
 
 Dependencies
 ------------

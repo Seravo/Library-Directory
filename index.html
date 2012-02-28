@@ -7,9 +7,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title></title>
-	<meta name="description" content="">
-	<meta name="author" content="">
+	<title>The Finnish Library Directory</title>
+	<meta name="description" content="The Finnish Library Directory">
+	<meta name="author" content="Otto Kekäläinen (Seravo Oy)">
 
 	<meta name="viewport" content="width=device-width">
 
@@ -34,12 +34,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Project name</a>
+          <a class="brand" href="#">Library Directory</a>
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="about">About</a></li>
+              <li><a href="contact">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -50,34 +50,49 @@
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+        <h1>Find your library!</h1>
+        <p>Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries.</p>
+        <form method="GET" action="#search">                    
+        <div id="facetview_searchbar" style="display: inline; float: left; width: 819px;" class="input-prepend">                   
+        	<span class="add-on"><i class="icon-search"></i></span>                    
+        	<input class="span4" id="facetview_freetext" name="q" value="" placeholder="search term" autofocus="" style="width: 781px; ">                    
+        </div>                    
+        <div style="display:inline; float:left;margin-left:-2px;" class="btn-group">                     
+        	<a style="-moz-border-radius:0px 3px 3px 0px; -webkit-border-radius:0px 3px 3px 0px; border-radius:0px 3px 3px 0px;" class="btn dropdown-toggle" data-toggle="dropdown" href="#">                     
+        	<i class="icon-cog"></i> <span class="caret"></span></a>                     
+        	<ul class="dropdown-menu">                     
+				<li><a id="facetview_partial_match" href="">partial match</a></li>                     
+				<li><a id="facetview_exact_match" href="">exact match</a></li>                     
+				<li><a id="facetview_fuzzy_match" href="">fuzzy match</a></li>                     
+				<li><a id="facetview_match_all" href="">match all</a></li>                     
+				<li><a id="facetview_match_any" href="">match any</a></li>                     
+				<li><a href="#">clear all</a></li>                     
+				<li><a target="_blank" href="http://lucene.apache.org/java/2_9_1/queryparsersyntax.html">learn more</a></li>                     
+				<li class="divider"></li>                     
+				<li><a id="facetview_howmany" href="#">results per page (10)</a></li>                     
+	        </ul>                    
+        </div>                    
+        <input style="margin-left:6px;" class="btn-primary" type="submit"  value="Search">
+		</form>           
       </div>
 
       <!-- Example row of columns -->
       <div class="row">
         <div class="span4">
-          <h2>Heading</h2>
-           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
+          <h2>Filter</h2>
+           <p>Facets here.. </p>
         </div>
-        <div class="span4">
-          <h2>Heading</h2>
-           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
+        <div class="span8">
+          <h2>Results</h2>
+           <p>Results here</p>
        </div>
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
         </div>
       </div>
 
       <hr>
 
       <footer>
-        <p>&copy; Company 2012</p>
+        <p>&copy; Seravo Oy 2012. <a href="http://opendefinition.org/">Openly Licensed</a>. Download <a href="http://....git">source</a>.</p>
       </footer>
 
     </div> <!-- /container -->
