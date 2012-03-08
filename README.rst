@@ -4,8 +4,6 @@ This is an initial prototype of the library directory website and widgets.
 
 Code boilerplate based on www.initializr.com (html5boilerplate, Boostrap Responsive 2, LESS etc..)
 
-This file syntax is Markdown (http://daringfireball.net/projects/markdown/)
-
 Dependencies
 ------------
 
@@ -36,15 +34,18 @@ Development tested on Ubuntu 11.10, where the required dependencies can be insta
 		D3.js
 		Linkify
 
-* Elastic Search
+* Elastic Search (Java server)
 	wget https://github.com/downloads/elasticsearch/elasticsearch/elasticsearch-0.18.7.tar.gz
 	tar xvf elasticsearch-0.18.7.tar.gz
 	# download and extract library data data to data/
 	cd elasticsearch-0.19.0
 	bin/elasticsearch -f
 
-* Read-only proxy
-
+* Read-only proxy (Node.js module)
+	https://github.com/lukas-vlcek/node.es
+	cd server/
+	node proxy.js
+	
 Generating CSS from LESS
 ------------------------
 
