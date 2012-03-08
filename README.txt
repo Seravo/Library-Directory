@@ -25,6 +25,26 @@ Development tested on Ubuntu 11.10, where the required dependencies can be insta
 * Image compression for Ant
 	sudo apt-get install libjpeg-progs optipng
 
+* JS libraries are in the folder js/lib/ and the sources are:
+	http://www.initializr.com/
+		HTML5 Boilerplate
+		Modernizr
+		JQuery
+		Bootstrap (responsive)
+	http://github.com/okfn/facetview
+		JQuery UI
+		D3.js
+		Linkify
+
+* Elastic Search
+	wget https://github.com/downloads/elasticsearch/elasticsearch/elasticsearch-0.18.7.tar.gz
+	tar xvf elasticsearch-0.18.7.tar.gz
+	# download and extract library data data to data/
+	cd elasticsearch-0.19.0
+	bin/elasticsearch -f
+
+* Read-only proxy
+
 Generating CSS from LESS
 ------------------------
 
