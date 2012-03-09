@@ -47,30 +47,13 @@ Development tested on Ubuntu 11.10, where the required dependencies can be insta
 	cd elasticsearch-0.19.0
 	bin/elasticsearch -f
 
-* Read-only proxy (Node.js module)
-
-	https://github.com/lukas-vlcek/node.es
+* Read-only proxy (https://github.com/lukas-vlcek/node.es)
+	
 	cd server/
 	node proxy.js
-	ERROR: 
-	
-		$ node proxy.js
-		The "sys" module is now called "util". It should have a similar interface.
-
-		node.js:201
-				throw e; // process.nextTick error, or 'error' event on first tick
-				      ^
-		SyntaxError: Unexpected token /
-			at Object.parse (native)
-			at /home/otto/Kirjastot.fi/librarydirectory/server/lib/elasticsearch-proxy.js:179:31
-			at /home/otto/Kirjastot.fi/librarydirectory/server/lib/elasticsearch-proxy.js:278:9
-			at new <anonymous> (/home/otto/Kirjastot.fi/librarydirectory/server/lib/elasticsearch-proxy.js:310:5)
-			at Object.getProxy (/home/otto/Kirjastot.fi/librarydirectory/server/lib/elasticsearch-proxy.js:475:21)
-			at Object.<anonymous> (/home/otto/Kirjastot.fi/librarydirectory/server/proxy.js:54:32)
-			at Module._compile (module.js:441:26)
-			at Object..js (module.js:459:10)
-			at Module.load (module.js:348:31)
-			at Function._load (module.js:308:12)
+	# in proxy.json defined to use port 8888 
+	# sudo required for port 80	
+	# espects back-end Elastic Search server at localhost:9200
 
 	
 Generating CSS from LESS
