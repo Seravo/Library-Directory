@@ -55,6 +55,12 @@ Development tested on Ubuntu 11.10, where the required dependencies can be insta
 	# sudo required for port 80	
 	# espects back-end Elastic Search server at localhost:9200
 
+* More Node.js libs for simple server
+
+	sudo npm install -g connect
+	# make sure modules in path, otherwise require('connect') will fail
+	export NODE_PATH="/usr/lib/node_modules/" # example on Debian/Ubuntu
+	
 	
 Generating CSS from LESS
 ------------------------
