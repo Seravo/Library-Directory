@@ -119,8 +119,40 @@
             "paging":{}
         };
 
+	// library-directory search result display-template
+	var search_results = [
+		[ { "field": "contact.homepage_fi", "format": "<i class='icon-home'></i><a href='{{data}}'>" }, { "field": "name_fi", "format": "{{data}}</a>" } ],
+		[ { "field": "description_fi" } ],
+		[ { "field": "contact.email", "format": "Email: <a href='mailto:{{data}}'>{{data}}</a>" } ]
+	]
+
+	// library-directory default settings
+	var settings = {
+            "config_file": false,
+            "facets":[
+		{'field': 'consortium', 'size': 100, 'order':'term', 'display': 'Library group'},
+		{'field': 'organisation_type', 'display': 'Type'},
+		{'field': 'branch_type', 'display': 'Branch type'},
+		{'field': 'services.type', 'display': 'Services'},
+		{'field': 'contact.street_address.municipality_fi', 'display': 'City'}
+		],
+            "addremovefacets": false,
+            "result_display": search_results,
+            "display_images": true,
+            "visualise_filters": true,
+            "description":"",
+            "search_url":"http://localhost:8888/kantakir/_search?",
+            "search_index":"elasticsearch",
+            "default_url_params":{},
+            "freetext_submit_delay":"1000",
+            "query_parameter":"q",
+            "q":"*:*",
+            "predefined_filters":{},
+            "paging":{ from: 0, size: 5 }
+        };
+
         // and add in any overrides from the call
-        var options = $.extend(defaults, options);
+        var options = $.extend(settings, options);
 
         // ===============================================
         // functions to do with filters
@@ -578,6 +610,8 @@
                 line = ""
                 for (object in display[lineitem]) {
                     var thekey = display[lineitem][object]['field']
+                    var format = display[lineitem][object]['format']
+
                     parts = thekey.split('.')
                     // TODO: this should perhaps recurse..
                     if (parts.length == 1) {
@@ -597,23 +631,13 @@
                         }
                     }
                     if (thevalue && thevalue.length) {
-                        display[lineitem][object]['pre'] 
-                            ? line += display[lineitem][object]['pre'] : false
-                        if ( typeof(thevalue) == 'object' ) {
-                            for (var val in thevalue) {
-                                val != 0 ? line += ', ' : false
-                                line += thevalue[val]
-                            }
-                        } else {
-                            line += thevalue
-                        }
-                        display[lineitem][object]['post'] 
-                            ? line += display[lineitem][object]['post'] : false
-                        line += ' '
-                    }
-                }
+                       var data = { "data": thevalue }
+                       format ? line += Mustache.render(format, data) : line += thevalue
+		    }
+		}
+
                 if (line) {
-                    lines += line.replace(/^\s/,'').replace(/\s$/,'').replace(/\,$/,'') + "<br />"
+                    lines += line.replace(/^\s/,'').replace(/\s$/,'').replace(/\,$/,'') + "<br /><br />"
                 }
             }
             lines ? result += lines : result += JSON.stringify(record,"","    ")

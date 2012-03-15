@@ -74,18 +74,7 @@
   <!-- consult README.rst from Facetview on how to configure -->
   <div class="facet-view-simple"></div>
   <script type="text/javascript">
-    jQuery(document).ready(function($) {
-      $('.facet-view-simple').facetview({
-		search_url: 'http://localhost:8888/kantakir/_search?',
-		search_index: 'elasticsearch',
-//		result_display: ['name_fi','contact.street_address.municipality_fi'],
-        facets: [
-            {'field': 'consortium', 'size': 100, 'order':'term', 'display': 'Library group'},
-            {'field': 'organisation_type', 'display': 'Type'},
-            {'field': 'contact.street_address.municipality_fi', 'display': 'City'}
-        ],
-      });
-    });
+    jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });
   </script>
 
       </div>
@@ -99,6 +88,7 @@
     </div> <!-- /container -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+<script src="js/libs/mustache/mustache.js"></script>
 
 <!-- scripts concatenated and minified via ant build script-->
 <script src="js/libs/bootstrap/transition.js"></script>
