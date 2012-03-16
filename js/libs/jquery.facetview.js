@@ -147,7 +147,7 @@
             "freetext_submit_delay":"1000",
             "query_parameter":"q",
             "q":"*:*",
-            "predefined_filters":{},
+            "predefined_filters":{ "_type": "organisation" },
             "paging":{ from: 0, size: 5 }
         };
 
