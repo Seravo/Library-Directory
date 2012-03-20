@@ -121,10 +121,15 @@
 
 	// library-directory search result display-template
 	var search_results = [
-		[ { "field": "contact.homepage_fi", "format": "<i class='icon-home'></i><a href='{{data}}'>" }, { "field": "name_fi", "format": "{{data}}</a>" } ],
-		[ { "field": "description_fi" } ],
-		[ { "field": "contact.email", "format": "Email: <a href='mailto:{{data}}'>{{data}}</a>" } ]
+		[ { "field": "name_fi", "format": "<big>{{data}}</big>" } ],
+		[ { "field": "contact.street_address.street_fi", "format": "{{data}}," }, { "field": "contact.street_address.post_code", "format": "{{data}}" }, { "field": "contact.street_address.muncipality_fi", "format": "{{data}}" } ],
+		[ { "field": "contact.telephones.0.telephone_number", "format": "Puhelin: {{data}}" }, { "field": "contact.telephones.0.telephone_name_fi", "format": " ({{data}})" } ],
+		[ { "field": "contact.homepage_fi", "format": "<i class='icon-home'></i><a href='{{data}}'>{{data}}</a>" } ],
+		[ { "field": "contact.email", "format": "Email: <a href='mailto:{{data}}'>{{data}}</a>" } ],
+		[ { "field": "description_fi" } ]
 	]
+/*		[ { "field": "period", "format": "Aukioloaika: {{data}}" } ], */
+/*		[ { "field": "services" } ], */
 
 	// library-directory default settings
 	var settings = {
@@ -603,6 +608,8 @@
                 '<ul style="margin-left:-100px;" class="dropdown-menu">' +
                 '<li><a class="facetview_viewrecord" href="' + index + '">view full record</a></li>' +
                 '</ul>' + '</div>'
+            // container for data
+            result += '<div class="result-data">'
             // add the record based on display template if available
             var display = options.result_display
             var lines = ''
@@ -641,7 +648,7 @@
                 }
             }
             lines ? result += lines : result += JSON.stringify(record,"","    ")
-            result += '</td></tr>'
+            result += '</div></td></tr>'
             return result;
         }
 
