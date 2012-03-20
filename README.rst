@@ -14,7 +14,7 @@ Development tested on Ubuntu 11.10, where the required dependencies can be insta
 	sudo apt-get install nodejs npm
 	sudo npm install -g less
 
-* Oracle Java JDK and Ant build system
+* Oracle Java JDK and Ant build system (could be replaced with Node build script https://github.com/h5bp/node-build-script)
 
 	sudo add-apt-repository ppa:webupd8team/java
 	sudo apt-get update
@@ -41,10 +41,12 @@ Development tested on Ubuntu 11.10, where the required dependencies can be insta
 
 * Elastic Search (Java server)
 
+	(in parent directory, not under librarydirectory folder)
+	cd ..
 	wget https://github.com/downloads/elasticsearch/elasticsearch/elasticsearch-0.18.7.tar.gz
 	tar xvf elasticsearch-0.18.7.tar.gz
 	# download and extract library data data to data/
-	cd elasticsearch-0.19.0
+	cd elasticsearch-0.18.7
 	bin/elasticsearch -f
 
 * Read-only proxy (https://github.com/lukas-vlcek/node.es)
@@ -72,6 +74,6 @@ Building the production version
 -------------------------------
 
 	cd build
-	build ant
+	ant build
 
 The publishable version of the website will appear in folder `publish`. All intermediate files should be in gitignore.
