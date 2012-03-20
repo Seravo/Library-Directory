@@ -126,7 +126,6 @@
 		[ { "field": "period", "format": "<i class='icon-time'></i> ma-pe klo 8-20, la 10-18, su suljettu " } ],
 		[ { "field": "contact.telephones.telephone_number", "format": "<img src='img/glyphicons_139_phone.png' alt='Phone icon'> <a href='tel:{{data}}'>{{data}}</a>" }, { "field": "contact.telephones.0.telephone_name_fi", "format": " ({{data}})" } ],
 		[ { "field": "contact.homepage_fi", "format": "<i class='icon-home'></i> <a href='{{data}}'>{{data}}</a>" } ],
-		[ { "field": "description_fi", "format": "<br><p>{{data}}</p>" } ],
 		[ { "field": "name_fi", "format": "<a class='btn btn-big btn-info' href='slugify({{data}})'><i class='icon-info-sign icon-white'></i> Lisätietoja</a>" } ]
 	]
 /*		[ { "field": "services" } ], */

@@ -70,8 +70,7 @@
 }
 
 .result-data .btn {
-	position: relative;
-	top: -12px;
+	margin: 6px 0;
 }
 
 #facetview_results tr:hover td {
