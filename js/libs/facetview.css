@@ -68,3 +68,12 @@
 .result-data {
 	margin-left: 122px;
 }
+
+.result-data .btn {
+	position: relative;
+	top: -12px;
+}
+
+#facetview_results tr:hover td {
+	background-color: #eee !important;
+}

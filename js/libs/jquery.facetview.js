@@ -121,15 +121,17 @@
 
 	// library-directory search result display-template
 	var search_results = [
-		[ { "field": "name_fi", "format": "<big>{{data}}</big>" } ],
-		[ { "field": "contact.street_address.street_fi", "format": "{{data}}," }, { "field": "contact.street_address.post_code", "format": "{{data}}" }, { "field": "contact.street_address.muncipality_fi", "format": "{{data}}" } ],
-		[ { "field": "contact.telephones.0.telephone_number", "format": "Puhelin: {{data}}" }, { "field": "contact.telephones.0.telephone_name_fi", "format": " ({{data}})" } ],
-		[ { "field": "contact.homepage_fi", "format": "<i class='icon-home'></i><a href='{{data}}'>{{data}}</a>" } ],
-		[ { "field": "contact.email", "format": "Email: <a href='mailto:{{data}}'>{{data}}</a>" } ],
-		[ { "field": "description_fi" } ]
+		[ { "field": "name_fi", "format": "<h3>{{data}}</h3>" } ],
+		[ { "field": "contact.street_address.street_fi", "format": "<i class='icon-map-marker'></i> <a href='karttalinkki'>{{data}}," }, { "field": "contact.street_address.post_code", "format": " {{data}}" }, { "field": "contact.street_address.municipality_fi", "format": " {{data}}</a>" } ],
+		[ { "field": "period", "format": "<i class='icon-time'></i> ma-pe klo 8-20, la 10-18, su suljettu " } ],
+		[ { "field": "contact.telephones.telephone_number", "format": "<img src='img/glyphicons_139_phone.png' alt='Phone icon'> <a href='tel:{{data}}'>{{data}}</a>" }, { "field": "contact.telephones.0.telephone_name_fi", "format": " ({{data}})" } ],
+		[ { "field": "contact.homepage_fi", "format": "<i class='icon-home'></i> <a href='{{data}}'>{{data}}</a>" } ],
+		[ { "field": "description_fi", "format": "<br><p>{{data}}</p>" } ],
+		[ { "field": "name_fi", "format": "<a class='btn btn-big btn-info' href='slugify({{data}})'><i class='icon-info-sign icon-white'></i> Lisätietoja</a>" } ]
 	]
-/*		[ { "field": "period", "format": "Aukioloaika: {{data}}" } ], */
 /*		[ { "field": "services" } ], */
+/* optimal would be not to show list of services, but rather just icons for the most important services */
+/* the result entry should be a link to a page with more details */
 
 	// library-directory default settings
 	var settings = {
@@ -644,7 +646,7 @@
 		}
 
                 if (line) {
-                    lines += line.replace(/^\s/,'').replace(/\s$/,'').replace(/\,$/,'') + "<br /><br />"
+                    lines += line.replace(/^\s/,'').replace(/\s$/,'').replace(/\,$/,'') + "<br />"
                 }
             }
             lines ? result += lines : result += JSON.stringify(record,"","    ")

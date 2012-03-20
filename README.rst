@@ -77,3 +77,9 @@ Building the production version
 	ant build
 
 The publishable version of the website will appear in folder `publish`. All intermediate files should be in gitignore.
+
+Credits
+-------
+
+Icons by Glyphicons ()http://glyphicons.com/), license CC-BY-3.0.
+
