@@ -59,7 +59,7 @@ Development tested on Ubuntu 11.10, where the required dependencies can be insta
 
 * More Node.js libs for simple server
 
-	sudo npm install -g connect
+	sudo npm install -g connect@2.0.3
 	# make sure modules in path, otherwise require('connect') will fail
 	export NODE_PATH="/usr/lib/node_modules/" # example on Debian/Ubuntu
 	
