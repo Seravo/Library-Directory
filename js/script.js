@@ -2,7 +2,7 @@
 
 */
 
-function ld_mapcontrol_init(lon, lat, dummy) {
+function ld_mapcontrol_init(lon, lat, dummy, name, desc) {
 	/* initialize map canvas and set location for given coordinates */
 	$(window).scrollTop(0);
 	$('#basicmap').empty();
@@ -28,9 +28,16 @@ function ld_mapcontrol_init(lon, lat, dummy) {
 	/* add marker layer with coordinate projection transform */
 	var vectorLayer = new OpenLayers.Layer.Vector("Overlay");
 	var feature = new OpenLayers.Feature.Vector(
-	 new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection),
-	 {some:'data'},
-	 {externalGraphic: 'img/mapmarker_red.png', graphicHeight: 30, graphicWidth: 18});
+	new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection),
+	{some:'data'},
+	{externalGraphic: 'img/mapmarker_red.png', graphicHeight: 30, graphicWidth: 18});
+
+	popup = new OpenLayers.Popup.FramedCloud("popup",
+		mapLocation,
+		new OpenLayers.Size(200, 200),
+		name+desc,
+		null, true);
+	map.addPopup(popup);
 
 	vectorLayer.addFeatures(feature);
 	map.addLayer(vectorLayer);
