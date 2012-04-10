@@ -621,41 +621,43 @@
             for (var lineitem in display) {
                 line = ""
                 for (object in display[lineitem]) {
-                    var thekey = display[lineitem][object]['field']
-                    var format = display[lineitem][object]['format']
+					/* printf-style multivalue formatting for search-result data */
+					var thekey = display[lineitem][object]['fields']
+					var format = display[lineitem][object]['format']
+					var thevalue = ""
+					var keys = thekey.split(',')
+					var data = { }
+					var idx = 0
 
-                    parts = thekey.split('.')
-                    // TODO: this should perhaps recurse..
-                    if (parts.length == 1) {
-                        var res = record
-                    } else if (parts.length == 2) {
-                        var res = record[parts[0]]
-                    } else if (parts.length == 3) {
-                        var res = record[parts[0]][parts[1]]
-                    }
-                    var counter = parts.length - 1
-                    if (res && res.constructor.toString().indexOf("Array") == -1) {
-                        var thevalue = res[parts[counter]]  // if this is a dict
-                    } else {
-                        var thevalue = []
-                        for (var row in res) {
-                            thevalue.push(res[row][parts[counter]])
-                        }
-                    }
-                    if (thevalue && thevalue.length) {
-                       var data = { "data": thevalue }
-                       format ? line += Mustache.render(format, data) : line += thevalue
-		    }
+					for (key in keys) {
+						/* remove spaces and split fields from keys */
+						parts = keys[key].split(' ').join('').split('.')
+
+						if (parts.length == 1) { var res = record }
+						else if (parts.length == 2) { var res = record[parts[0]] }
+						else if (parts.length == 3) { var res = record[parts[0]][parts[1]] }
+
+						var counter = parts.length - 1
+		                if (res && res.constructor.toString().indexOf("Array") == -1) { var thevalue = res[parts[counter]] }
+						else {
+	                        var thevalue = []
+	                        for (var row in res) { thevalue.push(res[row][parts[counter]]) }
+						}
+					/* add value to mustache data hash */
+					if (thevalue && thevalue.length) { data["d"+idx]=thevalue }
+					idx+=1;
+					}
+				format ? line += Mustache.render(format, data) : line += thevalue
+				}
+
+				if (line) {
+					lines += line.replace(/^\s/,'').replace(/\s$/,'').replace(/\,$/,'') + "<br />"
+				}
+			}
+			lines ? result += lines : result += JSON.stringify(record,"","    ")
+			result += '</div></td></tr>'
+			return result;
 		}
-
-                if (line) {
-                    lines += line.replace(/^\s/,'').replace(/\s$/,'').replace(/\,$/,'') + "<br />"
-                }
-            }
-            lines ? result += lines : result += JSON.stringify(record,"","    ")
-            result += '</div></td></tr>'
-            return result;
-        }
 
         // view a full record when selected
         var viewrecord = function(event) {
