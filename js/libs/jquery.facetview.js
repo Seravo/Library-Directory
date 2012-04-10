@@ -121,16 +121,15 @@
 
 	// library-directory search result display-template
 	var search_results = [
-		[ { "field": "name_fi", "format": "<h3>{{data}}</h3>" } ],
-		[ { "field": "contact.coordinates", "format": "<i class='icon-map-marker'></i> <a href='staattinen_karttalinkki' onclick='ld_mapcontrol_init({{data}}); return false;'>" },
-		  { "field": "contact.street_address.street_fi", "format": "{{data}}, " },
-		  { "field": "contact.street_address.post_code", "format": "{{data}} " },
-		  { "field": "contact.street_address.municipality_fi", "format": " {{data}}</a>" } ],
-		[ { "field": "period", "format": "<i class='icon-time'></i> ma-pe klo 8-20, la 10-18, su suljettu " } ],
-		[ { "field": "contact.telephones.telephone_number", "format": "<img src='img/glyphicons_139_phone.png' alt='Phone icon'> <a href='tel:{{data}}'>{{data}}</a>" },
-		  { "field": "contact.telephones.0.telephone_name_fi", "format": " ({{data}})" } ],
-		[ { "field": "contact.homepage_fi", "format": "<i class='icon-home'></i> <a href='{{data}}'>{{data}}</a>" } ],
-		[ { "field": "name_fi", "format": "<a class='btn btn-big btn-info' href='slugify({{data}})'><i class='icon-info-sign icon-white'></i> Lisätietoja</a>" } ]
+		[ { "fields": "name_fi", "format": "<h3>{{d0}}</h3>" } ],
+		[ { "fields": "contact.coordinates, name_fi, contact.street_address.street_fi, contact.street_address.municipality_fi",
+		    "format": "<i class='icon-map-marker'></i> <a href='static_maplink.html' onclick='ld_mapcontrol_init({{d0}}, \"<b>{{d1}}</b>\", \"<br>{{d2}}<br>{{d3}}\"); return false;'>" },
+		  { "fields": "contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi", "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
+		[ { "fields": "period", "format": "<i class='icon-time'></i> ma-pe klo 8-20, la 10-18, su suljettu " } ],
+		[ { "fields": "contact.telephones.telephone_number", "format": "<img src='img/glyphicons_139_phone.png' alt='Phone icon'> <a href='tel:{{d0}}'>{{d0}}</a>" },
+		  { "fields": "contact.telephones.0.telephone_name_fi", "format": " ({{d0}})" } ],
+		[ { "fields": "contact.homepage_fi", "format": "<i class='icon-home'></i> <a href='{{d0}}'>{{d0}}</a>" } ],
+		[ { "fields": "name_fi", "format": "<a class='btn btn-big btn-info' href='slugify({{d0}})'><i class='icon-info-sign icon-white'></i> Lisätietoja</a>" } ]
 	]
 /*		[ { "field": "services" } ], */
 /* optimal would be not to show list of services, but rather just icons for the most important services */
