@@ -160,7 +160,8 @@
 		{'field': 'consortium', 'size': 100, 'order':'term', 'display': 'Library group'},
 		{'field': 'organisation_type', 'display': 'Type'},
 		{'field': 'branch_type', 'display': 'Branch type'},
-		{'field': 'services.type', 'display': 'Services'},
+		{'field': 'services.name_fi', 'display': 'Services'},
+		{'field': 'accessibility.accessible_entry', 'display': 'Accessibility'},
 		{'field': 'contact.street_address.municipality_fi', 'display': 'City'}
 		],
             "addremovefacets": false,
