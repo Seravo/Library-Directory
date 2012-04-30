@@ -46,6 +46,9 @@
 .facetview_filterselected{
     margin:5px;
 }
+.facetview_extrafilterselected{
+    margin:5px;
+}
 .facetview_freetext_filterdiv{
     float:left;
     clear:both;

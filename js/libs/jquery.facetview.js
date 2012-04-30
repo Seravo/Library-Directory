@@ -367,6 +367,35 @@
                 }
             }
             $('#facetview_filters').html("").append(thefilters)
+
+	// get geolocation and show location-filter, if applicable
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(
+			function (position) {
+			//console.log(position);
+			$('#facetview_filters').append('<button class="btn btn-primary" id="facetview_location">Show libraries near my location</button>');
+			$('#facetview_location').bind('click',function(event){ $('#facetview_location').hide(); ld_position=true; ld_position_coords=position.coords; clickextrabubble("ld_location","Libraries near my location") }); },
+		// the error callback that never gets called (in firefox?)
+		function (error) {
+			alert(error);
+			switch(error.code) {
+				case error.TIMEOUT:
+					alert ('Timeout');
+					break;
+				case error.POSITION_UNAVAILABLE:
+					alert ('Position unavailable');
+					break;
+				case error.PERMISSION_DENIED:
+					alert ('Permission denied');
+					break;
+				case error.UNKNOWN_ERROR:
+					alert ('Unknown error');
+					break; }
+		        } );
+		}
+	else {
+		alert("Geolocation not supported"); }
+
             options.visualise_filters ? $('.facetview_visualise').bind('click',show_vis) : ""
             $('.facetview_morefacetvals').bind('click',morefacetvals)
             $('.facetview_facetrange').bind('click',facetrange)
@@ -494,6 +523,19 @@
                 clickbubble(facetkey,d.data.className)
             })
         };
+
+	var clickextrabubble = function(facetkey,facetvalue) {
+		var newobj = '<a class="facetview_extrafilterselected facetview_clear ' +
+		'btn btn-info" rel="' + facetkey +
+		'" alt="remove" title="remove"' +
+		' href="' + facetvalue + '">' +
+		facetvalue + ' <i class="icon-remove"></i></a>'
+		$('#facetview_selectedextrafilters').append(newobj)
+		$('.facetview_extrafilterselected').unbind('click',clearlocationfilter)
+		$('.facetview_extrafilterselected').bind('click',clearlocationfilter)
+		options.paging.from = 0
+		dosearch()
+		$('#facetview_visualisation').remove() }
 
         var clickbubble = function(facetkey,facetvalue) {
             var newobj = '<a class="facetview_filterselected facetview_clear ' + 
@@ -781,7 +823,13 @@
                 $('#facetview_freetext').val() != ""
                     ? bool['must'].push( {'query_string': { 'query': $('#facetview_freetext').val() } } )
                     : ""
-                qs['query'] = {'bool': bool}
+		// helsinki train station @ "lat" : 60.171, "lon" : 24.941
+		if (ld_position) {
+			qs['query'] = { "filtered" : { "query": { 'bool': bool }, "filter": { "geo_distance": { "distance": "10km", "contact.coordinates" : { "lat" : ld_position_coords.latitude, "lon" : ld_position_coords.longitude } } } } } }
+		else {
+			qs['query'] = { 'bool': bool }
+		}
+
             } else {
                 $('#facetview_freetext').val() != ""
                     ? qs['query'] = {'query_string': { 'query': $('#facetview_freetext').val() } }
@@ -837,6 +885,14 @@
             $(this).remove();
             dosearch();
         }
+
+	// clear the location filter when clicked, and re-do the search
+	var clearlocationfilter = function(event) {
+		event.preventDefault();
+		$(this).remove();
+		$("#facetview_location").show();
+		ld_position = null;
+		dosearch(); }
 
         // do search options
         var fixmatch = function(event) {
@@ -937,7 +993,8 @@
                     <li><a id="facetview_howmany" href="#">results per page ({{HOW_MANY}})</a></li> \
                     </ul> \
                    </div> \
-                   <div style="clear:both;" id="facetview_selectedfilters"></div> \
+                   <div style="float:left;" id="facetview_selectedfilters"></div> \
+                   <div style="float:left;" id="facetview_selectedextrafilters"></div> \
                  <table class="table table-striped" id="facetview_results"></table> \
                  <div id="facetview_metadata"></div> \
                </div> \

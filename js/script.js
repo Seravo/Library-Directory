@@ -59,3 +59,7 @@ function ld_mapcontrol_close() {
 	$('#basicmap').empty();
 	$('#mapcontrol').empty();
 }
+
+/* geolocation related variables, globals for now */
+var ld_position = false;
+var ld_position_coords = null;
