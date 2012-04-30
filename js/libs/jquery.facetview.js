@@ -712,7 +712,6 @@
 			result += '</div></td></tr>'
 			return result;
 		}
-        }
 
         // put the results on the page
         showresults = function(sdata) {
