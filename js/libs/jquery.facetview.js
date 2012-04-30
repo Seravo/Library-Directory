@@ -666,13 +666,6 @@
                     result += '<img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:150px;" src="' + img[0] + '" />'
                 }
             }
-            // add options button
-            result +=  '<div style="float:right;" class="btn-group">' +
-                '<a style="margin-left:10px;" class="btn dropdown-toggle" data-toggle="dropdown" href="#">' +
-                '<i class="icon-cog"></i> <span class="caret"></span></a>' +
-                '<ul style="margin-left:-100px;" class="dropdown-menu">' +
-                '<li><a class="facetview_viewrecord" href="' + index + '">view full record</a></li>' +
-                '</ul>' + '</div>'
             // container for data
             result += '<div class="result-data">'
             // add the record based on display template if available
@@ -718,13 +711,6 @@
 			result += '</div></td></tr>'
 			return result;
 		}
-
-        // view a full record when selected
-        var viewrecord = function(event) {
-            event.preventDefault()
-            var record = options.data['records'][$(this).attr('href')]
-            alert(JSON.stringify(record,"","    "))
-            
         }
 
         // put the results on the page
@@ -743,7 +729,6 @@
                 // write them out to the results div
                 $('#facetview_results').append( buildrecord(index) );
             });
-            $('.facetview_viewrecord').bind('click',viewrecord)
         }
 
         // ===============================================
