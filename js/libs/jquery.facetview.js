@@ -150,7 +150,7 @@
             "display_images": true,
             "visualise_filters": true,
             "description":"",
-            "search_url":"http://localhost:8888/kantakir/_search?",
+            "search_url":"http://localhost:8888/testink/_search?",
             "search_index":"elasticsearch",
             "default_url_params":{},
             "freetext_submit_delay":"1000",
