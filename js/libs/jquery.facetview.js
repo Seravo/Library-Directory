@@ -523,6 +523,7 @@
             resultobj["facets"] = new Object();
             if ( options.search_index == "elasticsearch" ) {
                 for (var item in dataobj.hits.hits) {
+                    dataobj.hits.hits[item]._source["id"] = dataobj.hits.hits[item]._id;
                     resultobj["records"].push(dataobj.hits.hits[item]._source);
                     resultobj["start"] = "";
                     resultobj["found"] = dataobj.hits.total;
