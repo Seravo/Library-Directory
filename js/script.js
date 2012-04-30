@@ -17,10 +17,11 @@ function ld_mapcontrol_init(coords, name, desc) {
 	$('#basicmap').show();
 
 	var mapOptions = {
-		controls: [ new OpenLayers.Control.Navigation(),
-			    new OpenLayers.Control.PanZoom(),
-		            new OpenLayers.Control.Attribution() ]
-	 };
+		controls: [
+			new OpenLayers.Control.Navigation(),
+			new OpenLayers.Control.PanZoom(),
+			new OpenLayers.Control.Attribution() ]
+	};
 
 	/* convert wgs-84 coordinates into OSM spherical mercator projection */
 	var fromProjection = new OpenLayers.Projection("EPSG:4326");
@@ -49,7 +50,7 @@ function ld_mapcontrol_init(coords, name, desc) {
 	vectorLayer.addFeatures(feature);
 	map.addLayer(vectorLayer);
 
-	$('#mapcontrol').append('<button class="btn btn-danger" onclick="ld_mapcontrol_close();">Sulje kartta</button>');
+	$('#mapcontrol').append('<button class="btn btn-danger" onclick="ld_mapcontrol_close();">Hide map</button>');
       }
 
 
