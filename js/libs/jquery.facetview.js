@@ -120,6 +120,23 @@
         };
 
 	// library-directory search result display-template
+	var info_modal_fields = "id, name_fi, description_fi, services.name_fi";
+	var info_modal_data = "\
+	<div class='modal hide' id='{{d0}}'> \
+		<div class='modal-header'> \
+			<button class='close' data-dismiss='modal'>x</button> \
+			<h3>{{d1}}</h3> \
+			<p>{{d2}}</p> \
+		</div> \
+		<div class='modal-body'> \
+			<h4>Services</h4> \
+			<p>{{d3}}</p> \
+			<h4>Stuff we want to show here</h4> \
+			<p>et cetera</p> \
+		</div> \
+	</div> \
+	";
+
 	var search_results = [
 		[ { "fields": "name_fi", "format": "<h3>{{d0}}</h3>" } ],
 		[ { "fields": "contact.coordinates, name_fi, contact.street_address.street_fi, contact.street_address.municipality_fi",
@@ -127,9 +144,10 @@
 		  { "fields": "contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi", "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
 		[ { "fields": "period", "format": "<i class='icon-time'></i> ma-pe klo 8-20, la 10-18, su suljettu " } ],
 		[ { "fields": "contact.telephones.telephone_number", "format": "<img src='img/glyphicons_139_phone.png' alt='Phone icon'> <a href='tel:{{d0}}'>{{d0}}</a>" },
-		  { "fields": "contact.telephones.0.telephone_name_fi", "format": " ({{d0}})" } ],
+		  { "fields": "contact.telephones.telephone_name_fi", "format": " ({{d0}})" } ],
 		[ { "fields": "contact.homepage_fi", "format": "<i class='icon-home'></i> <a href='{{d0}}'>{{d0}}</a>" } ],
-		[ { "fields": "name_fi", "format": "<a class='btn btn-big btn-info' href='slugify({{d0}})'><i class='icon-info-sign icon-white'></i> Lisätietoja</a>" } ]
+		[ { "fields": "name_fi, id", "format": "<a class='btn btn-big btn-info' data-toggle='modal' href='#{{d1}}'><i class='icon-info-sign icon-white'></i> Show details</a>" } ],
+		[ { "fields": info_modal_fields, "format": info_modal_data } ]
 	]
 /*		[ { "field": "services" } ], */
 /* optimal would be not to show list of services, but rather just icons for the most important services */
