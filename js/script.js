@@ -2,7 +2,14 @@
 
 */
 
-function ld_mapcontrol_init(lon, lat, dummy, name, desc) {
+function ld_mapcontrol_init(coords, name, desc) {
+	if (coords.length<2) {
+		alert("Error: coordinates are missing");
+		return true; }
+
+	var lat = coords.split(",")[0];
+	var lon = coords.split(",")[1];
+
 	/* initialize map canvas and set location for given coordinates */
 	$(window).scrollTop(0);
 	$('#basicmap').empty();
