@@ -35,19 +35,15 @@ function ld_mapcontrol_init(coords, name, desc) {
 
 	/* add marker layer with coordinate projection transform */
 	var vectorLayer = new OpenLayers.Layer.Vector("Overlay");
-	var feature = new OpenLayers.Feature.Vector(
-	new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection),
-	{some:'data'},
-	{externalGraphic: 'img/mapmarker_red.png', graphicHeight: 30, graphicWidth: 18});
+	var marker = new OpenLayers.Feature.Vector(
+		new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection),
+		{ },
+		{externalGraphic: 'img/mapmarker_red.png', graphicHeight: 30, graphicWidth: 18});
 
-	popup = new OpenLayers.Popup.FramedCloud("popup",
-		mapLocation,
-		new OpenLayers.Size(200, 200),
-		name+desc,
-		null, true);
+	popup = new OpenLayers.Popup.FramedCloud("popup", mapLocation, new OpenLayers.Size(200, 200), name+desc, null, true);
+
 	map.addPopup(popup);
-
-	vectorLayer.addFeatures(feature);
+	vectorLayer.addFeatures(marker);
 	map.addLayer(vectorLayer);
 
 	$('#mapcontrol').append('<button class="btn btn-danger" onclick="ld_mapcontrol_close();">Hide map</button>');
