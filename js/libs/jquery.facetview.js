@@ -325,7 +325,9 @@
         // pass a list of filters to be displayed
         var buildfilters = function() {
             var filters = options.facets;
-            var thefilters = "<h3>Filter by</h3>";
+			var filterheader = "<h3>Filter by</h3>";
+			var thefilters = "";
+
             for ( var idx in filters ) {
                 var _filterTmpl = ' \
                     <div id="facetview_filterbuttons" class="btn-group"> \
@@ -367,14 +369,14 @@
                     thefilters = thefilters.replace(/{{FILTER_DISPLAY}}/g, filters[idx]['field'])
                 }
             }
-            $('#facetview_filters').html("").append(thefilters)
+            $('#facetview_filters').html("").append(filterheader+thefilters)
 
 	// get geolocation and show location-filter, if applicable
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(
 			function (position) {
 			//console.log(position);
-			$('#facetview_filters').append('<button class="btn btn-primary" id="facetview_location">Show libraries near my location</button>');
+			$('#facetview_filters').html(filterheader+'<button class="btn btn-primary" id="facetview_location">Show libraries near my location</button>'+thefilters);
 			$('#facetview_location').bind('click',function(event){ $('#facetview_location').hide(); ld_position=true; ld_position_coords=position.coords; clickextrabubble("ld_location","Libraries near my location") }); },
 		// the error callback that never gets called (in firefox?)
 		function (error) {
