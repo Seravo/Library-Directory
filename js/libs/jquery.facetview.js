@@ -615,6 +615,7 @@
             event.preventDefault()
             if ( $(this).html() != '..' ) {
                 options.paging.from = parseInt($(this).attr('href'))
+		$(window).scrollTop(0)
                 dosearch()
             }
         }
