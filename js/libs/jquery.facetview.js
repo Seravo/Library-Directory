@@ -380,7 +380,6 @@
 			$('#facetview_location').bind('click',function(event){ $('#facetview_location').hide(); ld_position=true; ld_position_coords=position.coords; clickextrabubble("ld_location","Libraries near my location") }); },
 		// the error callback that never gets called (in firefox?)
 		function (error) {
-			alert(error);
 			switch(error.code) {
 				case error.TIMEOUT:
 					alert ('Timeout');
@@ -832,6 +831,8 @@
                 delete obj['display']
                 qs['facets'][obj['field']] = {"terms":obj}
             }
+            //console.log(JSON.stringify(qs));
+            //console.log(qs);
             return JSON.stringify(qs)
         }
 
