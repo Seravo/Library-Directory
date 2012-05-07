@@ -808,7 +808,7 @@
             }
             if (bool) {
                 $('#facetview_freetext').val() != ""
-                    ? bool['must'].push( {'query_string': { 'query': $('#facetview_freetext').val() } } )
+                    ? bool['must'].push( {'query_string': { 'query': "*" + $('#facetview_freetext').val() + "*" } } )
                     : ""
 		// helsinki train station @ "lat" : 60.171, "lon" : 24.941
 		if (ld_position) {
@@ -881,60 +881,6 @@
 		ld_position = null;
 		dosearch(); }
 
-        // do search options
-        var fixmatch = function(event) {
-            event.preventDefault();
-            if ( $(this).attr('id') == "facetview_partial_match" ) {
-                var newvals = $('#facetview_freetext').val().replace(/"/gi,'').replace(/\*/gi,'').replace(/\~/gi,'').split(' ');
-                var newstring = "";
-                for (item in newvals) {
-                    if (newvals[item].length > 0 && newvals[item] != ' ') {
-                        if (newvals[item] == 'OR' || newvals[item] == 'AND') {
-                            newstring += newvals[item] + ' ';
-                        } else {
-                            newstring += '*' + newvals[item] + '* ';
-                        }
-                    }
-                }
-                $('#facetview_freetext').val(newstring);
-            } else if ( $(this).attr('id') == "facetview_fuzzy_match" ) {
-                var newvals = $('#facetview_freetext').val().replace(/"/gi,'').replace(/\*/gi,'').replace(/\~/gi,'').split(' ');
-                var newstring = "";
-                for (item in newvals) {
-                    if (newvals[item].length > 0 && newvals[item] != ' ') {
-                        if (newvals[item] == 'OR' || newvals[item] == 'AND') {
-                            newstring += newvals[item] + ' ';
-                        } else {
-                            newstring += newvals[item] + '~ ';
-                        }
-                    }
-                }
-                $('#facetview_freetext').val(newstring);
-            } else if ( $(this).attr('id') == "facetview_exact_match" ) {
-                var newvals = $('#facetview_freetext').val().replace(/"/gi,'').replace(/\*/gi,'').replace(/\~/gi,'').split(' ');
-                var newstring = "";
-                for (item in newvals) {
-                    if (newvals[item].length > 0 && newvals[item] != ' ') {
-                        if (newvals[item] == 'OR' || newvals[item] == 'AND') {
-                            newstring += newvals[item] + ' ';
-                        } else {
-                            newstring += '"' + newvals[item] + '" ';
-                        }
-                    }
-                }
-                $.trim(newstring,' ');
-                $('#facetview_freetext').val(newstring);
-            } else if ( $(this).attr('id') == "facetview_match_all" ) {
-                $('#facetview_freetext').val($.trim($('#facetview_freetext').val().replace(/ OR /gi,' ')));
-                $('#facetview_freetext').val($('#facetview_freetext').val().replace(/ /gi,' AND '));
-            } else if ( $(this).attr('id') == "facetview_match_any" ) {
-                $('#facetview_freetext').val($.trim($('#facetview_freetext').val().replace(/ AND /gi,' ')));
-                $('#facetview_freetext').val($('#facetview_freetext').val().replace(/ /gi,' OR '));
-            }
-            $('#facetview_freetext').focus().trigger('keyup');
-        }
-
-
         // adjust how many results are shown
         var howmany = function(event) {
             event.preventDefault()
@@ -960,26 +906,6 @@
                    <span class="add-on"><i class="icon-search"></i></span> \
                    <input class="span4" id="facetview_freetext" name="q" value="" placeholder="search term" autofocus /> \
                    </div> \
-                   <div style="display:inline; float:left;margin-left:-2px;" class="btn-group"> \
-                    <a style="-moz-border-radius:0px 3px 3px 0px; \
-                    -webkit-border-radius:0px 3px 3px 0px; border-radius:0px 3px 3px 0px;" \
-                    class="btn dropdown-toggle" data-toggle="dropdown" href="#"> \
-                    <i class="icon-cog"></i> <span class="caret"></span></a> \
-                    <ul style="margin-left:-110px;" class="dropdown-menu"> \
-                    <li><a id="facetview_partial_match" href="">partial match</a></li> \
-                    <li><a id="facetview_exact_match" href="">exact match</a></li> \
-                    <li><a id="facetview_fuzzy_match" href="">fuzzy match</a></li> \
-                    <li><a id="facetview_match_all" href="">match all</a></li> \
-                    <li><a id="facetview_match_any" href="">match any</a></li> \
-                    <li><a href="#">clear all</a></li> \
-                    <li class="divider"></li> \
-                    <li><a target="_blank" \
-                    href="http://lucene.apache.org/java/2_9_1/queryparsersyntax.html"> \
-                    learn more</a></li> \
-                    <li class="divider"></li> \
-                    <li><a id="facetview_howmany" href="#">results per page ({{HOW_MANY}})</a></li> \
-                    </ul> \
-                   </div> \
                    <div style="float:left;" id="facetview_selectedfilters"></div> \
                    <div style="float:left;" id="facetview_selectedextrafilters"></div> \
                  <table class="table table-striped" id="facetview_results"></table> \
@@ -994,14 +920,6 @@
             // append the facetview object to this object
             thefacetview = thefacetview.replace(/{{HOW_MANY}}/gi,options.paging.size)
             $(obj).append(thefacetview);
-
-            // setup search option triggers
-            $('#facetview_partial_match').bind('click',fixmatch)
-            $('#facetview_exact_match').bind('click',fixmatch)
-            $('#facetview_fuzzy_match').bind('click',fixmatch)
-            $('#facetview_match_any').bind('click',fixmatch)
-            $('#facetview_match_all').bind('click',fixmatch)
-            $('#facetview_howmany').bind('click',howmany)
 
             // resize the searchbar
             var thewidth = $('#facetview_searchbar').parent().width()
