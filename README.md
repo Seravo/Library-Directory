@@ -88,12 +88,11 @@ Running server
         
 2. Start proxy for ES
         
-        cd server/
         node proxy.js
 
 3. Start HTTP server
-        cd server/
-        node http-server.js
+
+        node server.js
 
 Finally open `localhost:8080` and select index.html to view main screen.
         
