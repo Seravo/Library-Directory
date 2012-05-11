@@ -7,29 +7,39 @@ module.exports = function(grunt) {
     staging: 'staging',
     // final build output
     output: 'output',
-    // filter any files matching one of the below pattern during mkdirs task
-    // the pattern in the .gitignore file should work too.
-    exclude: '.git* build/** node_modules/** grunt.js package.json *.md proxy.js proxy.json screenshot.png'.split(' '),
+    exclude: '',
     mkdirs: {
       staging: '<config:exclude>'
     },
+/*
+    less: {
+        all: {
+            src: '*.less',
+            dest: 'css/style.css',
+            options: {
+                compress: true
+            }
+        }
+    },
+*/
     // concat css/**/*.css files, inline @import, output a single minified css
+    // Otto: but minify does not seem to work?
     css: {
-      'css/libraryproject.css': ['css/**/*.css', 'js/**/*.css']
+      'css/libraryproject.css': ['css/style.css', '**/*.css']
     },
     // Renames JS/CSS to prepend a hash of their contents for easier
     // versioning
     rev: {
-      js: 'js/**/*.js',
-      css: 'css/**/*.css',
-      img: 'img/**'
+      js: 'js/libraryproject.js',
+      css: 'css/libraryproject.css',
+      img: 'img/none'
     },
     // update references in html to revved files
     usemin: {
-      files: ['views/*.mustache']
+      files: ['views/**', ]
     },
-    // html minification
-    html: '<config:usemin>',
+    // html minification - too dangerous for mustache templates?
+    // html: '<config:usemin>',
     // Optimizes JPGs and PNGs (with jpegtran & optipng)
     img: {
       dist: '<config:rev.img>'
@@ -60,14 +70,28 @@ module.exports = function(grunt) {
     },
     concat: {
       dist: {
-        src: ['js/plugins.js', 'js/main.js'],
-        dest: 'js/libraryproject.js'
+        src: [
+        'js/libs/bootstrap/bootstrap.min.js',
+        'js/libs/bootstrap/transition.js',
+        'js/libs/bootstrap/collapse.js',
+        'js/libs/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js',
+        'js/libs/mustache/mustache.js',
+        'js/libs/linkify/1.0/jquery.linkify-1.0-min.js',
+        'js/libs/d3/d3.min.js',
+        'js/libs/d3/d3.geom.min.js',
+        'js/libs/d3/d3.layout.min.js',
+        'js/libs/jquery.facetview.js',
+        'js/plugins.js',
+        'js/script.js'
+        ],
+        dest: 'js/temp.js',
+        separator: ';'
       }
     },
     min: {
       dist: {
-        src: 'js/libraryproject.js',
-        dest: 'js/main.js'
+        src: 'js/temp.js',
+        dest: 'js/libraryproject.js'
       }
     },
     jshint: {
@@ -91,4 +115,12 @@ module.exports = function(grunt) {
     uglify: {}
   });
 
+// does not work even when installed?
+//  grunt.loadNpmTasks('grunt-less');
+//  grunt.registerTask('default', 'intro clean mkdirs concat less css min img rev usemin manifest copy time');
+  grunt.registerTask('default', 'intro clean mkdirs concat min css img rev usemin manifest copy time');
+  grunt.registerTask('reload', 'default connect watch:reload');
+
 };
+
+

@@ -1,0 +1,9 @@
+.git* 
+build/** 
+node_modules/** 
+grunt.js 
+package.json 
+*.md 
+proxy.*
+server.js 
+screenshot.png
