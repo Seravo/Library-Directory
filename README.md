@@ -11,16 +11,16 @@ Development tested on Ubuntu 11.10, where the required dependencies can be insta
 
 ### Node.js, Node Package Manager and LESS
 
-    sudo add-apt-repository ppa:chris-lea/node.js
-    sudo apt-get update
-    sudo apt-get install nodejs npm
-    sudo npm install -g less
+    $ sudo add-apt-repository ppa:chris-lea/node.js
+    $ sudo apt-get update
+    $ sudo apt-get install nodejs npm
+    $ sudo npm install -g less
 
 ### Node.js building environment 
 
     # source: https://github.com/h5bp/node-build-script
-    sudo npm -g install grunt
-    sudo npm install https://github.com/h5bp/node-build-script/tarball/master -g
+    $ sudo npm -g install grunt
+    $ sudo npm install https://github.com/h5bp/node-build-script/tarball/master -g
     
 
 ### JS libraries are in the folder js/lib/ and the sources are
@@ -40,9 +40,9 @@ Development tested on Ubuntu 11.10, where the required dependencies can be insta
 ### Elastic Search (Java server)
     
     # in parent directory, not under librarydirectory folder
-    cd ..
-    wget https://github.com/downloads/elasticsearch/elasticsearch/elasticsearch-0.18.7.tar.gz
-    tar xvf elasticsearch-0.18.7.tar.gz
+    $ cd ..
+    $ wget https://github.com/downloads/elasticsearch/elasticsearch/elasticsearch-0.18.7.tar.gz
+    $ tar xvf elasticsearch-0.18.7.tar.gz
     # download and extract library data data to data/
 
 
@@ -55,39 +55,37 @@ Development tested on Ubuntu 11.10, where the required dependencies can be insta
 
 ### More Node.js libs for simple server
 
-    sudo npm install -g connect@2.0.3
+    $ sudo npm install -g connect@2.0.3
     # make sure modules in path, otherwise require('connect') will fail
-    export NODE_PATH="/usr/lib/node_modules/" # example on Debian/Ubuntu
+    $ export NODE_PATH="/usr/lib/node_modules/" # example on Debian/Ubuntu
     
     
 Generating CSS from LESS
 ------------------------
 
-    cd less
-    lessc style.less > style.css
-
-Building the production version
--------------------------------
-
-    cd build
-    ant build
-
-The publishable version of the website will appear in folder `publish`. All intermediate files should be in gitignore.
+    $ cd less
+    $ lessc style.less > style.css
 
 Running server
 --------------
 1. Start Elastic Search backend
 
-        cd elasticsearch-0.18.7
-        bin/elasticsearch -f
+        $ cd elasticsearch-0.18.7
+        $ bin/elasticsearch -f
         
 2. Start proxy for ES
         
-        node proxy.js
+        $ node proxy.js
 
 3. Start HTTP server
 
-        node server.js
+        $ node server.js
+        
+4. Build project
+
+        $ h5bp
+
+The publishable version of the website will appear in folder `publish`. All intermediate files should be in gitignore.
 
 Finally open `localhost:8080` and select index.html to view main screen.
         
