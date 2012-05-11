@@ -14,12 +14,28 @@ app.configure(function(){
     app.use(app.router);
 });
 
-/*
-app.get('/', function(req, res){
-  res.send('hello world');
-});
+/* 
+route logic:
+if /(.*) <html lang="fi"...
+if /fi/(.*) -> html lang fi
+if /en/(.*) -> html lang en
+if /sv/(.*) -> html lang sv
 */
+
+app.get('/widget/load', function(req, res){
+    // what kind of widget was requested?
+    // with what parameters?
+    // print out custom widget
+  res.send('prints out custom widget js');
+});
+
+app.get('/widget', function(req, res){
+    // display form for generating custom widget code
+    // result <script src="http://hakemisto.kirjastot.fi/widget/load/?area=helmet"></script>
+  res.send('prints out customization wizard');
+});
 
 port = 8080;
 app.listen(port);
 console.log("Server started at port " + port);
+

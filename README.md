@@ -16,17 +16,12 @@ Development tested on Ubuntu 11.10, where the required dependencies can be insta
     sudo apt-get install nodejs npm
     sudo npm install -g less
 
-### Oracle Java JDK and Ant build system 
+### Node.js building environment 
 
-Could be replaced with Node build script https://github.com/h5bp/node-build-script
-
-    sudo add-apt-repository ppa:webupd8team/java
-    sudo apt-get update
-    sudo apt-get install oracle-jdk7-installer ant
- 
-### Image compression for Ant
-
-    sudo apt-get install libjpeg-progs optipng
+    # source: https://github.com/h5bp/node-build-script
+    sudo npm -g install grunt
+    sudo npm install https://github.com/h5bp/node-build-script/tarball/master -g
+    
 
 ### JS libraries are in the folder js/lib/ and the sources are
 
@@ -98,6 +93,8 @@ Finally open `localhost:8080` and select index.html to view main screen.
         
 Credits
 -------
+
+Project built on HTM5boilerplate for Node.js (http//github.com/h5bp/html5-boilerplate) and HTM5boilerplate for Twitter Bootstrap Responsive.
 
 Icons by Glyphicons (http://glyphicons.com/), license CC-BY-3.0.
 
