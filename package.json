@@ -1,0 +1,25 @@
+{
+  "name": "libraryproject",
+  "description": "The national library directory",
+  "version": "0.1.0",
+  "homepage": "https://github.com/Seravo/Library-Directory",
+  "author": {
+    "name": "Seravo Oy",
+    "email": "info@seravo.fi",
+    "url": "http://seravo.fi/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Seravo/Library-Directory.git"
+  },
+  "licenses": [
+    {
+      "type": "AGPL",
+      "url": "https://github.com/Seravo/Library-Directory/blob/master/LICENSE-AGPL"
+    }
+  ],
+  "dependencies": {
+    "node-build-script": "http://nodeload.github.com/h5bp/node-build-script/tarball/dev"
+  },
+  "keywords": []
+}
