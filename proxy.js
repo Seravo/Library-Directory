@@ -1,2 +1,2 @@
 
-var proxy = require('./lib/elasticsearch-proxy').getProxy().start();
+var proxy = require('./node_modules/elasticsearch-proxy').getProxy().start();
