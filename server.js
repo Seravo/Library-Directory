@@ -1,18 +1,27 @@
 // export NODE_PATH="/usr/lib/node_modules/"
+
+// Use consolidate.js in Express.js 3.0, otherwise custom adaptor
+// var cons = require('consolidate');
+var hogan = require('hogan');
+var adapter = require('hogan-express.js');
+
 var express = require('express');
 var app = express.createServer();
 
 app.configure(function(){
     app.use(express.logger('dev'))
 //    app.use(express.compress())
-    app.use(express.directory(__dirname))
     app.use(express.methodOverride());
     app.use(express.bodyParser());
-    app.use(express.static(__dirname));
-// in production?    app.use(express.static(__dirname + '/static'));
+    app.use(express.static(__dirname + "/output"));
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+	app.set('view engine','mustache');
+	app.set('view options',{layout:false});
+	app.set('views',__dirname + '/output/views');
+	app.register('mustache',adapter.init(hogan));    
     app.use(app.router);
 });
+
 
 /* 
 route logic:
@@ -21,6 +30,20 @@ if /fi/(.*) -> html lang fi
 if /en/(.*) -> html lang en
 if /sv/(.*) -> html lang sv
 */
+
+// Hogan.js does not support template inheritance yet, must do workaround
+// https://gist.github.com/1854699
+// ..but each render() ends the response, 
+// we need a streaming way to write out several templates, not:
+/*
+	res.render("header",{title:"Search"});
+	res.render("search");
+	res.render("footer",{'js':{'code':"jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });"}});
+*/	
+
+app.get("/",function(req,res,next) {
+	res.render("index");
+});
 
 app.get('/widget/load', function(req, res){
     // what kind of widget was requested?

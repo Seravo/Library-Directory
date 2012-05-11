@@ -39,11 +39,13 @@ Development tested on Ubuntu 11.10, where the required dependencies can be insta
 
 ### Elastic Search (Java server)
     
-    # in parent directory, not under librarydirectory folder
+    # In parent directory, not under librarydirectory folder
     $ cd ..
     $ wget https://github.com/downloads/elasticsearch/elasticsearch/elasticsearch-0.18.7.tar.gz
     $ tar xvf elasticsearch-0.18.7.tar.gz
-    # download and extract library data data to data/
+    # Download and extract library data data to data/
+    # To force bindin to localhost, you might want to set
+    # in config/elasticsearch.yml network.host: 127.0.0.1
 
 
 ### Read-only proxy (https://github.com/lukas-vlcek/node.es)
@@ -55,7 +57,7 @@ Development tested on Ubuntu 11.10, where the required dependencies can be insta
 
 ### More Node.js libs for simple server
 
-    $ sudo npm install -g connect@2.0.3
+    $ sudo npm install -g connect@2.0.3 hogan
     # make sure modules in path, otherwise require('connect') will fail
     $ export NODE_PATH="/usr/lib/node_modules/" # example on Debian/Ubuntu
     

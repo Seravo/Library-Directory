@@ -4,9 +4,9 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     // the staging directory used during the process
-    staging: 'intermediate',
+    staging: 'staging',
     // final build output
-    output: 'publish',
+    output: 'output',
     // filter any files matching one of the below pattern during mkdirs task
     // the pattern in the .gitignore file should work too.
     exclude: '.git* build/** node_modules/** grunt.js package.json *.md proxy.js proxy.json screenshot.png'.split(' '),
@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     },
     // concat css/**/*.css files, inline @import, output a single minified css
     css: {
-      'css/style-h5bp.css': ['css/**/*.css', 'js/libs/facetview.css', 'js/libs/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.css']
+      'css/libraryproject.css': ['css/**/*.css', 'js/**/*.css']
     },
     // Renames JS/CSS to prepend a hash of their contents for easier
     // versioning
@@ -26,7 +26,7 @@ module.exports = function(grunt) {
     },
     // update references in html to revved files
     usemin: {
-      files: ['**/*.html']
+      files: ['views/*.mustache']
     },
     // html minification
     html: '<config:usemin>',
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
       dist: '<config:rev.img>'
     },
     watch: {
-      files: ['js/**/*.js', 'css/**', '*.html'],
+      files: ['js/**', 'css/**', 'views/**'],
       tasks: 'default',
 
       reload: {
@@ -61,12 +61,12 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: ['js/plugins.js', 'js/main.js'],
-        dest: 'js/libraryproject-0.1.0.js'
+        dest: 'js/libraryproject.js'
       }
     },
     min: {
       dist: {
-        src: 'js/libraryproject-0.1.0.js',
+        src: 'js/libraryproject.js',
         dest: 'js/main.js'
       }
     },
@@ -92,6 +92,3 @@ module.exports = function(grunt) {
   });
 
 };
-
-/* see more config tips from https://github.com/h5bp/node-build-script/wiki/configuration */
-
