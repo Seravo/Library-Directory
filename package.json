@@ -19,6 +19,8 @@
     }
   ],
   "dependencies": {
+    "connect" : "2.x",
+    "express" : "2.x",
     "node-build-script": "http://nodeload.github.com/h5bp/node-build-script/tarball/dev"
   },
   "keywords": []

@@ -5,6 +5,7 @@
 var hogan = require('hogan');
 var adapter = require('hogan-express.js');
 
+var connect = require('connect');
 var express = require('express');
 var app = express.createServer();
 
@@ -13,15 +14,23 @@ app.configure(function(){
 //    app.use(express.compress())
     app.use(express.methodOverride());
     app.use(express.bodyParser());
-    app.use(express.static(__dirname + "/output"));
-    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 	app.set('view engine','mustache');
 	app.set('view options',{layout:false});
 	app.set('views',__dirname + '/output/views');
 	app.register('mustache',adapter.init(hogan));    
     app.use(app.router);
+    app.use(connect.compress()); // works for static files, but not for res.render?
+    var oneHour = 31557600000;
+    app.use(express.static(__dirname + "/output", { maxAge: oneHour }));
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
+// if started with $ NODE_ENV=production node server.js
+app.configure('production', function(){
+  var oneYear = 31557600000;
+  app.use(express.static(__dirname + '/output', { maxAge: oneYear }));
+  app.use(express.errorHandler());
+});
 
 /* 
 route logic:

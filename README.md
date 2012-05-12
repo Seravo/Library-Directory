@@ -65,7 +65,7 @@ Development tested on Ubuntu 11.10, where the required dependencies can be insta
 Generating CSS from LESS
 ------------------------
 
-    $ cd less
+    $ cd css
     $ lessc style.less > style.css
 
 Running server
