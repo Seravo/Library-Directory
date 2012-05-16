@@ -1,4 +1,4 @@
-a#!/bin/sh
+#!/bin/sh
 echo "Starting library directory server"
 
 # abort on errors
@@ -13,7 +13,9 @@ gnome-terminal -x node proxy.js
 gnome-terminal -x node server.js
 
 # Build static
+cd css
 lessc style.less > style.css
-h5bp
+cd ..
+h5bp reload
 
 echo "All servers running in their own terminals. Open in a browser http://localhost:8080/"
