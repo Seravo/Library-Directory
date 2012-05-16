@@ -7,15 +7,13 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>The Finnish Library Directory</title>
+	<title>{{#title}}{{title}} - {{/title}}The Finnish Library Directory</title>
 	<meta name="description" content="The Finnish Library Directory">
 	<meta name="author" content="Otto Kekäläinen (Seravo Oy)">
 
 	<meta name="viewport" content="width=device-width">
 
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="js/libs/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.css">
-	<link rel="stylesheet" href="js/libs/facetview.css">
+	<link rel="stylesheet" href="css/libraryproject.css">
 	<script src="js/libs/modernizr-2.5.3-respond-1.1.0.min.js"></script>
 </head>
 <body>
@@ -30,10 +28,10 @@
           <a class="brand" href="#">Library Directory</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Search</a></li>
-              <li><a href="browse">Browse all</a></li>
-              <li><a href="about">About</a></li>
-              <li><a href="contact">Contact</a></li>
+              <li {{#search_active}}class="active"{{/search_active}}><a href="/">Search</a></li>
+              <li {{#browse_active}}class="active"{{/browse_active}}><a href="browse">Browse all</a></li>
+              <li {{#about_active}}class="active"{{/about_active}}><a href="about">About</a></li>
+              <li {{#contact_active}}class="active"{{/contact_active}}><a href="contact">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

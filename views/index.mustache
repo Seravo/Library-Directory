@@ -1,44 +1,4 @@
-<!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-	<title>The Finnish Library Directory</title>
-	<meta name="description" content="The Finnish Library Directory">
-	<meta name="author" content="Otto Kekäläinen (Seravo Oy)">
-
-	<meta name="viewport" content="width=device-width">
-
-	<link rel="stylesheet" href="css/libraryproject.css">
-	<script src="js/libs/modernizr-2.5.3-respond-1.1.0.min.js"></script>
-</head>
-<body>
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">Library Directory</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Search</a></li>
-              <li><a href="browse">Browse all</a></li>
-              <li><a href="about">About</a></li>
-              <li><a href="contact">Contact</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
+{{{header}}}
 
 		<div class="facet-view-simple">
 		    <div class="row-fluid" id="introtext">
@@ -51,33 +11,4 @@
 		    </div>
 		</div>
 
-		<hr>
-		<footer>
-		<p>&copy; Seravo Oy 2012. <a href="http://opendefinition.org/">Openly Licensed</a> with <a href="https://www.gnu.org/licenses/agpl-3.0.html">Affero General Public License</a>. Get the <a href="https://github.com/Seravo/Library-Directory">source</a>.</p>
-		</footer>
-
-    </div> <!-- /container -->
-    
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
-
-<script src="js/libraryproject.js"></script>  
-<script src="http://maps.google.com/maps/api/js?v=3.6&amp;sensor=false"></script>
-<script src="js/libs/openlayers/openlayers.js"></script>  
-
-<!-- end scripts-->
-
-<script type="text/javascript">
-	jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });
-</script>
-
-<!-- not in use yet -->
-<!-- script>
-	var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-	g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-	s.parentNode.insertBefore(g,s)}(document,'script'));
-</script -->
-
-</body>
-</html>
+{{{footer}}}

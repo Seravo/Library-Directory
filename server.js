@@ -31,6 +31,11 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
+var fs = require('fs');
+header = hogan.compile(fs.readFileSync(__dirname + '/output/views/header.mustache', 'utf-8'));
+footer = hogan.compile(fs.readFileSync(__dirname + '/output/views/footer.mustache', 'utf-8'));
+context = {};
+
 /* 
 route logic:
 if /(.*) <html lang="fi"...
@@ -41,29 +46,40 @@ if /sv/(.*) -> html lang sv
 
 // Hogan.js does not support template inheritance yet, must do workaround
 // https://gist.github.com/1854699
-// ..but each render() ends the response, 
-// we need a streaming way to write out several templates, not:
-/*
-	res.render("header",{title:"Search"});
-	res.render("search");
-	res.render("footer",{'js':{'code':"jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });"}});
-*/	
-
 app.get("/",function(req,res,next) {
-	res.render("index");
+    context.header = header.render({search_active: true});
+    context.footer = footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });", js_files: [{src: 'http://maps.google.com/maps/api/js?v=3.6&amp;sensor=false'}, {src: 'js/libs/openlayers/openlayers.js'}]});
+	res.render("index", context);
+});
+
+app.get("/browse",function(req,res,next) {
+    context = {'libraries': [{libname:'Entresse'}, {libname:'Pasilan kirjasto'}, {libname:'Placeholder 3'}]};
+    context.header = header.render({title: "Browse all", browse_active: true});
+    context.footer = footer.render();
+	res.render("browse", context);
+});
+app.get("/about",function(req,res,next) {
+    context.header = header.render({title: "About", about_active: true});
+    context.footer = footer.render();
+	res.render("about", context);
+});
+app.get("/contact",function(req,res,next) {
+    context.header = header.render({title: "Contact", contact_active: true});
+    context.footer = footer.render();
+	res.render("contact", context);
 });
 
 app.get('/widget/load', function(req, res){
     // what kind of widget was requested?
     // with what parameters?
     // print out custom widget
-  res.send('prints out custom widget js');
+    res.send('prints out custom widget js');
 });
 
 app.get('/widget', function(req, res){
     // display form for generating custom widget code
     // result <script src="http://hakemisto.kirjastot.fi/widget/load/?area=helmet"></script>
-  res.send('prints out customization wizard');
+    res.send('prints out customization wizard');
 });
 
 port = 8080;
