@@ -64,6 +64,10 @@
     var clearerror = function() {
         $('#errormsg').remove();
     }
+
+    $("body").bind("click", function(){ 
+                $("#introtext").hide(); // no need to show this as soon as user makes first search
+    });
     
     $.fn.facetview = function(options) {
 
@@ -667,9 +671,6 @@
 
         // put the results on the page
         showresults = function(sdata) {
-            if ($("#facetview_freetext").val() != ''){
-                $("#introtext").hide(); // no need to show this as soon as user makes first search
-            }
             // get the data and parse from the solr / es layout
             var data = parseresults(sdata);
             options.data = data
@@ -866,6 +867,7 @@
                    </div> \
                    <div style="float:left;" id="facetview_selectedfilters"></div> \
                    <div style="float:left;" id="facetview_selectedextrafilters"></div> \
+                   <div id="mapcontainer"><div id="basicmap" style="width: 100%; height: 300px; display: none;"></div><div id="mapcontrol"></div></div> \
                  <table class="table table-striped" id="facetview_results"></table> \
                  <div id="facetview_metadata"></div> \
                </div> \

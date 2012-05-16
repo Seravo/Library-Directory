@@ -4,7 +4,7 @@
     border-radius: 0px;
 }
 #facetview_filters h3{
-    margin:40px 0 20px 0;
+    margin: 0px 0 20px 0;
 }
 #facetview_advanced{
     float:left;
@@ -86,4 +86,9 @@ li.selectedfilter a{
 
 #facetview_results tr:hover td {
 	background-color: #eee !important;
+}
+
+#mapcontainer {
+    padding: 12px 0 12px;
+    clear: both;
 }

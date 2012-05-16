@@ -51,7 +51,8 @@ function ld_mapcontrol_init(coords, name, desc) {
 	vectorLayer.addFeatures(marker);
 	map.addLayer(vectorLayer);
 
-	$('#mapcontrol').append('<button class="btn btn-danger" onclick="ld_mapcontrol_close();">Hide map</button>');
+	// I don't think we need this?
+	// $('#mapcontrol').append('<button class="btn btn-danger" onclick="ld_mapcontrol_close();">Hide map</button>');
       }
 
 
