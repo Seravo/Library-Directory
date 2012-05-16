@@ -335,18 +335,7 @@
                       rel="{{FILTER_NAME}}" href=""> \
                       <i class="icon-plus"></i> \
                       {{FILTER_DISPLAY}}</a> \
-                      <a class="btn dropdown-toggle" data-toggle="dropdown" \
-                      href="#"><span class="caret"></span></a> \
-                      <ul class="dropdown-menu"> \
-                        <li><a class="facetview_sort facetview_count" href="{{FILTER_EXACT}}">sort by count</a></li> \
-                        <li><a class="facetview_sort facetview_term" href="{{FILTER_EXACT}}">sort by term</a></li> \
-                        <li><a class="facetview_sort facetview_rcount" href="{{FILTER_EXACT}}">sort reverse count</a></li> \
-                        <li><a class="facetview_sort facetview_rterm" href="{{FILTER_EXACT}}">sort reverse term</a></li> \
-                        <li class="divider"></li> \
-                        <li><a class="facetview_facetrange" rel="{{FACET_IDX}}" href="{{FILTER_EXACT}}">apply a filter range</a></li>{{FACET_VIS}} \
-                        <li class="divider"></li> \
-                        <li><a class="facetview_morefacetvals" rel="{{FACET_IDX}}" href="{{FILTER_EXACT}}">show up to ({{FILTER_HOWMANY}})</a></li> \
-                        </ul></div> \
+                      </div> \
                   <ul id="facetview_{{FILTER_NAME}}" \
                     class="facetview_filters"></ul> \
                     ';
