@@ -20,8 +20,7 @@ app.configure(function(){
 	app.register('mustache',adapter.init(hogan));    
     app.use(app.router);
     app.use(connect.compress()); // works for static files, but not for res.render?
-    var oneHour = 31557600000;
-    app.use(express.static(__dirname + "/output", { maxAge: oneHour }));
+    app.use(express.static(__dirname + "/output", { maxAge: 0 }));
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
