@@ -793,7 +793,7 @@
         var dosearch = function() {
             if ( options.search_index == "elasticsearch" ) {
 				// jsonp-request does not call the error function (by design) so use timeout instead
-				var searchTimer = window.setTimeout(showerror("Could not connect to database. Please try again later."), 5000);
+				var searchTimer = window.setTimeout(function() { showerror("Could not connect to database. Please try again later.") }, 5000);
 				$.ajax({
 					type: "get",
 					url: options.search_url,
