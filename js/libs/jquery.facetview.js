@@ -179,6 +179,9 @@
             "paging":{ from: 0, size: 5 }
         };
 
+		// container for active facetview filters for visualisation purposes
+		var facetfilters = [];
+
         // and add in any overrides from the call
         var options = $.extend(settings, options);
 
@@ -405,7 +408,11 @@
                 $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).children().remove();
                 var records = data["facets"][ options.facets[each]['field'] ];
                 for ( var item in records ) {
-                    var append = '<li><a class="facetview_filterchoice' +
+					var style = "";
+					if (facetfilters.indexOf(item)!= -1 ) {
+						style = " class='selectedfilter' ";
+					}
+                    var append = '<li' + style + '><a class="facetview_filterchoice' + 
                         '" rel="' + options.facets[each]['field'] + '" href="' + item + '">' + item +
                         ' (' + records[item] + ')</a></li>';
                     $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).append(append);
@@ -861,6 +868,7 @@
         // trigger a search when a filter choice is clicked
         var clickfilterchoice = function(event) {
             event.preventDefault();
+			facetfilters.push($(this).attr("href"));
             var newobj = '<a class="facetview_filterselected facetview_clear ' + 
                 'btn btn-info" rel="' + $(this).attr("rel") + 
                 '" alt="remove" title="remove"' +
@@ -876,6 +884,8 @@
         // clear a filter when clear button is pressed, and re-do the search
         var clearfilter = function(event) {
             event.preventDefault();
+			var index = facetfilters.indexOf($(this).attr("href"));
+			facetfilters.splice(index,1);
             $(this).remove();
             dosearch();
         }

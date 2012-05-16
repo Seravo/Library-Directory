@@ -39,6 +39,11 @@
 .node{
     cursor:pointer;
 }
+li.selectedfilter a{
+    text-decoration:none;
+    background: green;
+    color: white;
+}
 .facetview_filterchoice{
     text-decoration:none;
     color:#373737;
