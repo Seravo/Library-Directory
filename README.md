@@ -98,3 +98,5 @@ Project built on HTM5boilerplate for Node.js (http//github.com/h5bp/html5-boiler
 
 Icons by Glyphicons (http://glyphicons.com/), license CC-BY-3.0.
 
+The Dark theme for OpenLayers by MapBox (from http://zzolo.org/thoughts/openlayers-facelift), license GPL2+ (as modules in Drupal-git are derivates of Drupal).
+

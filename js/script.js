@@ -21,7 +21,8 @@ function ld_mapcontrol_init(coords, name, desc) {
 			new OpenLayers.Control.Navigation(),
 			new OpenLayers.Control.PanZoom(),
 			new OpenLayers.Control.LayerSwitcher(),
-			new OpenLayers.Control.Attribution() ]
+			new OpenLayers.Control.Attribution() ],
+		theme: '/js/libs/openlayers/style.css'
 	};
 
 	/* convert wgs-84 coordinates into OSM spherical mercator projection */
@@ -43,7 +44,7 @@ function ld_mapcontrol_init(coords, name, desc) {
 	var marker = new OpenLayers.Feature.Vector(
 		new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection),
 		{ },
-		{externalGraphic: 'img/mapmarker_red.png', graphicHeight: 30, graphicWidth: 18});
+		{externalGraphic: 'js/libs/openlayers/markers/marker-black.png', graphicHeight: 41, graphicWidth: 25});
 
 	popup = new OpenLayers.Popup.FramedCloud("popup", mapLocation, new OpenLayers.Size(200, 200), name+desc, null, true);
 
