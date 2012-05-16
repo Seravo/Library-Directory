@@ -7,7 +7,7 @@
  * like image references.
  */
  
-@import url("openlayers_style.css"); 
+@import url("openlayers_style.css");
  
 .openlayers-map .olControlOverviewMapExtentRectangle {
     background-image: url("img/blank.gif");
@@ -25,6 +25,10 @@
  */
 .openlayers-popup {
   color: #EEEEEE;
+}
+
+.openlayers-map {
+    color: #fff;
 }
 
 

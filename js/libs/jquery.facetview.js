@@ -92,7 +92,7 @@
 	var search_results = [
 		[ { "fields": "name_fi", "format": "<h3>{{d0}}</h3>" } ],
 		[ { "fields": "contact.coordinates, name_fi, contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi",
-		    "format": "<i class='icon-map-marker'></i> <a href='static_maplink.html' onclick='ld_mapcontrol_init(\"{{d0}}\", \"<b>{{d1}}</b>\", \"<br>{{d2}}<br>{{d3}} {{d4}}\"); return false;'>" },
+		    "format": "<i class='icon-map-marker'></i> <a href='map/{{{{d0}}}}' onclick='ld_mapcontrol_init(\"{{d0}}\", \"<b>{{d1}}</b>\", \"<br>{{d2}}<br>{{d3}} {{d4}}\"); return false;'>" },
 		  { "fields": "contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi", "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
 		[ { "fields": "period", "format": "<i class='icon-time'></i> ma-pe klo 8-20, la 10-18, su suljettu " } ],
 		[ { "fields": "contact.telephones.telephone_number", "format": "<img src='img/glyphicons_139_phone.png' alt='Phone icon'> <a href='tel:{{d0}}'>{{d0}}</a>" },
@@ -867,7 +867,7 @@
                    </div> \
                    <div style="float:left;" id="facetview_selectedfilters"></div> \
                    <div style="float:left;" id="facetview_selectedextrafilters"></div> \
-                   <div id="mapcontainer"><div id="basicmap" style="width: 100%; height: 300px; display: none;"></div><div id="mapcontrol"></div></div> \
+                   <div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div><div id="mapcontrol"></div></div> \
                  <table class="table table-striped" id="facetview_results"></table> \
                  <div id="facetview_metadata"></div> \
                </div> \

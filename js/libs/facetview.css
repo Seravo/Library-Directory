@@ -92,3 +92,9 @@ li.selectedfilter a{
     padding: 0 0 6px;
     clear: both;
 }
+
+#basicmap {
+    width: 100%; 
+    height: 300px; 
+    display: none;
+}
