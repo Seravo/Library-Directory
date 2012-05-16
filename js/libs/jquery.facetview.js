@@ -44,6 +44,27 @@
 
 // now the facetview function
 (function($){
+    // commons functions
+    var showspinner = function() {
+	    $('#search_static').hide();
+	    $('#search_spinner').show();
+    }
+
+    var hidespinner = function() {
+	    $('#search_spinner').hide();
+	    $('#search_static').show();
+    }
+
+    var showerror = function(msg) {
+        if (!msg){ msg = 'Error: unspecified'; }
+	    hidespinner();
+	    $('#facetview_results').before('<div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>Error:</strong> '+msg+'</div>');
+    }
+
+    var clearerror = function() {
+        $('#errormsg').remove();
+    }
+
     $.fn.facetview = function(options) {
 
 	// library-directory search result display-template
@@ -294,28 +315,34 @@
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(
 			function (position) {
-			//console.log(position);
-			$('#facetview_filters').html(filterheader+'<button class="btn btn-primary" id="facetview_location">Show libraries near my location</button>'+thefilters);
-			$('#facetview_location').bind('click',function(event){ $('#facetview_location').hide(); ld_position=true; ld_position_coords=position.coords; clickextrabubble("ld_location","Libraries near my location") }); },
+			    //console.log(position);
+			    $('#facetview_filters h3').after('<button class="btn btn-primary" id="facetview_location">Show libraries near my location</button>');
+			    $('#facetview_location').bind('click',function(event){ 
+			        $('#facetview_location').hide(); 
+			        ld_position=true; 
+			        ld_position_coords=position.coords; 
+			        clickextrabubble("ld_location","Libraries near my location"); 
+			    }); 
+			},
 		// the error callback that never gets called (in firefox?)
 		function (error) {
 			switch(error.code) {
 				case error.TIMEOUT:
-					alert ('Timeout');
+					showerror('Geolocation: Timeout');
 					break;
 				case error.POSITION_UNAVAILABLE:
-					alert ('Position unavailable');
+					showerror('Geolocation: Position unavailable');
 					break;
 				case error.PERMISSION_DENIED:
-					alert ('Permission denied');
+					showerror('Geolocation: Permission denied');
 					break;
 				case error.UNKNOWN_ERROR:
-					alert ('Unknown error');
+					showerror('Geolocation: Unknown error');
 					break; }
 		        } );
 		}
 	else {
-		alert("Geolocation not supported"); }
+		showerror("Geolocation not supported"); }
 
             options.visualise_filters ? $('.facetview_visualise').bind('click',show_vis) : ""
             $('.facetview_morefacetvals').bind('click',morefacetvals)
@@ -762,35 +789,19 @@
         var dosearch = function() {
             if ( options.search_index == "elasticsearch" ) {
 				// jsonp-request does not call the error function (by design) so use timeout instead
-				var searchTimer = window.setTimeout(showerror, 3000);
+				var searchTimer = window.setTimeout(showerror("Could not connect to database. Please try again later."), 5000);
 				$.ajax({
 					type: "get",
 					url: options.search_url,
 					data: { source: elasticsearchquery() },
 					dataType: "jsonp",
 					beforeSend: showspinner,
-					success: [ function() { window.clearTimeout(searchTimer) }, hidespinner, showresults ]
+					success: [ function() { window.clearTimeout(searchTimer) }, clearerror, hidespinner, showresults ]
 				});
             } else {
                 $.ajax( { type: "get", url: solrsearchquery(), dataType:"jsonp", jsonp:"json.wrf", success: function(data) { showresults(data) } } );
             }
         }
-
-		var showerror = function() {
-			hidespinner();
-			$('#facetview_metadata').empty();
-			$('#facetview_results').html('<tr><td style="color: red"><i class="icon-warning-sign"></i> Error while connecting to database. Please try again later.</td></tr>');
-		}
-
-		var showspinner = function() {
-			$('#search_static').hide();
-			$('#search_spinner').show();
-		}
-
-		var hidespinner = function() {
-			$('#search_spinner').hide();
-			$('#search_static').show();
-		}
 
         // trigger a search when a filter choice is clicked
         var clickfilterchoice = function(event) {
