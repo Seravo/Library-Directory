@@ -840,18 +840,33 @@
         // execute a search
         var dosearch = function() {
             if ( options.search_index == "elasticsearch" ) {
-              $.ajax({
-                type: "get",
-                url: options.search_url,
-                data: {source: elasticsearchquery()},
-                // processData: false,
-                dataType: "jsonp",
-                success: showresults
-              });
+				$.ajax({
+					type: "get",
+					url: options.search_url,
+					data: { source: elasticsearchquery() },
+					dataType: "jsonp",
+					beforeSend: showspinner,
+					success: [ function() { hidespinner, showresults ]
+				});
             } else {
                 $.ajax( { type: "get", url: solrsearchquery(), dataType:"jsonp", jsonp:"json.wrf", success: function(data) { showresults(data) } } );
             }
         }
+
+		var showerror = function() {
+			hidespinner();
+			$('#facetview_results').html('<tr><td style="color: red"><i class="icon-warning-sign"></i> Error while connecting to database. Please try again later.</td></tr>');
+		}
+
+		var showspinner = function() {
+			$('#search_static').hide();
+			$('#search_spinner').show();
+		}
+
+		var hidespinner = function() {
+			$('#search_spinner').hide();
+			$('#search_static').show();
+		}
 
         // trigger a search when a filter choice is clicked
         var clickfilterchoice = function(event) {
@@ -905,7 +920,7 @@
                </div> \
                <div class="span9" id="facetview_rightcol"> \
                    <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend"> \
-                   <span class="add-on"><i class="icon-search"></i></span> \
+                   <span class="add-on"><i id="search_static" class="icon-search"></i><img id="search_spinner" src="img/spinner.gif" style="display: hidden;" alt="[spinner]"> </span> \
                    <input class="span4" id="facetview_freetext" name="q" value="" placeholder="search term" autofocus /> \
                    </div> \
                    <div style="float:left;" id="facetview_selectedfilters"></div> \
