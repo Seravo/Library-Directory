@@ -64,7 +64,7 @@
     var clearerror = function() {
         $('#errormsg').remove();
     }
-
+    
     $.fn.facetview = function(options) {
 
 	// library-directory search result display-template
@@ -667,6 +667,9 @@
 
         // put the results on the page
         showresults = function(sdata) {
+            if ($("#facetview_freetext").val() != ''){
+                $("#introtext").hide(); // no need to show this as soon as user makes first search
+            }
             // get the data and parse from the solr / es layout
             var data = parseresults(sdata);
             options.data = data
