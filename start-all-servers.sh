@@ -18,6 +18,10 @@ lessc style.less > style.css
 cd ..
 
 h5bp
-# run 'h5bp reload' if you want automatic rebuild when a file changes
 
 echo "All servers running in their own terminals. Open in a browser http://localhost:8080/"
+
+# if you want everything to reload automatically, run
+# $ gnome-terminal -x h5bp reload
+# $ gnome-terminal -x nodemon -d 10 server.js
+
