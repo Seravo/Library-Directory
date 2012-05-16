@@ -50,7 +50,7 @@ module.exports = function(grunt) {
 
       reload: {
         files: '<config:watch.files>',
-        tasks: 'default emit'
+        tasks: 'default'
       }
     },
     
@@ -119,8 +119,12 @@ module.exports = function(grunt) {
 //  grunt.loadNpmTasks('grunt-less');
 //  grunt.registerTask('default', 'intro clean mkdirs concat less css min img rev usemin manifest copy time');
   grunt.registerTask('default', 'intro clean mkdirs concat min css img rev usemin manifest copy time');
-  grunt.registerTask('reload', 'default connect watch:reload');
-
+  grunt.registerTask('reload', 'default watch:reload');
+  
+  // if "h5bp reload" fails with message "Error: watch EMFILE"
+  // it means the number of open files has exceeded
+  // lift limit by runnig as root
+  // $ echo 8704 > /proc/sys/fs/inotify/max_user_instances
 };
 
 
