@@ -821,8 +821,6 @@
                 delete obj['display']
                 qs['facets'][obj['field']] = {"terms":obj}
             }
-            //console.log(JSON.stringify(qs));
-            //console.log(qs);
             return JSON.stringify(qs)
         }
 
