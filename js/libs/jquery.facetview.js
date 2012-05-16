@@ -801,7 +801,7 @@
                     : ""
 		// helsinki train station @ "lat" : 60.171, "lon" : 24.941
 		if (ld_position) {
-			qs['query'] = { "filtered" : { "query": { 'bool': bool }, "filter": { "geo_distance": { "distance": "10km", "contact.coordinates" : { "lat" : ld_position_coords.latitude, "lon" : ld_position_coords.longitude } } } } } }
+			qs['query'] = { "filtered" : { "query": { 'bool': bool }, "filter": { "geo_distance": { "distance": "10km", "order": "asc", "unit": "km", "contact.coordinates" : { "lat" : ld_position_coords.latitude, "lon" : ld_position_coords.longitude } } } } } }
 		else {
 			qs['query'] = { 'bool': bool }
 		}
