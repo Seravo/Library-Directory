@@ -840,13 +840,15 @@
         // execute a search
         var dosearch = function() {
             if ( options.search_index == "elasticsearch" ) {
+				// jsonp-request does not call the error function (by design) so use timeout instead
+				var searchTimer = window.setTimeout(showerror, 3000);
 				$.ajax({
 					type: "get",
 					url: options.search_url,
 					data: { source: elasticsearchquery() },
 					dataType: "jsonp",
 					beforeSend: showspinner,
-					success: [ function() { hidespinner, showresults ]
+					success: [ function() { window.clearTimeout(searchTimer) }, hidespinner, showresults ]
 				});
             } else {
                 $.ajax( { type: "get", url: solrsearchquery(), dataType:"jsonp", jsonp:"json.wrf", success: function(data) { showresults(data) } } );
