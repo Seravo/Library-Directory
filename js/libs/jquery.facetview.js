@@ -66,7 +66,7 @@
     }
 
     $("body").bind("click", function(){ 
-                $("#introtext").hide(); // no need to show this as soon as user makes first search
+                $("#introtext").slideUp(); // no need to show this as soon as user makes first search
     });
     
     $.fn.facetview = function(options) {
