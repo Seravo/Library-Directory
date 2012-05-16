@@ -32,11 +32,10 @@ function ld_mapcontrol_init(coords, name, desc) {
 	/* add map layers */
 	var osmLayer = new OpenLayers.Layer.OSM("OpenStreetMap");
 	var gmapLayer = new OpenLayers.Layer.Google("Google Streets", { numZoomLevels: 22 });
-	var gsatLayer = new OpenLayers.Layer.Google("Google Satellite", { type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22 });
 
 	map = new OpenLayers.Map("basicmap", mapOptions);
 
-	map.addLayers([osmLayer, gmapLayer, gsatLayer]);
+	map.addLayers([osmLayer, gmapLayer]);
 	map.setCenter(mapLocation, 15);
 
 	/* add marker layer with coordinate projection transform */
