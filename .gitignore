@@ -1,4 +1,4 @@
-#css/style.css
+#css/style.css #cannot ignore this since then the grunt.js build would ignore it too
 staging/
 output/
 elasticsearch-0.18.7/
