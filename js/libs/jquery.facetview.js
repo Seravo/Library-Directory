@@ -846,6 +846,7 @@
 
 		var showerror = function() {
 			hidespinner();
+			$('#facetview_metadata').empty();
 			$('#facetview_results').html('<tr><td style="color: red"><i class="icon-warning-sign"></i> Error while connecting to database. Please try again later.</td></tr>');
 		}
 
