@@ -52,17 +52,49 @@ app.get("/",function(req,res,next) {
 	res.render("index", context);
 });
 
+var http = require('http');
+function get_libraries(callback) {
+    var options = {
+      host: 'localhost',
+      port: 9200,
+      path: '/testink/organisation/_search?source',
+      method: 'GET'
+    };
+    var req = http.get(options, function(res) {
+      console.log('GET: ' + options.path);
+      console.log('STATUS: ' + res.statusCode);
+      console.log('HEADERS: ' + JSON.stringify(res.headers));
+      res.setEncoding('utf8');
+      data = '';
+      res.on('data', function(chunk){ 
+        data += chunk;
+        console.log("..read chunk..");
+      });
+      res.on('end', function() {
+          callback(JSON.parse(data));
+      });
+    }).on('error', function(e) {
+      console.log('Problem with request: ' + e.message);
+    });
+}
+
+function print_libraries(data) {
+    console.log("data: " + JSON.stringify(data.hits.hits[3]._source.name_fi));
+}
 app.get("/browse",function(req,res,next) {
-    context = {'libraries': [{libname:'Entresse'}, {libname:'Pasilan kirjasto'}, {libname:'Placeholder 3'}]};
+    context = {};
     context.header = header.render({title: "Browse all", browse_active: true});
     context.footer = footer.render();
+    get_libraries(print_libraries);
 	res.render("browse", context);
 });
+
 app.get("/about",function(req,res,next) {
     context.header = header.render({title: "About", about_active: true});
     context.footer = footer.render();
 	res.render("about", context);
 });
+
 app.get("/contact",function(req,res,next) {
     context.header = header.render({title: "Contact", contact_active: true});
     context.footer = footer.render();
