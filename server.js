@@ -56,7 +56,7 @@ var http = require('http');
 function get_libraries(callback) {
     var options = {
       host: 'localhost',
-      port: 9200,
+      port: 8888,
       path: '/testink/organisation/_search?source',
       method: 'GET'
     };
@@ -78,15 +78,19 @@ function get_libraries(callback) {
     });
 }
 
-function print_libraries(data) {
-    console.log("data: " + JSON.stringify(data.hits.hits[3]._source.name_fi));
-}
 app.get("/browse",function(req,res,next) {
-    context = {};
+    var context = {};
     context.header = header.render({title: "Browse all", browse_active: true});
     context.footer = footer.render();
-    get_libraries(print_libraries);
-	res.render("browse", context);
+    get_libraries(function(data){
+		context.count = data.hits.total;
+        context.libraries = [];
+        for (var item in data.hits.hits) {
+			data.hits.hits[item]._source["id"] = data.hits.hits[item]._id;
+			context.libraries.push(data.hits.hits[item]._source);
+		}
+    	res.render("browse", context);
+    });
 });
 
 app.get("/about",function(req,res,next) {
