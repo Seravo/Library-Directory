@@ -57,7 +57,7 @@ function get_libraries(callback) {
     var options = {
       host: 'localhost',
       port: 8888,
-      path: '/testink/organisation/_search?source',
+      path: '/testink/organisation/_search?size=300&sort=name_fi',
       method: 'GET'
     };
     var req = http.get(options, function(res) {
