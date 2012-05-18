@@ -48,7 +48,7 @@ if /sv/(.*) -> html lang sv
 // https://gist.github.com/1854699
 app.get("/",function(req,res,next) {
     context.header = header.render({search_active: true});
-    context.footer = footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });", js_files: [{src: 'http://maps.google.com/maps/api/js?v=3.6&amp;sensor=false'}, {src: 'js/libs/openlayers/openlayers.js'}]});
+    context.footer = footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]});
 	res.render("index", context);
 });
 
