@@ -93,11 +93,11 @@ app.get("/browse",function(req,res,next) {
     });
 });
 
-function get_library(callback, id) {
+function get_library(qpath, callback) {
     var options = {
       host: 'localhost',
       port: 8888,
-      path: '/testink/organisation/' + id,
+      path: qpath,
       method: 'GET'
     };
     var req = http.get(options, function(res) {
@@ -114,17 +114,17 @@ function get_library(callback, id) {
     });
 }
 
-app.get("/home/:id",function(req,res,next) {
+app.get("/id/:id",function(req,res,next) {
     var context = {};
     context.header = header.render({title: "Library homepage", home_active: true});
     context.footer = footer.render();
 	context.data = [];
 
-    get_library(function(data){
+    get_library('/testink/organisation/' + req.params.id, function(data){
 		data._source["id"] = data._id;
 		context.data = data._source;
-		res.render("home", context);
-		}, req.params.id);
+		res.render("library_details", context);
+		});
 });
 
 app.get("/about",function(req,res,next) {
