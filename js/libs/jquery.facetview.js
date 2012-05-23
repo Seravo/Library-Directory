@@ -65,7 +65,7 @@
         $('#errormsg').remove();
     }
 
-    $("body").bind("click", function(){ 
+    $("#facetview_freetext").bind("focus", function(){ 
                 $("#introtext").slideUp(); // no need to show this as soon as user makes first search
     });
     
