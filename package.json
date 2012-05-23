@@ -1,7 +1,7 @@
 {
-  "name": "libraryproject",
+  "name": "librarydirectory",
   "description": "The national library directory",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/Seravo/Library-Directory",
   "author": {
     "name": "Seravo Oy",
@@ -21,7 +21,9 @@
   "dependencies": {
     "connect" : "2.x",
     "express" : "2.x",
-    "node-build-script": "http://nodeload.github.com/h5bp/node-build-script/tarball/dev"
+    "node-build-script": "https://github.com/h5bp/node-build-script/tarball/master",
+    "grunt" : "0.3.9",
+    "hogan" : "1.0.5-dev"
   },
   "keywords": []
 }
