@@ -23,13 +23,15 @@ Instructions for Ubuntu 12.04, where the required dependencies can be installed 
     
     # Instead install globally manually
     $ sudo npm install -g connect express hogan grunt https://github.com/h5bp/node-build-script/tarball/master
+    # revert to older version since new is broken
+    $ sudo npm install -g https://github.com/h5bp/node-build-script/tarball/998a7ebea4369e042ea22a0b482a5d4dcc93a364
 
 ### Elastic Search (Java server)
-    
+
     $ wget https://github.com/downloads/elasticsearch/elasticsearch/elasticsearch-0.18.7.tar.gz
     $ tar xvf elasticsearch-0.18.7.tar.gz
     # Download and extract library data data to data/
-    # To force bindin to localhost, you might want to set
+    # To force binding to localhost, you might want to set
     # in config/elasticsearch.yml network.host: 127.0.0.1
 
 ### Read-only proxy (https://github.com/lukas-vlcek/node.es)

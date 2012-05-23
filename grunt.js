@@ -25,19 +25,19 @@ module.exports = function(grunt) {
     // concat css/**/*.css files, inline @import, output a single minified css
     // Otto: but minify does not seem to work?
     css: {
-      'css/libraryproject.css': ['css/style.css', 'js/libs/facetview.css', 'js/libs/jquery-ui-1.8.18.custom/*.css' ]
+      'css/compressed.css': ['css/style.css', 'js/libs/facetview.css', 'js/libs/jquery-ui-1.8.18.custom/*.css' ]
       // no openlayers included
     },
     // Renames JS/CSS to prepend a hash of their contents for easier
     // versioning
     rev: {
-      js: 'js/libraryproject.js',
-      css: 'css/libraryproject.css',
+      js: 'js/compressed.js',
+      css: 'css/compressed.css',
       img: 'img/none'
     },
     // update references in html to revved files
     usemin: {
-      files: ['views/**', ]
+      files: ['views/**']
     },
     // html minification - too dangerous for mustache templates?
     // html: '<config:usemin>',
@@ -93,7 +93,7 @@ module.exports = function(grunt) {
     min: {
       dist: {
         src: 'js/temp.js',
-        dest: 'js/libraryproject.js'
+        dest: 'js/compressed.js'
       }
     },
     jshint: {
