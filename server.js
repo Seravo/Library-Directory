@@ -31,6 +31,97 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
+
+// get list of all libraries
+var http = require('http');
+function get_libraries(callback) {
+    var options = {
+      host: 'localhost',
+      port: 8888,
+      path: '/testink/organisation/_search?size=999&sort=name_fi',
+      method: 'GET'
+    };
+    var req = http.get(options, function(res) {
+      console.log('GET: ' + options.path);
+      console.log('STATUS: ' + res.statusCode);
+      console.log('HEADERS: ' + JSON.stringify(res.headers));
+      res.setEncoding('utf8');
+      data = '';
+      res.on('data', function(chunk){ 
+        data += chunk;
+      });
+      res.on('end', function() {
+          callback(JSON.parse(data));
+      });
+    }).on('error', function(e) {
+      console.log('Problem with request: ' + e.message);
+    });
+}
+
+// get a specific library
+function get_library_by_id(id, callback) {
+    var options = {
+      host: 'localhost',
+      port: 8888,
+      path: '/testink/organisation/' + id,
+      method: 'GET'
+    };
+    var req = http.get(options, function(res) {
+      res.setEncoding('utf8');
+      data = '';
+      res.on('data', function(chunk){
+        data += chunk;
+        console.log("...read chunk: " + chunk);
+      });
+      res.on('end', function() {
+          callback(JSON.parse(data));
+      });
+    }).on('error', function(e) {
+      console.log('Problem with request: ' + e.message);
+    });
+}
+
+// get a library with partial name
+function get_library_by_name(name, callback) {
+    query =
+    { "query":
+     { "query_string":
+       {
+         "field": "name_fi",
+         "query": "*"+name+"*"
+       }
+     }, size: 1
+    };
+    query = JSON.stringify(query);
+
+    var options = {
+      host: 'localhost',
+      port: 8888,
+      path: '/testink/organisation/_search',
+      method: 'POST',
+      headers: {  
+          'Content-Type': 'application/x-www-form-urlencoded',  
+          'Content-Length': query.length  
+      }
+    };
+   
+    var req = http.request(options, function(res) {
+      res.setEncoding('utf8');
+      data = '';
+      res.on('data', function(chunk){
+        data += chunk;
+        console.log("...read chunk: " + chunk);
+      });
+      res.on('end', function() {
+          callback(JSON.parse(data));
+      });
+    }).on('error', function(e) {
+      console.log('Problem with request: ' + e.message);
+    });
+    req.write(query);  
+    req.end();  
+}
+
 var fs = require('fs');
 header = hogan.compile(fs.readFileSync(__dirname + '/output/views/header.mustache', 'utf-8'));
 footer = hogan.compile(fs.readFileSync(__dirname + '/output/views/footer.mustache', 'utf-8'));
@@ -52,31 +143,31 @@ app.get("/",function(req,res,next) {
 	res.render("index", context);
 });
 
-var http = require('http');
-function get_libraries(callback) {
-    var options = {
-      host: 'localhost',
-      port: 8888,
-      path: '/testink/organisation/_search?size=300&sort=name_fi',
-      method: 'GET'
-    };
-    var req = http.get(options, function(res) {
-      console.log('GET: ' + options.path);
-      console.log('STATUS: ' + res.statusCode);
-      console.log('HEADERS: ' + JSON.stringify(res.headers));
-      res.setEncoding('utf8');
-      data = '';
-      res.on('data', function(chunk){ 
-        data += chunk;
-        console.log("..read chunk..");
-      });
-      res.on('end', function() {
-          callback(JSON.parse(data));
-      });
-    }).on('error', function(e) {
-      console.log('Problem with request: ' + e.message);
-    });
-}
+app.get("/name/:name?",function(req,res,next) {
+    var context = {};
+    context.header = header.render({title: "Library details", home_active: true});
+    context.footer = footer.render();
+	context.data = [];
+    console.log("Requested: "+req.params.name);
+    get_library_by_name(req.params.name, function(data){
+		data.hits.hits[0]._source["id"] = data._id;
+		context.data = data.hits.hits[0]._source;
+		res.render("library_details", context);
+		});
+});
+
+app.get("/id/:id",function(req,res,next) {
+    var context = {};
+    context.header = header.render({title: "Library details", home_active: true});
+    context.footer = footer.render();
+	context.data = [];
+
+    get_library_by_id(req.params.id, function(data){
+		data._source["id"] = data._id;
+		context.data = data._source;
+		res.render("library_details", context);
+		});
+});
 
 app.get("/browse",function(req,res,next) {
     var context = {};
@@ -91,40 +182,6 @@ app.get("/browse",function(req,res,next) {
 		}
     	res.render("browse", context);
     });
-});
-
-function get_library(qpath, callback) {
-    var options = {
-      host: 'localhost',
-      port: 8888,
-      path: qpath,
-      method: 'GET'
-    };
-    var req = http.get(options, function(res) {
-      res.setEncoding('utf8');
-      data = '';
-      res.on('data', function(chunk){
-        data += chunk;
-      });
-      res.on('end', function() {
-          callback(JSON.parse(data));
-      });
-    }).on('error', function(e) {
-      console.log('Problem with request: ' + e.message);
-    });
-}
-
-app.get("/id/:id",function(req,res,next) {
-    var context = {};
-    context.header = header.render({title: "Library homepage", home_active: true});
-    context.footer = footer.render();
-	context.data = [];
-
-    get_library('/testink/organisation/' + req.params.id, function(data){
-		data._source["id"] = data._id;
-		context.data = data._source;
-		res.render("library_details", context);
-		});
 });
 
 app.get("/about",function(req,res,next) {
