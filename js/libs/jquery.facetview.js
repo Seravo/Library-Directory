@@ -65,11 +65,6 @@
         $('#errormsg').remove();
     }
 
-    $("#facetview_freetext").bind("focus", function(){ 
-                $("#introtext").slideUp(); // no need to show this as soon as user makes first search
-    });
-    
-
     $.fn.facetview = function(options) {
 
 	var search_results = [
@@ -588,6 +583,9 @@
                 $('#facetview_increment').bind('click',increment)
                 data.found <= to ? $('#facetview_increment').html('..') : ""
             }
+            $("div.pagination").bind("click", function(){ 
+                $("#introtext").slideUp(); // no need to show this as soon as user makes first search
+            });
 
         }
 
