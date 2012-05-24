@@ -69,8 +69,8 @@
 
 	var opening_hours_format = "\
 		<i class='icon-time'></i> \
-		{{#d0}}<span style='color: green'>Avoinna</span> tänään klo {{d1}} {{/d0}} \
-		{{^d0}}<span style='color: red'>Suljettu</span> {{#d1}}(avoinna tänään {{d1}}){{/d1}} {{/d0}}";
+		{{#d0}}<span style='color: green;'>Avoinna</span> tänään klo {{d1}} {{/d0}} \
+		{{^d0}}<span style='color: red; font-style: italic;'>Suljettu</span> {{#d1}}(avoinna tänään {{d1}}){{/d1}} {{/d0}}";
 
 	var search_results = [
 		[ { "fields": "name_fi", "format": "<h3>{{d0}}</h3>" } ],
