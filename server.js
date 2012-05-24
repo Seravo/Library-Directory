@@ -13,7 +13,6 @@ var app = express.createServer();
 // default settings assume development environment
 app.configure(function(){
     app.use(express.logger('dev'))
-//    app.use(express.compress())
     app.use(express.methodOverride());
     app.use(express.bodyParser());
 	app.set('view engine','mustache');
@@ -23,21 +22,20 @@ app.configure(function(){
     app.use(connect.compress()); // works for static files, but not for res.render?
     app.use(express.static(__dirname, { maxAge: 0 }));
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-    header = hogan.compile(fs.readFileSync(__dirname + '/views/header-dev.mustache', 'utf-8'));
-    footer = hogan.compile(fs.readFileSync(__dirname + '/views/footer-dev.mustache', 'utf-8'));
+    headerfile = '/views/header-dev.mustache';
+    footerfile = '/views/footer-dev.mustache';
 });
 
 // override specific settings if started with $ NODE_ENV=production node server.js
 app.configure('production', function(){
-  console.log("Use production settings.");
-  app.set(app.router, false); // must be last so that wildcard route does not override 
-  app.set('views',__dirname + '/output/views');
-  var oneYear = 31557600000;
-  app.use(express.static(__dirname + '/output', { maxAge: oneYear }));
-  app.use(express.errorHandler());
-//  app.use(app.router); // must be last so that wildcard route does not override 
-  header = hogan.compile(fs.readFileSync(__dirname + '/output/views/header.mustache', 'utf-8'));
-  footer = hogan.compile(fs.readFileSync(__dirname + '/output/views/footer.mustache', 'utf-8'));
+    console.log("Use production settings.");
+    app.set(app.router, false); // must be last so that wildcard route does not override 
+    app.set('views',__dirname + '/output/views');
+    var oneYear = 31557600000;
+    app.use(express.static(__dirname + '/output', { maxAge: oneYear }));
+    app.use(express.errorHandler());
+    headerfile = '/output/views/header.mustache';
+    footerfile = '/output/views/footer.mustache';
 });
 
 // route must always be defined last and only last (override does not work)
@@ -159,9 +157,23 @@ if /sv/(.*) -> html lang sv
 
 // init variable
 var context = {};
+header = hogan.compile(fs.readFileSync(__dirname + headerfile, 'utf-8'));
+footer = hogan.compile(fs.readFileSync(__dirname + footerfile, 'utf-8'));
 
-// Hogan.js does not support template inheritance yet, must do workaround
-// https://gist.github.com/1854699
+var watch = require('nodewatch');
+// Adding 2 dirs relative from process.cwd()
+// Nested dirs are not watched
+// dirs can also be added absolute
+watch.add("./views").onChange(function(file,prev,curr,action){
+    // .add("./output/views") omitted since it would crash entire server.js
+    // each time h5bp is run and output folder emptied
+    console.log("Views changed and reloaded");
+    // Hogan.js does not support template inheritance yet, must do workaround
+    // https://gist.github.com/1854699
+    header = hogan.compile(fs.readFileSync(__dirname + headerfile, 'utf-8'));
+    footer = hogan.compile(fs.readFileSync(__dirname + footerfile, 'utf-8'));
+});
+ 
 app.get("/",function(req,res,next) {
     context.header = header.render({search_active: true});
     context.footer = footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]});
