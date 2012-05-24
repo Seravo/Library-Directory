@@ -4,6 +4,7 @@
 // var cons = require('consolidate');
 var hogan = require('hogan');
 var adapter = require('hogan-express.js');
+var fs = require('fs');
 
 var connect = require('connect');
 var express = require('express');
@@ -16,10 +17,10 @@ app.configure(function(){
     app.use(express.bodyParser());
 	app.set('view engine','mustache');
 	app.set('view options',{layout:false});
-	app.set('views',__dirname + '/output/views');
+	app.set('views',__dirname + '/views');
 	app.register('mustache',adapter.init(hogan));    
     app.use(connect.compress()); // works for static files, but not for res.render?
-    app.use(express.static(__dirname + "/output", { maxAge: 0 }));
+    app.use(express.static(__dirname, { maxAge: 0 }));
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     app.use(app.router); // must be last so that wildcard route does not override 
     // 404 Page
@@ -35,15 +36,20 @@ app.configure(function(){
             }
         });
     });
+    header = hogan.compile(fs.readFileSync(__dirname + '/views/header-dev.mustache', 'utf-8'));
+    footer = hogan.compile(fs.readFileSync(__dirname + '/views/footer-dev.mustache', 'utf-8'));
 });
 
 
 // if started with $ NODE_ENV=production node server.js
 app.configure('production', function(){
   console.log("Use production settings.");
+  app.set('views',__dirname + '/output/views');
   var oneYear = 31557600000;
   app.use(express.static(__dirname + '/output', { maxAge: oneYear }));
   app.use(express.errorHandler());
+  header = hogan.compile(fs.readFileSync(__dirname + '/output/views/header.mustache', 'utf-8'));
+  footer = hogan.compile(fs.readFileSync(__dirname + '/output/views/footer.mustache', 'utf-8'));
 });
 
 
@@ -137,11 +143,6 @@ function get_library_by_name(name, callback) {
     req.end();  
 }
 
-var fs = require('fs');
-header = hogan.compile(fs.readFileSync(__dirname + '/output/views/header.mustache', 'utf-8'));
-footer = hogan.compile(fs.readFileSync(__dirname + '/output/views/footer.mustache', 'utf-8'));
-context = {};
-
 /* 
 route logic:
 if /(.*) <html lang="fi"...
@@ -149,6 +150,9 @@ if /fi/(.*) -> html lang fi
 if /en/(.*) -> html lang en
 if /sv/(.*) -> html lang sv
 */
+
+// init variable
+var context = {};
 
 // Hogan.js does not support template inheritance yet, must do workaround
 // https://gist.github.com/1854699
@@ -159,7 +163,6 @@ app.get("/",function(req,res,next) {
 });
 
 app.get("/browse",function(req,res,next) {
-    var context = {};
     context.header = header.render({title: "Browse all", browse_active: true});
     context.footer = footer.render();
     get_libraries(function(data){
@@ -199,7 +202,6 @@ app.get('/widget', function(req, res){
 });
 
 app.get("/id/:id",function(req,res,next) {
-    var context = {};
     context.header = header.render({title: "Library details", browse_active: true});
     context.footer = footer.render();
 	context.data = [];
@@ -212,7 +214,6 @@ app.get("/id/:id",function(req,res,next) {
 });
 
 app.get("/*",function(req,res,next) {
-    var context = {};
     context.header = header.render({title: "Library details", browse_active: true});
     context.footer = footer.render();
 	context.data = [];

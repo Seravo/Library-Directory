@@ -47,8 +47,8 @@ Generating CSS from LESS
     $ cd css
     $ lessc style.less > style.css
 
-Starting server
---------------
+Starting production server
+--------------------------
 Execute each step in dedicated terminal or screen.
 
 1. Start Elastic Search backend
@@ -65,12 +65,17 @@ Execute each step in dedicated terminal or screen.
 
 4. Start HTTP server
 
-        $ node server.js
+        $ NODE_ENV=production node server.js
         
 
 The publishable version of the website will appear in folder `output`. All intermediate files should be in gitignore.
 
 Finally open `localhost:8080` and select index.html to view main screen.
+
+Starting development server
+---------------------------
+
+Just execute 1, 3 and finally 4 withouth NODE_ENV.
         
 Credits
 -------
