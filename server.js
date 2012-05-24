@@ -10,6 +10,7 @@ var connect = require('connect');
 var express = require('express');
 var app = express.createServer();
 
+// default settings assume development environment
 app.configure(function(){
     app.use(express.logger('dev'))
 //    app.use(express.compress())
@@ -22,8 +23,27 @@ app.configure(function(){
     app.use(connect.compress()); // works for static files, but not for res.render?
     app.use(express.static(__dirname, { maxAge: 0 }));
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-    app.use(app.router); // must be last so that wildcard route does not override 
-    // 404 Page
+    header = hogan.compile(fs.readFileSync(__dirname + '/views/header-dev.mustache', 'utf-8'));
+    footer = hogan.compile(fs.readFileSync(__dirname + '/views/footer-dev.mustache', 'utf-8'));
+});
+
+// override specific settings if started with $ NODE_ENV=production node server.js
+app.configure('production', function(){
+  console.log("Use production settings.");
+  app.set(app.router, false); // must be last so that wildcard route does not override 
+  app.set('views',__dirname + '/output/views');
+  var oneYear = 31557600000;
+  app.use(express.static(__dirname + '/output', { maxAge: oneYear }));
+  app.use(express.errorHandler());
+//  app.use(app.router); // must be last so that wildcard route does not override 
+  header = hogan.compile(fs.readFileSync(__dirname + '/output/views/header.mustache', 'utf-8'));
+  footer = hogan.compile(fs.readFileSync(__dirname + '/output/views/footer.mustache', 'utf-8'));
+});
+
+// route must always be defined last and only last (override does not work)
+app.configure(function(){
+    app.use(app.router); // must be last so that it's wildcard route does not override anything else
+    // 404 page, really last if not any route matched
     app.use(function(req, res, next){
         fs.readFile(__dirname + "/output/views/404.html", function(error, content) {
             if (error) {
@@ -36,20 +56,6 @@ app.configure(function(){
             }
         });
     });
-    header = hogan.compile(fs.readFileSync(__dirname + '/views/header-dev.mustache', 'utf-8'));
-    footer = hogan.compile(fs.readFileSync(__dirname + '/views/footer-dev.mustache', 'utf-8'));
-});
-
-
-// if started with $ NODE_ENV=production node server.js
-app.configure('production', function(){
-  console.log("Use production settings.");
-  app.set('views',__dirname + '/output/views');
-  var oneYear = 31557600000;
-  app.use(express.static(__dirname + '/output', { maxAge: oneYear }));
-  app.use(express.errorHandler());
-  header = hogan.compile(fs.readFileSync(__dirname + '/output/views/header.mustache', 'utf-8'));
-  footer = hogan.compile(fs.readFileSync(__dirname + '/output/views/footer.mustache', 'utf-8'));
 });
 
 
