@@ -102,8 +102,8 @@ function get_library_by_name(name, callback) {
     { "query":
      { "query_string":
        {
-         "field": "name_fi",
-         "query": "*"+name+"*"
+         "field": "name_short_fi",
+         "query": name+"*"
        }
      }, size: 1
     };
@@ -158,19 +158,6 @@ app.get("/",function(req,res,next) {
 	res.render("index", context);
 });
 
-app.get("/id/:id",function(req,res,next) {
-    var context = {};
-    context.header = header.render({title: "Library details", home_active: true});
-    context.footer = footer.render();
-	context.data = [];
-
-    get_library_by_id(req.params.id, function(data){
-		data._source["id"] = data._id;
-		context.data = data._source;
-		res.render("library_details", context);
-		});
-});
-
 app.get("/browse",function(req,res,next) {
     var context = {};
     context.header = header.render({title: "Browse all", browse_active: true});
@@ -211,16 +198,29 @@ app.get('/widget', function(req, res){
     res.send('prints out customization wizard');
 });
 
+app.get("/id/:id",function(req,res,next) {
+    var context = {};
+    context.header = header.render({title: "Library details", browse_active: true});
+    context.footer = footer.render();
+	context.data = [];
+
+    get_library_by_id(req.params.id, function(data){
+		data._source["id"] = data._id;
+		context.data = data._source;
+		res.render("library_details", context);
+		});
+});
+
 app.get("/*",function(req,res,next) {
     var context = {};
-    context.header = header.render({title: "Library details", home_active: true});
+    context.header = header.render({title: "Library details", browse_active: true});
     context.footer = footer.render();
 	context.data = [];
     console.log("Requested: "+req.params);
     get_library_by_name(req.params[0], function(data){
         console.log("total: "+data.hits.total);
         if (data.hits.total > 0) {
-		    data.hits.hits[0]._source["id"] = data._id;
+		    data.hits.hits[0]._source["id"] = data.hits.hits[0]._id;
 		    context.data = data.hits.hits[0]._source;
 		    res.render("library_details", context);
 		} else {
