@@ -72,10 +72,14 @@
 		{{#d0}}<span style='color: green;'>Avoinna</span> tänään klo {{d1}} {{/d0}} \
 		{{^d0}}<span style='color: red; font-style: italic;'>Suljettu</span> {{#d1}}(avoinna tänään {{d1}}){{/d1}} {{/d0}}";
 
+	var coordinate_format = "\
+		<i class='icon-map-marker'></i> \
+		{{#d0}}<a href=\"\" onclick='ld_mapcontrol_init(\"{{d0}}\", \"<b>{{d1}}</b>\", \"<br>{{d2}}<br>{{d3}} {{d4}}\"); return false;'>{{/d0}}";
+
 	var search_results = [
 		[ { "fields": "name_fi", "format": "<h3>{{d0}}</h3>" } ],
 		[ { "fields": "contact.coordinates, name_fi, contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi",
-		    "format": "<i class='icon-map-marker'></i> <a href=\"\" onclick='ld_mapcontrol_init(\"{{d0}}\", \"<b>{{d1}}</b>\", \"<br>{{d2}}<br>{{d3}} {{d4}}\"); return false;'>" },
+		    "format": coordinate_format },
 		  { "fields": "contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi", "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
 		[ { "fields": "open_now, opening_hours", "format": opening_hours_format } ],
 		[ { "fields": "contact.telephones.telephone_number", "format": "<img src='img/glyphicons_139_phone.png' alt='Phone icon'> <a href='tel:{{d0}}'>{{d0}}</a>" },
