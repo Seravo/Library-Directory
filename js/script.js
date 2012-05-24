@@ -67,3 +67,36 @@ function ld_mapcontrol_close() {
 /* geolocation related variables, globals for now */
 var ld_position = false;
 var ld_position_coords = null;
+
+/* calculate whether library is open at given time or not, helper functions */
+function ld_open_now(timerange) {
+	start = String(timerange.start)
+	stop = String(timerange.end)
+
+    timestamp = new Date();
+    mins = timestamp.getMinutes();
+    hrs = timestamp.getHours();
+
+    current_time = hrs*60+mins;
+
+    start_time = ld_get_minutes(start);
+    end_time = ld_get_minutes(stop);
+
+    /* 15 minute buffer for closing-time */
+    if (current_time>=start_time && (current_time+15)<=end_time) return true;
+    else return false;
+}
+
+function ld_get_minutes(time) {
+    mins = Number(time.slice(-2));
+    hrs = Number(time.slice(0,-2));
+
+    return hrs*60+mins;
+}
+
+function ld_format_time(time) {
+	time = String(time);
+	mins = time.slice(-2);
+	hrs = time.slice(0,-2);
+	return hrs+":"+mins
+}

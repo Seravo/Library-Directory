@@ -67,12 +67,17 @@
 
     $.fn.facetview = function(options) {
 
+	var opening_hours_format = "\
+		<i class='icon-time'></i> \
+		{{#d0}}<span style='color: green'>Avoinna</span> tänään klo {{d1}} {{/d0}} \
+		{{^d0}}<span style='color: red'>Suljettu</span> {{#d1}}(avoinna tänään {{d1}}){{/d1}} {{/d0}}";
+
 	var search_results = [
 		[ { "fields": "name_fi", "format": "<h3>{{d0}}</h3>" } ],
 		[ { "fields": "contact.coordinates, name_fi, contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi",
 		    "format": "<i class='icon-map-marker'></i> <a href=\"\" onclick='ld_mapcontrol_init(\"{{d0}}\", \"<b>{{d1}}</b>\", \"<br>{{d2}}<br>{{d3}} {{d4}}\"); return false;'>" },
 		  { "fields": "contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi", "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
-		[ { "fields": "period", "format": "<i class='icon-time'></i> ma-pe klo 8-20, la 10-18, su suljettu " } ],
+		[ { "fields": "open_now, opening_hours", "format": opening_hours_format } ],
 		[ { "fields": "contact.telephones.telephone_number", "format": "<img src='img/glyphicons_139_phone.png' alt='Phone icon'> <a href='tel:{{d0}}'>{{d0}}</a>" },
 		  { "fields": "contact.telephones.telephone_name_fi", "format": " ({{d0}})" } ],
 		[ { "fields": "id, name_short_fi, name_fi", "format": "<a class='btn btn-big btn-info' title='{{d2}} ({{d0}})' href='/{{d1}}'><i class='icon-info-sign icon-white'></i> Show details</a>" } ]
@@ -498,7 +503,38 @@
             resultobj["found"] = "";
             resultobj["facets"] = new Object();
             if ( options.search_index == "elasticsearch" ) {
+				var days = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" ];
                 for (var item in dataobj.hits.hits) {
+
+					var library_data = dataobj.hits.hits[item]._source;
+					var curtime = new Date();
+					var unixtime = curtime.getTime();
+					var daynum = curtime.getDay();
+
+					/* js daynum is 0-6 starting from sunday, libdir daynum is 0-6 starting from monday, fix it */
+					if (daynum==0) daynum = 7;
+					daynum = daynum-1;
+
+					/* library is not open until proven otherwise */
+					library_data.open_now = false;
+					library_data.opening_hours = false;
+
+					var periods = library_data.period;
+					for (var i in periods) {
+						var p = periods[i]
+						for (var j=0; j<7; j++) {
+							var start = p[days[j]+"_start"];
+							var end = p[days[j]+"_end"];
+							/* find a matching time frame within period and apply specific open/close state */
+							if ( unixtime >= Date.parse(p.start) && unixtime <= Date.parse(p.end) ) {
+								if ( (start!=0 && end!=0) && (start!= null && end!= null) ) {
+									library_data.open_now = ld_open_now( { start: start, end: end } );
+									library_data.opening_hours = ld_format_time(start) + " - " + ld_format_time(end);
+								}
+							}
+						}
+					}
+
                     dataobj.hits.hits[item]._source["id"] = dataobj.hits.hits[item]._id;
                     resultobj["records"].push(dataobj.hits.hits[item]._source);
                     resultobj["start"] = "";
@@ -635,7 +671,7 @@
 	                        for (var row in res) { thevalue.push(res[row][parts[counter]]) }
 						}
 					/* add value to mustache data hash */
-					if (thevalue && thevalue.length) { data["d"+idx]=thevalue }
+					if ( (thevalue && thevalue.length) || (thevalue==true || thevalue==false) ) { data["d"+idx]=thevalue }
 					idx+=1;
 					}
 				format ? line += Mustache.render(format, data) : line += thevalue
