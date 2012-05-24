@@ -19,8 +19,8 @@ function ld_mapcontrol_init(coords, name, desc) {
 	var mapOptions = {
 		controls: [
 			new OpenLayers.Control.Navigation(),
-			new OpenLayers.Control.PanZoom(),
-			new OpenLayers.Control.LayerSwitcher(),
+			new OpenLayers.Control.PanZoomBar(),
+			//new OpenLayers.Control.LayerSwitcher(),
 			new OpenLayers.Control.Attribution() ],
 		theme: '/js/libs/openlayers/style.css'
 	};
