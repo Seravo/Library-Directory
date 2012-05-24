@@ -297,6 +297,17 @@
                 }
             }
             $('#facetview_filters').html("").append(filterheader+thefilters)
+			$('#facetview_filters').after('<div id=clearbutton style="display: none;"><button style="min-width: 78%;" class="btn btn-success" id="clear_facetfilters">Clear all filters</button></div>');
+			$('#clear_facetfilters').bind('click', function(event) {
+				event.preventDefault();
+				$('#facetview_selectedfilters').children().each(function(){
+					var index = facetfilters.indexOf($(this).attr("href"));
+					facetfilters.splice(index,1);
+					$(this).remove();
+				});
+				if (facetfilters.length==0) $('#clearbutton').hide();
+				dosearch();
+			});
 
 	// get geolocation and show location-filter, if applicable
 	if (navigator.geolocation) {
@@ -485,6 +496,7 @@
                 '" alt="remove" title="remove"' +
                 ' href="' + facetvalue + '">' +
                 facetvalue + ' <i class="icon-remove"></i></a>'
+
             $('#facetview_selectedfilters').append(newobj)
             $('.facetview_filterselected').unbind('click',clearfilter)
             $('.facetview_filterselected').bind('click',clearfilter)
@@ -839,6 +851,7 @@
             $('#facetview_selectedfilters').append(newobj);
             $('.facetview_filterselected').unbind('click',clearfilter);
             $('.facetview_filterselected').bind('click',clearfilter);
+			if (facetfilters.length>0) $('#clearbutton').show();
             options.paging.from = 0
             dosearch();
         }
