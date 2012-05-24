@@ -349,13 +349,16 @@
                 $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).children().remove();
                 var records = data["facets"][ options.facets[each]['field'] ];
                 for ( var item in records ) {
-					var style = "";
+					var append = "";
 					if (facetfilters.indexOf(item)!= -1 ) {
-						style = " class='selectedfilter' ";
+						append = "<li class='selectedfilter'>" + item + ' (' + records[item] + ')</li>';
 					}
-                    var append = '<li' + style + '><a class="facetview_filterchoice' + 
-                        '" rel="' + options.facets[each]['field'] + '" href="' + item + '">' + item +
-                        ' (' + records[item] + ')</a></li>';
+					else {
+						append = '<li><a class="facetview_filterchoice' + 
+							'" rel="' + options.facets[each]['field'] + '" href="' + item + '">' + item +
+							' (' + records[item] + ')</a></li>';
+					}
+
                     $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).append(append);
                 }
                 if ( !$('.facetview_filtershow[rel="' + options.facets[each]['field'].replace(/\./gi,'_') + '"]').hasClass('facetview_open') ) {
