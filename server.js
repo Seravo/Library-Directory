@@ -18,14 +18,29 @@ app.configure(function(){
 	app.set('view options',{layout:false});
 	app.set('views',__dirname + '/output/views');
 	app.register('mustache',adapter.init(hogan));    
-    app.use(app.router);
     app.use(connect.compress()); // works for static files, but not for res.render?
     app.use(express.static(__dirname + "/output", { maxAge: 0 }));
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+    app.use(app.router); // must be last so that wildcard route does not override 
+    // 404 Page
+    app.use(function(req, res, next){
+        fs.readFile(__dirname + "/output/views/404.html", function(error, content) {
+            if (error) {
+                res.writeHead(500);
+                res.end();
+            }
+            else {
+                res.writeHead(404, { 'Content-Type': 'text/html' });
+                res.end(content, 'utf-8');
+            }
+        });
+    });
 });
+
 
 // if started with $ NODE_ENV=production node server.js
 app.configure('production', function(){
+  console.log("Use production settings.");
   var oneYear = 31557600000;
   app.use(express.static(__dirname + '/output', { maxAge: oneYear }));
   app.use(express.errorHandler());
@@ -143,19 +158,6 @@ app.get("/",function(req,res,next) {
 	res.render("index", context);
 });
 
-app.get("/name/:name?",function(req,res,next) {
-    var context = {};
-    context.header = header.render({title: "Library details", home_active: true});
-    context.footer = footer.render();
-	context.data = [];
-    console.log("Requested: "+req.params.name);
-    get_library_by_name(req.params.name, function(data){
-		data.hits.hits[0]._source["id"] = data._id;
-		context.data = data.hits.hits[0]._source;
-		res.render("library_details", context);
-		});
-});
-
 app.get("/id/:id",function(req,res,next) {
     var context = {};
     context.header = header.render({title: "Library details", home_active: true});
@@ -207,6 +209,25 @@ app.get('/widget', function(req, res){
     // display form for generating custom widget code
     // result <script src="http://hakemisto.kirjastot.fi/widget/load/?area=helmet"></script>
     res.send('prints out customization wizard');
+});
+
+app.get("/*",function(req,res,next) {
+    var context = {};
+    context.header = header.render({title: "Library details", home_active: true});
+    context.footer = footer.render();
+	context.data = [];
+    console.log("Requested: "+req.params);
+    get_library_by_name(req.params[0], function(data){
+        console.log("total: "+data.hits.total);
+        if (data.hits.total > 0) {
+		    data.hits.hits[0]._source["id"] = data._id;
+		    context.data = data.hits.hits[0]._source;
+		    res.render("library_details", context);
+		} else {
+		    next(); // do standard 404
+		    // TODO: the standard 404 is ugly, make nicer
+	    };
+	});
 });
 
 port = 8080;
