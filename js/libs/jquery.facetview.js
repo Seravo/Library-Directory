@@ -318,7 +318,7 @@
 		navigator.geolocation.getCurrentPosition(
 			function (position) {
 			    //console.log(position);
-			    $('#facetview_filters h3').after('<button class="btn btn-primary" id="facetview_location">Show libraries near my location</button>');
+			    $('#facetview_filters h3').after('<button style="min-width: 78%;" class="btn btn-primary" id="facetview_location">Show libraries near my location</button>');
 			    $('#facetview_location').bind('click',function(event){ 
 			        $('#facetview_location').hide(); 
 			        ld_position=true; 
