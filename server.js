@@ -109,13 +109,16 @@ function get_library_by_id(id, callback) {
 // get a library with partial name
 function get_library_by_name(name, callback) {
     query =
-    { "query":
+    {
+      "size": 1,
+      "sort": [ { "name_fi" : {} } ],
+      "query":
      { "query_string":
        {
-         "field": "name_short_fi",
+         "fields": ["name_short_fi*"],
          "query": name+"*"
        }
-     }, size: 1
+     }
     };
     query = JSON.stringify(query);
 
