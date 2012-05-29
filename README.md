@@ -22,9 +22,7 @@ Instructions for Ubuntu 12.04, where the required dependencies can be installed 
     $ # sudo npm install -g -d
     
     # Instead install globally manually
-    $ sudo npm install -g connect express hogan grunt https://github.com/h5bp/node-build-script/tarball/master
-    # revert to older version since new is broken
-    $ sudo npm install -g https://github.com/h5bp/node-build-script/tarball/998a7ebea4369e042ea22a0b482a5d4dcc93a364
+    $ sudo npm install -g connect express hogan grunt nodewatch https://github.com/h5bp/node-build-script/tarball/master
 
 ### Elastic Search (Java server)
 
