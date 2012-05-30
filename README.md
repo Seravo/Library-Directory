@@ -112,21 +112,20 @@ Following steps assume you already have a working version at `Library-Directory`
 3. Install Upstart scripts
 
         $ sudo cd /var/www/libdir/
-        $ cd/etc/init/
-        $ sudo ln -s /var/www/libdir/upstart-scripts/* .
-        $ cd /var/log
-        $ sudo touch libdir-server.log elasticsearch-proxy.log
-        $ sudo chown libdir libdir-server.log elasticsearch-proxy.log
-        # Elastic Search has its own log under its own folder in `logs`
+        $ sudo cp upstart-scripts/* /etc/init/
 
 3. Start servers
 
         $ sudo start libdir-server
         # elasticsearch and elasticsearch-proxy will be started automatically
         
-Server will now be running in port 80 and logging to `/var/log/upstart/<service name>.log`
+Server will now be running in port 80 and logging to `/var/log/upstart/<service name>.log`. Additionally Elastic Search has its own log under its own folder in `logs`.
 
-There is also a script `update-in-production.sh` that will automatically check out the latest version, modify sources to use port 80 and server name and build the project. Make your own copy of it for your own production installation.
+There is also a script `update-in-production.sh` that will automatically check out the latest version, modify sources to use port 80 and server name and build the project. Make your own copy of it for your own production installation. Invoke it as `sudo -u libdir ./update-in-production.sh`.
+
+Note! If you want to run the server in port 80, you need to grant special permissions, since ports below 1024 are normally reserved only for the root user:
+    $ sudo apt-get install libcap2-bin 
+    $ sudo setcap 'cap_net_bind_service=+ep' /usr/bin/node
         
 Credits
 -------
