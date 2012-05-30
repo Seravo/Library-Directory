@@ -64,7 +64,7 @@ Starting development server
 Finally open `localhost:8080` to use server.
 
 
-Starting production server
+Running production server
 --------------------------
 Execute each step in dedicated terminal or screen.
 
@@ -121,12 +121,12 @@ Following steps assume you already have a working version at `Library-Directory`
 
 3. Start servers
 
-        $ sudo start elasticsearch
-        $ sudo start elasticsearch-proxy
         $ sudo start libdir-server
+        # elasticsearch and elasticsearch-proxy will be started automatically
         
-Server will now be running in port 80 and logging to `/var/log/libdir.log`
+Server will now be running in port 80 and logging to `/var/log/upstart/<service name>.log`
 
+There is also a script `update-in-production.sh` that will automatically check out the latest version, modify sources to use port 80 and server name and build the project. Make your own copy of it for your own production installation.
         
 Credits
 -------
