@@ -2,3 +2,4 @@
 staging/
 output/
 elasticsearch-0.18.7/
+elasticsearch/
