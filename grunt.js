@@ -37,7 +37,7 @@ module.exports = function(grunt) {
     },
     // update references in html to revved files
     usemin: {
-       html: ['**/*.mustache'],
+       html: ['views/*.mustache'],
         // css: ['**/*.css'] // not needed in this project, images very rarely change
     },
     // html minification - too dangerous for mustache templates?
