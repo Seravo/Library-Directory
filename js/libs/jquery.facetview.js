@@ -309,7 +309,14 @@
 					facetfilters.splice(index,1);
 					$(this).remove();
 				});
-				if (facetfilters.length==0) $('#clearbutton').hide();
+
+				$('#facetview_selectedextrafilters').children().each(function(){
+					$(this).remove();
+					$("#facetview_location").show();
+					ld_position = null;
+				});
+
+				if (facetfilters.length==0 && ld_position == null) $('#clearbutton').hide();
 				dosearch();
 			});
 
@@ -320,10 +327,11 @@
 			    //console.log(position);
 			    $('#facetview_filters h3').after('<button style="min-width: 78%;" class="btn btn-primary" id="facetview_location">Show libraries near my location</button>');
 			    $('#facetview_location').bind('click',function(event){ 
-			        $('#facetview_location').hide(); 
-			        ld_position=true; 
-			        ld_position_coords=position.coords; 
-			        clickextrabubble("ld_location","Libraries near my location"); 
+					$('#facetview_location').hide();
+					$('#clearbutton').show();
+					ld_position=true;
+					ld_position_coords=position.coords;
+					clickextrabubble("ld_location","Libraries near my location");
 			    }); 
 			},
 		// the error callback that never gets called (in firefox?)
@@ -865,6 +873,7 @@
             event.preventDefault();
 			var index = facetfilters.indexOf($(this).attr("href"));
 			facetfilters.splice(index,1);
+			if (facetfilters.length==0 && ld_position == null) $('#clearbutton').hide();
             $(this).remove();
             dosearch();
         }
@@ -875,6 +884,7 @@
 		$(this).remove();
 		$("#facetview_location").show();
 		ld_position = null;
+		if (facetfilters.length==0) $('#clearbutton').hide();
 		dosearch(); }
 
         // adjust how many results are shown
