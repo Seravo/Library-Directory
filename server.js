@@ -96,7 +96,7 @@ function get_library_by_id(id, callback) {
       data = '';
       res.on('data', function(chunk){
         data += chunk;
-        console.log("...read chunk: " + chunk);
+        // console.log("...read chunk: " + chunk);
       });
       res.on('end', function() {
           callback(JSON.parse(data));
@@ -138,7 +138,7 @@ function get_library_by_name(name, callback) {
       data = '';
       res.on('data', function(chunk){
         data += chunk;
-        console.log("...read chunk: " + chunk);
+        // console.log("...read chunk: " + chunk);
       });
       res.on('end', function() {
           callback(JSON.parse(data));

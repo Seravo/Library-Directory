@@ -3,43 +3,118 @@
 {{#data}}
 <div class="row-fluid">
   <div class="span6">
-		<h1>{{name_fi}}</h1>
-		<p><a href="/id/{{id}}">hakemisto.kirjastot.fi/{{name_short_fi}}</a></p>
+	<p><a href="/id/{{id}}">hakemisto.kirjastot.fi/{{name_short_fi}}</a></p>
+	<h1>{{name_fi}}</h1>
+    <p><strong class="address">{{contact.street_address.street_fi}}, {{contact.street_address.area_fi}} {{contact.street_address.post_code}} {{contact.street_address.municipality_fi}}</strong></p>
 
-		<p><strong class="address">{{contact.street_address.street_fi}}, {{contact.street_address.post_code}} {{contact.street_address.municipality_fi}}</strong></p>
-		
-		<p style="color:#999;">
-		{{#contact.telephones}}
-		    {{telephone_number}} / {{telephone_name_fi}}<br>
-		{{/contact.telephones}}
-		</p>
-		
-		<p>
-		  <img src="{{image_url}}">
-		  <br>{{description_fi}}
-		</p>
-		
-		<dl>
-            <dt>Homepage</dt>
-            <dd>URL: <a href="{{contact.homepage_fi}}">{{contact.homepage_fi}}</a></dd>
-        </dl>
+    {{#contact.directions_fi}}
+        <p>Directions: {{contact.directions_fi}}</p>
+    {{/contact.directions_fi}}
+    
+    <p>[karttaikkuna - koordinaatit: {{contact.coordinates}}, karttalinkki: {{contact.map_url_fi}}]</p>
+    
+    <p>{{description_fi}}</p>        
+        		
+	<dl>
+	    <dt>Services</dt>
+	    <dd>
+	         {{#services}}
+                {{name_fi}}<br>
+             {{/services}}
+	    </dd>
+	    
+	    <dt id="opentimes">Open times</dt>
+	    <dd>
+	        [aukiolotiedot tähän]
+	    </dd>
+	    	    	    	    
+	    <dt>Telephone numbers</dt>
+	    <dd>
+	        {{#contact.telephones}}
+                {{telephone_number}} / {{telephone_name_fi}}<br>
+            {{/contact.telephones}}
+	    </dd>
+	    
+	    <dt>Mail address</dt>
+	    <dd>
+	        PB {{contact.mail_address.post_box}}<br>
+	        {{contact.mail_address.post_code}} {{contact.mail_address.post_office_fi}}
+	    </dd>
 
+	    <dt>E-mail</dt>
+	    <dd>{{contact.email}}</dd>
+	    	    
+        <dt>Homepage</dt>
+        <dd>
+            <a href="{{contact.homepage_fi}}">{{contact.homepage_fi}}</a>
+            {{#contact.internet}}
+                <br>{{url_description_fi}}: <a href="{{url_fi}}">{{name_fi}}</a>
+            {{/contact.internet}}
+        </dd>
+
+	    <dt>Library identificator and type</dt>
+	    <dd>
+	        ID: {{identificator}}<br>
+	        branch: {{branch_type}}<br>
+	        organisation: {{organisation_type}}
+	    </dd>
+
+	    <dt>Established year</dt>
+	    <dd>{{established_year}}</dd>
+
+	    <dt>Library consortium</dt>
+	    <dd><a href="/id/{{parent_organisation}}">{{consortium}}</a></dd>	    
+    </dl>
+
+    <p><small>Last modified: {{meta.modified}}</small></p>
   </div>
 
   <div class="span6">
-      <div class="opentimes">
+    <div class="opentimes">
         <p>The library is now <strong class="strong-open">Open</strong></p>
-        <p>The library will still serve for 1 hour 45 minutes.</p>
-        <p>Mon-Fri 10-20 | Sat-Sun 12-18</p>
+        <p><small>The library will still serve for 1 hour 45 minutes.</small></p>
+        <p><strong>Mon-Fri 10-20 | Sat-Sun 12-18</strong></p>
         <p><a href="#opentimes">Show all opentimes &rarr;</a></p>
-      </div>
+    </div>
         
-  Palvelut:
-   <ul>
-     {{#services}}
-	   <li>{{name_fi}}</li>
-     {{/services}}
-   </ul>
+    <div class="buildinginfo">
+        <img src="{{image_url}}" alt="{{name_fi}}">
+        {{#contact.building_fi}}
+            Building: {{contact.building_fi}}<br>
+        {{/contact.building_fi}}
+        {{#contact.building_year}}
+            Built: {{contact.building_year}}<br>
+        {{/contact.building_year}}
+        {{#contact.building_architect}}
+            Architect: {{contact.building_architect}}<br>
+        {{/contact.building_architect}} 
+        <br>        
+        {{#accessibility.accessible_entry}}
+            Accessible entry: yes<br>
+        {{/accessibility.accessible_entry}}
+        {{#accessibility.accessible_parking}}
+            Accessible parking: yes<br>
+        {{/accessibility.accessible_parking}}
+        {{#accessibility.accessible_toilet}}
+            Accessible toilet: yes<br>
+        {{/accessibility.accessible_toilet}}
+    	{{#extraaccessibilityinfo}}
+            {{extra_accessibility_property_label_fi}}: {{extra_accessibility_property_value_fi}}<br>
+        {{/extraaccessibilityinfo}}
+        {{#accessibility.induction_loop}}
+            Induction loop: yes<br>
+        {{/accessibility.induction_loop}}
+        {{#accessibility.large_typeface_collection}}
+            Large typeface collection: yes<br>
+        {{/accessibility.large_typeface_collection}}
+        {{#accessibility.lift}}
+            Lift: yes<br>
+        {{/accessibility.lift}}
+        
+        {{#contact.parking_fi}}
+            Parking: {{contact.parking_fi}}<br>
+        {{/contact.parking_fi}}       
+    </div>
 
   </div>
 
