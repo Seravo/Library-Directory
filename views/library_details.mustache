@@ -4,15 +4,36 @@
 <div class="row-fluid">
   <div class="span6">
 		<h1>{{name_fi}}</h1>
-		<p><a href="/id/{{id}}">Library id: {{id}}</a> Short name: {{name_short_fi}}</p>
+		<p><a href="/id/{{id}}">hakemisto.kirjastot.fi/{{name_short_fi}}</a></p>
+
+		<p><strong class="address">{{contact.street_address.street_fi}}, {{contact.street_address.post_code}} {{contact.street_address.municipality_fi}}</strong></p>
+		
+		<p style="color:#999;">
+		{{#contact.telephones}}
+		    {{telephone_number}} / {{telephone_name_fi}}<br>
+		{{/contact.telephones}}
+		</p>
+		
 		<p>
 		  <img src="{{image_url}}">
 		  <br>{{description_fi}}
 		</p>
-		<p>{{contact}}</p>
+		
+		<dl>
+            <dt>Homepage</dt>
+            <dd>URL: <a href="{{contact.homepage_fi}}">{{contact.homepage_fi}}</a></dd>
+        </dl>
+
   </div>
 
   <div class="span6">
+      <div class="opentimes">
+        <p>The library is now <strong class="strong-open">Open</strong></p>
+        <p>The library will still serve for 1 hour 45 minutes.</p>
+        <p>Mon-Fri 10-20 | Sat-Sun 12-18</p>
+        <p><a href="#opentimes">Show all opentimes &rarr;</a></p>
+      </div>
+        
   Palvelut:
    <ul>
      {{#services}}
