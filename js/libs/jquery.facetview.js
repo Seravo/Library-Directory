@@ -705,7 +705,7 @@
 				}
 
 				if (line) {
-					lines += line.replace(/^\s/,'').replace(/\s$/,'').replace(/\,$/,'') + "<br />"
+					lines += line.replace(/^\s/,'').replace(/\s$/,'').replace(/\,$/,'') + "<br>"
 				}
 			}
 			lines ? result += lines : result += JSON.stringify(record,"","    ")

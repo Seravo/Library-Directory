@@ -83,6 +83,10 @@ li.selectedfilter {
 	margin: 6px 0;
 }
 
+.result-data h3 {
+    display: inline;
+}
+
 #facetview_results tr:hover td {
 	background-color: #eee !important;
 }
