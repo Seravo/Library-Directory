@@ -21,6 +21,10 @@ cd ..
 h5bp
 
 # server.js includes a watcher that automatically restarts if when view 
-# files in output changes, so there is no need to manually restart it
+# files in output changes, but it works only for ./views, not ./output/views
+# as ./output can be deleted, it's contents cannot be watched with current software
+#
+# force server.js watcher to reload
+touch views/header.mustache
 
 
