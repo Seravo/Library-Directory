@@ -276,29 +276,29 @@ watch.add("./views").onChange(function(file,prev,curr,action){
 });
  
 app.get("/",function(req,res,next) {
-    context.header = header.render({search_active: true});
-    context.footer = footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]});
-	res.render("index", context);
+    res.local("header", header.render({search_active: true}))
+    res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+	res.render("index", res.locals());
 });
 
 app.get("/browse",function(req,res,next) {
-    context.header = header.render({title: "Browse all", browse_active: true});
-    context.footer = footer.render();
+    res.local("header", header.render({title: "Browse all", browse_active: true}))
+    res.local("footer", footer.render());
     get_libraries(function(data){
-		context.count = data.hits.total;
-        context.libraries = [];
+		res.local("count", data.hits.total);
+        res.local("libraries", []);
         for (var item in data.hits.hits) {
 			data.hits.hits[item]._source["id"] = data.hits.hits[item]._id;
-			context.libraries.push(data.hits.hits[item]._source);
+			res.local("libraries").push(data.hits.hits[item]._source);
 		}
-    	res.render("browse", context);
+    	res.render("browse", res.locals());
     });
 });
 
 app.get("/about",function(req,res,next) {
-    context.header = header.render({title: "About", about_active: true});
-    context.footer = footer.render();
-	res.render("about", context);
+    res.local("header", header.render({title: "About", about_active: true}))
+    res.local("footer", footer.render());
+	res.render("about", res.locals());
 });
 
 app.post("/contact", // Route
@@ -329,17 +329,16 @@ app.post("/contact", // Route
 );
 
 app.get("/contact",function(req,res,next) {
-	console.log(JSON.stringify(res.locals()));
-    context.header = header.render({title: "Contact", contact_active: true});
-    context.footer = footer.render();
-	res.render("contact", context);
+    res.local("header", header.render({title: "Contact", contact_active: true}))
+    res.local("footer", footer.render());
+	res.render("contact", res.locals());
 });
 
 app.get("/feedback-sent",function(req,res,next) {
 	console.log(JSON.stringify(res.locals()));
-    context.header = header.render({title: "Feedback sent", contact_active: true});
-    context.footer = footer.render();
-	res.render("feedback-sent", context);
+    res.local("header", header.render({title: "Feedback sent", contact_active: true}))
+    res.local("footer", footer.render());
+	res.render("feedback-sent", res.locals());
 });
 
 app.get('/widget/load', function(req, res){
@@ -356,30 +355,28 @@ app.get('/widget', function(req, res){
 });
 
 app.get("/id/:id",function(req,res,next) {
-    context.header = header.render({title: "Library details", browse_active: true});
-    context.footer = footer.render();
-	context.data = [];
+    res.local("header", header.render({title: "Library details", browse_active: true}))
+    res.local("footer", footer.render());
 
     get_library_by_id(req.params.id, function(data){
 		data._source["id"] = data._id;
-		context.data = data._source;
-		res.render("library_details", context);
+		res.local("data", data._source);
+		res.render("library_details", res.locals());
 		});
 });
 
 app.get("/*",function(req,res,next) {
-    context.header = header.render({title: "Library details", browse_active: true});
-    context.footer = footer.render();
-	context.data = [];
+    res.local("header", header.render({title: "Library details", browse_active: true}))
+    res.local("footer", footer.render());
     console.log("Requested: "+req.params);
     get_library_by_name(req.params[0], function(data){
         console.log("total: "+data.hits.total);
         if (data.hits.total > 0) {
 		    data.hits.hits[0]._source["id"] = data.hits.hits[0]._id;
-		    context.data = data.hits.hits[0]._source;
-			context.data.opening_hours = get_library_open_hours(context.data.period);
-			console.log(context.data.opening_hours);
-		    res.render("library_details", context);
+		    res.local("data", data.hits.hits[0]._source);
+			console.log(res.local("data").period);
+			res.local("data").opening_hours = get_library_open_hours(res.local("data").period);
+		    res.render("library_details", res.locals());
 		} else {
 		    next(); // do standard 404
 		    // TODO: the standard 404 is ugly, make nicer
