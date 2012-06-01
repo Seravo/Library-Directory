@@ -157,6 +157,97 @@ function get_library_by_name(name, callback) {
     req.end();  
 }
 
+
+function get_library_open_hours(periods) {
+	function ld_format_time(time) {
+		var time = String(time);
+		var mins = time.slice(-2);
+		var hrs = time.slice(0,-2);
+
+		return hrs+":"+mins;
+	}
+
+	function ld_get_minutes(time) {
+		var mins = Number(time.slice(-2));
+		var hrs = Number(time.slice(0,-2));
+
+		return hrs*60+mins;
+	}
+
+	function ld_open_now(timerange) {
+		var start = String(timerange.start)
+		var stop = String(timerange.end)
+
+		var timestamp = new Date();
+		var mins = timestamp.getMinutes();
+		var hrs = timestamp.getHours();
+
+		var current_time = hrs*60+mins;
+		var start_time = ld_get_minutes(start);
+		var end_time = ld_get_minutes(stop);
+
+		/* 15 minute buffer for closing-time */
+		/*if (current_time>=start_time && (current_time+15)<=end_time) return true; */
+		if (current_time>=start_time && current_time<=end_time) return true;
+		else return false;
+	}
+
+	var days = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" ];
+	var days_en = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ];
+	var days_fi = [ "Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai", "Sunnuntai" ];
+
+	var opening_hours = new Object();
+	var curtime = new Date();
+	var unixtime = curtime.getTime(); /* -24*60*60*1000*7; */
+	var daynum = curtime.getDay();
+
+	/* js daynum is 0-6 starting from sunday, libdir daynum is 0-6 starting from monday, fix it */
+	if (daynum==0) daynum = 7;
+	daynum = daynum-1;
+
+	/* get timestmp for current week's monday */
+	var mondaystamp = unixtime-24*60*60*1000*daynum;
+	// console.log(unixtime, mondaystamp);
+
+	/* library is not open until proven otherwise */
+	opening_hours.open_now = false;
+	opening_hours.open_hours_today = false;
+	opening_hours.open_hours_week = [];
+	for (var j=0; j<7; j++) {
+		opening_hours.open_hours_week[j] = { "day": days_en[j], "time": "closed" };
+	}
+
+	/* iterate all periods */
+	for (var i in periods) {
+		var p = periods[i];
+		/* check each weekday within period */
+		for (var j=0; j<7; j++) {
+			var start = p[days[j]+"_start"];
+			var end = p[days[j]+"_end"];
+
+			/* find opening hours for current week */
+			var curday = mondaystamp + 24*60*60*1000*j;
+			//if (j==6) console.log(p.name_fi, days[j], curday, Date.parse(p.start), Date.parse(p.end), curday >= Date.parse(p.start) && curday <= Date.parse(p.end))
+			if ( curday >= Date.parse(p.start) && curday <= Date.parse(p.end) ) {
+				if ( (start!=0 && end!=0) && (start!= null && end!= null) ) {
+					opening_hours.open_hours_week[j] = { "day": days_en[j], "time": ld_format_time(start) + " - " + ld_format_time(end) }; }
+				else {
+					opening_hours.open_hours_week[j] = { "day": days_en[j], "time": "closed" }; }
+			}
+
+			/* find opening hours for current day */
+			//if (j==4) console.log(p.name_fi, days[j], unixtime, Date.parse(p.start), Date.parse(p.end), unixtime >= Date.parse(p.start) && unixtime <= Date.parse(p.end))
+			if ( unixtime >= Date.parse(p.start) && unixtime <= Date.parse(p.end) && j==daynum ) {
+				if ( (start!=0 && end!=0) && (start!= null && end!= null) ) {
+					opening_hours.open_now = ld_open_now( { start: start, end: end } );
+					opening_hours.open_hours_today = ld_format_time(start) + " - " + ld_format_time(end);
+				}
+			}
+		}
+	}
+	return opening_hours;
+}
+
 /* 
 route logic:
 if /(.*) <html lang="fi"...
@@ -286,6 +377,8 @@ app.get("/*",function(req,res,next) {
         if (data.hits.total > 0) {
 		    data.hits.hits[0]._source["id"] = data.hits.hits[0]._id;
 		    context.data = data.hits.hits[0]._source;
+			context.data.opening_hours = get_library_open_hours(context.data.period);
+			console.log(context.data.opening_hours);
 		    res.render("library_details", context);
 		} else {
 		    next(); // do standard 404
