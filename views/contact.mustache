@@ -8,17 +8,17 @@
       <form method="post" action="/contact">
           <label>Name: <input type="text" name="fname" value="{{fname}}"></label>
             {{#errors.fname}}
-            Error: {{.}}<br>
+                <div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>Error:</strong> {{.}}</div>
             {{/errors.fname}}
 
           <label>E-mail: <input type="text" name="femail" value="{{femail}}"></label>
             {{#errors.femail}}
-            Error: {{.}}<br>
+                <div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>Error:</strong> {{.}}</div>
             {{/errors.femail}}
 
           <label>Message: <textarea name="fmessage">{{fmessage}}</textarea></label>
             {{#errors.fmessage}}
-            Error: {{.}}<br>
+                <div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>Error:</strong> {{.}}</div>
             {{/errors.fmessage}}
 
           <input type="submit" value="Submit">    
@@ -27,3 +27,5 @@
 </div>
 
 {{{footer}}}
+
+
