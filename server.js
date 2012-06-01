@@ -13,12 +13,14 @@ var app = express.createServer(),
     filter = form.filter,
     validate = form.validate;
 
+// don't use flash() since it requires sessions and cookies
+// and we don't want to pollute our site and bust cache with cookies
+form.configure({flashErrors: false});
+
 // default settings assume development environment
 app.configure(function(){
     app.use(express.logger('dev'))
     app.use(express.methodOverride());
-    app.use(express.cookieParser());
-    app.use(express.session({ secret: "keyboard cat" }));
     app.use(express.bodyParser());
 	app.set('view engine','mustache');
 	app.set('view options',{layout:false});
@@ -222,19 +224,15 @@ app.post("/contact", // Route
   function(req, res){
     if (!req.form.isValid) {
       // Handle errors
-      console.log(req.form.errors);
-      res.local("flash", req.flash());
-      console.log(JSON.stringify(res.locals()));
+      res.local("errors", req.form.getErrors());
       res.local("header", header.render({title: "Contact", contact_active: true}));
       res.local("footer", footer.render());
       res.render("contact", res.locals());
 
     } else {
       // Or, use filtered form data from the form object:
-      console.log("Name:", req.form.fname);
-      console.log("Email:", req.form.femail);
-      req.flash("info", "Thank you for your feedback!");
-      res.redirect('back');
+      // TODO: email feedback
+      res.redirect('/feedback-sent');
     }
   }
 );
@@ -243,9 +241,14 @@ app.get("/contact",function(req,res,next) {
 	console.log(JSON.stringify(res.locals()));
     context.header = header.render({title: "Contact", contact_active: true});
     context.footer = footer.render();
-    //context.flash = {"info":["dadasd adasd adasd","qwer qwer qwer"],"error":["ert ert ert"]};
-    context.flash = req.flash();
 	res.render("contact", context);
+});
+
+app.get("/feedback-sent",function(req,res,next) {
+	console.log(JSON.stringify(res.locals()));
+    context.header = header.render({title: "Feedback sent", contact_active: true});
+    context.footer = footer.render();
+	res.render("feedback-sent", context);
 });
 
 app.get('/widget/load', function(req, res){
