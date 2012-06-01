@@ -69,8 +69,8 @@
 
 	var opening_hours_format = "\
 		<i class='icon-time'></i> \
-		{{#d0}}<span style='color: green;'>Avoinna</span> tänään klo {{d1}} {{/d0}} \
-		{{^d0}}<span style='color: red; font-style: italic;'>Suljettu</span> {{#d1}}(avoinna tänään {{d1}}){{/d1}} {{/d0}}";
+		{{#d0}}<span style='color: green;'>Open</span> today {{d1}} {{/d0}} \
+		{{^d0}}<span style='color: red; font-style: italic;'>Closed</span> {{#d1}}(open today {{d1}}){{/d1}} {{/d0}}";
 
 	var coordinate_format = "\
 		<i class='icon-map-marker'></i> \
