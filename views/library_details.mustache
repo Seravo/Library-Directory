@@ -23,11 +23,6 @@
              {{/services}}
 	    </dd>
 	    
-	    <dt id="opentimes">Open times</dt>
-	    <dd>
-	        [aukiolotiedot tähän]
-	    </dd>
-	    	    	    	    
 	    <dt>Telephone numbers</dt>
 	    <dd>
 	        {{#contact.telephones}}
@@ -71,14 +66,32 @@
 
   <div class="span6">
     <div class="opentimes">
-        <p>The library is now <strong class="strong-open">Open</strong></p>
+	    <dt id="opentimes">Opening hours this week</dt>
+	    <table>
+			{{#opening_hours.open_hours_week}}
+				<tr><td>{{day}}<td>&nbsp;<td>{{time}}</tr>
+			{{/opening_hours.open_hours_week}}
+	    </table>
+		<br>
+
+		{{#opening_hours.open_now}}
+	        <p>The library is now <strong class="strong-open">Open</strong></p>
+			Opening hours today {{opening_hours.open_hours_today}}
+		{{/opening_hours.open_now}}
+
+		{{^opening_hours.open_now}}
+	        <p>The library is now <strong class="strong-open">Closed</strong></p>
+		{{/opening_hours.open_now}}
+
+		<!--
         <p><small>The library will still serve for 1 hour 45 minutes.</small></p>
         <p><strong>Mon-Fri 10-20 | Sat-Sun 12-18</strong></p>
         <p><a href="#opentimes">Show all opentimes &rarr;</a></p>
+		-->
     </div>
         
     <div class="buildinginfo">
-        <img src="{{image_url}}" alt="{{name_fi}}">
+        <img src="{{image_url}}" alt="{{name_fi}}"><br>
         {{#contact.building_fi}}
             Building: {{contact.building_fi}}<br>
         {{/contact.building_fi}}
