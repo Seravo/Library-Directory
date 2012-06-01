@@ -78,19 +78,23 @@ div.opentimes {
     margin-bottom: 12px;
 }
 
-.strong-open {
+.opentimes strong {
     font-size: 32pt;
-    color: green;
     display: block;
     line-height: 40px;
     font-weight: bold;
 }
 
-div.buildinginfo img {
-    float: left;
-    margin: 0 12px 12px 0;
+.opentimes strong.open {
+    color: green;
+}
+.opentimes strong.closed {
+    color: red;
 }
 
+table th {
+    text-align: left;
+}
 dd {
   margin-bottom: 6px;  
 }

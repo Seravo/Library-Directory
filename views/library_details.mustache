@@ -66,67 +66,66 @@
 
   <div class="span6">
     <div class="opentimes">
-	    <dt id="opentimes">Opening hours this week</dt>
+
+        <h3>The library is now
+		{{#opening_hours.open_now}}
+	        <strong class="open">Open</strong>
+			Opening hours today {{opening_hours.open_hours_today}}
+		{{/opening_hours.open_now}}
+
+		{{^opening_hours.open_now}}
+	        <strong class="closed">Closed</strong>
+	    {{/opening_hours.open_now}}
+		</h3>
+		<br>
+	    <h3>Opening hours this week</h3>
 	    <table>
 			{{#opening_hours.open_hours_week}}
 				<tr><td>{{day}}<td>&nbsp;<td>{{time}}</tr>
 			{{/opening_hours.open_hours_week}}
 	    </table>
-		<br>
 
-		{{#opening_hours.open_now}}
-	        <p>The library is now <strong class="strong-open">Open</strong></p>
-			Opening hours today {{opening_hours.open_hours_today}}
-		{{/opening_hours.open_now}}
-
-		{{^opening_hours.open_now}}
-	        <p>The library is now <strong class="strong-open">Closed</strong></p>
-		{{/opening_hours.open_now}}
-
-		<!--
-        <p><small>The library will still serve for 1 hour 45 minutes.</small></p>
-        <p><strong>Mon-Fri 10-20 | Sat-Sun 12-18</strong></p>
-        <p><a href="#opentimes">Show all opentimes &rarr;</a></p>
-		-->
     </div>
         
     <div class="buildinginfo">
-        <img src="{{image_url}}" alt="{{name_fi}}"><br>
+        <img src="{{image_url}}" alt="{{name_fi}}">
+        <table>
         {{#contact.building_fi}}
-            Building: {{contact.building_fi}}<br>
+            <tr><th>Building:</th><td>{{contact.building_fi}}</td></tr>
         {{/contact.building_fi}}
         {{#contact.building_year}}
-            Built: {{contact.building_year}}<br>
+            <tr><th>Built</th><td>{{contact.building_year}}</td></tr>
         {{/contact.building_year}}
         {{#contact.building_architect}}
-            Architect: {{contact.building_architect}}<br>
+            <tr><th>Architect:</th><td>{{contact.building_architect}}</td></tr>
         {{/contact.building_architect}} 
-        <br>        
+        <td><th colspan="2">&nbsp;</td></tr>
         {{#accessibility.accessible_entry}}
-            Accessible entry: yes<br>
+            <tr><th>Accessible entry:</th><td>yes</td></tr>
         {{/accessibility.accessible_entry}}
         {{#accessibility.accessible_parking}}
-            Accessible parking: yes<br>
+            <tr><th>Accessible parking:</th><td>yes</td></tr>
         {{/accessibility.accessible_parking}}
         {{#accessibility.accessible_toilet}}
-            Accessible toilet: yes<br>
+            <tr><th>Accessible toilet:</th><td>yes</td></tr>
         {{/accessibility.accessible_toilet}}
     	{{#extraaccessibilityinfo}}
-            {{extra_accessibility_property_label_fi}}: {{extra_accessibility_property_value_fi}}<br>
+            <tr><th>{{extra_accessibility_property_label_fi}}:</th><td>{{extra_accessibility_property_value_fi}}</td></tr>
         {{/extraaccessibilityinfo}}
         {{#accessibility.induction_loop}}
-            Induction loop: yes<br>
+            <tr><th>Induction loop:</th><td>yes</td></tr>
         {{/accessibility.induction_loop}}
         {{#accessibility.large_typeface_collection}}
-            Large typeface collection: yes<br>
+            <tr><th>Large typeface<br> collection:</th><td>yes</td></tr>
         {{/accessibility.large_typeface_collection}}
         {{#accessibility.lift}}
-            Lift: yes<br>
+            <tr><th>Lift:</th><td>yes</td></tr>
         {{/accessibility.lift}}
-        
+        <td><th colspan="2">&nbsp;</td></tr>
         {{#contact.parking_fi}}
-            Parking: {{contact.parking_fi}}<br>
-        {{/contact.parking_fi}}       
+            <tr><th>Parking:</th><td>{{contact.parking_fi}}</td></tr>
+        {{/contact.parking_fi}}
+        </table>
     </div>
 
   </div>

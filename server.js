@@ -361,6 +361,7 @@ app.get("/id/:id",function(req,res,next) {
     get_library_by_id(req.params.id, function(data){
 		data._source["id"] = data._id;
 		res.local("data", data._source);
+    	res.local("data").opening_hours = get_library_open_hours(res.local("data").period);
 		res.render("library_details", res.locals());
 		});
 });
