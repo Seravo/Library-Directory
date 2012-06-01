@@ -96,9 +96,25 @@ function add_library_metadata(dataobj, callback){
 
     dataobj._source.opening_hours = get_library_open_hours(dataobj._source.period);
 
-    if (dataobj._source.organisation_type == "mobile_stop"){
-        dataobj._source.neveropen = true;
+    switch(dataobj._source.organisation_type) {
+        case "library":
+        case "unit":
+        case "department":
+            dataobj._source.neveropen = true;
+            break;
     }
+    
+    // delete empty object so that they will not be displayed in Mustache templates
+    if (dataobj._source.contact.telephones[0].telephone_number == '') {
+        delete dataobj._source.contact.telephones;
+    }
+    if (dataobj._source.additional_info.extrainfo[0].property_label_fi == '') {
+        delete dataobj._source.additional_info;
+    }
+    if (dataobj._source.established_year == '') {
+        delete dataobj._source.established_year;
+    }
+
     callback(dataobj);
 }
 
