@@ -90,6 +90,18 @@ function get_libraries(callback) {
     });
 }
 
+// enrich result meta data
+function add_library_metadata(dataobj, callback){
+    console.log(JSON.stringify(dataobj, null, 4));
+
+    dataobj._source.opening_hours = get_library_open_hours(dataobj._source.period);
+
+    if (dataobj._source.organisation_type == "mobile_stop"){
+        dataobj._source.neveropen = true;
+    }
+    callback(dataobj);
+}
+
 // get a specific library
 function get_library_by_id(id, callback) {
     var options = {
@@ -106,7 +118,8 @@ function get_library_by_id(id, callback) {
         // console.log("...read chunk: " + chunk);
       });
       res.on('end', function() {
-          callback(JSON.parse(data));
+          dataobj = JSON.parse(data);
+          add_library_metadata(dataobj, callback);
       });
     }).on('error', function(e) {
       console.log('Problem with request: ' + e.message);
@@ -148,7 +161,8 @@ function get_library_by_name(name, callback) {
         // console.log("...read chunk: " + chunk);
       });
       res.on('end', function() {
-          callback(JSON.parse(data));
+          dataobj = JSON.parse(data);
+          add_library_metadata(dataobj, callback);
       });
     }).on('error', function(e) {
       console.log('Problem with request: ' + e.message);
@@ -361,7 +375,6 @@ app.get("/id/:id",function(req,res,next) {
     get_library_by_id(req.params.id, function(data){
 		data._source["id"] = data._id;
 		res.local("data", data._source);
-    	res.local("data").opening_hours = get_library_open_hours(res.local("data").period);
 		res.render("library_details", res.locals());
 		});
 });
@@ -375,8 +388,6 @@ app.get("/*",function(req,res,next) {
         if (data.hits.total > 0) {
 		    data.hits.hits[0]._source["id"] = data.hits.hits[0]._id;
 		    res.local("data", data.hits.hits[0]._source);
-			console.log(res.local("data").period);
-			res.local("data").opening_hours = get_library_open_hours(res.local("data").period);
 		    res.render("library_details", res.locals());
 		} else {
 		    next(); // do standard 404

@@ -16,29 +16,38 @@
     <p>{{description_fi}}</p>        
         		
 	<dl>
+		{{#services.0.name_fi}}
 	    <dt>Services</dt>
 	    <dd>
 	         {{#services}}
                 {{name_fi}}<br>
              {{/services}}
 	    </dd>
+	    {{/services.0.name_fi}}
 	    
+		{{#contact.telephones.0.telephone_number}}
 	    <dt>Telephone numbers</dt>
 	    <dd>
 	        {{#contact.telephones}}
                 <img src="/img/glyphicons_139_phone.png" alt="Phone icon"> <a href="tel:{{telephone_number}}">{{telephone_number}}</a> / {{telephone_name_fi}}<br>
             {{/contact.telephones}}
 	    </dd>
+	    {{/contact.telephones.0.telephone_number}}
 	    
+		{{#contact.mail_address.post_box}}
 	    <dt>Mail address</dt>
 	    <dd>
 	        PB {{contact.mail_address.post_box}}<br>
 	        {{contact.mail_address.post_code}} {{contact.mail_address.post_office_fi}}
 	    </dd>
+	    {{/contact.mail_address.post_box}}
 
+		{{#contact.email}}
 	    <dt>E-mail</dt>
 	    <dd><i class="icon-envelope"></i> <a href="mailto:{{contact.email}}">{{contact.email}}</a></dd>
+	    {{/contact.email}}
 	    	    
+		{{#contact.homepage_fi}}
         <dt>Homepage</dt>
         <dd>
             <i class="icon-home"></i> <a href="{{contact.homepage_fi}}">{{contact.homepage_fi}}</a>
@@ -46,6 +55,17 @@
                 <br>{{url_description_fi}}: <a href="{{url_fi}}">{{name_fi}}</a>
             {{/contact.internet}}
         </dd>
+	    {{/contact.homepage_fi}}
+
+		{{#additional_info}}
+        <dt>Additional info</dt>
+        <dd>
+            {{#extrainfo}}
+                {{property_label_fi}}: {{property_value_fi}}<br>
+            {{/extrainfo}}
+        </dd>
+	    {{/additional_info}}
+
 
 	    <dt>Library identificator and type</dt>
 	    <dd>
@@ -54,8 +74,10 @@
 	        Organisation: {{organisation_type}}
 	    </dd>
 
+		{{#established_year}}
 	    <dt>Established year</dt>
 	    <dd>{{established_year}}</dd>
+	    {{/established_year}}
 
 	    <dt>Library consortium</dt>
 	    <dd><a href="/id/{{parent_organisation}}">{{consortium}}</a></dd>	    
@@ -66,30 +88,37 @@
 
   <div class="span6">
     <div class="opentimes">
-    
         <i class="icon-time"></i>
-        <h3>The library is now
-		{{#opening_hours.open_now}}
-	        <strong class="open">Open</strong>
-			Opening hours today {{opening_hours.open_hours_today}}
-		{{/opening_hours.open_now}}
+        {{#neveropen}}
+            No open times, since this is a {{organisation_type}}.
+        {{/neveropen}}
 
-		{{^opening_hours.open_now}}
-	        <strong class="closed">Closed</strong>
-	    {{/opening_hours.open_now}}
-		</h3>
-		<br>
-	    <h3>Opening hours this week</h3>
-	    <table>
-			{{#opening_hours.open_hours_week}}
-				<tr><td>{{day}}<td>&nbsp;<td>{{time}}</tr>
-			{{/opening_hours.open_hours_week}}
-	    </table>
+        {{^neveropen}}
+            <h3>The library is now
+		    {{#opening_hours.open_now}}
+	            <strong class="open">Open</strong>
+			    Opening hours today {{opening_hours.open_hours_today}}
+		    {{/opening_hours.open_now}}
+
+		    {{^opening_hours.open_now}}
+	            <strong class="closed">Closed</strong>
+	        {{/opening_hours.open_now}}
+		    </h3>
+		    <br>
+	        <h3>Opening hours this week</h3>
+	        <table>
+			    {{#opening_hours.open_hours_week}}
+				    <tr><td>{{day}}<td>&nbsp;<td>{{time}}</tr>
+			    {{/opening_hours.open_hours_week}}
+	        </table>
+        {{/neveropen}}
 
     </div>
         
     <div class="buildinginfo">
+        {{#image_url}}
         <img src="{{image_url}}" alt="{{name_fi}}">
+        {{/image_url}}
         <table>
         {{#contact.building_fi}}
             <tr><th>Building:</th><td>{{contact.building_fi}}</td></tr>
