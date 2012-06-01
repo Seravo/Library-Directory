@@ -21,6 +21,16 @@
 	    <dd>
 	         {{#services}}
                 {{name_fi}}<br>
+                
+                <!--
+                    {{type}} {{model}} ({{description_short_fi}}, {{description_long_fi}}) {{price}} {{for_loan}} {{instance_name_fi}} {{instance_description_fi}}
+                    {{#tag}}[{{.}}]{{/tag}}<br>
+                    {{#contact}}
+                        {{telephone}} {{email}} {{url_fi}}
+                    {{/contact}}
+                    {{service_priority}}
+                    {{servicetype_priority}}
+                -->
              {{/services}}
 	    </dd>
 	    {{/services.0.name_fi}}
