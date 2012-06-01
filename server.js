@@ -212,9 +212,10 @@ app.post("/contact", // Route
   
   form( // Form filter and validation middleware
     filter("fname").trim(),
-    validate("fname").required().is(/^[a-z]+$/),
+    validate("fname", "Name").required().notEmpty(),
     filter("femail").trim(),
-    validate("femail").isEmail()
+    validate("femail", "E-mail").required("Please provide your e-mail so we can respond to your feedback.").isEmail(),
+    validate("fmessage", "Feedback").required().notEmpty()
   ),
 
   // Express request-handler gets filtered and validated data
