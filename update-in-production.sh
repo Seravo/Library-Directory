@@ -11,7 +11,7 @@ git checkout js/libs/jquery.facetview.js proxy.json server.js # move away old ch
 git pull git://github.com/Seravo/Library-Directory.git
 
 sed -i "s/8080/80/" server.js
-sed -i "s/\"localhost\"/\"libdir.seravo.fi\"/" proxy.json
+sed -i "s/localhost/libdir.seravo.fi/" proxy.json
 sed -i "s/localhost/libdir.seravo.fi/" js/libs/jquery.facetview.js
 
 cd css
