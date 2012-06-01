@@ -4,6 +4,19 @@
   <div class="span12">
       <h1>Contact</h1>
       <p>This site is the product of <a href="http://kirjastot.fi/">Kirjastot.fi</a>.</p>
+      {{#flash.error}}
+        Error: {{.}}<br>
+      {{/flash.error}}
+      {{#flash.info}}
+        Info: {{.}}<br>
+      {{/flash.info}}
+      <h2>Send us feedback!</h2>
+      <form method="post" action="/contact">
+          <label>Name: <input type="text" name="fname" value="{{fname}}"></labe>
+          <label>E-mail: <input type="text" name="femail" value="{{femail}}"></label>
+          <label>Message: <textarea></textarea></label>
+          <input type="submit" value="Submit">    
+      </form>
   </div>
 </div>
 

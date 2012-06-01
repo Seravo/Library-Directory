@@ -21,9 +21,10 @@
   "dependencies": {
     "connect" : "2.x",
     "express" : "2.x",
+    "express-form" : "0.6.x",
     "node-build-script": "https://github.com/h5bp/node-build-script/tarball/master",
-    "grunt" : "0.3.9",
-    "hogan" : "1.0.5-dev",
+    "grunt" : "0.3.x",
+    "hogan" : "1.0.x",
     "nodewatch" : "0.1.0"
   },
   "keywords": []
