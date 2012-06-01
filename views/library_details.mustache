@@ -13,7 +13,7 @@
     
     <p>[karttaikkuna - koordinaatit: {{contact.coordinates}}, karttalinkki: {{contact.map_url_fi}}]</p>
     
-    <p>{{description_fi}}</p>        
+    <p><strong class="quotesign">”</strong>{{description_fi}}</p>        
         		
 	<dl>
 		{{#services.0.name_fi}}
@@ -52,7 +52,7 @@
         <dd>
             <i class="icon-home"></i> <a href="{{contact.homepage_fi}}">{{contact.homepage_fi}}</a>
             {{#contact.internet}}
-                <br>{{url_description_fi}}: <a href="{{url_fi}}">{{name_fi}}</a>
+                <br><a href="{{url_fi}}">{{name_fi}}</a> ({{url_description_fi}})
             {{/contact.internet}}
         </dd>
 	    {{/contact.homepage_fi}}
