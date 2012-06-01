@@ -92,7 +92,11 @@ function get_libraries(callback) {
 
 // enrich result meta data
 function add_library_metadata(dataobj, callback){
-    console.log(JSON.stringify(dataobj, null, 4));
+    console.log(JSON.stringify(dataobj, null, 4).slice(0,500));
+
+    if (typeof dataobj._source == "undefined") {
+        dataobj._source = dataobj.hits.hits[0]._source;
+    }
 
     dataobj._source.opening_hours = get_library_open_hours(dataobj._source.period);
 
