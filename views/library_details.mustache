@@ -5,7 +5,7 @@
   <div class="span6">
 	<p><a href="/id/{{id}}">hakemisto.kirjastot.fi/{{name_short_fi}}</a></p>
 	<h1>{{name_fi}}</h1>
-    <p><strong class="address">{{contact.street_address.street_fi}}, {{contact.street_address.area_fi}} {{contact.street_address.post_code}} {{contact.street_address.municipality_fi}}</strong></p>
+    <p><strong class="address"><i class="icon-map-marker"></i> {{contact.street_address.street_fi}}, {{contact.street_address.area_fi}} {{contact.street_address.post_code}} {{contact.street_address.municipality_fi}}</strong></p>
 
     {{#contact.directions_fi}}
         <p>Directions: {{contact.directions_fi}}</p>
@@ -26,7 +26,7 @@
 	    <dt>Telephone numbers</dt>
 	    <dd>
 	        {{#contact.telephones}}
-                {{telephone_number}} / {{telephone_name_fi}}<br>
+                <img src="/img/glyphicons_139_phone.png" alt="Phone icon"> <a href="tel:{{telephone_number}}">{{telephone_number}}</a> / {{telephone_name_fi}}<br>
             {{/contact.telephones}}
 	    </dd>
 	    
@@ -37,11 +37,11 @@
 	    </dd>
 
 	    <dt>E-mail</dt>
-	    <dd>{{contact.email}}</dd>
+	    <dd><i class="icon-envelope"></i> <a href="mailto:{{contact.email}}">{{contact.email}}</a></dd>
 	    	    
         <dt>Homepage</dt>
         <dd>
-            <a href="{{contact.homepage_fi}}">{{contact.homepage_fi}}</a>
+            <i class="icon-home"></i> <a href="{{contact.homepage_fi}}">{{contact.homepage_fi}}</a>
             {{#contact.internet}}
                 <br>{{url_description_fi}}: <a href="{{url_fi}}">{{name_fi}}</a>
             {{/contact.internet}}
@@ -50,8 +50,8 @@
 	    <dt>Library identificator and type</dt>
 	    <dd>
 	        ID: {{identificator}}<br>
-	        branch: {{branch_type}}<br>
-	        organisation: {{organisation_type}}
+	        Branch: {{branch_type}}<br>
+	        Organisation: {{organisation_type}}
 	    </dd>
 
 	    <dt>Established year</dt>
@@ -66,7 +66,8 @@
 
   <div class="span6">
     <div class="opentimes">
-
+    
+        <i class="icon-time"></i>
         <h3>The library is now
 		{{#opening_hours.open_now}}
 	        <strong class="open">Open</strong>
