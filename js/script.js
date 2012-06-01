@@ -45,10 +45,11 @@ function ld_mapcontrol_init(coords, name, desc) {
 		new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection),
 		{ },
 		{externalGraphic: 'js/libs/openlayers/markers/marker-black.png', graphicHeight: 41, graphicWidth: 25});
+	if (name!="" && desc!="") {
+		popup = new OpenLayers.Popup.FramedCloud("popup", mapLocation, new OpenLayers.Size(200, 200), name+desc, null, true);
+		map.addPopup(popup);
+	}
 
-	popup = new OpenLayers.Popup.FramedCloud("popup", mapLocation, new OpenLayers.Size(200, 200), name+desc, null, true);
-
-	map.addPopup(popup);
 	vectorLayer.addFeatures(marker);
 	map.addLayer(vectorLayer);
 

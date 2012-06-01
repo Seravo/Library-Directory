@@ -11,8 +11,19 @@
         <p>Directions: {{contact.directions_fi}}</p>
     {{/contact.directions_fi}}
     
-    <p>[karttaikkuna - koordinaatit: {{contact.coordinates}}, karttalinkki: {{contact.map_url_fi}}]</p>
-    
+	{{#contact.coordinates}}
+		<p>
+			<div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div></div>
+			<script type="text/javascript">
+			<!--
+			function library_details_map() { ld_mapcontrol_init("{{contact.coordinates}}","",""); }
+			-->
+			</script>
+			Coordinates: {{contact.coordinates}}
+			<!-- karttalinkki: {{contact.map_url_fi}} -->
+		</p>
+	{{/contact.coordinates}}
+
     <p><strong class="quotesign">”</strong>{{description_fi}}</p>        
         		
 	<dl>

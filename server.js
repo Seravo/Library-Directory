@@ -401,7 +401,7 @@ app.get("/id/:id",function(req,res,next) {
 
 app.get("/*",function(req,res,next) {
     res.local("header", header.render({title: "Library details", browse_active: true}))
-    res.local("footer", footer.render());
+    res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
     console.log("Requested: "+req.params);
     get_library_by_name(req.params[0], function(data){
         console.log("total: "+data.hits.total);
