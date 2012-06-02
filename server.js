@@ -372,8 +372,7 @@ app.post("/contact", // Route
     } else {
         // Or, use filtered form data from the form object:
 
-        message = "Feedback from: " + req.form.fname + " <" + req.form.femail + "> \n\n \
-        Message: \n" + req.form.fmessage + "\n";
+        message = "Feedback from: " + req.form.fname + " <" + req.form.femail + "> \n\nMessage: \n" + req.form.fmessage + "\n";
         console.log("Feedback message: " + message);
         var nodemailer = require("nodemailer");
         console.log("conf.nodemailer_config: " + conf.nodemailer_config);
