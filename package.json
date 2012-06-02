@@ -25,6 +25,7 @@
     "node-build-script": "https://github.com/h5bp/node-build-script/tarball/master",
     "grunt" : "0.3.x",
     "hogan" : "1.0.x",
+    "nodemailer" : "0.3.x",
     "nodewatch" : "0.1.0"
   },
   "keywords": []

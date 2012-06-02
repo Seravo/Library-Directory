@@ -1,10 +1,25 @@
 // export NODE_PATH="/usr/lib/node_modules/"
+var util = require('util');
+var fs = require('fs');
+
+try {
+    var content = fs.readFileSync("./config.json",'utf8').replace('\n', '');
+} catch(err) {
+    util.debug(err);
+    throw("Please set up your configuration by copying the config.json-template");
+}
+try {
+	var conf = JSON.parse(content);
+} catch (err) {
+    util.debug(err);
+    throw "Syntax error in config.json";
+}
+
 
 // Use consolidate.js in Express.js 3.0, otherwise custom adaptor
 // var cons = require('consolidate');
 var hogan = require('hogan');
 var adapter = require('hogan-express.js');
-var fs = require('fs');
 
 var connect = require('connect');
 var express = require('express');
@@ -355,9 +370,39 @@ app.post("/contact", // Route
       res.render("contact", res.locals());
 
     } else {
-      // Or, use filtered form data from the form object:
-      // TODO: email feedback
-      res.redirect('/feedback-sent');
+        // Or, use filtered form data from the form object:
+
+        message = "Feedback from: " + req.form.fname + " <" + req.form.femail + "> \n\n \
+        Message: \n" + req.form.fmessage + "\n";
+        console.log("Feedback message: " + message);
+        var nodemailer = require("nodemailer");
+        console.log("conf.nodemailer_config: " + conf.nodemailer_config);
+
+        // create reusable transport method (opens pool of SMTP connections)
+        var smtpTransport = nodemailer.createTransport("SMTP", conf.nodemailer_config);
+
+        // setup e-mail data with unicode symbols
+        var mailOptions = {
+            from: "Library directory <noreply@seravo.fi>", // sender address
+            to: "otto@seravo.fi", // list of receivers
+            subject: "Feedback from library directory", // Subject line
+            text: message // plaintext body
+        }
+
+        // send mail with defined transport object
+        smtpTransport.sendMail(mailOptions, function(error, response){
+            if(error){
+                console.log(error);
+            }else{
+                console.log("Message sent: " + response.message);
+            }
+
+            // if you don't want to use this transport object anymore, uncomment following line
+            //smtpTransport.close(); // shut down the connection pool, no more messages
+        });
+      
+      
+        res.redirect('/feedback-sent');
     }
   }
 );

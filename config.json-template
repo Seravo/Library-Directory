@@ -1,0 +1,10 @@
+{
+    "nodemailer_config": {
+        "service": "Gmail",
+        "auth": {
+            "user": "noreply@seravo.fi",
+            "pass": "xxxxxxxx"
+        }
+    }
+}
+
