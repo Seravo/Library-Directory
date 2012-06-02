@@ -83,7 +83,7 @@ app.configure(function(){
 var http = require('http');
 function get_libraries(callback) {
     var options = {
-      host: 'localhost',
+      host: conf.proxy_host,
       port: 8888,
       path: '/testink/organisation/_search?size=999&sort=name_fi',
       method: 'GET'
@@ -140,7 +140,7 @@ function add_library_metadata(dataobj, callback){
 // get a specific library
 function get_library_by_id(id, callback) {
     var options = {
-      host: 'localhost',
+      host: conf.proxy_host,
       port: 8888,
       path: '/testink/organisation/' + id,
       method: 'GET'
@@ -178,7 +178,7 @@ function get_library_by_name(name, callback) {
     query = JSON.stringify(query);
 
     var options = {
-      host: 'localhost',
+      host: conf.proxy_host,
       port: 8888,
       path: '/testink/organisation/_search',
       method: 'POST',
@@ -460,7 +460,6 @@ app.get("/*",function(req,res,next) {
 	});
 });
 
-port = 8080;
-app.listen(port);
-console.log("Server started at port " + port);
+app.listen(conf.server_port);
+console.log("Server started at port " + conf.server_port);
 

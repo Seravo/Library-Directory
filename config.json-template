@@ -5,6 +5,19 @@
             "user": "noreply@seravo.fi",
             "pass": "xxxxxxxx"
         }
+    },
+    "proxy_host": "localhost",
+    "server_port": 8080,
+    "proxy_config": {
+        "seeds" : ["localhost:9200"],
+        "refresh" : 2000,
+        "allow" : {
+            "GET" : ["(_search|_status|_mapping|_count|organisation)","/.+/.+/.+/_mlt","/.+/.+/.+]"],
+            "POST" : ["_search|_count","/.+/.+/.+/_mlt"],
+            "OPTIONS" : [".*"]
+        },
+        "port" : 8888,
+        "host": "localhost"
     }
 }
 
