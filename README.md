@@ -21,7 +21,11 @@ Instructions for Ubuntu 12.04, where the required dependencies can be installed 
     $ # sudo npm install -g -d
     
     # Instead install globally manually:
-    $ sudo npm install -g connect express express-form hogan grunt nodewatch https://github.com/h5bp/node-build-script/tarball/master
+    $ sudo npm install -g connect express express-form nodemailer hogan grunt nodewatch https://github.com/h5bp/node-build-script/tarball/master
+    
+    # Form the feedback form to work, you need to have some [Nodemailer](http://documentup.com/andris9/nodemailer/) compatible SMTP server credentials in config.json
+    $ cp config.json-template config.json
+    $ nano config.json # e.g. add the credentials of a dummy GMail account
 
 ### Elastic Search (Java server)
 
@@ -149,4 +153,7 @@ Other libraries are:
 Icons by Glyphicons (http://glyphicons.com/), license CC-BY-3.0.
 
 The Dark theme for OpenLayers by MapBox (from http://zzolo.org/thoughts/openlayers-facelift), license GPL2+ (as modules in Drupal-git are derivates of Drupal).
+
+Thank you also for all the great Node.js packages we use in this project!
+
 
