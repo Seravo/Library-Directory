@@ -315,10 +315,8 @@ if /en/(.*) -> html lang en
 if /sv/(.*) -> html lang sv
 */
 
-// init variable
-var context = {};
-header = hogan.compile(fs.readFileSync(__dirname + headerfile, 'utf-8'));
-footer = hogan.compile(fs.readFileSync(__dirname + footerfile, 'utf-8'));
+headerfilecontents = fs.readFileSync(__dirname + headerfile, 'utf-8');
+footerfilecontents = fs.readFileSync(__dirname + footerfile, 'utf-8');
 
 var watch = require('nodewatch');
 // Adding 2 dirs relative from process.cwd()
@@ -330,10 +328,24 @@ watch.add("./views").onChange(function(file,prev,curr,action){
     console.log("Views changed and reloaded");
     // Hogan.js does not support template inheritance yet, must do workaround
     // https://gist.github.com/1854699
-    header = hogan.compile(fs.readFileSync(__dirname + headerfile, 'utf-8'));
-    footer = hogan.compile(fs.readFileSync(__dirname + footerfile, 'utf-8'));
+    headerfilecontents = fs.readFileSync(__dirname + headerfile, 'utf-8');
+    footerfilecontents = fs.readFileSync(__dirname + footerfile, 'utf-8');
 });
- 
+
+// wrapped functions to transparently forward rendering to proper
+// rendering function that also has built in localization
+header = new function (options) {
+    this.render = function (options) {
+        return adapter.init(hogan).compile(headerfilecontents, options);
+    }
+}
+footer = new function (options) {
+    this.render = function (options) {
+        return adapter.init(hogan).compile(footerfilecontents, options);
+    }
+}
+
+
 app.get("/",function(req,res,next) {
     res.local("header", header.render({search_active: true}))
     res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
@@ -417,8 +429,7 @@ app.post("/contact", // Route
 );
 
 app.get("/contact",function(req,res,next) {
-    console.log(JSON.stringify(header.render()));
-    res.local("header", header.render({title: _("Contact"), contact_active: true}))
+    res.local("header", header.render({title: _("Contact"), contact_active: true}));
     res.local("footer", footer.render());
 	res.render("contact", res.locals());
 });
