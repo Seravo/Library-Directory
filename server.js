@@ -354,6 +354,7 @@ app.get("/browse",function(req,res,next) {
 });
 
 app.get("/about",function(req,res,next) {
+    res.local("i18n", function (i18nKey) {return _(i18nKey);});
     res.local("header", header.render({title: _("About"), about_active: true}))
     res.local("footer", footer.render());
 	res.render("about", res.locals());

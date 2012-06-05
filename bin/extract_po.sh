@@ -12,7 +12,7 @@ xgettext  --keyword=_ -L Python --output-dir=locale/templates/LC_MESSAGES --from
 server.js
 sed -e 's/charset=CHARSET/charset=UTF-8/g' < locale/templates/LC_MESSAGES/messages.pot > messages.pot.tmp
 mv messages.pot.tmp locale/templates/LC_MESSAGES/messages.pot
-xgettext -j -L PHP --keyword=_ --output-dir=locale/templates/LC_MESSAGES --output=messages.pot `find server -name '*.ejs'`
+xgettext -j -L PHP --keyword=_ --output-dir=locale/templates/LC_MESSAGES --output=messages.pot `find . -name '*.mustache'`
 
 # i18n-abide supports client-side gettext too. Usually you won't need this, unless your doing some
 # fancy new fangled webapp.
