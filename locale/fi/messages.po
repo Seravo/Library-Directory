@@ -1,0 +1,70 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Library Directory\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-05 15:43+0300\n"
+"PO-Revision-Date: 2012-06-05 16:05+0200\n"
+"Last-Translator: Otto Kekäläinen <otto@seravo.fi>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Finnish\n"
+"X-Poedit-Country: Finland\n"
+
+#: server.js:25
+msgid "Using locale "
+msgstr "Käytetään kotoistusta "
+
+#: server.js:341
+msgid "Browse all"
+msgstr "Selaa kaikkia"
+
+#: server.js:355
+msgid "About"
+msgstr "Tietoa palvelusta"
+
+#: server.js:364
+msgid "Name"
+msgstr "Nimi"
+
+#: server.js:366
+msgid "E-mail"
+msgstr "Sähköposti"
+
+#: server.js:366
+msgid "Please provide your e-mail so we can respond to your feedback."
+msgstr "Ole hyvä ja anna sähköpostiosoitteesi jotta voimme vastata palautteeseesi."
+
+#: server.js:367
+msgid "Feedback"
+msgstr "Palaute"
+
+#: server.js:375
+#: server.js:417
+msgid "Contact"
+msgstr "Yhteystiedot"
+
+#: server.js:382
+msgid "Feedback from: "
+msgstr "Palautetta lähettäjältä:"
+
+#: server.js:394
+msgid "Feedback from library directory"
+msgstr "Palautetta kirjastohakemistosta"
+
+#: server.js:424
+msgid "Feedback sent"
+msgstr "Palaute lähetetty"
+
+#: server.js:443
+#: server.js:454
+msgid "Library details"
+msgstr "Kirjaston tiedot"
+

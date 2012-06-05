@@ -22,6 +22,9 @@ Instructions for Ubuntu 12.04, where the required dependencies can be installed 
     
     # Instead install globally manually:
     $ sudo npm install -g connect express express-form nodemailer hogan grunt nodewatch https://github.com/h5bp/node-build-script/tarball/master
+    # Normal "npm install -g gettext" no possible, library broken with TypeError: Object #<Object> has no method 'dcnpgettext'
+    # Install a fixed fork
+    $ sudo npm install -g git://github.com/dodo/node-gettext.git
     
     # Form the feedback form to work, you need to have some [Nodemailer](http://documentup.com/andris9/nodemailer/) compatible SMTP server credentials in config.json
     $ cp config.json-template config.json

@@ -1,0 +1,66 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-05 15:43+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: server.js:25
+msgid "Using locale "
+msgstr ""
+
+#: server.js:341
+msgid "Browse all"
+msgstr ""
+
+#: server.js:355
+msgid "About"
+msgstr ""
+
+#: server.js:364
+msgid "Name"
+msgstr ""
+
+#: server.js:366
+msgid "E-mail"
+msgstr ""
+
+#: server.js:366
+msgid "Please provide your e-mail so we can respond to your feedback."
+msgstr ""
+
+#: server.js:367
+msgid "Feedback"
+msgstr ""
+
+#: server.js:375 server.js:417
+msgid "Contact"
+msgstr ""
+
+#: server.js:382
+msgid "Feedback from: "
+msgstr ""
+
+#: server.js:394
+msgid "Feedback from library directory"
+msgstr ""
+
+#: server.js:424
+msgid "Feedback sent"
+msgstr ""
+
+#: server.js:443 server.js:454
+msgid "Library details"
+msgstr ""

@@ -15,6 +15,16 @@ try {
     throw "Syntax error in config.json";
 }
 
+// Gettext
+// _() might conflict with underscore.js, but not an issue for us
+var gettext = require('gettext'),
+    _ = gettext.gettext;
+
+gettext.setlocale('LC_ALL', 'fi');
+    
+gettext.loadLanguageFile('./locale/fi/messages.po', 'fi', function(){ 
+    console.log(_("Using locale ") + gettext.lang);
+});
 
 // Use consolidate.js in Express.js 3.0, otherwise custom adaptor
 // var cons = require('consolidate');
@@ -330,7 +340,7 @@ app.get("/",function(req,res,next) {
 });
 
 app.get("/browse",function(req,res,next) {
-    res.local("header", header.render({title: "Browse all", browse_active: true}))
+    res.local("header", header.render({title: _("Browse all"), browse_active: true}))
     res.local("footer", footer.render());
     get_libraries(function(data){
 		res.local("count", data.hits.total);
@@ -344,7 +354,7 @@ app.get("/browse",function(req,res,next) {
 });
 
 app.get("/about",function(req,res,next) {
-    res.local("header", header.render({title: "About", about_active: true}))
+    res.local("header", header.render({title: _("About"), about_active: true}))
     res.local("footer", footer.render());
 	res.render("about", res.locals());
 });
@@ -353,10 +363,10 @@ app.post("/contact", // Route
   
   form( // Form filter and validation middleware
     filter("fname").trim(),
-    validate("fname", "Name").required().notEmpty(),
+    validate("fname", _("Name")).required().notEmpty(),
     filter("femail").trim(),
-    validate("femail", "E-mail").required("Please provide your e-mail so we can respond to your feedback.").isEmail(),
-    validate("fmessage", "Feedback").required().notEmpty()
+    validate("femail", _("E-mail")).required(_("Please provide your e-mail so we can respond to your feedback.")).isEmail(),
+    validate("fmessage", _("Feedback")).required().notEmpty()
   ),
 
   // Express request-handler gets filtered and validated data
@@ -364,14 +374,14 @@ app.post("/contact", // Route
     if (!req.form.isValid) {
       // Handle errors
       res.local("errors", req.form.getErrors());
-      res.local("header", header.render({title: "Contact", contact_active: true}));
+      res.local("header", header.render({title: _("Contact"), contact_active: true}));
       res.local("footer", footer.render());
       res.render("contact", res.locals());
 
     } else {
         // Or, use filtered form data from the form object:
 
-        message = "Feedback from: " + req.form.fname + " <" + req.form.femail + "> \n\nMessage: \n" + req.form.fmessage + "\n";
+        message = _("Feedback from: ") + req.form.fname + " <" + req.form.femail + "> \n\nMessage: \n" + req.form.fmessage + "\n";
         console.log("Feedback message: " + message);
         var nodemailer = require("nodemailer");
         console.log("conf.nodemailer_config: " + conf.nodemailer_config);
@@ -383,7 +393,7 @@ app.post("/contact", // Route
         var mailOptions = {
             from: "Library directory <noreply@seravo.fi>", // sender address
             to: "otto@seravo.fi", // list of receivers
-            subject: "Feedback from library directory", // Subject line
+            subject: _("Feedback from library directory"), // Subject line
             text: message // plaintext body
         }
 
@@ -406,14 +416,14 @@ app.post("/contact", // Route
 );
 
 app.get("/contact",function(req,res,next) {
-    res.local("header", header.render({title: "Contact", contact_active: true}))
+    res.local("header", header.render({title: _("Contact"), contact_active: true}))
     res.local("footer", footer.render());
 	res.render("contact", res.locals());
 });
 
 app.get("/feedback-sent",function(req,res,next) {
 	console.log(JSON.stringify(res.locals()));
-    res.local("header", header.render({title: "Feedback sent", contact_active: true}))
+    res.local("header", header.render({title: _("Feedback sent"), contact_active: true}))
     res.local("footer", footer.render());
 	res.render("feedback-sent", res.locals());
 });
@@ -432,7 +442,7 @@ app.get('/widget', function(req, res){
 });
 
 app.get("/id/:id",function(req,res,next) {
-    res.local("header", header.render({title: "Library details", browse_active: true}))
+    res.local("header", header.render({title: _("Library details"), browse_active: true}))
     res.local("footer", footer.render());
 
     get_library_by_id(req.params.id, function(data){
@@ -443,7 +453,7 @@ app.get("/id/:id",function(req,res,next) {
 });
 
 app.get("/*",function(req,res,next) {
-    res.local("header", header.render({title: "Library details", browse_active: true}))
+    res.local("header", header.render({title: _("Library details"), browse_active: true}))
     res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
     console.log("Requested: "+req.params);
     get_library_by_name(req.params[0], function(data){
