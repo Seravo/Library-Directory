@@ -17,11 +17,13 @@ try {
 
 // Gettext
 // _() might conflict with underscore.js, but not an issue for us
-var gettext = require('gettext'),
+// do withouth var, makes global
+gettext = require('gettext'),
     _ = gettext.gettext;
 
-gettext.setlocale('LC_ALL', 'fi');
-    
+gettext.setlocale('LC_ALL', 'en'); // default language English
+lang = gettext.lang; // save in global variable
+
 gettext.loadLanguageFile('./locale/fi/messages.po', 'fi', function(){ 
     console.log(_("Using locale ") + gettext.lang);
 });
