@@ -309,14 +309,6 @@ function get_library_open_hours(periods) {
 	return opening_hours;
 }
 
-/* 
-route logic:
-if /(.*) <html lang="fi"...
-if /fi/(.*) -> html lang fi
-if /en/(.*) -> html lang en
-if /sv/(.*) -> html lang sv
-*/
-
 headerfilecontents = fs.readFileSync(__dirname + headerfile, 'utf-8');
 footerfilecontents = fs.readFileSync(__dirname + footerfile, 'utf-8');
 
@@ -348,13 +340,48 @@ footer = new function (options) {
 }
 
 
-app.get("/",function(req,res,next) {
+
+/* 
+route logic:
+if /(.*) <html lang="fi"...
+if /fi/(.*) -> html lang fi
+if /en/(.*) -> html lang en
+if /sv/(.*) -> html lang sv
+*/
+
+
+// language switcher based on url
+// bug: this switches language for whole node.js process,
+// what we want is a specific locale only to reply to the request
+// and we need to keep consecutive url consistent with language url
+app.get("/fi/([a-z]*)",function(req,res,next) {
+    gettext.setlocale('LC_ALL', 'fi'); // default language English
+    lang = gettext.lang; // save in global variable
+    console.log("Using locale fi");
+    next('route');
+});
+app.get("/en/([a-z]*)",function(req,res,next) {
+    gettext.setlocale('LC_ALL', 'en'); // default language English
+    lang = gettext.lang; // save in global variable
+    console.log("Using locale en");
+    next('route');
+});
+app.get("/se/([a-z]*)",function(req,res,next) {
+    gettext.setlocale('LC_ALL', 'se'); // default language English
+    lang = gettext.lang; // save in global variable
+    console.log("Using locale se");
+    next('route');
+});
+
+
+
+app.get("(/[a-z][a-z])?/",function(req,res,next) {
     res.local("header", header.render({search_active: true}))
     res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 	res.render("index", res.locals());
 });
 
-app.get("/browse",function(req,res,next) {
+app.get("(/[a-z][a-z])?/browse",function(req,res,next) {
     res.local("header", header.render({title: _("Browse all"), browse_active: true}))
     res.local("footer", footer.render());
     get_libraries(function(data){
@@ -368,13 +395,13 @@ app.get("/browse",function(req,res,next) {
     });
 });
 
-app.get("/about",function(req,res,next) {
+app.get("(/[a-z][a-z])?/about",function(req,res,next) {
     res.local("header", header.render({title: _("About"), about_active: true}))
     res.local("footer", footer.render());
 	res.render("about", res.locals());
 });
 
-app.post("/contact", // Route
+app.post("(/[a-z][a-z])?/contact", // Route
   
   form( // Form filter and validation middleware
     filter("fname").trim(),
@@ -430,33 +457,33 @@ app.post("/contact", // Route
   }
 );
 
-app.get("/contact",function(req,res,next) {
+app.get("(/[a-z][a-z])?/contact",function(req,res,next) {
     res.local("header", header.render({title: _("Contact"), contact_active: true}));
     res.local("footer", footer.render());
 	res.render("contact", res.locals());
 });
 
-app.get("/feedback-sent",function(req,res,next) {
+app.get("(/[a-z][a-z])?/feedback-sent",function(req,res,next) {
 	console.log(JSON.stringify(res.locals()));
     res.local("header", header.render({title: _("Feedback sent"), contact_active: true}))
     res.local("footer", footer.render());
 	res.render("feedback-sent", res.locals());
 });
 
-app.get('/widget/load', function(req, res){
+app.get('(/[a-z][a-z])?/widget/load', function(req, res){
     // what kind of widget was requested?
     // with what parameters?
     // print out custom widget
     res.send('prints out custom widget js');
 });
 
-app.get('/widget', function(req, res){
+app.get('(/[a-z][a-z])?/widget', function(req, res){
     // display form for generating custom widget code
     // result <script src="http://hakemisto.kirjastot.fi/widget/load/?area=helmet"></script>
     res.send('prints out customization wizard');
 });
 
-app.get("/id/:id",function(req,res,next) {
+app.get("(/[a-z][a-z])?/id/:id",function(req,res,next) {
     res.local("header", header.render({title: _("Library details"), browse_active: true}))
     res.local("footer", footer.render());
 
@@ -467,7 +494,7 @@ app.get("/id/:id",function(req,res,next) {
 		});
 });
 
-app.get("/*",function(req,res,next) {
+app.get("(/[a-z][a-z])?/*",function(req,res,next) {
     res.local("header", header.render({title: _("Library details"), browse_active: true}))
     res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
     console.log("Requested: "+req.params);
