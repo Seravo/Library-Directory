@@ -8,7 +8,7 @@
     <p><strong class="address"><i class="icon-map-marker"></i> {{contact.street_address.street_fi}}, {{contact.street_address.area_fi}} {{contact.street_address.post_code}} {{contact.street_address.municipality_fi}}</strong></p>
 
     {{#contact.directions_fi}}
-        <p>Directions: {{contact.directions_fi}}</p>
+        <p>_("Directions"): {{contact.directions_fi}}</p>
     {{/contact.directions_fi}}
     
 	{{#contact.coordinates}}
@@ -28,7 +28,7 @@
         		
 	<dl>
 		{{#services.0.name_fi}}
-	    <dt>Services</dt>
+	    <dt>_("Services")</dt>
 	    <dd>
 	         {{#services}}
                 {{name_fi}}<br>
@@ -47,29 +47,29 @@
 	    {{/services.0.name_fi}}
 	    
 		{{#contact.telephones.0.telephone_number}}
-	    <dt>Telephone numbers</dt>
+	    <dt>_("Telephone numbers")</dt>
 	    <dd>
 	        {{#contact.telephones}}
-                <img src="/img/glyphicons_139_phone.png" alt="Phone icon"> <a href="tel:{{telephone_number}}">{{telephone_number}}</a> / {{telephone_name_fi}}<br>
+                <img src="/img/glyphicons_139_phone.png" alt="_("Phone icon")"> <a href="tel:{{telephone_number}}">{{telephone_number}}</a> / {{telephone_name_fi}}<br>
             {{/contact.telephones}}
 	    </dd>
 	    {{/contact.telephones.0.telephone_number}}
 	    
 		{{#contact.mail_address.post_box}}
-	    <dt>Mail address</dt>
+	    <dt>_("Mail address")</dt>
 	    <dd>
-	        PB {{contact.mail_address.post_box}}<br>
+	        _("PB") {{contact.mail_address.post_box}}<br>
 	        {{contact.mail_address.post_code}} {{contact.mail_address.post_office_fi}}
 	    </dd>
 	    {{/contact.mail_address.post_box}}
 
 		{{#contact.email}}
-	    <dt>E-mail</dt>
+	    <dt>_("E-mail")</dt>
 	    <dd><i class="icon-envelope"></i> <a href="mailto:{{contact.email}}">{{contact.email}}</a></dd>
 	    {{/contact.email}}
 	    	    
 		{{#contact.homepage_fi}}
-        <dt>Homepage</dt>
+        <dt>_("Homepage")</dt>
         <dd>
             <i class="icon-home"></i> <a href="{{contact.homepage_fi}}">{{contact.homepage_fi}}</a>
             {{#contact.internet}}
@@ -79,7 +79,7 @@
 	    {{/contact.homepage_fi}}
 
 		{{#additional_info}}
-        <dt>Additional info</dt>
+        <dt>_("Additional info")</dt>
         <dd>
             {{#extrainfo}}
                 {{property_label_fi}}: {{property_value_fi}}<br>
@@ -88,45 +88,45 @@
 	    {{/additional_info}}
 
 
-	    <dt>Library identificator and type</dt>
+	    <dt>_("Library identificator and type")</dt>
 	    <dd>
-	        ID: {{identificator}}<br>
-	        Branch: {{branch_type}}<br>
-	        Organisation: {{organisation_type}}
+	        _("ID"): {{identificator}}<br>
+	        _("Branch"): {{branch_type}}<br>
+	        _("Organisation"): {{organisation_type}}
 	    </dd>
 
 		{{#established_year}}
-	    <dt>Established year</dt>
+	    <dt>_("Established year")</dt>
 	    <dd>{{established_year}}</dd>
 	    {{/established_year}}
 
-	    <dt>Library consortium</dt>
+	    <dt>_("Library consortium")</dt>
 	    <dd><a href="/id/{{parent_organisation}}">{{consortium}}</a></dd>	    
     </dl>
 
-    <p><small>Last modified: {{meta.modified}}</small></p>
+    <p><small>_("Last modified"): {{meta.modified}}</small></p>
   </div>
 
   <div class="span6">
     <div class="opentimes">
         <i class="icon-time"></i>
         {{#neveropen}}
-            No open times, since this is a {{organisation_type}}.
+            _("No open times, since this is a {{organisation_type}}.")
         {{/neveropen}}
 
         {{^neveropen}}
-            <h3>The library is now
+            <h3>_("The library is now")
 		    {{#opening_hours.open_now}}
-	            <strong class="open">Open</strong>
+	            <strong class="open">_("Open")</strong>
 			    Opening hours today {{opening_hours.open_hours_today}}
 		    {{/opening_hours.open_now}}
 
 		    {{^opening_hours.open_now}}
-	            <strong class="closed">Closed</strong>
+	            <strong class="closed">_("Closed")</strong>
 	        {{/opening_hours.open_now}}
 		    </h3>
 		    <br>
-	        <h3>Opening hours this week</h3>
+	        <h3>_("Opening hours this week")</h3>
 	        <table>
 			    {{#opening_hours.open_hours_week}}
 				    <tr><td>{{day}}<td>&nbsp;<td>{{time}}</tr>
@@ -142,39 +142,39 @@
         {{/image_url}}
         <table>
         {{#contact.building_fi}}
-            <tr><th>Building:</th><td>{{contact.building_fi}}</td></tr>
+            <tr><th>_("Building"):</th><td>{{contact.building_fi}}</td></tr>
         {{/contact.building_fi}}
         {{#contact.building_year}}
-            <tr><th>Built</th><td>{{contact.building_year}}</td></tr>
+            <tr><th>_("Built"):</th><td>{{contact.building_year}}</td></tr>
         {{/contact.building_year}}
         {{#contact.building_architect}}
-            <tr><th>Architect:</th><td>{{contact.building_architect}}</td></tr>
+            <tr><th>_("Architect"):</th><td>{{contact.building_architect}}</td></tr>
         {{/contact.building_architect}} 
         <td><th colspan="2">&nbsp;</td></tr>
         {{#accessibility.accessible_entry}}
-            <tr><th>Accessible entry:</th><td>yes</td></tr>
+            <tr><th>_("Accessible entry"):</th><td>_("yes")</td></tr>
         {{/accessibility.accessible_entry}}
         {{#accessibility.accessible_parking}}
-            <tr><th>Accessible parking:</th><td>yes</td></tr>
+            <tr><th>_("Accessible parking"):</th><td>_("yes")</td></tr>
         {{/accessibility.accessible_parking}}
         {{#accessibility.accessible_toilet}}
-            <tr><th>Accessible toilet:</th><td>yes</td></tr>
+            <tr><th>_("Accessible toilet"):</th><td>_("yes")</td></tr>
         {{/accessibility.accessible_toilet}}
     	{{#extraaccessibilityinfo}}
             <tr><th>{{extra_accessibility_property_label_fi}}:</th><td>{{extra_accessibility_property_value_fi}}</td></tr>
         {{/extraaccessibilityinfo}}
         {{#accessibility.induction_loop}}
-            <tr><th>Induction loop:</th><td>yes</td></tr>
+            <tr><th>_("Induction loop"):</th><td>_("yes")</td></tr>
         {{/accessibility.induction_loop}}
         {{#accessibility.large_typeface_collection}}
-            <tr><th>Large typeface<br> collection:</th><td>yes</td></tr>
+            <tr><th>_("Large typeface<br> collection"):</th><td>_("yes")</td></tr>
         {{/accessibility.large_typeface_collection}}
         {{#accessibility.lift}}
-            <tr><th>Lift:</th><td>yes</td></tr>
+            <tr><th>_("Lift"):</th><td>_("yes")</td></tr>
         {{/accessibility.lift}}
         <td><th colspan="2">&nbsp;</td></tr>
         {{#contact.parking_fi}}
-            <tr><th>Parking:</th><td>{{contact.parking_fi}}</td></tr>
+            <tr><th>_("Parking"):</th><td>{{contact.parking_fi}}</td></tr>
         {{/contact.parking_fi}}
         </table>
     </div>

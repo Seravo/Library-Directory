@@ -26,6 +26,7 @@ gettext.loadLanguageFile('./locale/fi/messages.po', 'fi', function(){
     console.log(_("Using locale ") + gettext.lang);
 });
 
+
 // Use consolidate.js in Express.js 3.0, otherwise custom adaptor
 // var cons = require('consolidate');
 var hogan = require('hogan');
@@ -354,7 +355,6 @@ app.get("/browse",function(req,res,next) {
 });
 
 app.get("/about",function(req,res,next) {
-    res.local("i18n", function (i18nKey) {return _(i18nKey);});
     res.local("header", header.render({title: _("About"), about_active: true}))
     res.local("footer", footer.render());
 	res.render("about", res.locals());
@@ -417,6 +417,7 @@ app.post("/contact", // Route
 );
 
 app.get("/contact",function(req,res,next) {
+    console.log(JSON.stringify(header.render()));
     res.local("header", header.render({title: _("Contact"), contact_active: true}))
     res.local("footer", footer.render());
 	res.render("contact", res.locals());

@@ -2,26 +2,27 @@
 
 <div class="row-fluid">
   <div class="span12">
-      <h1>Contact</h1>
-      <p>This site is the product of <a href="http://kirjastot.fi/">Kirjastot.fi</a>.</p>
-      <h2>Send us feedback!</h2>
+      <h1>_("Contact")</h1>
+      <p>_("This site is the product of <a href='http://kirjastot.fi/'>Kirjastot.fi</a>.")</p>
+      <h2>_("Send us feedback!")</h2>
       <form method="post" action="/contact">
-          <label>Name: <input type="text" name="fname" value="{{fname}}"></label>
+          <label>_("Name"): <input type="text" name="fname" value="{{fname}}"></label>
             {{#errors.fname}}
-                <div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>Error:</strong> {{.}}</div>
+                <div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>_("Error"):</strong> {{.}}</div>
             {{/errors.fname}}
 
-          <label>E-mail: <input type="text" name="femail" value="{{femail}}"></label>
+          <label>_("E-mail"): <input type="text" name="femail" value="{{femail}}"></label>
             {{#errors.femail}}
-                <div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>Error:</strong> {{.}}</div>
+                <div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>_("Error"):</strong> {{.}}</div>
             {{/errors.femail}}
 
-          <label>Message: <textarea name="fmessage">{{fmessage}}</textarea></label>
+          <label>_("Message"): <textarea name="fmessage">{{fmessage}}</textarea></label>
             {{#errors.fmessage}}
-                <div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>Error:</strong> {{.}}</div>
+                <div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>_("Error"):</strong> {{.}}</div>
             {{/errors.fmessage}}
 
-          <input type="submit" value="Submit" class="btn btn-primary">    
+          <!-- for gettext reasons quotation must be inside translation string -->
+          <input type="submit" value=_("'Submit'") class="btn btn-primary">
       </form>
   </div>
 </div>
