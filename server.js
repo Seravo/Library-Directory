@@ -176,19 +176,16 @@ function get_library_by_name(name, callback) {
      }
     };
     query = JSON.stringify(query);
+	query = encodeURIComponent(query);
 
     var options = {
       host: conf.proxy_host,
       port: 8888,
-      path: '/testink/organisation/_search',
-      method: 'POST',
-      headers: {  
-          'Content-Type': 'application/x-www-form-urlencoded',  
-          'Content-Length': query.length  
-      }
+      path: '/testink/organisation/_search?source='+query,
+      method: 'GET'
     };
    
-    var req = http.request(options, function(res) {
+    var req = http.get(options, function(res) {
       res.setEncoding('utf8');
       data = '';
       res.on('data', function(chunk){
@@ -197,15 +194,17 @@ function get_library_by_name(name, callback) {
       });
       res.on('end', function() {
           dataobj = JSON.parse(data);
-          add_library_metadata(dataobj, callback);
+          if (dataobj.hits.total>0) {
+	          add_library_metadata(dataobj, callback);
+		  }
+		  else {
+			  callback(dataobj);
+		  }
       });
     }).on('error', function(e) {
       console.log('Problem with request: ' + e.message);
     });
-    req.write(query);  
-    req.end();  
 }
-
 
 function get_library_open_hours(periods) {
 	function ld_format_time(time) {
