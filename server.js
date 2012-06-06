@@ -122,6 +122,10 @@ function get_libraries(callback) {
 function add_library_metadata(dataobj, callback){
     console.log(JSON.stringify(dataobj, null, 4).slice(0,500));
 
+    if (typeof dataobj.exists == false) {
+        console.log("Bogus request: no matching record for id");
+        return false; // TODO: write better error handling with error message to end user
+    }
     if (typeof dataobj._source == "undefined") {
         dataobj._source = dataobj.hits.hits[0]._source;
     }
@@ -167,6 +171,7 @@ function get_library_by_id(id, callback) {
       });
       res.on('end', function() {
           dataobj = JSON.parse(data);
+          console.log(JSON.stringify(dataobj));
           add_library_metadata(dataobj, callback);
       });
     }).on('error', function(e) {
@@ -328,14 +333,14 @@ watch.add("./views").onChange(function(file,prev,curr,action){
 
 // wrapped functions to transparently forward rendering to proper
 // rendering function that also has built in localization
-header = new function (options) {
+header = new function () {
     this.render = function (options) {
-        return adapter.init(hogan).compile(headerfilecontents, options);
+        return adapter.init(hogan).compile(headerfilecontents)(options);
     }
 }
-footer = new function (options) {
+footer = new function () {
     this.render = function (options) {
-        return adapter.init(hogan).compile(footerfilecontents, options);
+        return adapter.init(hogan).compile(footerfilecontents)(options);
     }
 }
 
@@ -375,13 +380,14 @@ app.get("/se/([a-z]*)",function(req,res,next) {
 
 
 
-app.get("(/[a-z][a-z])?/",function(req,res,next) {
+//app.get("(/[a-z][a-z])?/",function(req,res,next) {
+app.get("/",function(req,res,next) {
     res.local("header", header.render({search_active: true}))
     res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 	res.render("index", res.locals());
 });
 
-app.get("(/[a-z][a-z])?/browse",function(req,res,next) {
+app.get("/browse",function(req,res,next) {
     res.local("header", header.render({title: _("Browse all"), browse_active: true}))
     res.local("footer", footer.render());
     get_libraries(function(data){
@@ -395,13 +401,13 @@ app.get("(/[a-z][a-z])?/browse",function(req,res,next) {
     });
 });
 
-app.get("(/[a-z][a-z])?/about",function(req,res,next) {
+app.get("/about",function(req,res,next) {
     res.local("header", header.render({title: _("About"), about_active: true}))
     res.local("footer", footer.render());
 	res.render("about", res.locals());
 });
 
-app.post("(/[a-z][a-z])?/contact", // Route
+app.post("/contact", // Route
   
   form( // Form filter and validation middleware
     filter("fname").trim(),
@@ -457,35 +463,36 @@ app.post("(/[a-z][a-z])?/contact", // Route
   }
 );
 
-app.get("(/[a-z][a-z])?/contact",function(req,res,next) {
+app.get("/contact",function(req,res,next) {
     res.local("header", header.render({title: _("Contact"), contact_active: true}));
     res.local("footer", footer.render());
 	res.render("contact", res.locals());
 });
 
-app.get("(/[a-z][a-z])?/feedback-sent",function(req,res,next) {
+app.get("/feedback-sent",function(req,res,next) {
 	console.log(JSON.stringify(res.locals()));
     res.local("header", header.render({title: _("Feedback sent"), contact_active: true}))
     res.local("footer", footer.render());
 	res.render("feedback-sent", res.locals());
 });
 
-app.get('(/[a-z][a-z])?/widget/load', function(req, res){
+app.get('/widget/load', function(req, res){
     // what kind of widget was requested?
     // with what parameters?
     // print out custom widget
     res.send('prints out custom widget js');
 });
 
-app.get('(/[a-z][a-z])?/widget', function(req, res){
+app.get('/widget', function(req, res){
     // display form for generating custom widget code
     // result <script src="http://hakemisto.kirjastot.fi/widget/load/?area=helmet"></script>
     res.send('prints out customization wizard');
 });
 
-app.get("(/[a-z][a-z])?/id/:id",function(req,res,next) {
+app.get("/id/:id",function(req,res,next) {
     res.local("header", header.render({title: _("Library details"), browse_active: true}))
     res.local("footer", footer.render());
+    console.log("id: " + req.params.id);
 
     get_library_by_id(req.params.id, function(data){
 		data._source["id"] = data._id;
@@ -494,7 +501,7 @@ app.get("(/[a-z][a-z])?/id/:id",function(req,res,next) {
 		});
 });
 
-app.get("(/[a-z][a-z])?/*",function(req,res,next) {
+app.get("/*",function(req,res,next) {
     res.local("header", header.render({title: _("Library details"), browse_active: true}))
     res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
     console.log("Requested: "+req.params);
