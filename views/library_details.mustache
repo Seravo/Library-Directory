@@ -5,7 +5,7 @@
   <div class="span6">
 	<p><a href="/id/{{id}}">hakemisto.kirjastot.fi/{{name_short_fi}}</a></p>
 	<h1>{{name_fi}}</h1>
-    <p><strong class="address"><i class="icon-map-marker"></i> {{contact.street_address.street_fi}}, {{contact.street_address.area_fi}} {{contact.street_address.post_code}} {{contact.street_address.municipality_fi}}</strong></p>
+    <p><strong class="address"><i class="icon-map-marker"></i> <a href="http://www.openstreetmap.org/?lat={{contact.coordinnates_lat}}&lon={{contact.coordinnates_lon}}&zoom=15&layers=Q">{{contact.street_address.street_fi}}, {{contact.street_address.area_fi}} {{contact.street_address.post_code}} {{contact.street_address.municipality_fi}}</a></strong></p>
 
     {{#contact.directions_fi}}
         <p>_("Directions"): {{contact.directions_fi}}</p>
@@ -19,8 +19,7 @@
 			function library_details_map() { ld_mapcontrol_init("{{contact.coordinates}}","",""); }
 			-->
 			</script>
-			Coordinates: {{contact.coordinates}}
-			<!-- karttalinkki: {{contact.map_url_fi}} -->
+			<!-- {{contact.coordinates}} {{contact.map_url_fi}} -->
 		</p>
 	{{/contact.coordinates}}
 

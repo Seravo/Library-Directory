@@ -21,7 +21,8 @@ try {
 gettext = require('gettext'),
     _ = gettext.gettext;
 
-gettext.setlocale('LC_ALL', 'en'); // default language English
+//gettext.setlocale('LC_ALL', 'en'); // default language English
+gettext.setlocale('LC_ALL', 'fi'); // default language Finnish (for server, not single request!)
 lang = gettext.lang; // save in global variable
 
 gettext.loadLanguageFile('./locale/fi/messages.po', 'fi', function(){ 
@@ -149,6 +150,12 @@ function add_library_metadata(dataobj, callback){
     }
     if (dataobj._source.established_year == '') {
         delete dataobj._source.established_year;
+    }
+    
+    if (dataobj._source.contact.coordinates != '') {
+        latlon = dataobj._source.contact.coordinates.split(",");
+        dataobj._source.contact.coordinnates_lat = latlon[0];
+        dataobj._source.contact.coordinnates_lon = latlon[1];
     }
 
     callback(dataobj);
