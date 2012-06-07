@@ -82,8 +82,6 @@
 		    "format": coordinate_format },
 		  { "fields": "contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi", "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
 		[ { "fields": "open_now, opening_hours", "format": opening_hours_format } ],
-		[ { "fields": "contact.telephones.telephone_number", "format": "<img src='img/glyphicons_139_phone.png' alt='Phone icon'> <a href='tel:{{d0}}'>{{d0}}</a>" },
-		  { "fields": "contact.telephones.telephone_name_fi", "format": " ({{d0}})" } ],
 		[ { "fields": "id, name_short_fi, name_fi", "format": "<a class='btn btn-big btn-info' title='{{d2}} ({{d0}})' href='/{{d1}}'><i class='icon-info-sign icon-white'></i> Show details</a>" } ]
 	]
 /*		[ { "field": "services" } ], */
