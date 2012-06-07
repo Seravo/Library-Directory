@@ -96,12 +96,31 @@ app.configure(function(){
 // get list of all libraries
 var http = require('http');
 function get_libraries(callback) {
+
+	var query = {
+		"size": 999,
+		"sort": [ { "name_fi" : {} } ],
+		"query":
+			{ "bool":
+				{ "should" :
+					[
+						{ "term" : { "organisation_type" : "library" } },
+						{ "term" : { "organisation_type" : "branchlibrary" } }
+					]
+				}
+			}
+		};
+
+	query = JSON.stringify(query);
+	query = encodeURIComponent(query);
+
     var options = {
       host: conf.proxy_config.host,
       port: 8888,
-      path: '/testink/organisation/_search?size=999&sort=name_fi',
+      path: '/testink/organisation/_search?source='+query,
       method: 'GET'
     };
+
     var req = http.get(options, function(res) {
       console.log('GET: ' + options.path);
       console.log('STATUS: ' + res.statusCode);

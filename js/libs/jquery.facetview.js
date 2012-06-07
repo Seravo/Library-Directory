@@ -104,7 +104,7 @@
             "display_images": true,
             "visualise_filters": true,
             "description":"",
-            "search_url":"http://localhost:8888/testink/_search?",
+            "search_url":"http://localhost:8888/testink/organisation/_search?",
             // TODO: if localhost unreachable, use public server
             // "search_url":"http://libdir.seravo.fi:8888/testink/_search?",
             "search_index":"elasticsearch",
@@ -112,7 +112,12 @@
             "freetext_submit_delay":"1000",
             "query_parameter":"q",
             "q":"*:*",
-            "predefined_filters":{ "_type": "organisation" },
+            "predefined_filters":
+				[
+					{"organisation_type": "branchlibrary"},
+					{"organisation_type": "library"}
+				]
+				,
             "paging":{ from: 0, size: 5 }
         };
 
@@ -777,10 +782,11 @@
 
         // build the search query URL based on current params
         var elasticsearchquery = function() {
-            var qs = {}
-            var bool = false
+			var qs = {}
+			var bool = {}
+			bool['must'] = []
+			bool['should'] = []
             $('.facetview_filterselected',obj).each(function() {
-                !bool ? bool = {'must': [] } : ""
                 if ( $(this).hasClass('facetview_facetrange') ) {
                     var rel = options.facets[ $(this).attr('rel') ]['field']
                     var rngs = {
@@ -796,16 +802,23 @@
                     bool['must'].push(obj)
                 }
             });
-            for (var item in options.predefined_filters) {
-                !bool ? bool = {'must': [] } : ""
-                var obj = {'term': {}}
-                obj['term'][ item ] = options.predefined_filters[item]
-                bool['must'].push(obj)
-            }
+			// predefined filters as should (OR) query
+			var filters = options.predefined_filters;
+			for (var item in filters) {
+				var obj = {'term': {}}
+				for (var key in filters[item]) {
+					obj['term'][key] = filters[item][key]
+				}
+				bool['should'].push(obj)
+			}
+
+			// freetext search as must (AND) query
             if (bool) {
-                $('#facetview_freetext').val() != ""
-                    ? bool['must'].push( {'query_string': { 'query': "*" + $('#facetview_freetext').val() + "*" } } )
-                    : ""
+				if ($('#facetview_freetext').val() != "") {
+					//bool['must'] = [];
+					bool['must'].push( {'query_string': { 'query': "*" + $('#facetview_freetext').val() + "*" } } )
+				}
+
 		// helsinki train station @ "lat" : 60.171, "lon" : 24.941
 		if (ld_position) {
 			qs['query'] = { "filtered" : { "query": { 'bool': bool }, "filter": { "geo_distance": { "distance": "10km", "order": "asc", "unit": "km", "contact.coordinates" : { "lat" : ld_position_coords.latitude, "lon" : ld_position_coords.longitude } } } } } }
