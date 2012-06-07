@@ -97,7 +97,7 @@ app.configure(function(){
 var http = require('http');
 function get_libraries(callback) {
     var options = {
-      host: conf.proxy_config.port,
+      host: conf.proxy_config.host,
       port: 8888,
       path: '/testink/organisation/_search?size=999&sort=name_fi',
       method: 'GET'
@@ -164,7 +164,7 @@ function add_library_metadata(dataobj, callback){
 // get a specific library
 function get_library_by_id(id, callback) {
     var options = {
-      host: conf.proxy_config.port,
+      host: conf.proxy_config.host,
       port: 8888,
       path: '/testink/organisation/' + id,
       method: 'GET'
@@ -204,7 +204,7 @@ function get_library_by_name(name, callback) {
 	query = encodeURIComponent(query);
 
     var options = {
-      host: conf.proxy_config.port,
+      host: conf.proxy_config.host,
       port: 8888,
       path: '/testink/organisation/_search?source='+query,
       method: 'GET'
