@@ -7,7 +7,7 @@ set -e
 # print commands before execution
 set -x
 
-git checkout js/libs/jquery.facetview.js proxy.json server.js # move away old changes, they would otherwise stop the pull
+git checkout js/libs/jquery.facetview.js # move away old changes, they would otherwise stop the pull
 git pull git://github.com/Seravo/Library-Directory.git
 
 sed -i "s/localhost/libdir.seravo.fi/" js/libs/jquery.facetview.js
