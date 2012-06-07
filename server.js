@@ -342,11 +342,16 @@ watch.add("./views").onChange(function(file,prev,curr,action){
 // rendering function that also has built in localization
 header = new function () {
     this.render = function (options) {
+        options.header_banner = conf.header_banner;
         return adapter.init(hogan).compile(headerfilecontents)(options);
     }
 }
 footer = new function () {
     this.render = function (options) {
+        if (typeof options == "undefined") {
+           options = {};
+        }
+        options.footer_banner = conf.footer_banner;
         return adapter.init(hogan).compile(footerfilecontents)(options);
     }
 }

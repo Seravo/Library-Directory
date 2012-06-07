@@ -18,6 +18,8 @@
         },
         "port" : 8888,
         "host": "localhost"
-    }
+    },
+    "header_banner": "",
+    "footer_banner": ""
 }
 
