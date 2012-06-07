@@ -6,7 +6,6 @@
             "pass": "xxxxxxxx"
         }
     },
-    "proxy_host": "localhost",
     "server_port": 8080,
     "proxy_config": {
         "seeds" : ["localhost:9200"],
