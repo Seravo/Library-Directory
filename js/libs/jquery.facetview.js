@@ -114,8 +114,7 @@
             "q":"*:*",
             "predefined_filters":
 				[
-					{"organisation_type": "branchlibrary"},
-					{"organisation_type": "library"}
+					{ "terms": { "organisation_type" : [ "branchlibrary", "library" ] } }
 				]
 				,
             "paging":{ from: 0, size: 5 }
@@ -783,9 +782,8 @@
         // build the search query URL based on current params
         var elasticsearchquery = function() {
 			var qs = {}
-			var bool = {}
-			bool['must'] = []
-			bool['should'] = []
+			var query_filters = []
+			var query_string = ""
             $('.facetview_filterselected',obj).each(function() {
                 if ( $(this).hasClass('facetview_facetrange') ) {
                     var rel = options.facets[ $(this).attr('rel') ]['field']
@@ -795,42 +793,45 @@
                     }
                     var obj = {'range': {}}
                     obj['range'][ rel ] = rngs
-                    bool['must'].push(obj)
+					query_filters.push(obj);
                 } else {
                     var obj = {'term':{}}
                     obj['term'][ $(this).attr('rel') ] = $(this).attr('href')
-                    bool['must'].push(obj)
+					query_filters.push(obj);
                 }
             });
-			// predefined filters as should (OR) query
+
+			// set default search result ordering
+			qs.sort = [ { "name_fi" : {} } ];
+
+			// add predefined filters from config options
 			var filters = options.predefined_filters;
 			for (var item in filters) {
-				var obj = {'term': {}}
-				for (var key in filters[item]) {
-					obj['term'][key] = filters[item][key]
-				}
-				bool['should'].push(obj)
+				query_filters.push(filters[item])
 			}
 
-			// freetext search as must (AND) query
-            if (bool) {
-				if ($('#facetview_freetext').val() != "") {
-					//bool['must'] = [];
-					bool['must'].push( {'query_string': { 'query': "*" + $('#facetview_freetext').val() + "*" } } )
+			// add freetext search as normal query
+			var freetext = $('#facetview_freetext').val()
+			if (freetext.length!='') {
+				query_string = {'query_string': { 'query': "*" + freetext + "*" } }
+			} else {
+				query_string = {'match_all': {}}
+			}
+
+			// sort results by geolocation, if available and requested
+			if (ld_position) {
+				var lat = ld_position_coords.latitude
+				var lon = ld_position_coords.longitude
+
+				qs.sort = [ { "_geo_distance": { "contact.coordinates": { "lat": lat, "lon": lon }, "order": "asc" } } ]
 				}
 
-		// helsinki train station @ "lat" : 60.171, "lon" : 24.941
-		if (ld_position) {
-			qs['query'] = { "filtered" : { "query": { 'bool': bool }, "filter": { "geo_distance": { "distance": "10km", "order": "asc", "unit": "km", "contact.coordinates" : { "lat" : ld_position_coords.latitude, "lon" : ld_position_coords.longitude } } } } } }
-		else {
-			qs['query'] = { 'bool': bool }
-		}
+			// build the final query object
+			qs.query = {}
+			qs.query.filtered = {}
+			qs.query.filtered.query = query_string
+			qs.query.filtered.filter = { "and": query_filters }
 
-            } else {
-                $('#facetview_freetext').val() != ""
-                    ? qs['query'] = {'query_string': { 'query': $('#facetview_freetext').val() } }
-                    : qs['query'] = {'match_all': {}}
-            }
             // set any paging
             options.paging.from != 0 ? qs['from'] = options.paging.from : ""
             options.paging.size != 10 ? qs['size'] = options.paging.size : ""
