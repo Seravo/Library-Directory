@@ -138,7 +138,7 @@ msgstr "Kirjastohakemisto"
 #: output/views/header-dev.mustache:46
 #: output/views/header.mustache:44
 msgid "Feedback?"
-msgstr "Palautetta?"
+msgstr "Anna palautetta!"
 
 #: views/about.mustache:6
 #: staging/views/about.mustache:6
