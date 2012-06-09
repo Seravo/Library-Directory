@@ -77,12 +77,12 @@
 		{{#d0}}<a href=\"\" onclick='ld_mapcontrol_init(\"{{d0}}\", \"<b>{{d1}}</b>\", \"<br>{{d2}}<br>{{d3}} {{d4}}\"); return false;'>{{/d0}}";
 
 	var search_results = [
-		[ { "fields": "name_fi", "format": "<h3>{{d0}}</h3>" } ],
+		[ { "fields": "additional_info.slug,  name_fi", "format": "<h3><a href='/{{d0}}'>{{d1}}</a></h3>" } ],
 		[ { "fields": "contact.coordinates, name_fi, contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi",
 		    "format": coordinate_format },
 		  { "fields": "contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi", "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
 		[ { "fields": "open_now, opening_hours", "format": opening_hours_format } ],
-		[ { "fields": "id, name_short_fi, name_fi", "format": "<a class='btn btn-big btn-info' title='{{d2}} ({{d0}})' href='/{{d1}}'><i class='icon-info-sign icon-white'></i> Show details</a>" } ]
+		[ { "fields": "id, additional_info.slug, name_fi, id", "format": "<a class='btn btn-big btn-info' title='{{d2}} ({{d0}})' href='/{{#d1}}{{d1}}{{/d1}}{{^d1}}id/{{d3}}{{/d1}}'>Show details &rarr;</a>" } ]
 	]
 /*		[ { "field": "services" } ], */
 /* optimal would be not to show list of services, but rather just icons for the most important services */
@@ -663,10 +663,16 @@
             // add first image where available
             if (options.display_images) {
                 var recstr = JSON.stringify(record)
+                if (typeof record.additional_info.slug != 'undefined') { 
+                    if (record.additional_info.slug.trim() == '') { 
+                        console.log("Slug empty for " + record.name_fi);
+                        delete record.additional_info.slug;
+                    }
+                }
                 var regex = /(http:\/\/\S+?\.(jpg|png|gif|jpeg))/
                 var img = regex.exec(recstr)
                 if (img) {
-                    result += '<img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:150px;" src="' + img[0] + '" />'
+                    result += '<a href="/' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:150px;" src="' + img[0] + '" /></a>'
                 }
             }
             // container for data

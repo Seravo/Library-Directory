@@ -6,7 +6,14 @@
       <p>_("Listing totally {{count}} libraries.")</p>
       <ul  class="nav nav-pills nav-stacked">
       {{#libraries}}
-        <li><a href="/id/{{id}}" id="{{id}}">{{name_fi}} ({{organisation_type}})</a></li>
+        <li><a 
+        {{#additional_info.slug}}
+        href="/{{additional_info.slug}}"
+        {{/additional_info.slug}}
+        {{^additional_info.slug}}
+        href="/id/{{id}}"
+        {{/additional_info.slug}}
+        id="{{id}}">{{name_fi}} (tyyppi {{organisation_type}}{{^additional_info.slug}}, slug-kenttä puuttuu{{/additional_info.slug}})</a></li>
       {{/libraries}}
       </ul>
   </div>

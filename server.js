@@ -161,6 +161,9 @@ function add_library_metadata(dataobj, callback){
     }
     
     // delete empty object so that they will not be displayed in Mustache templates
+    if (dataobj._source.additional_info.slug == '') {
+        delete dataobj._source.additional_info.slug;
+    }
     if (dataobj._source.contact.telephones[0].telephone_number == '') {
         delete dataobj._source.contact.telephones;
     }
@@ -214,8 +217,8 @@ function get_library_by_name(name, callback) {
       "query":
      { "query_string":
        {
-         "fields": ["name_short_fi*"],
-         "query": name+"*"
+         "fields": ["additional_info.slug"],
+         "query": name
        }
      }
     };

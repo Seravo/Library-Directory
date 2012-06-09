@@ -87,6 +87,11 @@ li.selectedfilter {
     display: inline;
 }
 
+.result-data h3 a {
+    color: #000;
+    text-decoration: none;
+}
+
 #facetview_results tr:hover td {
 	background-color: #eee !important;
 }

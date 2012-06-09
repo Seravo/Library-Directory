@@ -3,7 +3,16 @@
 {{#data}}
 <div class="row-fluid">
   <div class="span6">
-	<p><a href="/id/{{id}}">hakemisto.kirjastot.fi/{{name_short_fi}}</a></p>
+	{{#additional_info.slug}}
+	<p><a href="/{{additional_info.slug}}" title="ID: {{id}}">hakemisto.kirjastot.fi/{{additional_info.slug}}</a></p>
+	{{/additional_info.slug}}
+	{{^additional_info.slug}}
+    <div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> 
+        <strong>Virhe:</strong> Tietueen slug-kenttä on tyhjä, kaunista URL:ia ei voida muodostaa.
+    </div>
+	{{/additional_info.slug}}
+	
+	
 	<h1>{{name_fi}}</h1>
     <p><strong class="address"><i class="icon-map-marker"></i> <a href="http://www.openstreetmap.org/?lat={{contact.coordinnates_lat}}&lon={{contact.coordinnates_lon}}&zoom=15&layers=Q">{{contact.street_address.street_fi}}, {{contact.street_address.area_fi}} {{contact.street_address.post_code}} {{contact.street_address.municipality_fi}}</a></strong></p>
 
