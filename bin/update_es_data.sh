@@ -3,10 +3,13 @@
 # Run nightly
 
 cd /var/www/libdir/elasticsearch
-stop libdir-server elasticserach elasticsearch-proxy
 cp /home/datasync/data.tar.gz .
 rm -rf data-old
 mv data data-old
 tar zxvf data.tar.gz
-start libdir-server
+# User libdir does not have permission to 
+# stop/start these services, but owns process
+# so this is enough to restart ES, thanks to 
+# automatic respawn of upstart.
+killall java 
 
