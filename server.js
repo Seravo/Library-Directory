@@ -365,6 +365,22 @@ function get_library_open_hours(periods) {
 headerfilecontents = fs.readFileSync(__dirname + headerfile, 'utf-8');
 footerfilecontents = fs.readFileSync(__dirname + footerfile, 'utf-8');
 
+try {
+    header_banner = fs.readFileSync("./views/header-banner.html",'utf8');
+} catch(err) {
+    console.log("No header banner in use. OK");
+}
+try {
+    header_banner_css = fs.readFileSync("./views/header-banner.css",'utf8');
+} catch(err) {
+    console.log("No header banner css in use. OK");
+}
+try {
+    footer_banner = fs.readFileSync("./views/footer-banner.html",'utf8');
+} catch(err) {
+    console.log("No footer banner in use. OK");
+}
+
 var watch = require('nodewatch');
 // Adding 2 dirs relative from process.cwd()
 // Nested dirs are not watched
@@ -383,7 +399,8 @@ watch.add("./views").onChange(function(file,prev,curr,action){
 // rendering function that also has built in localization
 header = new function () {
     this.render = function (options) {
-        options.header_banner = conf.header_banner;
+        options.header_banner = header_banner;
+        options.header_banner_css = header_banner_css;
         return adapter.init(hogan).compile(headerfilecontents)(options);
     }
 }
@@ -392,7 +409,7 @@ footer = new function () {
         if (typeof options == "undefined") {
            options = {};
         }
-        options.footer_banner = conf.footer_banner;
+        options.footer_banner = footer_banner;
         return adapter.init(hogan).compile(footerfilecontents)(options);
     }
 }
