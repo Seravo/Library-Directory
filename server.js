@@ -174,6 +174,25 @@ function add_library_metadata(dataobj, callback){
         delete dataobj._source.established_year;
     }
     
+    // delete empty service fields
+    dataobj._source.services.forEach( function(s) { 
+        if (s.description_short_fi == '') { delete s.description_short_fi; }
+        if (s.description_long_fi == '') { delete s.description_long_fi; }
+        if (s.price == '') { delete s.price; }
+        if (s.for_loan == '') { delete s.for_loan; }
+        if (s.instance_name_fi == '') { delete s.instance_name_fi; }
+        if (s.tag[0] == '') { delete s.tag[0]; }
+        if (s.contact[0] == '') { delete s.contact[0]; }
+
+        // style label for visuals
+        // use Twitter Bootstrap classes
+        if (s.type == 'laite') { s.label = "label-inverse"; }
+    });
+   
+    if (dataobj._source.established_year == '') {
+        delete dataobj._source.established_year;
+    }
+    
     if (dataobj._source.contact.coordinates != '') {
         latlon = dataobj._source.contact.coordinates.split(",");
         dataobj._source.contact.coordinnates_lat = latlon[0];

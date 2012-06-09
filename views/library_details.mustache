@@ -39,17 +39,35 @@
 	    <dt>_("Services")</dt>
 	    <dd>
 	         {{#services}}
-                {{name_fi}}<br>
-                
-                <!--
-                    {{type}} {{model}} ({{description_short_fi}}, {{description_long_fi}}) {{price}} {{for_loan}} {{instance_name_fi}} {{instance_description_fi}}
-                    {{#tag}}[{{.}}]{{/tag}}<br>
-                    {{#contact}}
-                        {{telephone}} {{email}} {{url_fi}}
-                    {{/contact}}
-                    {{service_priority}}
-                    {{servicetype_priority}}
-                -->
+                <span title="Model: {{model}}">{{name_fi}}</span>
+                    <span class="label {{label}}" title="Priority: {{service_priority}} / Type:{{servicetype_priority}}">{{type}}</span> 
+                    <ul>
+                    {{#description_short_fi}}
+                    <li>{{description_short_fi}}
+                        {{#description_long_fi}}<br><cite>{{description_long_fi}}</cite>{{/description_long_fi}}
+                    </li>
+                    {{/description_short_fi}}
+                    {{#price}}
+                    <li>{{price}}</li>
+                    {{/price}}
+                    {{#for_loan}}
+                    <li>_("For loan")</li>
+                    {{/for_loan}}
+                    {{#instance_name_fi}}
+                    <li>{{instance_name_fi}}<br><cite>{{instance_description_fi}}</cite></li>
+                    {{/instance_name_fi}}
+                    {{#tag.0}}
+                    <li><ul>{{#tag}}<li>{{.}}</li>{{/tag}}</ul></li>
+                    {{/tag.0}}
+                    {{#contact.0}}
+                    <li>_("Contact"):
+                        <ul>
+                        {{#contact}}
+                            <li>{{telephone}} / {{email}} / <a href="">{{url_fi}}</a></li>
+                        {{/contact}}
+                        </ul>
+                    {{/contact.0}}
+                    </ul>
              {{/services}}
 	    </dd>
 	    {{/services.0.name_fi}}
