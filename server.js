@@ -122,9 +122,9 @@ function get_libraries(callback) {
     };
 
     var req = http.get(options, function(res) {
-      console.log('GET: ' + options.path);
-      console.log('STATUS: ' + res.statusCode);
-      console.log('HEADERS: ' + JSON.stringify(res.headers));
+      //console.log('GET: ' + options.path);
+      //console.log('STATUS: ' + res.statusCode);
+      //console.log('HEADERS: ' + JSON.stringify(res.headers));
       res.setEncoding('utf8');
       data = '';
       res.on('data', function(chunk){ 
@@ -140,7 +140,7 @@ function get_libraries(callback) {
 
 // enrich result meta data
 function add_library_metadata(dataobj, callback){
-    console.log(JSON.stringify(dataobj, null, 4).slice(0,500));
+    //console.log(JSON.stringify(dataobj, null, 4).slice(0,500));
 
     if (typeof dataobj.exists == false) {
         console.log("Bogus request: no matching record for id");
@@ -220,7 +220,7 @@ function get_library_by_id(id, callback) {
       });
       res.on('end', function() {
           dataobj = JSON.parse(data);
-          console.log(JSON.stringify(dataobj));
+          //console.log(JSON.stringify(dataobj));
           add_library_metadata(dataobj, callback);
       });
     }).on('error', function(e) {
@@ -257,7 +257,7 @@ function get_library_by_name(name, callback) {
       data = '';
       res.on('data', function(chunk){
         data += chunk;
-        // console.log("...read chunk: " + chunk);
+        //console.log("...read chunk: " + chunk);
       });
       res.on('end', function() {
           dataobj = JSON.parse(data);
