@@ -2,6 +2,15 @@
 
 */
 
+/* enable javascript gettext-translations */
+// for json-data
+//var params = {  "domain": "messages", "locale_data": ld_json_locale_data };
+
+//for po-data
+var params = {  "domain": "messages" };
+var gt = new Gettext(params);
+function _ (msgid) { return gt.gettext(msgid); }
+
 function ld_mapcontrol_init(coords, name, desc) {
 	if (coords.length<2) {
 		alert("Error: coordinates are missing");
