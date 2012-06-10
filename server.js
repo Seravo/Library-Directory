@@ -400,6 +400,7 @@ watch.add("./views").onChange(function(file,prev,curr,action){
 // rendering function that also has built in localization
 header = new function () {
     this.render = function (options) {
+        options.lang = gettext.lang;
         options.header_banner = header_banner;
         options.header_banner_css = header_banner_css;
         return adapter.init(hogan).compile(headerfilecontents)(options);
@@ -425,7 +426,7 @@ if /en/(.*) -> html lang en
 if /sv/(.*) -> html lang sv
 */
 
-
+// TODO: rewrite everything below?
 // language switcher based on url
 // bug: this switches language for whole node.js process,
 // what we want is a specific locale only to reply to the request
