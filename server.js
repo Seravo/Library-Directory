@@ -181,6 +181,9 @@ function add_library_metadata(dataobj, callback){
     if (dataobj._source.additional_info.slug == '') {
         delete dataobj._source.additional_info.slug;
     }
+	if (dataobj._source.parent_organisation == '') {
+		delete dataobj._source.parent_organisation;
+	}
     if (dataobj._source.contact.telephones[0].telephone_number == '') {
         delete dataobj._source.contact.telephones;
     }
