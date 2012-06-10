@@ -187,28 +187,43 @@
             <tr><th>_("Architect"):</th><td>{{contact.building_architect}}</td></tr>
         {{/contact.building_architect}} 
         <td><th colspan="2">&nbsp;</td></tr>
-        {{#accessibility.accessible_entry}}
-            <tr><th>_("Accessible entry"):</th><td>_("yes")</td></tr>
-        {{/accessibility.accessible_entry}}
-        {{#accessibility.accessible_parking}}
-            <tr><th>_("Accessible parking"):</th><td>_("yes")</td></tr>
-        {{/accessibility.accessible_parking}}
-        {{#accessibility.accessible_toilet}}
-            <tr><th>_("Accessible toilet"):</th><td>_("yes")</td></tr>
-        {{/accessibility.accessible_toilet}}
-    	{{#extraaccessibilityinfo}}
-            <tr><th>{{extra_accessibility_property_label_fi}}:</th><td>{{extra_accessibility_property_value_fi}}</td></tr>
-        {{/extraaccessibilityinfo}}
-        {{#accessibility.induction_loop}}
-            <tr><th>_("Induction loop"):</th><td>_("yes")</td></tr>
-        {{/accessibility.induction_loop}}
-        {{#accessibility.large_typeface_collection}}
-            <tr><th>_("Large typeface<br> collection"):</th><td>_("yes")</td></tr>
-        {{/accessibility.large_typeface_collection}}
-        {{#accessibility.lift}}
-            <tr><th>_("Lift"):</th><td>_("yes")</td></tr>
-        {{/accessibility.lift}}
+
+		{{#accessibility_available}}
+        <tr><td colspan=2>
+			<dt>_("Accessibility")</dt>
+			<dd>
+			{{#accessibility.accessible_entry}}
+				_("Accessible entry")<br>
+			{{/accessibility.accessible_entry}}
+
+			{{#accessibility.accessible_parking}}
+				_("Accessible parking")<br>
+			{{/accessibility.accessible_parking}}
+
+			{{#accessibility.accessible_toilet}}
+				_("Accessible toilet")<br>
+			{{/accessibility.accessible_toilet}}
+
+			{{#extraaccessibilityinfo}}
+				{{extra_accessibility_property_label_fi}}: {{extra_accessibility_property_value_fi}}<br>
+			{{/extraaccessibilityinfo}}
+
+			{{#accessibility.induction_loop}}
+				 _("Induction loop")<br>
+			{{/accessibility.induction_loop}}
+
+			{{#accessibility.large_typeface_collection}}
+				_("Large typeface collection")<br>
+			{{/accessibility.large_typeface_collection}}
+
+			{{#accessibility.lift}}
+				_("Lift")<br>
+			{{/accessibility.lift}}
+		</dd>
+		</td>
+		</tr>
         <td><th colspan="2">&nbsp;</td></tr>
+		{{/accessibility_available}}
         {{#contact.parking_fi}}
             <tr><th>_("Parking"):</th><td>{{contact.parking_fi}}</td></tr>
         {{/contact.parking_fi}}

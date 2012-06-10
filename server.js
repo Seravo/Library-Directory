@@ -169,6 +169,14 @@ function add_library_metadata(dataobj, callback){
 
 	if (lib.image_url=="") delete lib.image_url;
 
+	if (lib.accessibility.accessible_entry ||
+		lib.accessibility.accessible_parking ||
+		lib.accessibility.accessible_toilet ||
+		lib.accessibility.induction_loop ||
+		lib.accessibility.large_typeface_collection ||
+		lib.accessibility.lift ||
+		lib.extraaccessibilityinfo ) { lib.accessibility_available = true }
+
     // delete empty object so that they will not be displayed in Mustache templates
     if (dataobj._source.additional_info.slug == '') {
         delete dataobj._source.additional_info.slug;
