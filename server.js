@@ -273,6 +273,45 @@ function get_library_by_name(name, callback) {
     });
 }
 
+// get library's children organisations
+function get_library_children(id, callback) {
+    query = {
+	  "size": 999,
+      "sort": [ { "name_fi" : {} } ],
+      "query":
+		{ "term":
+			{ "parent_organisation": id }
+		}
+    };
+
+    query = JSON.stringify(query);
+	query = encodeURIComponent(query);
+
+	//console.log("requested children of :", id);
+
+    var options = {
+      host: conf.proxy_config.host,
+      port: 8888,
+      path: '/testink/organisation/_search?source='+query,
+      method: 'GET'
+    };
+
+    var req = http.get(options, function(res) {
+      res.setEncoding('utf8');
+      data = '';
+      res.on('data', function(chunk){
+        data += chunk;
+        //console.log("...read chunk: " + chunk);
+      });
+      res.on('end', function() {
+		dataobj = JSON.parse(data);
+		callback(dataobj);
+      });
+    }).on('error', function(e) {
+      console.log('Problem with request: ' + e.message);
+    });
+}
+
 function get_library_open_hours(periods) {
 	function ld_format_time(time) {
 		var time = String(time);
@@ -568,14 +607,34 @@ app.get('/widget', function(req, res){
 
 app.get("/id/:id",function(req,res,next) {
     res.local("header", header.render({title: _("Library details")}))
-    res.local("footer", footer.render());
-    console.log("id: " + req.params.id);
-
+    res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+    //console.log("Requested: "+req.params.id);
     get_library_by_id(req.params.id, function(data){
-		data._source["id"] = data._id;
-		res.local("data", data._source);
-		res.render("library_details", res.locals());
+		var id = data._id;
+		data._source["id"] = id;
+
+		var library = data._source;
+
+		get_library_children(id, function(child_data) {
+			if (child_data.hits.hits.length>0)
+			{
+				var children = [];
+				for (item in child_data.hits.hits) {
+					var child = child_data.hits.hits[item]._source;
+					child.id = child_data.hits.hits[item]._id;
+					children.push(child);
+				}
+
+				library.children = children;
+				library.has_children = true;
+			} else {
+				library.has_children = false;
+			}
+
+			res.local("data", library);
+			res.render("library_details", res.locals());
 		});
+	});
 });
 
 app.get("/*",function(req,res,next) {

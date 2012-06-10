@@ -127,8 +127,17 @@
 	    <dd>{{established_year}}</dd>
 	    {{/established_year}}
 
-	    <dt>_("Library consortium")</dt>
-	    <dd><a href="/id/{{parent_organisation}}">{{consortium}}</a></dd>	    
+		{{#parent_organisation}}
+		    <dt>_("Library consortium")</dt>
+		    <dd><a href="/id/{{parent_organisation}}">{{consortium}}</a></dd>
+		{{/parent_organisation}}
+
+		{{#has_children}}
+		<dt>_("Departments")</dt>
+			{{#children}}
+				<dd><a href="/id/{{id}}">{{name_fi}}</a></dd>
+			{{/children}}
+		{{/has_children}}
     </dl>
 
     <p><small>_("Last modified"): {{meta.modified}}</small></p>
