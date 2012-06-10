@@ -562,7 +562,7 @@ app.get('/widget', function(req, res){
 });
 
 app.get("/id/:id",function(req,res,next) {
-    res.local("header", header.render({title: _("Library details"), browse_active: true}))
+    res.local("header", header.render({title: _("Library details")}))
     res.local("footer", footer.render());
     console.log("id: " + req.params.id);
 
@@ -576,7 +576,7 @@ app.get("/id/:id",function(req,res,next) {
 app.get("/*",function(req,res,next) {
     // TODO: narrow match to 3-20 lower case letters
     // ([a-z]{3,20}) didn't work however?
-    res.local("header", header.render({title: _("Library details"), browse_active: true}))
+    res.local("header", header.render({title: _("Library details")}))
     res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
     console.log("Requested: "+req.params);
     get_library_by_name(req.params[0], function(data){
