@@ -8,7 +8,7 @@ set -e
 set -x
 
 git checkout js/libs/jquery.facetview.js # move away old changes, they would otherwise stop the pull
-git pull git://github.com/Seravo/Library-Directory.git
+git pull
 
 sed -i "s/localhost/libdir.seravo.fi/" js/libs/jquery.facetview.js
 
