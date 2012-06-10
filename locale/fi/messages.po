@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-07 16:27+0300\n"
-"PO-Revision-Date: 2012-06-07 16:29+0200\n"
-"Last-Translator: Otto Kekäläinen <otto@seravo.fi>\n"
+"POT-Creation-Date: 2012-06-10 21:00+0300\n"
+"PO-Revision-Date: 2012-06-10 21:00+0200\n"
+"Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -22,69 +22,228 @@ msgstr ""
 msgid "Using locale "
 msgstr "Käytetään kotoistusta "
 
-#: server.js:403
+#: server.js:370
+msgid "Monday"
+msgstr "Maanantai"
+
+#: server.js:371
+msgid "Tuesday"
+msgstr "Tiistai"
+
+#: server.js:372
+msgid "Wednesday"
+msgstr "Keskiviikko"
+
+#: server.js:373
+msgid "Thursday"
+msgstr "Torstai"
+
+#: server.js:374
+msgid "Friday"
+msgstr "Perjantai"
+
+#: server.js:375
+msgid "Saturday"
+msgstr "Lauantai"
+
+#: server.js:376
+msgid "Sunday"
+msgstr "Sunnuntai"
+
+#: server.js:396
+#: server.js:414
+msgid "closed"
+msgstr "suljettu"
+
+#: server.js:527
 msgid "Browse all"
 msgstr "Selaa kaikkia"
 
-#: server.js:417
+#: server.js:541
 #: views/about.mustache:5
 #: staging/views/about.mustache:5
 #: output/views/about.mustache:5
 msgid "About"
 msgstr "Tietoa palvelusta"
 
-#: server.js:426
+#: server.js:550
 #: views/contact.mustache:9
 #: staging/views/contact.mustache:9
 #: output/views/contact.mustache:9
 msgid "Name"
 msgstr "Nimi"
 
-#: server.js:428
+#: server.js:552
 #: views/contact.mustache:14
-#: views/library_details.mustache:66
+#: views/library_details.mustache:94
 #: staging/views/contact.mustache:14
-#: staging/views/library_details.mustache:66
+#: staging/views/library_details.mustache:94
 #: output/views/contact.mustache:14
-#: output/views/library_details.mustache:66
+#: output/views/library_details.mustache:94
 msgid "E-mail"
 msgstr "Sähköposti"
 
-#: server.js:428
+#: server.js:552
 msgid "Please provide your e-mail so we can respond to your feedback."
 msgstr "Ole hyvä ja anna sähköpostiosoitteesi jotta voimme vastata palautteeseesi."
 
-#: server.js:429
+#: server.js:553
 msgid "Feedback"
 msgstr "Palaute"
 
-#: server.js:437
-#: server.js:479
+#: server.js:561
+#: server.js:603
 #: views/contact.mustache:5
+#: views/library_details.mustache:64
 #: staging/views/contact.mustache:5
+#: staging/views/library_details.mustache:64
 #: output/views/contact.mustache:5
+#: output/views/library_details.mustache:64
 msgid "Contact"
 msgstr "Yhteystiedot"
 
-#: server.js:444
+#: server.js:568
 msgid "Feedback from: "
 msgstr "Palautetta lähettäjältä:"
 
-#: server.js:456
+#: server.js:580
 msgid "Feedback from library directory"
 msgstr "Palautetta kirjastohakemistosta"
 
-#: server.js:486
+#: server.js:610
 #: views/feedback-sent.mustache:5
 #: staging/views/feedback-sent.mustache:5
 #: output/views/feedback-sent.mustache:5
 msgid "Feedback sent"
 msgstr "Palaute lähetetty"
 
-#: server.js:505
-#: server.js:517
+#: server.js:629
+#: server.js:663
 msgid "Library details"
 msgstr "Kirjaston tiedot"
+
+#: js/libs/jquery.facetview.js:72
+#: views/library_details.mustache:157
+#: staging/views/library_details.mustache:157
+#: output/views/library_details.mustache:157
+msgid "Open"
+msgstr "Avaa"
+
+#: js/libs/jquery.facetview.js:73
+#: views/library_details.mustache:162
+#: staging/views/library_details.mustache:162
+#: output/views/library_details.mustache:162
+msgid "Closed"
+msgstr "Suljettu"
+
+#: js/libs/jquery.facetview.js:74
+msgid "open today"
+msgstr "avoinna tänään"
+
+#: js/libs/jquery.facetview.js:86
+msgid "Show details"
+msgstr "Näytä tiedot"
+
+#: js/libs/jquery.facetview.js:96
+#: views/library_details.mustache:132
+#: staging/views/library_details.mustache:132
+#: output/views/library_details.mustache:132
+msgid "Library consortium"
+msgstr "Kirjastoyhtymä"
+
+#: js/libs/jquery.facetview.js:97
+msgid "Type"
+msgstr "Kirjastoluokka"
+
+#: js/libs/jquery.facetview.js:98
+msgid "Branch type"
+msgstr "Kirjastotyyppi"
+
+#: js/libs/jquery.facetview.js:99
+#: views/library_details.mustache:40
+#: staging/views/library_details.mustache:40
+#: output/views/library_details.mustache:40
+msgid "Services"
+msgstr "Palvelut"
+
+#: js/libs/jquery.facetview.js:100
+#: views/library_details.mustache:194
+#: staging/views/library_details.mustache:194
+#: output/views/library_details.mustache:194
+msgid "Accessibility"
+msgstr "Esteettömyyspalvelut"
+
+#: js/libs/jquery.facetview.js:101
+msgid "City"
+msgstr "Kaupunki"
+
+#: js/libs/jquery.facetview.js:273
+msgid "Filter by"
+msgstr "Valitse"
+
+#: js/libs/jquery.facetview.js:307
+msgid "Clear all filters"
+msgstr "Poista suodatukset"
+
+#: js/libs/jquery.facetview.js:331
+msgid "Show libraries near my location"
+msgstr "Lähellä olevat kirjastot"
+
+#: js/libs/jquery.facetview.js:337
+msgid "Libraries near my location"
+msgstr "Lähellä olevat kirjastot"
+
+#: js/libs/jquery.facetview.js:633
+msgid "back"
+msgstr "edelliset"
+
+#: js/libs/jquery.facetview.js:634
+msgid "of"
+msgstr "/"
+
+#: js/libs/jquery.facetview.js:635
+msgid "next"
+msgstr "seuraavat"
+
+#: views/index.mustache:7
+#: staging/views/index.mustache:7
+#: output/views/index.mustache:7
+msgid "Find your library!"
+msgstr "Löydä kirjastosi!"
+
+#: views/index.mustache:8
+#: staging/views/index.mustache:8
+#: output/views/index.mustache:8
+msgid "Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries."
+msgstr "Syötä etsimäsi kirjaston tai palvelun nimi. Syötä kaupungin nimi tai postinumero löytääksesi lähimmän kirjaston."
+
+#: views/header-dev.mustache:35
+#: views/header.mustache:33
+#: staging/views/header-dev.mustache:35
+#: staging/views/header.mustache:33
+#: output/views/header-dev.mustache:35
+#: output/views/header.mustache:33
+msgid "Library Directory"
+msgstr "Kirjastohakemisto"
+
+# manually added
+#: views/header-dev.mustache:39
+#: staging/views/header-dev.mustache:39
+#: output/views/header-dev.mustache:39
+msgid "Search"
+msgstr "Haku"
+
+#: views/header-dev.mustache:49
+#: views/contact.mustache:7
+#: views/header.mustache:46
+#: staging/views/header-dev.mustache:49
+#: staging/views/contact.mustache:7
+#: staging/views/header.mustache:46
+#: output/views/header-dev.mustache:49
+#: output/views/contact.mustache:7
+#: output/views/header.mustache:46
+msgid "Send us feedback!"
+msgstr "Anna palautetta!"
 
 #: views/contact.mustache:6
 #: staging/views/contact.mustache:6
@@ -92,21 +251,18 @@ msgstr "Kirjaston tiedot"
 msgid "This site is the product of <a href='http://kirjastot.fi/'>Kirjastot.fi</a>."
 msgstr "Tämä sivusto on <a href='http://kirjastot.fi/'>Kirjastot.fi</a>:n tuottama."
 
-#: views/contact.mustache:7
-#: staging/views/contact.mustache:7
-#: output/views/contact.mustache:7
-msgid "Send us feedback!"
-msgstr "Anna palautetta!"
-
 #: views/contact.mustache:11
 #: views/contact.mustache:16
 #: views/contact.mustache:21
+#: views/library_details.mustache:11
 #: staging/views/contact.mustache:11
 #: staging/views/contact.mustache:16
 #: staging/views/contact.mustache:21
+#: staging/views/library_details.mustache:11
 #: output/views/contact.mustache:11
 #: output/views/contact.mustache:16
 #: output/views/contact.mustache:21
+#: output/views/library_details.mustache:11
 msgid "Error"
 msgstr "Virhe"
 
@@ -122,35 +278,185 @@ msgstr "Viesti"
 msgid "'Submit'"
 msgstr "'Lähetä'"
 
-#: views/header-dev.mustache:33
-#: views/header.mustache:31
-#: staging/views/header-dev.mustache:33
-#: staging/views/header.mustache:31
-#: output/views/header-dev.mustache:33
-#: output/views/header.mustache:31
-msgid "Library Directory"
-msgstr "Kirjastohakemisto"
+#: views/library_details.mustache:12
+#: staging/views/library_details.mustache:12
+#: output/views/library_details.mustache:12
+msgid "Slug missing, can't create pretty-url."
+msgstr "Tietueen slug-kenttä on tyhjä, kaunista URL:ia ei voida muodostaa."
 
-#: views/header-dev.mustache:46
-#: views/header.mustache:44
-#: staging/views/header-dev.mustache:46
-#: staging/views/header.mustache:44
-#: output/views/header-dev.mustache:46
-#: output/views/header.mustache:44
-msgid "Feedback?"
-msgstr "Anna palautetta!"
+#: views/library_details.mustache:21
+#: staging/views/library_details.mustache:21
+#: output/views/library_details.mustache:21
+msgid "Directions"
+msgstr "Saapumisohjeet"
 
-#: views/about.mustache:6
-#: staging/views/about.mustache:6
-#: output/views/about.mustache:6
-msgid "This is a really cool thing."
-msgstr "Tämä on hieno juttu."
+#: views/library_details.mustache:55
+#: staging/views/library_details.mustache:55
+#: output/views/library_details.mustache:55
+msgid "For loan"
+msgstr "Lainattavissa"
+
+#: views/library_details.mustache:77
+#: staging/views/library_details.mustache:77
+#: output/views/library_details.mustache:77
+msgid "Telephone numbers"
+msgstr "Puhelinnumerot"
+
+#: views/library_details.mustache:86
+#: staging/views/library_details.mustache:86
+#: output/views/library_details.mustache:86
+msgid "Mail address"
+msgstr "Postiosoite"
+
+#: views/library_details.mustache:88
+#: staging/views/library_details.mustache:88
+#: output/views/library_details.mustache:88
+msgid "PB"
+msgstr "PL"
+
+#: views/library_details.mustache:100
+#: staging/views/library_details.mustache:100
+#: output/views/library_details.mustache:100
+msgid "Homepage"
+msgstr "Verkkosivut"
+
+#: views/library_details.mustache:109
+#: staging/views/library_details.mustache:109
+#: output/views/library_details.mustache:109
+msgid "Additional info"
+msgstr "Lisätietoja"
+
+#: views/library_details.mustache:118
+#: staging/views/library_details.mustache:118
+#: output/views/library_details.mustache:118
+msgid "Library identificator and type"
+msgstr "Kirjaston tunniste ja laji"
+
+#: views/library_details.mustache:121
+#: staging/views/library_details.mustache:121
+#: output/views/library_details.mustache:121
+msgid "ID"
+msgstr "Tunniste"
+
+#: views/library_details.mustache:122
+#: staging/views/library_details.mustache:122
+#: output/views/library_details.mustache:122
+msgid "Branch"
+msgstr "Osasto"
+
+#: views/library_details.mustache:123
+#: staging/views/library_details.mustache:123
+#: output/views/library_details.mustache:123
+msgid "Organisation"
+msgstr "Organisaatio"
+
+#: views/library_details.mustache:127
+#: staging/views/library_details.mustache:127
+#: output/views/library_details.mustache:127
+msgid "Established year"
+msgstr "Perustamisvuosi"
+
+#: views/library_details.mustache:137
+#: staging/views/library_details.mustache:137
+#: output/views/library_details.mustache:137
+msgid "Departments"
+msgstr "Osastot"
+
+#: views/library_details.mustache:144
+#: staging/views/library_details.mustache:144
+#: output/views/library_details.mustache:144
+msgid "Last modified"
+msgstr "Muokattu viimeksi"
+
+#: views/library_details.mustache:151
+#: staging/views/library_details.mustache:151
+#: output/views/library_details.mustache:151
+msgid "No open times, since this is a {{organisation_type}}."
+msgstr "Ei aukioloa, koska kyseessä {{organisation_type}}."
+
+#: views/library_details.mustache:155
+#: staging/views/library_details.mustache:155
+#: output/views/library_details.mustache:155
+msgid "The library is now"
+msgstr "Kirjasto on nyt"
+
+#: views/library_details.mustache:166
+#: staging/views/library_details.mustache:166
+#: output/views/library_details.mustache:166
+msgid "Opening hours this week"
+msgstr "Aukioloajat tällä viikolla"
+
+#: views/library_details.mustache:182
+#: staging/views/library_details.mustache:182
+#: output/views/library_details.mustache:182
+msgid "Building"
+msgstr "Rakennus"
+
+#: views/library_details.mustache:185
+#: staging/views/library_details.mustache:185
+#: output/views/library_details.mustache:185
+msgid "Built"
+msgstr "Rakennettu"
+
+#: views/library_details.mustache:188
+#: staging/views/library_details.mustache:188
+#: output/views/library_details.mustache:188
+msgid "Architect"
+msgstr "Arkkitehti"
+
+#: views/library_details.mustache:197
+#: staging/views/library_details.mustache:197
+#: output/views/library_details.mustache:197
+msgid "Accessible entry"
+msgstr "Helppo kulku pyörätuolilla"
+
+#: views/library_details.mustache:201
+#: staging/views/library_details.mustache:201
+#: output/views/library_details.mustache:201
+msgid "Accessible parking"
+msgstr "Invapysäköinti"
+
+#: views/library_details.mustache:205
+#: staging/views/library_details.mustache:205
+#: output/views/library_details.mustache:205
+msgid "Accessible toilet"
+msgstr "Inva-wc"
+
+#: views/library_details.mustache:213
+#: staging/views/library_details.mustache:213
+#: output/views/library_details.mustache:213
+msgid "Induction loop"
+msgstr "Induktiosilmukka"
+
+#: views/library_details.mustache:217
+#: staging/views/library_details.mustache:217
+#: output/views/library_details.mustache:217
+msgid "Large typeface collection"
+msgstr "Suuren kirjasinkoon kokoelma"
+
+#: views/library_details.mustache:221
+#: staging/views/library_details.mustache:221
+#: output/views/library_details.mustache:221
+msgid "Lift"
+msgstr "Hissi"
+
+#: views/library_details.mustache:229
+#: staging/views/library_details.mustache:229
+#: output/views/library_details.mustache:229
+msgid "Parking"
+msgstr "Pysäköinti"
 
 #: views/feedback-sent.mustache:7
 #: staging/views/feedback-sent.mustache:7
 #: output/views/feedback-sent.mustache:7
 msgid "<strong>Feedback sent.</strong> Thank you!"
 msgstr "<strong>Palaute lähetetty</strong> Kiitos!"
+
+#: views/about.mustache:6
+#: staging/views/about.mustache:6
+#: output/views/about.mustache:6
+msgid "This is a really cool thing."
+msgstr "Tämä on hieno juttu."
 
 #: views/browse.mustache:5
 #: staging/views/browse.mustache:5
@@ -164,216 +470,14 @@ msgstr "Selaa kaikkia kirjastoja"
 msgid "Listing totally {{count}} libraries."
 msgstr "Hakemistossa yhteensä {{count}} kirjastoa."
 
-#: views/library_details.mustache:11
-#: staging/views/library_details.mustache:11
-#: output/views/library_details.mustache:11
-msgid "Directions"
-msgstr "Saapumisohjeet"
+#~ msgid "Feedback?"
+#~ msgstr "Anna palautetta!"
 
-#: views/library_details.mustache:30
-#: staging/views/library_details.mustache:30
-#: output/views/library_details.mustache:30
-msgid "Services"
-msgstr "Palvelut"
+#~ msgid "yes"
+#~ msgstr "kyllä"
 
-#: views/library_details.mustache:49
-#: staging/views/library_details.mustache:49
-#: output/views/library_details.mustache:49
-msgid "Telephone numbers"
-msgstr "Puhelinnumerot"
-
-#: views/library_details.mustache:58
-#: staging/views/library_details.mustache:58
-#: output/views/library_details.mustache:58
-msgid "Mail address"
-msgstr "Postiosoite"
-
-#: views/library_details.mustache:60
-#: staging/views/library_details.mustache:60
-#: output/views/library_details.mustache:60
-msgid "PB"
-msgstr "PL"
-
-#: views/library_details.mustache:71
-#: staging/views/library_details.mustache:71
-#: output/views/library_details.mustache:71
-msgid "Homepage"
-msgstr "Verkkosivut"
-
-#: views/library_details.mustache:81
-#: staging/views/library_details.mustache:81
-#: output/views/library_details.mustache:81
-msgid "Additional info"
-msgstr "Lisätietoja"
-
-#: views/library_details.mustache:90
-#: staging/views/library_details.mustache:90
-#: output/views/library_details.mustache:90
-msgid "Library identificator and type"
-msgstr "Kirjaston tunniste ja laji"
-
-#: views/library_details.mustache:93
-#: staging/views/library_details.mustache:93
-#: output/views/library_details.mustache:93
-msgid "ID"
-msgstr "Tunniste"
-
-#: views/library_details.mustache:94
-#: staging/views/library_details.mustache:94
-#: output/views/library_details.mustache:94
-msgid "Branch"
-msgstr "Osasto"
-
-#: views/library_details.mustache:95
-#: staging/views/library_details.mustache:95
-#: output/views/library_details.mustache:95
-msgid "Organisation"
-msgstr "Organisaatio"
-
-#: views/library_details.mustache:99
-#: staging/views/library_details.mustache:99
-#: output/views/library_details.mustache:99
-msgid "Established year"
-msgstr "Perustamisvuosi"
-
-#: views/library_details.mustache:103
-#: staging/views/library_details.mustache:103
-#: output/views/library_details.mustache:103
-msgid "Library consortium"
-msgstr "Kirjastoyhtymä"
-
-#: views/library_details.mustache:107
-#: staging/views/library_details.mustache:107
-#: output/views/library_details.mustache:107
-msgid "Last modified"
-msgstr "Muokattu viimeksi"
-
-#: views/library_details.mustache:114
-#: staging/views/library_details.mustache:114
-#: output/views/library_details.mustache:114
-msgid "No open times, since this is a {{organisation_type}}."
-msgstr "Ei aukioloa, koska kyseessä {{organisation_type}}."
-
-#: views/library_details.mustache:118
-#: staging/views/library_details.mustache:118
-#: output/views/library_details.mustache:118
-msgid "The library is now"
-msgstr "Kirjasto on nyt"
-
-#: views/library_details.mustache:120
-#: staging/views/library_details.mustache:120
-#: output/views/library_details.mustache:120
-msgid "Open"
-msgstr "Avaa"
-
-#: views/library_details.mustache:125
-#: staging/views/library_details.mustache:125
-#: output/views/library_details.mustache:125
-msgid "Closed"
-msgstr "Suljettu"
-
-#: views/library_details.mustache:129
-#: staging/views/library_details.mustache:129
-#: output/views/library_details.mustache:129
-msgid "Opening hours this week"
-msgstr "Aukioloajat tällä viikolla"
-
-#: views/library_details.mustache:145
-#: staging/views/library_details.mustache:145
-#: output/views/library_details.mustache:145
-msgid "Building"
-msgstr "Rakennus"
-
-#: views/library_details.mustache:148
-#: staging/views/library_details.mustache:148
-#: output/views/library_details.mustache:148
-msgid "Built"
-msgstr "Rakennettu"
-
-#: views/library_details.mustache:151
-#: staging/views/library_details.mustache:151
-#: output/views/library_details.mustache:151
-msgid "Architect"
-msgstr "Arkkitehti"
-
-#: views/library_details.mustache:155
-#: staging/views/library_details.mustache:155
-#: output/views/library_details.mustache:155
-msgid "Accessible entry"
-msgstr "Saavutettava sisääntulo"
-
-#: views/library_details.mustache:155
-#: views/library_details.mustache:158
-#: views/library_details.mustache:161
-#: views/library_details.mustache:167
-#: views/library_details.mustache:170
-#: views/library_details.mustache:173
-#: staging/views/library_details.mustache:155
-#: staging/views/library_details.mustache:158
-#: staging/views/library_details.mustache:161
-#: staging/views/library_details.mustache:167
-#: staging/views/library_details.mustache:170
-#: staging/views/library_details.mustache:173
-#: output/views/library_details.mustache:155
-#: output/views/library_details.mustache:158
-#: output/views/library_details.mustache:161
-#: output/views/library_details.mustache:167
-#: output/views/library_details.mustache:170
-#: output/views/library_details.mustache:173
-msgid "yes"
-msgstr "kyllä"
-
-#: views/library_details.mustache:158
-#: staging/views/library_details.mustache:158
-#: output/views/library_details.mustache:158
-msgid "Accessible parking"
-msgstr "Saavutettava pysäköinti"
-
-#: views/library_details.mustache:161
-#: staging/views/library_details.mustache:161
-#: output/views/library_details.mustache:161
-msgid "Accessible toilet"
-msgstr "Saavutetava vessa"
-
-#: views/library_details.mustache:167
-#: staging/views/library_details.mustache:167
-#: output/views/library_details.mustache:167
-msgid "Induction loop"
-msgstr "Induktiosilmukka"
-
-#: views/library_details.mustache:170
-#: staging/views/library_details.mustache:170
-#: output/views/library_details.mustache:170
-msgid "Large typeface<br> collection"
-msgstr "Suuren kirjasinkoon<br> kokoelma"
-
-#: views/library_details.mustache:173
-#: staging/views/library_details.mustache:173
-#: output/views/library_details.mustache:173
-msgid "Lift"
-msgstr "Hissi"
-
-#: views/library_details.mustache:177
-#: staging/views/library_details.mustache:177
-#: output/views/library_details.mustache:177
-msgid "Parking"
-msgstr "Pysäköinti"
-
-#: views/index.mustache:7
-#: staging/views/index.mustache:7
-#: output/views/index.mustache:7
-msgid "Find your library!"
-msgstr "Löydä kirjastosi!"
-
-#: views/index.mustache:8
-#: staging/views/index.mustache:8
-#: output/views/index.mustache:8
-msgid "Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries."
-msgstr "Syötä etsimäsi kirjaston tai palvelun nimi. Syötä kaupungin nimi tai postinumero löytääksesi lähimmän kirjaston."
-
-# manually added
-msgid "Search"
-msgstr "Haku"
+#~ msgid "Large typeface<br> collection"
+#~ msgstr "Suuren kirjasinkoon<br> kokoelma"
 
 #~ msgid "\"Submit\""
 #~ msgstr "\"Lähetä\""
