@@ -308,8 +308,13 @@ function get_library_open_hours(periods) {
 	}
 
 	var days = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" ];
-	var days_en = [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ];
-	var days_fi = [ "Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai", "Sunnuntai" ];
+	var days_translated = [ _("Monday"),
+							_("Tuesday"),
+							_("Wednesday"),
+							_("Thursday"),
+							_("Friday"),
+							_("Saturday"),
+							_("Sunday") ];
 
 	var opening_hours = new Object();
 	var curtime = new Date();
@@ -329,7 +334,7 @@ function get_library_open_hours(periods) {
 	opening_hours.open_hours_today = false;
 	opening_hours.open_hours_week = [];
 	for (var j=0; j<7; j++) {
-		opening_hours.open_hours_week[j] = { "day": days_en[j], "time": "closed" };
+		opening_hours.open_hours_week[j] = { "day": days_translated[j], "time": _("closed") };
 	}
 
 	/* iterate all periods */
@@ -345,9 +350,9 @@ function get_library_open_hours(periods) {
 			//if (j==6) console.log(p.name_fi, days[j], curday, Date.parse(p.start), Date.parse(p.end), curday >= Date.parse(p.start) && curday <= Date.parse(p.end))
 			if ( curday >= Date.parse(p.start) && curday <= Date.parse(p.end) ) {
 				if ( (start!=0 && end!=0) && (start!= null && end!= null) ) {
-					opening_hours.open_hours_week[j] = { "day": days_en[j], "time": ld_format_time(start) + " - " + ld_format_time(end) }; }
+					opening_hours.open_hours_week[j] = { "day": days_translated[j], "time": ld_format_time(start) + " - " + ld_format_time(end) }; }
 				else {
-					opening_hours.open_hours_week[j] = { "day": days_en[j], "time": "closed" }; }
+					opening_hours.open_hours_week[j] = { "day": days_translated[j], "time": _("closed") }; }
 			}
 
 			/* find opening hours for current day */
