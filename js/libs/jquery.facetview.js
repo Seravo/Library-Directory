@@ -817,10 +817,11 @@
 				query_filters.push(filters[item])
 			}
 
-			// add freetext search as normal query
+			// add freetext search as normal query or else match all documents
 			var freetext = $('#facetview_freetext').val()
 			if (freetext.length!='') {
-				query_string = {'query_string': { 'query': "*" + freetext + "*" } }
+				query_fields = ["name_*", "name_short_*", "contact.street_address.municipality_*", "contact.street_address.post_code*", "services.name_*" ]
+				query_string = {'query_string': { 'fields': query_fields, 'query': freetext + "*" } }
 			} else {
 				query_string = {'match_all': {}}
 			}
