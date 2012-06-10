@@ -167,6 +167,8 @@ function add_library_metadata(dataobj, callback){
 		if (typeof temp.url_description_fi=='string' && temp.url_description_fi=="") delete temp.url_description_fi;
 	}
 
+	if (lib.image_url=="") delete lib.image_url;
+
     // delete empty object so that they will not be displayed in Mustache templates
     if (dataobj._source.additional_info.slug == '') {
         delete dataobj._source.additional_info.slug;
