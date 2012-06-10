@@ -44,9 +44,9 @@ function ld_mapcontrol_init(coords, name, desc) {
 	var marker = new OpenLayers.Feature.Vector(
 		new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection),
 		{ },
-		{externalGraphic: 'js/libs/openlayers/markers/marker-black.png', graphicHeight: 41, graphicWidth: 25});
+		{externalGraphic: 'js/libs/openlayers/markers/marker-black.png', graphicHeight: 41, graphicWidth: 25, graphicYOffset: -40});
 	if (name!="" && desc!="") {
-		popup = new OpenLayers.Popup.FramedCloud("popup", mapLocation, new OpenLayers.Size(200, 200), name+desc, null, true);
+		popup = new OpenLayers.Popup.FramedCloud("popup", mapLocation, new OpenLayers.Size(200, 200), "<strong>"+name+"</strong><br>"+desc, null, false);
 		map.addPopup(popup);
 	}
 

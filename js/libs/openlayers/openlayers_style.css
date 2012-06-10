@@ -270,7 +270,7 @@ div.olControlSaveFeaturesItemInactive {
 }
 
 .olFramedCloudPopupContent {
-    padding: 5px;
+    padding: 1px;
     overflow: auto;
 }
 
@@ -434,4 +434,9 @@ span.olGoogleAttribution.hybrid a, span.olGoogleAttribution.satellite a {
 }
 .olControlEditingToolbar .olControlDrawFeaturePolygonItemActive {
     background-position: -26px -24px;
+}
+
+/* don't inherit this from Twitter Bootstrap */
+.olMap img {
+    max-width: none;
 }
