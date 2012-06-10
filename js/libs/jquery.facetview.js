@@ -67,10 +67,11 @@
 
     $.fn.facetview = function(options) {
 
-	var opening_hours_format = "\
-		<i class='icon-time'></i> \
-		{{#d0}}<span style='color: green;'>Open</span> today {{d1}} {{/d0}} \
-		{{^d0}}<span style='color: red; font-style: italic;'>Closed</span> {{#d1}}(open today {{d1}}){{/d1}} {{/d0}}";
+	var opening_hours_format =
+		"<i class='icon-time'></i>"+
+		"{{#d0}}<span style='color: green;'>" + _("Open") + "</span> today {{d1}} {{/d0}}" +
+		"{{^d0}}<span style='color: red; font-style: italic;'>" + _("Closed") +	"</span> " +
+		"{{#d1}}(" + _("open today") + " {{d1}}){{/d1}} {{/d0}}";
 
 	var coordinate_format = "\
 		<i class='icon-map-marker'></i> \
@@ -82,7 +83,7 @@
 		    "format": coordinate_format },
 		  { "fields": "contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi", "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
 		[ { "fields": "open_now, opening_hours", "format": opening_hours_format } ],
-		[ { "fields": "id, additional_info.slug, name_fi, id", "format": "<a class='btn btn-big btn-info' title='{{d2}} ({{d0}})' href='/{{#d1}}{{d1}}{{/d1}}{{^d1}}id/{{d3}}{{/d1}}'>Show details &rarr;</a>" } ]
+		[ { "fields": "id, additional_info.slug, name_fi, id", "format": "<a class='btn btn-big btn-info' title='{{d2}} ({{d0}})' href='/{{#d1}}{{d1}}{{/d1}}{{^d1}}id/{{d3}}{{/d1}}'>" + _("Show details") + " &rarr;</a>" } ]
 	]
 /*		[ { "field": "services" } ], */
 /* optimal would be not to show list of services, but rather just icons for the most important services */
@@ -92,12 +93,12 @@
 	var settings = {
             "config_file": false,
             "facets":[
-		{'field': 'consortium', 'size': 100, 'order':'term', 'display': 'Library group'},
-		{'field': 'organisation_type', 'display': 'Type'},
-		{'field': 'branch_type', 'display': 'Branch type'},
-		{'field': 'services.name_fi', 'order':'term', 'display': 'Services'},
-		{'field': 'accessibility.accessible_entry', 'display': 'Accessibility'},
-		{'field': 'contact.street_address.municipality_fi', 'display': 'City'}
+		{'field': 'consortium', 'size': 100, 'order':'term', 'display': _('Library consortium')},
+		{'field': 'organisation_type', 'display': _('Type')},
+		{'field': 'branch_type', 'display': _('Branch type')},
+		{'field': 'services.name_fi', 'order':'term', 'display': _('Services'), "size":40 },
+		{'field': 'accessibility.accessible_entry', 'display': _('Accessibility')},
+		{'field': 'contact.street_address.municipality_fi', 'display': _('City')}
 		],
             "addremovefacets": false,
             "result_display": search_results,
@@ -269,7 +270,7 @@
         // pass a list of filters to be displayed
         var buildfilters = function() {
             var filters = options.facets;
-			var filterheader = "<h3>Filter by</h3>";
+			var filterheader = "<h3>" + _("Filter by") + "</h3>";
 			var thefilters = "";
 
             for ( var idx in filters ) {
@@ -303,7 +304,7 @@
                 }
             }
             $('#facetview_filters').html("").append(filterheader+thefilters)
-			$('#facetview_filters').after('<div id=clearbutton style="display: none;"><button style="min-width: 78%;" class="btn btn-success" id="clear_facetfilters">Clear all filters</button></div>');
+			$('#facetview_filters').after('<div id=clearbutton style="display: none;"><button style="min-width: 78%;" class="btn btn-success" id="clear_facetfilters">' + _("Clear all filters") + '</button></div>');
 			$('#clear_facetfilters').bind('click', function(event) {
 				event.preventDefault();
 				$('#facetview_selectedfilters').children().each(function(){
@@ -327,13 +328,13 @@
 		navigator.geolocation.getCurrentPosition(
 			function (position) {
 			    //console.log(position);
-			    $('#facetview_filters h3').after('<button style="min-width: 78%;" class="btn btn-primary" id="facetview_location">Show libraries near my location</button>');
+			    $('#facetview_filters h3').after('<button style="min-width: 78%;" class="btn btn-primary" id="facetview_location">' + _("Show libraries near my location") + '</button>');
 			    $('#facetview_location').bind('click',function(event){ 
 					$('#facetview_location').hide();
 					$('#clearbutton').show();
 					ld_position=true;
 					ld_position_coords=position.coords;
-					clickextrabubble("ld_location","Libraries near my location");
+					clickextrabubble("ld_location",_("Libraries near my location"));
 			    }); 
 			},
 		// the error callback that never gets called (in firefox?)
@@ -628,9 +629,9 @@
             var metaTmpl = ' \
               <div class="pagination"> \
                 <ul> \
-                  <li class="prev"><a id="facetview_decrement" href="{{from}}">&laquo; back</a></li> \
-                  <li class="active"><a>{{from}} &ndash; {{to}} of {{total}}</a></li> \
-                  <li class="next"><a id="facetview_increment" href="{{to}}">next &raquo;</a></li> \
+                  <li class="prev"><a id="facetview_decrement" href="{{from}}">&laquo;' + _("back") + '</a></li> \
+                  <li class="active"><a>{{from}} &ndash; {{to}} ' + _("of") + ' {{total}}</a></li> \
+                  <li class="next"><a id="facetview_increment" href="{{to}}">' + _("next") + '&raquo;</a></li> \
                 </ul> \
               </div> \
               ';
