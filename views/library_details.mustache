@@ -93,15 +93,15 @@
 	    <dt>_("E-mail")</dt>
 	    <dd><i class="icon-envelope"></i> <a href="mailto:{{contact.email}}">{{contact.email}}</a></dd>
 	    {{/contact.email}}
-	    	    
+
 		{{#contact.homepage_fi}}
+		<dd>
         <dt>_("Homepage")</dt>
-        <dd>
             <i class="icon-home"></i> <a href="{{contact.homepage_fi}}">{{contact.homepage_fi}}</a>
             {{#contact.internet}}
-                <br><a href="{{url_fi}}">{{name_fi}}</a> ({{url_description_fi}})
+                <br><a href="{{url_fi}}" title="{{url_description_fi}}">{{name_fi}}</a>
             {{/contact.internet}}
-        </dd>
+		</dd>
 	    {{/contact.homepage_fi}}
 
 		{{#additional_info}}

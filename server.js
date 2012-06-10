@@ -159,7 +159,14 @@ function add_library_metadata(dataobj, callback){
             dataobj._source.neveropen = true;
             break;
     }
-    
+
+	var lib = dataobj._source;
+
+	for (var item in lib.contact.internet) {
+		var temp = lib.contact.internet[item];
+		if (typeof temp.url_description_fi=='string' && temp.url_description_fi=="") delete temp.url_description_fi;
+	}
+
     // delete empty object so that they will not be displayed in Mustache templates
     if (dataobj._source.additional_info.slug == '') {
         delete dataobj._source.additional_info.slug;
