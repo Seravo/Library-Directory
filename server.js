@@ -187,6 +187,7 @@ function add_library_metadata(dataobj, callback){
         // style label for visuals
         // use Twitter Bootstrap classes
         if (s.type == 'laite') { s.label = "label-inverse"; }
+        if (s.type == 'tila') { s.label = "label-info"; }
     });
    
     if (dataobj._source.established_year == '') {
@@ -572,6 +573,8 @@ app.get("/id/:id",function(req,res,next) {
 });
 
 app.get("/*",function(req,res,next) {
+    // TODO: narrow match to 3-20 lower case letters
+    // ([a-z]{3,20}) didn't work however?
     res.local("header", header.render({title: _("Library details"), browse_active: true}))
     res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
     console.log("Requested: "+req.params);

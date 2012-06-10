@@ -46,7 +46,9 @@ function ld_mapcontrol_init(coords, name, desc) {
 		{ },
 		{externalGraphic: 'js/libs/openlayers/markers/marker-black.png', graphicHeight: 41, graphicWidth: 25, graphicYOffset: -40});
 	if (name!="" && desc!="") {
-		popup = new OpenLayers.Popup.FramedCloud("popup", mapLocation, new OpenLayers.Size(200, 200), "<strong>"+name+"</strong><br>"+desc, null, false);
+		popup = new OpenLayers.Popup.FramedCloud("popup", mapLocation, new OpenLayers.Size(200, 200), name+desc, null, false);
+		// dont' style name and desc here, they come prestyled from calling functions
+		// consider joining to one variable, e.g. htmlcontents
 		map.addPopup(popup);
 	}
 
