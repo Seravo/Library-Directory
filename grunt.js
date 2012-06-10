@@ -84,6 +84,7 @@ module.exports = function(grunt) {
         'js/libs/d3/d3.layout.min.js',
         'js/libs/jquery.facetview.js',
 //        'js/libs/openlayers/openlayers.js',
+		'js/libs/gettext.js',
         'js/plugins.js',
         'js/script.js'
         ],
