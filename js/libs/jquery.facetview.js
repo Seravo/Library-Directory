@@ -56,9 +56,9 @@
     }
 
     var showerror = function(msg) {
-        if (!msg){ msg = 'Error: unspecified'; }
+        if (!msg){ msg = _("Error: unspecified"); }
 	    hidespinner();
-	    $('#facetview_results').before('<div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>Error:</strong> '+msg+'</div>');
+	    $('#facetview_results').before('<div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>' + _("Error") + ':</strong> '+msg+'</div>');
     }
 
     var clearerror = function() {
@@ -858,7 +858,7 @@
         var dosearch = function() {
             if ( options.search_index == "elasticsearch" ) {
 				// jsonp-request does not call the error function (by design) so use timeout instead
-				var searchTimer = window.setTimeout(function() { showerror("Could not connect to database. Please try again later.") }, 5000);
+				var searchTimer = window.setTimeout(function() { showerror(_("Could not connect to database. Please try again later.")) }, 5000);
 				$.ajax({
 					type: "get",
 					url: options.search_url,

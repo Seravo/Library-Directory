@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-11 09:47+0300\n"
-"PO-Revision-Date: 2012-06-11 09:47+0200\n"
+"POT-Creation-Date: 2012-06-11 10:07+0300\n"
+"PO-Revision-Date: 2012-06-11 10:09+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -122,6 +122,26 @@ msgstr "Palaute lähetetty"
 msgid "Library details"
 msgstr "Kirjaston tiedot"
 
+#: js/libs/jquery.facetview.js:59
+msgid "Error: unspecified"
+msgstr "Määrittelemätön virhetilanne"
+
+#: js/libs/jquery.facetview.js:61
+#: views/contact.mustache:11
+#: views/contact.mustache:16
+#: views/contact.mustache:21
+#: views/library_details.mustache:11
+#: staging/views/contact.mustache:11
+#: staging/views/contact.mustache:16
+#: staging/views/contact.mustache:21
+#: staging/views/library_details.mustache:11
+#: output/views/contact.mustache:11
+#: output/views/contact.mustache:16
+#: output/views/contact.mustache:21
+#: output/views/library_details.mustache:11
+msgid "Error"
+msgstr "Virhe"
+
 #: js/libs/jquery.facetview.js:72
 #: views/library_details.mustache:157
 #: staging/views/library_details.mustache:157
@@ -209,6 +229,10 @@ msgstr "/"
 msgid "next"
 msgstr "seuraavat"
 
+#: js/libs/jquery.facetview.js:863
+msgid "Could not connect to database. Please try again later."
+msgstr "Yhteyttä tietokantaan ei saatu, yritä hetken kuluttua uudelleen."
+
 #: views/index.mustache:7
 #: staging/views/index.mustache:7
 #: output/views/index.mustache:7
@@ -254,21 +278,6 @@ msgstr "Anna palautetta!"
 #: output/views/contact.mustache:6
 msgid "This site is the product of <a href='http://kirjastot.fi/'>Kirjastot.fi</a>."
 msgstr "Tämä sivusto on <a href='http://kirjastot.fi/'>Kirjastot.fi</a>:n tuottama."
-
-#: views/contact.mustache:11
-#: views/contact.mustache:16
-#: views/contact.mustache:21
-#: views/library_details.mustache:11
-#: staging/views/contact.mustache:11
-#: staging/views/contact.mustache:16
-#: staging/views/contact.mustache:21
-#: staging/views/library_details.mustache:11
-#: output/views/contact.mustache:11
-#: output/views/contact.mustache:16
-#: output/views/contact.mustache:21
-#: output/views/library_details.mustache:11
-msgid "Error"
-msgstr "Virhe"
 
 #: views/contact.mustache:19
 #: staging/views/contact.mustache:19
@@ -383,6 +392,10 @@ msgstr "Ei aukioloa, koska kyseessä {{organisation_type}}."
 #: output/views/library_details.mustache:155
 msgid "The library is now"
 msgstr "Kirjasto on nyt"
+
+#: views/library_details.mustache:158
+msgid "Opening hours today"
+msgstr "Avoinna tänään"
 
 #: views/library_details.mustache:166
 #: staging/views/library_details.mustache:166

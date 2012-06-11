@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-11 09:47+0300\n"
+"POT-Creation-Date: 2012-06-11 10:07+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -106,6 +106,20 @@ msgstr ""
 msgid "Library details"
 msgstr ""
 
+#: js/libs/jquery.facetview.js:59
+msgid "Error: unspecified"
+msgstr ""
+
+#: js/libs/jquery.facetview.js:61 views/contact.mustache:11
+#: views/contact.mustache:16 views/contact.mustache:21
+#: views/library_details.mustache:11 staging/views/contact.mustache:11
+#: staging/views/contact.mustache:16 staging/views/contact.mustache:21
+#: staging/views/library_details.mustache:11 output/views/contact.mustache:11
+#: output/views/contact.mustache:16 output/views/contact.mustache:21
+#: output/views/library_details.mustache:11
+msgid "Error"
+msgstr ""
+
 #: js/libs/jquery.facetview.js:72 views/library_details.mustache:157
 #: staging/views/library_details.mustache:157
 #: output/views/library_details.mustache:157
@@ -188,6 +202,10 @@ msgstr ""
 msgid "next"
 msgstr ""
 
+#: js/libs/jquery.facetview.js:863
+msgid "Could not connect to database. Please try again later."
+msgstr ""
+
 #: views/index.mustache:7 staging/views/index.mustache:7
 #: output/views/index.mustache:7
 msgid "Find your library!"
@@ -223,15 +241,6 @@ msgstr ""
 #: output/views/contact.mustache:6
 msgid ""
 "This site is the product of <a href='http://kirjastot.fi/'>Kirjastot.fi</a>."
-msgstr ""
-
-#: views/contact.mustache:11 views/contact.mustache:16
-#: views/contact.mustache:21 views/library_details.mustache:11
-#: staging/views/contact.mustache:11 staging/views/contact.mustache:16
-#: staging/views/contact.mustache:21 staging/views/library_details.mustache:11
-#: output/views/contact.mustache:11 output/views/contact.mustache:16
-#: output/views/contact.mustache:21 output/views/library_details.mustache:11
-msgid "Error"
 msgstr ""
 
 #: views/contact.mustache:19 staging/views/contact.mustache:19
@@ -338,6 +347,10 @@ msgstr ""
 #: staging/views/library_details.mustache:155
 #: output/views/library_details.mustache:155
 msgid "The library is now"
+msgstr ""
+
+#: views/library_details.mustache:158
+msgid "Opening hours today"
 msgstr ""
 
 #: views/library_details.mustache:166
