@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-10 21:00+0300\n"
-"PO-Revision-Date: 2012-06-11 09:41+0200\n"
+"POT-Creation-Date: 2012-06-11 09:47+0300\n"
+"PO-Revision-Date: 2012-06-11 09:47+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -130,66 +130,70 @@ msgid "Open"
 msgstr "Auki"
 
 #: js/libs/jquery.facetview.js:73
+msgid "today"
+msgstr "tänään"
+
+#: js/libs/jquery.facetview.js:74
 #: views/library_details.mustache:162
 #: staging/views/library_details.mustache:162
 #: output/views/library_details.mustache:162
 msgid "Closed"
 msgstr "Suljettu"
 
-#: js/libs/jquery.facetview.js:74
+#: js/libs/jquery.facetview.js:75
 msgid "open today"
 msgstr "avoinna tänään"
 
-#: js/libs/jquery.facetview.js:86
+#: js/libs/jquery.facetview.js:87
 msgid "Show details"
 msgstr "Näytä tiedot"
 
-#: js/libs/jquery.facetview.js:96
+#: js/libs/jquery.facetview.js:97
 #: views/library_details.mustache:132
 #: staging/views/library_details.mustache:132
 #: output/views/library_details.mustache:132
 msgid "Library consortium"
 msgstr "Kirjastoyhtymä"
 
-#: js/libs/jquery.facetview.js:97
+#: js/libs/jquery.facetview.js:98
 msgid "Type"
 msgstr "Kirjastoluokka"
 
-#: js/libs/jquery.facetview.js:98
+#: js/libs/jquery.facetview.js:99
 msgid "Branch type"
 msgstr "Kirjastotyyppi"
 
-#: js/libs/jquery.facetview.js:99
+#: js/libs/jquery.facetview.js:100
 #: views/library_details.mustache:40
 #: staging/views/library_details.mustache:40
 #: output/views/library_details.mustache:40
 msgid "Services"
 msgstr "Palvelut"
 
-#: js/libs/jquery.facetview.js:100
+#: js/libs/jquery.facetview.js:101
 #: views/library_details.mustache:194
 #: staging/views/library_details.mustache:194
 #: output/views/library_details.mustache:194
 msgid "Accessibility"
 msgstr "Esteettömyyspalvelut"
 
-#: js/libs/jquery.facetview.js:101
+#: js/libs/jquery.facetview.js:102
 msgid "City"
 msgstr "Kaupunki"
 
-#: js/libs/jquery.facetview.js:273
+#: js/libs/jquery.facetview.js:274
 msgid "Filter by"
 msgstr "Valitse"
 
-#: js/libs/jquery.facetview.js:307
+#: js/libs/jquery.facetview.js:308
 msgid "Clear all filters"
 msgstr "Poista suodatukset"
 
-#: js/libs/jquery.facetview.js:331
+#: js/libs/jquery.facetview.js:332
 msgid "Show libraries near my location"
 msgstr "Lähellä olevat kirjastot"
 
-#: js/libs/jquery.facetview.js:337
+#: js/libs/jquery.facetview.js:338
 msgid "Libraries near my location"
 msgstr "Lähellä olevat kirjastot"
 
