@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-10 21:00+0300\n"
-"PO-Revision-Date: 2012-06-10 21:00+0200\n"
+"PO-Revision-Date: 2012-06-11 09:41+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -127,7 +127,7 @@ msgstr "Kirjaston tiedot"
 #: staging/views/library_details.mustache:157
 #: output/views/library_details.mustache:157
 msgid "Open"
-msgstr "Avaa"
+msgstr "Auki"
 
 #: js/libs/jquery.facetview.js:73
 #: views/library_details.mustache:162
