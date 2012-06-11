@@ -21,7 +21,7 @@ Instructions for Ubuntu 12.04, where the required dependencies can be installed 
     $ # sudo npm install -g -d
     
     # Instead install globally manually:
-    $ sudo npm install -g connect express express-form nodemailer hogan grunt nodewatch https://github.com/h5bp/node-build-script/tarball/master
+    $ sudo npm install -g connect locale express express-form nodemailer hogan grunt nodewatch https://github.com/h5bp/node-build-script/tarball/master
     # Normal "npm install -g gettext" no possible, library broken with TypeError: Object #<Object> has no method 'dcnpgettext'
     # Install a fixed fork
     $ sudo npm install -g git://github.com/dodo/node-gettext.git

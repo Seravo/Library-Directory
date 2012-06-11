@@ -25,10 +25,14 @@ gettext = require('gettext'),
 gettext.setlocale('LC_ALL', 'fi'); // default language Finnish (for server, not single request!)
 lang = gettext.lang; // save in global variable
 
-gettext.loadLanguageFile('./locale/fi/messages.po', 'fi', function(){ 
-    console.log(_("Using locale ") + gettext.lang);
+// load all localizations at once
+gettext.loadLocaleDirectory("locale", function(){
+	var languages = []
+	for (var key in gettext.data) {
+		languages.push(key);
+	}
+	console.log("Loaded messages for: " + languages.join(" "));
 });
-
 
 // Use consolidate.js in Express.js 3.0, otherwise custom adaptor
 // var cons = require('consolidate');
@@ -37,7 +41,10 @@ var adapter = require('hogan-express.js');
 
 var connect = require('connect');
 var express = require('express');
-var app = express.createServer(),
+var	locale = require("locale");
+var	supported_locales = ["en", "fi", "sv"];
+
+var app = express.createServer(locale(supported_locales)),
     form = require("express-form"),
     filter = form.filter,
     validate = form.validate;
@@ -51,6 +58,12 @@ app.configure(function(){
     app.use(express.logger('dev'))
     app.use(express.methodOverride());
     app.use(express.bodyParser());
+	app.use(function(request, response, next) {
+		var lang = request.locale;
+		if (request.query.lang != undefined) lang = request.query.lang;
+		gettext.setlocale("LC_ALL", lang);
+		next();
+	});
 	app.set('view engine','mustache');
 	app.set('view options',{layout:false});
 	app.set('views',__dirname + '/views');
