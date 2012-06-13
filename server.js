@@ -34,6 +34,12 @@ gettext.loadLocaleDirectory("locale", function(){
 	console.log("Loaded messages for: " + languages.join(" "));
 });
 
+function switch_locale(req) {
+	var lang = req.locale;
+	if (req.query.lang != undefined) lang = req.query.lang;
+	gettext.setlocale("LC_ALL", lang);
+}
+
 // Use consolidate.js in Express.js 3.0, otherwise custom adaptor
 // var cons = require('consolidate');
 var hogan = require('hogan');
@@ -533,15 +539,18 @@ app.get("/se/([a-z]*)",function(req,res,next) {
 
 //app.get("(/[a-z][a-z])?/",function(req,res,next) {
 app.get("/",function(req,res,next) {
+	switch_locale(req);
     res.local("header", header.render({search_active: true}))
     res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 	res.render("index", res.locals());
 });
 
 app.get("/browse",function(req,res,next) {
+	switch_locale(req);
     res.local("header", header.render({title: _("Browse all"), browse_active: true}))
     res.local("footer", footer.render());
     get_libraries(function(data){
+		switch_locale(req);
 		res.local("count", data.hits.total);
         res.local("libraries", []);
         for (var item in data.hits.hits) {
@@ -553,6 +562,7 @@ app.get("/browse",function(req,res,next) {
 });
 
 app.get("/about",function(req,res,next) {
+	switch_locale(req);
     res.local("header", header.render({title: _("About"), about_active: true}))
     res.local("footer", footer.render());
 	res.render("about", res.locals());
@@ -615,12 +625,14 @@ app.post("/contact", // Route
 );
 
 app.get("/contact",function(req,res,next) {
+	switch_locale(req);
     res.local("header", header.render({title: _("Contact"), contact_active: true}));
     res.local("footer", footer.render());
 	res.render("contact", res.locals());
 });
 
 app.get("/feedback-sent",function(req,res,next) {
+	switch_locale(req);
 	console.log(JSON.stringify(res.locals()));
     res.local("header", header.render({title: _("Feedback sent"), contact_active: true}))
     res.local("footer", footer.render());
@@ -641,16 +653,19 @@ app.get('/widget', function(req, res){
 });
 
 app.get("/id/:id",function(req,res,next) {
+	switch_locale(req);
     res.local("header", header.render({title: _("Library details")}))
     res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
     //console.log("Requested: "+req.params.id);
     get_library_by_id(req.params.id, function(data){
+		switch_locale(req);
 		var id = data._id;
 		data._source["id"] = id;
 
 		var library = data._source;
 
 		get_library_children(id, function(child_data) {
+			switch_locale(req);
 			if (child_data.hits.hits.length>0)
 			{
 				var children = [];
@@ -675,10 +690,12 @@ app.get("/id/:id",function(req,res,next) {
 app.get("/*",function(req,res,next) {
     // TODO: narrow match to 3-20 lower case letters
     // ([a-z]{3,20}) didn't work however?
+	switch_locale(req);
     res.local("header", header.render({title: _("Library details")}))
     res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
     console.log("Requested: "+req.params);
     get_library_by_name(req.params[0], function(data){
+		switch_locale(req);
         console.log("total: "+data.hits.total);
         if (data.hits.total > 0) {
 		    data.hits.hits[0]._source["id"] = data.hits.hits[0]._id;
