@@ -54,16 +54,11 @@ var app = express.createServer(locale(supported_locales)),
 form.configure({flashErrors: false});
 
 // default settings assume development environment
-app.configure(function(){
+app.configure('dev', function(){
+    console.log("Using development settings.");
     app.use(express.logger('dev'))
     app.use(express.methodOverride());
     app.use(express.bodyParser());
-	app.use(function(request, response, next) {
-		var lang = request.locale;
-		if (request.query.lang != undefined) lang = request.query.lang;
-		gettext.setlocale("LC_ALL", lang);
-		next();
-	});
 	app.set('view engine','mustache');
 	app.set('view options',{layout:false});
 	app.set('views',__dirname + '/views');
@@ -75,11 +70,18 @@ app.configure(function(){
     footerfile = '/views/footer-dev.mustache';
 });
 
-// override specific settings if started with $ NODE_ENV=production node server.js
-app.configure('production', function(){
-    console.log("Use production settings.");
-    app.set(app.router, false); // must be last so that wildcard route does not override 
+// specific settings if started with $ NODE_ENV=prod node server.js
+app.configure('prod', function(){
+    console.log("Using production settings.");
+    //app.use(express.logger('dev'))
+    app.use(express.methodOverride());
+    app.use(express.bodyParser());
+    app.set(app.router, false); // must be last so that wildcard route does not override
+	app.set('view engine','mustache');
+	app.set('view options',{layout:false});
     app.set('views',__dirname + '/output/views');
+	app.register('mustache',adapter.init(hogan));
+    app.use(connect.compress()); // works for static files, but not for res.render?
     var oneYear = 31557600000;
     app.use(express.static(__dirname + '/output', { maxAge: oneYear }));
     app.use(express.errorHandler());

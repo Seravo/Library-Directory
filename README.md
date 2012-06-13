@@ -89,7 +89,7 @@ Execute each step in dedicated terminal or screen.
 
 4. Start HTTP server with production variable
 
-        $ NODE_ENV=production node server.js
+        $ NODE_ENV=prod node server.js
         
 Finally open `localhost:8080` to use server.
 
