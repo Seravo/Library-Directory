@@ -8,10 +8,10 @@
       {{#libraries}}
         <li><a 
         {{#additional_info.slug}}
-        href="/{{additional_info.slug}}"
+        href="{{additional_info.slug}}"
         {{/additional_info.slug}}
         {{^additional_info.slug}}
-        href="/id/{{id}}"
+        href="{{id}}"
         {{/additional_info.slug}}
         id="{{id}}">{{name_fi}} <span class="label">{{organisation_type}}</span> {{^additional_info.slug}}<span class="label label-important">_("slug missing")</span>{{/additional_info.slug}}</a></li>
       {{/libraries}}

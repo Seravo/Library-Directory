@@ -84,7 +84,7 @@
 		    "format": coordinate_format },
 		  { "fields": "contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi", "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
 		[ { "fields": "open_now, opening_hours", "format": opening_hours_format } ],
-		[ { "fields": "id, additional_info.slug, name_fi, id", "format": "<a class='btn btn-big btn-info' title='{{d2}} ({{d0}})' href='/{{#d1}}{{d1}}{{/d1}}{{^d1}}id/{{d3}}{{/d1}}'>" + _("Show details") + " &rarr;</a>" } ]
+		[ { "fields": "id, additional_info.slug, name_fi, id", "format": "<a class='btn btn-big btn-info' title='{{d2}} ({{d0}})' href='{{#d1}}{{d1}}{{/d1}}{{^d1}}{{d3}}{{/d1}}'>" + _("Show details") + " &rarr;</a>" } ]
 	]
 /*		[ { "field": "services" } ], */
 /* optimal would be not to show list of services, but rather just icons for the most important services */
