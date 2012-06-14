@@ -227,8 +227,9 @@ function add_library_metadata(dataobj, callback){
 
         // style label for visuals
         // use Twitter Bootstrap classes
-        if (s.type == 'laite') { s.label = "label-inverse"; }
-        if (s.type == 'tila') { s.label = "label-info"; }
+        if (s.type == 'laite') { s.type = _("service type device"); s.label = "label-inverse"; }
+        if (s.type == 'tila') { s.type = _("service type room"); s.label = "label-info"; }
+        if (s.type == 'palvelu') { s.type = _("service type service"); }
     });
    
     if (dataobj._source.established_year == '') {
