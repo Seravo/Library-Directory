@@ -34,10 +34,22 @@ gettext.loadLocaleDirectory("locale", function(){
 	console.log("Loaded messages for: " + languages.join(" "));
 });
 
+function rlog(str) { console.log(str); }
+
 function switch_locale(req) {
-	var lang = req.locale;
-	if (req.query.lang != undefined) lang = req.query.lang;
-	gettext.setlocale("LC_ALL", lang);
+	var browser_lang = req.locale;   // accept-language: fi;q=1
+	var path_lang = req.params.lang; // /fi/about
+	var get_lang = req.query.lang;   // /about?lang=fi
+
+	//console.log(browser_lang, path_lang, get_lang);
+	// locale precedence:
+	// 1) get var 2) request path 3) browser setting
+	var locale = lang; // default application language (fi) from global var if nothing else is defined
+	if (browser_lang != undefined) locale = browser_lang;
+	if (path_lang != undefined) locale = path_lang;
+	if (get_lang != undefined) locale = get_lang;
+
+	gettext.setlocale("LC_ALL", locale);
 }
 
 // Use consolidate.js in Express.js 3.0, otherwise custom adaptor
@@ -113,6 +125,224 @@ app.configure(function(){
     });
 });
 
+
+/*
+route logic:
+if /(.*) <html lang="fi"...
+if /fi/(.*) -> html lang fi
+if /en/(.*) -> html lang en
+if /sv/(.*) -> html lang sv
+*/
+
+// route handler for all dynamic data without language path
+app.get("/:resource(*)",function(req,res,next) {
+	rlog(":resource -->");
+	route_parser(req,res,next);
+});
+
+// route handler for all dynamic data with language path
+app.get("/:lang([a-z][a-z])/:resource(*)",function(req,res,next) {
+	rlog(":lang/:resource -->");
+	route_parser(req,res,next);
+});
+
+function route_parser(req,res,next) {
+	switch_locale(req);
+	var page = req.params.resource;
+	//console.log(page);
+
+	// static page
+	if (page == '' || page.match(/^(about|browse|contact|feedback-sent|search)$/)) {
+			rlog("match page");
+			render_static_page(page, req, res); }
+
+	// get library by slug
+	else if (page.match(/^[a-z-]+$/)) {
+			rlog("match slug");
+			render_library_by_slug(page, req, res);	}
+
+	// get library by id
+	else if (page.match(/^[a-zA-Z0-9_-]{22}$/)) {
+			rlog("match id");
+			render_library_by_id(page, req, res); }
+
+	// static assets and unmatched requests
+	else {
+		rlog("UNMATCHED");
+		next('route');
+	}
+}
+
+app.post("/contact", // Route
+
+  form( // Form filter and validation middleware
+    filter("fname").trim(),
+    validate("fname", _("Name")).required().notEmpty(),
+    filter("femail").trim(),
+    validate("femail", _("E-mail")).required(_("Please provide your e-mail so we can respond to your feedback.")).isEmail(),
+    validate("fmessage", _("Feedback")).required().notEmpty()
+  ),
+
+  // Express request-handler gets filtered and validated data
+  function(req, res){
+    if (!req.form.isValid) {
+      // Handle errors
+      res.local("errors", req.form.getErrors());
+      res.local("header", header.render({title: _("Contact"), contact_active: true}));
+      res.local("footer", footer.render());
+      res.render("contact", res.locals());
+
+    } else {
+        // Or, use filtered form data from the form object:
+
+        message = _("Feedback from: ") + req.form.fname + " <" + req.form.femail + "> \n\nMessage: \n" + req.form.fmessage + "\n";
+        console.log("Feedback message: " + message);
+        var nodemailer = require("nodemailer");
+        console.log("conf.nodemailer_config: " + conf.nodemailer_config);
+
+        // create reusable transport method (opens pool of SMTP connections)
+        var smtpTransport = nodemailer.createTransport("SMTP", conf.nodemailer_config);
+
+        // setup e-mail data with unicode symbols
+        var mailOptions = {
+            from: "Library directory <noreply@seravo.fi>", // sender address
+            to: "otto@seravo.fi", // list of receivers
+            subject: _("Feedback from library directory"), // Subject line
+            text: message // plaintext body
+        }
+
+        // send mail with defined transport object
+        smtpTransport.sendMail(mailOptions, function(error, response){
+            if(error){
+                console.log(error);
+            }else{
+                console.log("Message sent: " + response.message);
+            }
+
+            // if you don't want to use this transport object anymore, uncomment following line
+            //smtpTransport.close(); // shut down the connection pool, no more messages
+        });
+        res.redirect('/feedback-sent');
+    }
+  }
+);
+
+app.get('/widget/load', function(req, res){
+	rlog("widget load");
+    // what kind of widget was requested?
+    // with what parameters?
+    // print out custom widget
+    res.send('prints out custom widget js');
+});
+
+app.get('/widget', function(req, res){
+	rlog("widget");
+    // display form for generating custom widget code
+    // result <script src="http://hakemisto.kirjastot.fi/widget/load/?area=helmet"></script>
+    res.send('prints out customization wizard');
+});
+
+function render_static_page(page, req, res) {
+	switch_locale(req);
+
+	switch(page) {
+		case "about":
+			res.local("header", header.render({title: _("About"), about_active: true}));
+			res.local("footer", footer.render());
+			res.render("about", res.locals());
+			break;
+
+		case "browse":
+			res.local("header", header.render({title: _("Browse all"), browse_active: true}))
+			res.local("footer", footer.render());
+			get_libraries(function(data){
+				switch_locale(req);
+				res.local("count", data.hits.total);
+				res.local("libraries", []);
+				for (var item in data.hits.hits) {
+					data.hits.hits[item]._source["id"] = data.hits.hits[item]._id;
+					res.local("libraries").push(data.hits.hits[item]._source);
+				}
+				res.render("browse", res.locals());
+			});
+			break;
+
+		case "contact":
+			res.local("header", header.render({title: _("Contact"), contact_active: true}));
+			res.local("footer", footer.render());
+			res.render("contact", res.locals());
+			break;
+
+		case "search":
+		case "":
+			res.local("header", header.render({search_active: true}))
+			res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+			res.render("index", res.locals());
+			break;
+
+		case "feedback-sent":
+			//console.log(JSON.stringify(res.locals()));
+			res.local("header", header.render({title: _("Feedback sent"), contact_active: true}))
+			res.local("footer", footer.render());
+			res.render("feedback-sent", res.locals());
+			break;
+
+	}
+}
+
+
+function render_library_by_id(page, req, res) {
+	switch_locale(req);
+
+    res.local("header", header.render({title: _("Library details")}))
+    res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+    //console.log("Requested: "+req.params.id);
+    get_library_by_id(page, function(data){
+		switch_locale(req);
+		var id = data._id;
+		data._source["id"] = id;
+
+		var library = data._source;
+
+		get_library_children(id, function(child_data) {
+			switch_locale(req);
+			if (child_data.hits.hits.length>0)
+			{
+				var children = [];
+				for (item in child_data.hits.hits) {
+					var child = child_data.hits.hits[item]._source;
+					child.id = child_data.hits.hits[item]._id;
+					children.push(child);
+				}
+
+				library.children = children;
+				library.has_children = true;
+			} else {
+				library.has_children = false;
+			}
+
+			res.local("data", library);
+			res.render("library_details", res.locals());
+		});
+	});
+}
+
+
+function render_library_by_slug(slug, req, res) {
+	switch_locale(req);
+    res.local("header", header.render({title: _("Library details")}))
+    res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+    console.log("Requested: "+req.params);
+    get_library_by_name(slug, function(data){
+		switch_locale(req);
+        console.log("total: "+data.hits.total);
+        if (data.hits.total > 0) {
+		    data.hits.hits[0]._source["id"] = data.hits.hits[0]._id;
+		    res.local("data", data.hits.hits[0]._source);
+		    res.render("library_details", res.locals());
+		}
+	});
+}
 
 // get list of all libraries
 var http = require('http');
@@ -501,213 +731,6 @@ footer = new function () {
         return adapter.init(hogan).compile(footerfilecontents)(options);
     }
 }
-
-
-
-/* 
-route logic:
-if /(.*) <html lang="fi"...
-if /fi/(.*) -> html lang fi
-if /en/(.*) -> html lang en
-if /sv/(.*) -> html lang sv
-*/
-
-// TODO: rewrite everything below?
-// language switcher based on url
-// bug: this switches language for whole node.js process,
-// what we want is a specific locale only to reply to the request
-// and we need to keep consecutive url consistent with language url
-app.get("/fi/([a-z]*)",function(req,res,next) {
-    gettext.setlocale('LC_ALL', 'fi'); // default language English
-    lang = gettext.lang; // save in global variable
-    console.log("Using locale fi");
-    next('route');
-});
-app.get("/en/([a-z]*)",function(req,res,next) {
-    gettext.setlocale('LC_ALL', 'en'); // default language English
-    lang = gettext.lang; // save in global variable
-    console.log("Using locale en");
-    next('route');
-});
-app.get("/se/([a-z]*)",function(req,res,next) {
-    gettext.setlocale('LC_ALL', 'se'); // default language English
-    lang = gettext.lang; // save in global variable
-    console.log("Using locale se");
-    next('route');
-});
-
-
-
-//app.get("(/[a-z][a-z])?/",function(req,res,next) {
-app.get("/",function(req,res,next) {
-	switch_locale(req);
-    res.local("header", header.render({search_active: true}))
-    res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
-	res.render("index", res.locals());
-});
-
-app.get("/browse",function(req,res,next) {
-	switch_locale(req);
-    res.local("header", header.render({title: _("Browse all"), browse_active: true}))
-    res.local("footer", footer.render());
-    get_libraries(function(data){
-		switch_locale(req);
-		res.local("count", data.hits.total);
-        res.local("libraries", []);
-        for (var item in data.hits.hits) {
-			data.hits.hits[item]._source["id"] = data.hits.hits[item]._id;
-			res.local("libraries").push(data.hits.hits[item]._source);
-		}
-    	res.render("browse", res.locals());
-    });
-});
-
-app.get("/about",function(req,res,next) {
-	switch_locale(req);
-    res.local("header", header.render({title: _("About"), about_active: true}))
-    res.local("footer", footer.render());
-	res.render("about", res.locals());
-});
-
-app.post("/contact", // Route
-  
-  form( // Form filter and validation middleware
-    filter("fname").trim(),
-    validate("fname", _("Name")).required().notEmpty(),
-    filter("femail").trim(),
-    validate("femail", _("E-mail")).required(_("Please provide your e-mail so we can respond to your feedback.")).isEmail(),
-    validate("fmessage", _("Feedback")).required().notEmpty()
-  ),
-
-  // Express request-handler gets filtered and validated data
-  function(req, res){
-    if (!req.form.isValid) {
-      // Handle errors
-      res.local("errors", req.form.getErrors());
-      res.local("header", header.render({title: _("Contact"), contact_active: true}));
-      res.local("footer", footer.render());
-      res.render("contact", res.locals());
-
-    } else {
-        // Or, use filtered form data from the form object:
-
-        message = _("Feedback from: ") + req.form.fname + " <" + req.form.femail + "> \n\nMessage: \n" + req.form.fmessage + "\n";
-        console.log("Feedback message: " + message);
-        var nodemailer = require("nodemailer");
-        console.log("conf.nodemailer_config: " + conf.nodemailer_config);
-
-        // create reusable transport method (opens pool of SMTP connections)
-        var smtpTransport = nodemailer.createTransport("SMTP", conf.nodemailer_config);
-
-        // setup e-mail data with unicode symbols
-        var mailOptions = {
-            from: "Library directory <noreply@seravo.fi>", // sender address
-            to: "otto@seravo.fi", // list of receivers
-            subject: _("Feedback from library directory"), // Subject line
-            text: message // plaintext body
-        }
-
-        // send mail with defined transport object
-        smtpTransport.sendMail(mailOptions, function(error, response){
-            if(error){
-                console.log(error);
-            }else{
-                console.log("Message sent: " + response.message);
-            }
-
-            // if you don't want to use this transport object anymore, uncomment following line
-            //smtpTransport.close(); // shut down the connection pool, no more messages
-        });
-      
-      
-        res.redirect('/feedback-sent');
-    }
-  }
-);
-
-app.get("/contact",function(req,res,next) {
-	switch_locale(req);
-    res.local("header", header.render({title: _("Contact"), contact_active: true}));
-    res.local("footer", footer.render());
-	res.render("contact", res.locals());
-});
-
-app.get("/feedback-sent",function(req,res,next) {
-	switch_locale(req);
-	console.log(JSON.stringify(res.locals()));
-    res.local("header", header.render({title: _("Feedback sent"), contact_active: true}))
-    res.local("footer", footer.render());
-	res.render("feedback-sent", res.locals());
-});
-
-app.get('/widget/load', function(req, res){
-    // what kind of widget was requested?
-    // with what parameters?
-    // print out custom widget
-    res.send('prints out custom widget js');
-});
-
-app.get('/widget', function(req, res){
-    // display form for generating custom widget code
-    // result <script src="http://hakemisto.kirjastot.fi/widget/load/?area=helmet"></script>
-    res.send('prints out customization wizard');
-});
-
-app.get("/id/:id",function(req,res,next) {
-	switch_locale(req);
-    res.local("header", header.render({title: _("Library details")}))
-    res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
-    //console.log("Requested: "+req.params.id);
-    get_library_by_id(req.params.id, function(data){
-		switch_locale(req);
-		var id = data._id;
-		data._source["id"] = id;
-
-		var library = data._source;
-
-		get_library_children(id, function(child_data) {
-			switch_locale(req);
-			if (child_data.hits.hits.length>0)
-			{
-				var children = [];
-				for (item in child_data.hits.hits) {
-					var child = child_data.hits.hits[item]._source;
-					child.id = child_data.hits.hits[item]._id;
-					children.push(child);
-				}
-
-				library.children = children;
-				library.has_children = true;
-			} else {
-				library.has_children = false;
-			}
-
-			res.local("data", library);
-			res.render("library_details", res.locals());
-		});
-	});
-});
-
-app.get("/*",function(req,res,next) {
-    // TODO: narrow match to 3-20 lower case letters
-    // ([a-z]{3,20}) didn't work however?
-	switch_locale(req);
-    res.local("header", header.render({title: _("Library details")}))
-    res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
-    console.log("Requested: "+req.params);
-    get_library_by_name(req.params[0], function(data){
-		switch_locale(req);
-        console.log("total: "+data.hits.total);
-        if (data.hits.total > 0) {
-		    data.hits.hits[0]._source["id"] = data.hits.hits[0]._id;
-		    res.local("data", data.hits.hits[0]._source);
-		    res.render("library_details", res.locals());
-		} else {
-		    next(); // do standard 404
-		    // TODO: the standard 404 is ugly, make nicer
-	    };
-	});
-});
 
 app.listen(conf.server_port);
 console.log("Server started at port " + conf.server_port);
