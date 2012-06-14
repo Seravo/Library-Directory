@@ -9,7 +9,7 @@
 
 # messages.po is server side strings
 xgettext --keyword=_ -L Python --output-dir=locale/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot \
-server.js js/libs/jquery.facetview.js
+server.js js/libs/jquery.facetview.js locale/templates/gettext.tmpl
 sed -e 's/charset=CHARSET/charset=UTF-8/g' < locale/templates/LC_MESSAGES/messages.pot > messages.pot.tmp
 mv messages.pot.tmp locale/templates/LC_MESSAGES/messages.pot
 
