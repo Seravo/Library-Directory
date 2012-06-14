@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-11 10:07+0300\n"
+"POT-Creation-Date: 2012-06-14 12:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,92 +17,100 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: server.js:29
-msgid "Using locale "
+#: server.js:230
+msgid "service type device"
 msgstr ""
 
-#: server.js:370
+#: server.js:231
+msgid "service type room"
+msgstr ""
+
+#: server.js:232
+msgid "service type service"
+msgstr ""
+
+#: server.js:392
 msgid "Monday"
 msgstr ""
 
-#: server.js:371
+#: server.js:393
 msgid "Tuesday"
 msgstr ""
 
-#: server.js:372
+#: server.js:394
 msgid "Wednesday"
 msgstr ""
 
-#: server.js:373
+#: server.js:395
 msgid "Thursday"
 msgstr ""
 
-#: server.js:374
+#: server.js:396
 msgid "Friday"
 msgstr ""
 
-#: server.js:375
+#: server.js:397
 msgid "Saturday"
 msgstr ""
 
-#: server.js:376
+#: server.js:398
 msgid "Sunday"
 msgstr ""
 
-#: server.js:396 server.js:414
+#: server.js:418 server.js:436
 msgid "closed"
 msgstr ""
 
-#: server.js:527
+#: server.js:551
 msgid "Browse all"
 msgstr ""
 
-#: server.js:541 views/about.mustache:5 staging/views/about.mustache:5
+#: server.js:567 views/about.mustache:5 staging/views/about.mustache:5
 #: output/views/about.mustache:5
 msgid "About"
 msgstr ""
 
-#: server.js:550 views/contact.mustache:9 staging/views/contact.mustache:9
+#: server.js:576 views/contact.mustache:9 staging/views/contact.mustache:9
 #: output/views/contact.mustache:9
 msgid "Name"
 msgstr ""
 
-#: server.js:552 views/contact.mustache:14 views/library_details.mustache:94
+#: server.js:578 views/contact.mustache:14 views/library_details.mustache:103
 #: staging/views/contact.mustache:14 staging/views/library_details.mustache:94
 #: output/views/contact.mustache:14 output/views/library_details.mustache:94
 msgid "E-mail"
 msgstr ""
 
-#: server.js:552
+#: server.js:578
 msgid "Please provide your e-mail so we can respond to your feedback."
 msgstr ""
 
-#: server.js:553
+#: server.js:579
 msgid "Feedback"
 msgstr ""
 
-#: server.js:561 server.js:603 views/contact.mustache:5
-#: views/library_details.mustache:64 staging/views/contact.mustache:5
+#: server.js:587 server.js:630 views/contact.mustache:5
+#: views/library_details.mustache:73 staging/views/contact.mustache:5
 #: staging/views/library_details.mustache:64 output/views/contact.mustache:5
 #: output/views/library_details.mustache:64
 msgid "Contact"
 msgstr ""
 
-#: server.js:568
+#: server.js:594
 msgid "Feedback from: "
 msgstr ""
 
-#: server.js:580
+#: server.js:606
 msgid "Feedback from library directory"
 msgstr ""
 
-#: server.js:610 views/feedback-sent.mustache:5
+#: server.js:638 views/feedback-sent.mustache:5
 #: staging/views/feedback-sent.mustache:5
 #: output/views/feedback-sent.mustache:5
 msgid "Feedback sent"
 msgstr ""
 
-#: server.js:629 server.js:663
+#: server.js:658 server.js:695
 msgid "Library details"
 msgstr ""
 
@@ -120,7 +128,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:72 views/library_details.mustache:157
+#: js/libs/jquery.facetview.js:72 views/library_details.mustache:169
 #: staging/views/library_details.mustache:157
 #: output/views/library_details.mustache:157
 msgid "Open"
@@ -130,7 +138,7 @@ msgstr ""
 msgid "today"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:74 views/library_details.mustache:162
+#: js/libs/jquery.facetview.js:74 views/library_details.mustache:174
 #: staging/views/library_details.mustache:162
 #: output/views/library_details.mustache:162
 msgid "Closed"
@@ -144,7 +152,7 @@ msgstr ""
 msgid "Show details"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:97 views/library_details.mustache:132
+#: js/libs/jquery.facetview.js:97 views/library_details.mustache:144
 #: staging/views/library_details.mustache:132
 #: output/views/library_details.mustache:132
 msgid "Library consortium"
@@ -158,13 +166,13 @@ msgstr ""
 msgid "Branch type"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:100 views/library_details.mustache:40
+#: js/libs/jquery.facetview.js:100 views/library_details.mustache:46
 #: staging/views/library_details.mustache:40
 #: output/views/library_details.mustache:40
 msgid "Services"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:101 views/library_details.mustache:194
+#: js/libs/jquery.facetview.js:101 views/library_details.mustache:207
 #: staging/views/library_details.mustache:194
 #: output/views/library_details.mustache:194
 msgid "Accessibility"
@@ -202,8 +210,17 @@ msgstr ""
 msgid "next"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:863
+#: js/libs/jquery.facetview.js:861
 msgid "Could not connect to database. Please try again later."
+msgstr ""
+
+#: locale/templates/gettext.tmpl:1
+msgid "locale"
+msgstr ""
+
+#: locale/templates/gettext.tmpl:2 staging/views/header-dev.mustache:39
+#: output/views/header-dev.mustache:39
+msgid "Search"
 msgstr ""
 
 #: views/index.mustache:7 staging/views/index.mustache:7
@@ -224,12 +241,7 @@ msgstr ""
 msgid "Library Directory"
 msgstr ""
 
-#: views/header-dev.mustache:39 staging/views/header-dev.mustache:39
-#: output/views/header-dev.mustache:39
-msgid "Search"
-msgstr ""
-
-#: views/header-dev.mustache:49 views/contact.mustache:7
+#: views/header-dev.mustache:48 views/contact.mustache:7
 #: views/header.mustache:46 staging/views/header-dev.mustache:49
 #: staging/views/contact.mustache:7 staging/views/header.mustache:46
 #: output/views/header-dev.mustache:49 output/views/contact.mustache:7
@@ -258,162 +270,164 @@ msgstr ""
 msgid "Slug missing, can't create pretty-url."
 msgstr ""
 
-#: views/library_details.mustache:21 staging/views/library_details.mustache:21
+#: views/library_details.mustache:26 staging/views/library_details.mustache:21
 #: output/views/library_details.mustache:21
 msgid "Directions"
 msgstr ""
 
-#: views/library_details.mustache:55 staging/views/library_details.mustache:55
+#: views/library_details.mustache:63 staging/views/library_details.mustache:55
 #: output/views/library_details.mustache:55
 msgid "For loan"
 msgstr ""
 
-#: views/library_details.mustache:77 staging/views/library_details.mustache:77
+#: views/library_details.mustache:86 staging/views/library_details.mustache:77
 #: output/views/library_details.mustache:77
 msgid "Telephone numbers"
 msgstr ""
 
-#: views/library_details.mustache:86 staging/views/library_details.mustache:86
+#: views/library_details.mustache:95 staging/views/library_details.mustache:86
 #: output/views/library_details.mustache:86
 msgid "Mail address"
 msgstr ""
 
-#: views/library_details.mustache:88 staging/views/library_details.mustache:88
+#: views/library_details.mustache:97 staging/views/library_details.mustache:88
 #: output/views/library_details.mustache:88
 msgid "PB"
 msgstr ""
 
-#: views/library_details.mustache:100
+#: views/library_details.mustache:109
 #: staging/views/library_details.mustache:100
 #: output/views/library_details.mustache:100
 msgid "Homepage"
 msgstr ""
 
-#: views/library_details.mustache:109
+#: views/library_details.mustache:120
 #: staging/views/library_details.mustache:109
 #: output/views/library_details.mustache:109
 msgid "Additional info"
 msgstr ""
 
-#: views/library_details.mustache:118
+#: views/library_details.mustache:130
 #: staging/views/library_details.mustache:118
 #: output/views/library_details.mustache:118
 msgid "Library identificator and type"
 msgstr ""
 
-#: views/library_details.mustache:121
+#: views/library_details.mustache:133
 #: staging/views/library_details.mustache:121
 #: output/views/library_details.mustache:121
 msgid "ID"
 msgstr ""
 
-#: views/library_details.mustache:122
+#: views/library_details.mustache:134
 #: staging/views/library_details.mustache:122
 #: output/views/library_details.mustache:122
 msgid "Branch"
 msgstr ""
 
-#: views/library_details.mustache:123
+#: views/library_details.mustache:135
 #: staging/views/library_details.mustache:123
 #: output/views/library_details.mustache:123
 msgid "Organisation"
 msgstr ""
 
-#: views/library_details.mustache:127
+#: views/library_details.mustache:139
 #: staging/views/library_details.mustache:127
 #: output/views/library_details.mustache:127
 msgid "Established year"
 msgstr ""
 
-#: views/library_details.mustache:137
+#: views/library_details.mustache:149
 #: staging/views/library_details.mustache:137
 #: output/views/library_details.mustache:137
 msgid "Departments"
 msgstr ""
 
-#: views/library_details.mustache:144
+#: views/library_details.mustache:156
 #: staging/views/library_details.mustache:144
 #: output/views/library_details.mustache:144
 msgid "Last modified"
 msgstr ""
 
-#: views/library_details.mustache:151
+#: views/library_details.mustache:163
 #: staging/views/library_details.mustache:151
 #: output/views/library_details.mustache:151
 msgid "No open times, since this is a {{organisation_type}}."
 msgstr ""
 
-#: views/library_details.mustache:155
+#: views/library_details.mustache:167
 #: staging/views/library_details.mustache:155
 #: output/views/library_details.mustache:155
 msgid "The library is now"
 msgstr ""
 
-#: views/library_details.mustache:158
+#: views/library_details.mustache:170
+#: staging/views/library_details.mustache:158
+#: output/views/library_details.mustache:158
 msgid "Opening hours today"
 msgstr ""
 
-#: views/library_details.mustache:166
+#: views/library_details.mustache:178
 #: staging/views/library_details.mustache:166
 #: output/views/library_details.mustache:166
 msgid "Opening hours this week"
 msgstr ""
 
-#: views/library_details.mustache:182
+#: views/library_details.mustache:194
 #: staging/views/library_details.mustache:182
 #: output/views/library_details.mustache:182
 msgid "Building"
 msgstr ""
 
-#: views/library_details.mustache:185
+#: views/library_details.mustache:198
 #: staging/views/library_details.mustache:185
 #: output/views/library_details.mustache:185
 msgid "Built"
 msgstr ""
 
-#: views/library_details.mustache:188
+#: views/library_details.mustache:201
 #: staging/views/library_details.mustache:188
 #: output/views/library_details.mustache:188
 msgid "Architect"
 msgstr ""
 
-#: views/library_details.mustache:197
+#: views/library_details.mustache:210
 #: staging/views/library_details.mustache:197
 #: output/views/library_details.mustache:197
 msgid "Accessible entry"
 msgstr ""
 
-#: views/library_details.mustache:201
+#: views/library_details.mustache:214
 #: staging/views/library_details.mustache:201
 #: output/views/library_details.mustache:201
 msgid "Accessible parking"
 msgstr ""
 
-#: views/library_details.mustache:205
+#: views/library_details.mustache:218
 #: staging/views/library_details.mustache:205
 #: output/views/library_details.mustache:205
 msgid "Accessible toilet"
 msgstr ""
 
-#: views/library_details.mustache:213
+#: views/library_details.mustache:226
 #: staging/views/library_details.mustache:213
 #: output/views/library_details.mustache:213
 msgid "Induction loop"
 msgstr ""
 
-#: views/library_details.mustache:217
+#: views/library_details.mustache:230
 #: staging/views/library_details.mustache:217
 #: output/views/library_details.mustache:217
 msgid "Large typeface collection"
 msgstr ""
 
-#: views/library_details.mustache:221
+#: views/library_details.mustache:234
 #: staging/views/library_details.mustache:221
 #: output/views/library_details.mustache:221
 msgid "Lift"
 msgstr ""
 
-#: views/library_details.mustache:229
+#: views/library_details.mustache:242
 #: staging/views/library_details.mustache:229
 #: output/views/library_details.mustache:229
 msgid "Parking"
@@ -437,4 +451,8 @@ msgstr ""
 #: views/browse.mustache:6 staging/views/browse.mustache:6
 #: output/views/browse.mustache:6
 msgid "Listing totally {{count}} libraries."
+msgstr ""
+
+#: views/browse.mustache:16
+msgid "slug missing"
 msgstr ""
