@@ -66,7 +66,7 @@ Starting development server
 
 3. Start HTTP server
 
-        $ node server.js
+        $ NODE_ENV=dev node server.js
 
 Finally open `localhost:8080` to use server.
 

@@ -17,7 +17,7 @@ h5bp
 gnome-terminal -x elasticsearch/bin/elasticsearch -f
 sleep 12 # wait for ES to come up
 gnome-terminal -x node proxy.js
-NODE_ENV=production gnome-terminal -x node server.js
+NODE_ENV=prod gnome-terminal -x node server.js
 
 echo "Running. Open in a browser http://localhost:8080/"
 
