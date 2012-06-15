@@ -333,7 +333,7 @@ function render_library_by_slug(slug, req, res) {
     res.local("header", header.render({title: _("Library details")}))
     res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
     console.log("Requested: "+req.params);
-    get_library_by_name(slug, function(data){
+    get_library_by_name(slug, req, function(data){
 		switch_locale(req);
         console.log("total: "+data.hits.total);
         if (data.hits.total > 0) {
@@ -500,8 +500,8 @@ function get_library_by_id(id, callback) {
     });
 }
 
-// get a library with partial name
-function get_library_by_name(name, callback) {
+// get library by slug
+function get_library_by_name(name, browser_req, callback) {
     query =
     {
       "size": 1,
@@ -534,6 +534,7 @@ function get_library_by_name(name, callback) {
       res.on('end', function() {
           dataobj = JSON.parse(data);
           if (dataobj.hits.total>0) {
+	          switch_locale(browser_req);
 	          add_library_metadata(dataobj, callback);
 		  }
 		  else {
