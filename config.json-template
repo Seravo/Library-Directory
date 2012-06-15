@@ -2,9 +2,10 @@
     "nodemailer_config": {
         "service": "Gmail",
         "auth": {
-            "user": "noreply@seravo.fi",
+            "user": "noreply@example.com",
             "pass": "xxxxxxxx"
-        }
+        },
+        "feedbackto": "webmaster@example.com"
     },
     "server_port": 8080,
     "proxy_config": {

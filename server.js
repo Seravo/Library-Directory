@@ -209,7 +209,7 @@ app.post("/contact", // Route
         // setup e-mail data with unicode symbols
         var mailOptions = {
             from: "Library directory <noreply@seravo.fi>", // sender address
-            to: "otto@seravo.fi", // list of receivers
+            to: conf.nodemailer_config.feedbackto, // list of receivers
             subject: _("Feedback from library directory"), // Subject line
             text: message // plaintext body
         }
