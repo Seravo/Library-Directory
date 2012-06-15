@@ -136,13 +136,13 @@ if /sv/(.*) -> html lang sv
 
 // route handler for all dynamic data without language path
 app.get("/:resource(*)",function(req,res,next) {
-	rlog(":resource -->");
+	//rlog(":resource -->");
 	route_parser(req,res,next);
 });
 
 // route handler for all dynamic data with language path
 app.get("/:lang([a-z][a-z])/:resource(*)",function(req,res,next) {
-	rlog(":lang/:resource -->");
+	//rlog(":lang/:resource -->");
 	route_parser(req,res,next);
 });
 
@@ -153,22 +153,25 @@ function route_parser(req,res,next) {
 
 	// static page
 	if (page == '' || page.match(/^(about|browse|contact|feedback-sent|search)$/)) {
-			rlog("match page");
-			render_static_page(page, req, res); }
+		//rlog("match page");
+		render_static_page(page, req, res);
+	}
 
 	// get library by slug
 	else if (page.match(/^[a-z-]+$/)) {
-			rlog("match slug");
-			render_library_by_slug(page, req, res);	}
+		//rlog("match slug");
+		render_library_by_slug(page, req, res);
+	}
 
 	// get library by id
 	else if (page.match(/^[a-zA-Z0-9_-]{22}$/)) {
-			rlog("match id");
-			render_library_by_id(page, req, res); }
+		//rlog("match id");
+		render_library_by_id(page, req, res);
+	}
 
 	// static assets and unmatched requests
 	else {
-		rlog("UNMATCHED");
+		//rlog("UNMATCHED");
 		next('route');
 	}
 }
@@ -228,7 +231,7 @@ app.post("/contact", // Route
 );
 
 app.get('/widget/load', function(req, res){
-	rlog("widget load");
+	//rlog("widget load");
     // what kind of widget was requested?
     // with what parameters?
     // print out custom widget
@@ -236,7 +239,7 @@ app.get('/widget/load', function(req, res){
 });
 
 app.get('/widget', function(req, res){
-	rlog("widget");
+	//rlog("widget");
     // display form for generating custom widget code
     // result <script src="http://hakemisto.kirjastot.fi/widget/load/?area=helmet"></script>
     res.send('prints out customization wizard');
