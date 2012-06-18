@@ -39,6 +39,13 @@
               <li {{#contact_active}}class="active"{{/contact_active}}><a href="contact">_("Contact")</a></li>
             </ul>
           </div><!--/.nav-collapse -->
+		  <div class="pull-right" style="margin-right: 15em;">
+			<ul class="nav">
+				{{^en_active}}<li><a href="/en">English</a></li>{{/en_active}}
+				{{^fi_active}}<li><a href="/">Suomi</a></li>{{/fi_active}}
+				{{^sv_active}}<li><a href="/sv">Svenska</a></li>{{/sv_active}}
+			</ul>
+		  </div>
         </div>
       </div>
     </div>

@@ -721,6 +721,7 @@ watch.add("./views").onChange(function(file,prev,curr,action){
 header = new function () {
     this.render = function (options) {
         options.lang = gettext.lang;
+        options[gettext.lang+"_active"] = true;
         options.header_banner = header_banner;
         options.header_banner_css = header_banner_css;
         return adapter.init(hogan).compile(headerfilecontents)(options);
