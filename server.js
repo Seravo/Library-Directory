@@ -191,7 +191,7 @@ app.post("/contact", // Route
     if (!req.form.isValid) {
       // Handle errors
       res.local("errors", req.form.getErrors());
-      res.local("header", header.render({title: _("Contact"), contact_active: true}));
+      res.local("header", header.render(req, {title: _("Contact"), contact_active: true}));
       res.local("footer", footer.render());
       res.render("contact", res.locals());
 
@@ -250,13 +250,13 @@ function render_static_page(page, req, res) {
 
 	switch(page) {
 		case "about":
-			res.local("header", header.render({title: _("About"), about_active: true}));
+			res.local("header", header.render(req, {title: _("About"), about_active: true}));
 			res.local("footer", footer.render());
 			res.render("about", res.locals());
 			break;
 
 		case "browse":
-			res.local("header", header.render({title: _("Browse all"), browse_active: true}))
+			res.local("header", header.render(req, {title: _("Browse all"), browse_active: true}))
 			res.local("footer", footer.render());
 			get_libraries(function(data){
 				switch_locale(req);
@@ -271,21 +271,21 @@ function render_static_page(page, req, res) {
 			break;
 
 		case "contact":
-			res.local("header", header.render({title: _("Contact"), contact_active: true}));
+			res.local("header", header.render(req, {title: _("Contact"), contact_active: true}));
 			res.local("footer", footer.render());
 			res.render("contact", res.locals());
 			break;
 
 		case "search":
 		case "":
-			res.local("header", header.render({search_active: true}))
+			res.local("header", header.render(req, {search_active: true}))
 			res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 			res.render("index", res.locals());
 			break;
 
 		case "feedback-sent":
 			//console.log(JSON.stringify(res.locals()));
-			res.local("header", header.render({title: _("Feedback sent"), contact_active: true}))
+			res.local("header", header.render(req, {title: _("Feedback sent"), contact_active: true}))
 			res.local("footer", footer.render());
 			res.render("feedback-sent", res.locals());
 			break;
@@ -297,7 +297,7 @@ function render_static_page(page, req, res) {
 function render_library_by_id(page, req, res) {
 	switch_locale(req);
 
-    res.local("header", header.render({title: _("Library details")}))
+    res.local("header", header.render(req, {title: _("Library details")}))
     res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
     //console.log("Requested: "+req.params.id);
     get_library_by_id(page, function(data){
@@ -333,7 +333,7 @@ function render_library_by_id(page, req, res) {
 
 function render_library_by_slug(slug, req, res) {
 	switch_locale(req);
-    res.local("header", header.render({title: _("Library details")}))
+    res.local("header", header.render(req, {title: _("Library details")}))
     res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
     console.log("Requested: "+req.params);
     get_library_by_name(slug, req, function(data){
@@ -721,8 +721,9 @@ watch.add("./views").onChange(function(file,prev,curr,action){
 // wrapped functions to transparently forward rendering to proper
 // rendering function that also has built in localization
 header = new function () {
-    this.render = function (options) {
+    this.render = function (req, options) {
         options.lang = gettext.lang;
+        options.resource = req.params.resource;
         options[gettext.lang+"_active"] = true;
         options.header_banner = header_banner;
         options.header_banner_css = header_banner_css;
