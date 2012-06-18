@@ -79,10 +79,10 @@
 		{{#d0}}<a href=\"\" onclick='ld_mapcontrol_init(\"{{d0}}\", \"<b>{{d1}}</b>\", \"<br>{{d2}}<br>{{d3}} {{d4}}\"); return false;'>{{/d0}}";
 
 	var search_results = [
-		[ { "fields": "additional_info.slug,  name_fi", "format": "<h3><a href='/{{d0}}'>{{d1}}</a></h3>" } ],
-		[ { "fields": "contact.coordinates, name_fi, contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi",
+		[ { "fields": "additional_info.slug,  name_" + _("locale"), "format": "<h3><a href='/{{d0}}'>{{d1}}</a></h3>" } ],
+		[ { "fields": "contact.coordinates, name_" +_("locale") +", contact.street_address.street_"+ _("locale") + ", contact.street_address.post_code, contact.street_address.municipality_" + _("locale"),
 		    "format": coordinate_format },
-		  { "fields": "contact.street_address.street_fi, contact.street_address.post_code, contact.street_address.municipality_fi", "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
+		  { "fields": "contact.street_address.street_" + _("locale")+", contact.street_address.post_code, contact.street_address.municipality_"+ _("locale"), "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
 		[ { "fields": "open_now, opening_hours", "format": opening_hours_format } ],
 		[ { "fields": "id, additional_info.slug, name_fi, id", "format": "<a class='btn btn-big btn-info' title='{{d2}} ({{d0}})' href='{{#d1}}{{d1}}{{/d1}}{{^d1}}{{d3}}{{/d1}}'>" + _("Show details") + " &rarr;</a>" } ]
 	]
