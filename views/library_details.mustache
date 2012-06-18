@@ -144,13 +144,13 @@
 
 		{{#parent_organisation}}
 		    <dt>_("Library consortium")</dt>
-		    <dd><a href="/id/{{parent_organisation}}">{{consortium}}</a></dd>
+		    <dd><a href="{{parent_organisation}}">{{consortium}}</a></dd>
 		{{/parent_organisation}}
 
 		{{#has_children}}
 		<dt>_("Departments")</dt>
 			{{#children}}
-				<dd><a href="/id/{{id}}">{{name__("locale")}}</a></dd>
+				<dd><a href="{{id}}">{{name__("locale")}}</a></dd>
 			{{/children}}
 		{{/has_children}}
     </dl>
