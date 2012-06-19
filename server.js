@@ -418,7 +418,10 @@ function add_library_metadata(dataobj, callback){
 
 	for (var item in lib.contact.internet) {
 		var temp = lib.contact.internet[item];
+		// TODO: Could these be more universally expressed to support any language?
 		if (typeof temp.url_description_fi=='string' && temp.url_description_fi=="") delete temp.url_description_fi;
+		if (typeof temp.url_description_sv=='string' && temp.url_description_sv=="") delete temp.url_description_sv;
+		if (typeof temp.url_description_en=='string' && temp.url_description_en=="") delete temp.url_description_en;
 	}
 
 	if (lib.image_url=="") delete lib.image_url;
@@ -441,6 +444,7 @@ function add_library_metadata(dataobj, callback){
     if (dataobj._source.contact.telephones[0].telephone_number == '') {
         delete dataobj._source.contact.telephones;
     }
+    // TODO: Change data model to have own extrainfo branches for each language
     if (dataobj._source.additional_info.extrainfo[0].property_label_fi == '') {
         delete dataobj._source.additional_info;
     }
@@ -451,10 +455,16 @@ function add_library_metadata(dataobj, callback){
     // delete empty service fields
     dataobj._source.services.forEach( function(s) { 
         if (s.description_short_fi == '') { delete s.description_short_fi; }
+        if (s.description_short_sv == '') { delete s.description_short_sv; }
+        if (s.description_short_en == '') { delete s.description_short_en; }
         if (s.description_long_fi == '') { delete s.description_long_fi; }
+        if (s.description_long_sv == '') { delete s.description_long_sv; }
+        if (s.description_long_en == '') { delete s.description_long_en; }
         if (s.price == '') { delete s.price; }
         if (s.for_loan == '') { delete s.for_loan; }
         if (s.instance_name_fi == '') { delete s.instance_name_fi; }
+        if (s.instance_name_sv == '') { delete s.instance_name_sv; }
+        if (s.instance_name_en == '') { delete s.instance_name_en; }
         if (s.tag[0] == '') { delete s.tag[0]; }
 		if (s.contact != undefined) {
 			if (s.contact[0] == '') { delete s.contact[0]; }
