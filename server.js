@@ -150,7 +150,7 @@ function route_parser(req,res,next) {
 
     // check that hostname matches, otherwise redirect
     console.log("expected shostname: "+conf.server_host);
-    hostname = req.headers.host.match(/([0-9A-Za-z-]+)(:[0-9]+)?/)[1];
+    hostname = req.headers.host.match(/([0-9A-Za-z-.]+)(:[0-9]+)?/)[1];
     console.log("actual hostname:"+hostname);
     
     if (hostname != conf.server_host){
