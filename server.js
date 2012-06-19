@@ -163,6 +163,19 @@ function route_parser(req,res,next) {
 		render_library_by_slug(page, req, res);
 	}
 
+    // TODO: there should be some more universal code to handle trailing slashes
+    // and redirects?
+	// get library by slug, redirect when ending slash
+	else if (page.match(/^[a-z-]+\/$/)) {
+		//rlog("match slug");
+		console.log(req.params);
+		if (typeof(req.params.lang) == 'undefined') {
+    		res.redirect("/"+req.params.resource.slice(0,-1));
+		} else {
+    		res.redirect("/"+req.params.lang+"/"+req.params.resource.slice(0,-1));
+		}
+	}
+	
 	// get library by id
 	else if (page.match(/^[a-zA-Z0-9_-]{22}$/)) {
 		//rlog("match id");
