@@ -931,7 +931,7 @@
                <div class="span9" id="facetview_rightcol"> \
                    <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend"> \
                    <span class="add-on"><i id="search_static" class="icon-search"></i><img id="search_spinner" src="img/spinner.gif" style="display: hidden;" alt="[spinner]"> </span> \
-                   <input class="span4" id="facetview_freetext" name="q" value="" placeholder="search term" autofocus /> \
+                   <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("library name, service, city, postcode...") + '" autofocus /> \
                    </div> \
                    <div style="float:left;" id="facetview_selectedfilters"></div> \
                    <div style="float:left;" id="facetview_selectedextrafilters"></div> \

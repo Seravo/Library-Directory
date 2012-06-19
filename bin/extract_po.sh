@@ -5,6 +5,8 @@
 # syntax:
 # extract-po.sh
 
+# remove temp build files
+rm -rf staging/ output/
 # No -j on first line, to clear out .pot file (Issue#1170)
 
 # messages.po is server side strings

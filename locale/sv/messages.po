@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-14 12:33+0300\n"
-"PO-Revision-Date: 2012-06-18 10:04+0200\n"
+"POT-Creation-Date: 2012-06-19 21:47+0300\n"
+"PO-Revision-Date: 2012-06-19 21:48+0200\n"
 "Last-Translator: Otto Kekäläinen <otto@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -18,117 +18,103 @@ msgstr ""
 "X-Poedit-Language: Swedish\n"
 "X-Poedit-Country: Finland\n"
 
-#: server.js:230
-msgid "service type device"
-msgstr "device"
-
-#: server.js:231
-msgid "service type room"
-msgstr "room"
-
-#: server.js:232
-msgid "service type service"
-msgstr "service"
-
-#: server.js:392
-msgid "Monday"
-msgstr "Måndag"
-
-#: server.js:393
-msgid "Tuesday"
-msgstr "Tisdag"
-
-#: server.js:394
-msgid "Wednesday"
-msgstr "Onsdag"
-
-#: server.js:395
-msgid "Thursday"
-msgstr "Torsdag"
-
-#: server.js:396
-msgid "Friday"
-msgstr "Fredag"
-
-#: server.js:397
-msgid "Saturday"
-msgstr "Lördag"
-
-#: server.js:398
-msgid "Sunday"
-msgstr "Söndag"
-
-#: server.js:418
-#: server.js:436
-msgid "closed"
-msgstr "stängt"
-
-#: server.js:551
-msgid "Browse all"
-msgstr "Bläddra alla"
-
-#: server.js:567
-#: views/about.mustache:5
-#: staging/views/about.mustache:5
-#: output/views/about.mustache:5
-msgid "About"
-msgstr "Om tjänsten"
-
-#: server.js:576
+#: server.js:183
 #: views/contact.mustache:9
-#: staging/views/contact.mustache:9
-#: output/views/contact.mustache:9
 msgid "Name"
 msgstr "Namn"
 
-#: server.js:578
+#: server.js:185
 #: views/contact.mustache:14
-#: views/library_details.mustache:104
-#: staging/views/contact.mustache:14
-#: staging/views/library_details.mustache:94
-#: output/views/contact.mustache:14
-#: output/views/library_details.mustache:94
+#: views/library_details.mustache:105
 msgid "E-mail"
 msgstr "E-mail"
 
-#: server.js:578
+#: server.js:185
 msgid "Please provide your e-mail so we can respond to your feedback."
 msgstr "Vänligen ge en e-mail address så att vi kan svara på din feedback."
 
-#: server.js:579
+#: server.js:186
 msgid "Feedback"
 msgstr "Feedback"
 
-#: server.js:587
-#: server.js:630
+#: server.js:194
+#: server.js:274
 #: views/contact.mustache:5
-#: views/library_details.mustache:74
-#: staging/views/contact.mustache:5
-#: staging/views/library_details.mustache:64
-#: output/views/contact.mustache:5
-#: output/views/library_details.mustache:64
+#: views/library_details.mustache:73
 msgid "Contact"
 msgstr "Kontakt"
 
-#: server.js:594
+#: server.js:201
 msgid "Feedback from: "
 msgstr "Feedback från: "
 
-#: server.js:606
+#: server.js:213
 msgid "Feedback from library directory"
 msgstr "Feedback från biblioteksförtäckning"
 
-#: server.js:638
+#: server.js:253
+#: views/about.mustache:5
+msgid "About"
+msgstr "Om tjänsten"
+
+#: server.js:259
+msgid "Browse all"
+msgstr "Bläddra alla"
+
+#: server.js:288
 #: views/feedback-sent.mustache:5
-#: staging/views/feedback-sent.mustache:5
-#: output/views/feedback-sent.mustache:5
 msgid "Feedback sent"
 msgstr "Feedback skickat"
 
-#: server.js:658
-#: server.js:695
+#: server.js:300
+#: server.js:336
 msgid "Library details"
 msgstr "Information om biblioteket"
+
+#: server.js:465
+msgid "service type device"
+msgstr "maskin"
+
+#: server.js:466
+msgid "service type room"
+msgstr "rum"
+
+#: server.js:467
+msgid "service type service"
+msgstr "tjänst"
+
+#: server.js:628
+msgid "Monday"
+msgstr "Måndag"
+
+#: server.js:629
+msgid "Tuesday"
+msgstr "Tisdag"
+
+#: server.js:630
+msgid "Wednesday"
+msgstr "Onsdag"
+
+#: server.js:631
+msgid "Thursday"
+msgstr "Torsdag"
+
+#: server.js:632
+msgid "Friday"
+msgstr "Fredag"
+
+#: server.js:633
+msgid "Saturday"
+msgstr "Lördag"
+
+#: server.js:634
+msgid "Sunday"
+msgstr "Söndag"
+
+#: server.js:654
+#: server.js:672
+msgid "closed"
+msgstr "stängt"
 
 #: js/libs/jquery.facetview.js:59
 msgid "Error: unspecified"
@@ -139,21 +125,11 @@ msgstr "Fel: ombestämt"
 #: views/contact.mustache:16
 #: views/contact.mustache:21
 #: views/library_details.mustache:11
-#: staging/views/contact.mustache:11
-#: staging/views/contact.mustache:16
-#: staging/views/contact.mustache:21
-#: staging/views/library_details.mustache:11
-#: output/views/contact.mustache:11
-#: output/views/contact.mustache:16
-#: output/views/contact.mustache:21
-#: output/views/library_details.mustache:11
 msgid "Error"
 msgstr "Fel"
 
 #: js/libs/jquery.facetview.js:72
-#: views/library_details.mustache:170
-#: staging/views/library_details.mustache:157
-#: output/views/library_details.mustache:157
+#: views/library_details.mustache:171
 msgid "Open"
 msgstr "Öppet"
 
@@ -162,9 +138,7 @@ msgid "today"
 msgstr "idag"
 
 #: js/libs/jquery.facetview.js:74
-#: views/library_details.mustache:175
-#: staging/views/library_details.mustache:162
-#: output/views/library_details.mustache:162
+#: views/library_details.mustache:176
 msgid "Closed"
 msgstr "Stängt"
 
@@ -172,14 +146,19 @@ msgstr "Stängt"
 msgid "open today"
 msgstr "öppet idag"
 
+#: js/libs/jquery.facetview.js:82
+#: js/libs/jquery.facetview.js:83
+#: js/libs/jquery.facetview.js:85
+#: locale/templates/LC_MESSAGES/gettext.tmpl:1
+msgid "locale"
+msgstr "sv"
+
 #: js/libs/jquery.facetview.js:87
 msgid "Show details"
 msgstr "Visa detaljerna"
 
 #: js/libs/jquery.facetview.js:97
-#: views/library_details.mustache:145
-#: staging/views/library_details.mustache:132
-#: output/views/library_details.mustache:132
+#: views/library_details.mustache:146
 msgid "Library consortium"
 msgstr "Biblioteksgrupp"
 
@@ -192,16 +171,12 @@ msgid "Branch type"
 msgstr "Fililaltyp"
 
 #: js/libs/jquery.facetview.js:100
-#: views/library_details.mustache:47
-#: staging/views/library_details.mustache:40
-#: output/views/library_details.mustache:40
+#: views/library_details.mustache:46
 msgid "Services"
 msgstr "Tjänster"
 
 #: js/libs/jquery.facetview.js:101
-#: views/library_details.mustache:208
-#: staging/views/library_details.mustache:194
-#: output/views/library_details.mustache:194
+#: views/library_details.mustache:209
 msgid "Accessibility"
 msgstr "Tillgänglighet"
 
@@ -241,269 +216,181 @@ msgstr "nästa"
 msgid "Could not connect to database. Please try again later."
 msgstr "Kan inte nå databasen. Försök pånytt senare."
 
-#: views/index.mustache:7
-#: staging/views/index.mustache:7
-#: output/views/index.mustache:7
-msgid "Find your library!"
-msgstr "Hitta ditt bibliotek!"
-
-#: views/index.mustache:8
-#: staging/views/index.mustache:8
-#: output/views/index.mustache:8
-msgid "Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries."
-msgstr "Skriv namnet på biblioteket eller tjänsten du behöver. Skriv en stads namn eller postkod för att hitta närmaste biblioteken."
-
-#: views/header-dev.mustache:35
-#: views/header.mustache:33
-#: staging/views/header-dev.mustache:35
-#: staging/views/header.mustache:33
-#: output/views/header-dev.mustache:35
-#: output/views/header.mustache:33
-msgid "Library Directory"
-msgstr "Bibliotekskatalogen"
+#: js/libs/jquery.facetview.js:934
+msgid "library name, service, city, postcode..."
+msgstr "bibliotekets namn, tjänst, stad, postkod..."
 
 # manually added
-#: views/header-dev.mustache:39
-#: staging/views/header-dev.mustache:39
-#: output/views/header-dev.mustache:39
+#: locale/templates/LC_MESSAGES/gettext.tmpl:2
 msgid "Search"
 msgstr "Sök"
 
-#: views/header-dev.mustache:49
-#: views/contact.mustache:7
-#: views/header.mustache:46
-#: staging/views/header-dev.mustache:49
-#: staging/views/contact.mustache:7
-#: staging/views/header.mustache:46
-#: output/views/header-dev.mustache:49
-#: output/views/contact.mustache:7
-#: output/views/header.mustache:46
-msgid "Send us feedback!"
-msgstr "Skicka feedback!"
-
 #: views/contact.mustache:6
-#: staging/views/contact.mustache:6
-#: output/views/contact.mustache:6
 msgid "This site is the product of <a href='http://kirjastot.fi/'>Kirjastot.fi</a>."
 msgstr "Denna sida är en produkt av <a href='http://kirjastot.fi/'>Kirjastot.fi</a>."
 
+#: views/contact.mustache:7
+#: views/header-dev.mustache:61
+#: views/header.mustache:59
+msgid "Send us feedback!"
+msgstr "Skicka feedback!"
+
 #: views/contact.mustache:19
-#: staging/views/contact.mustache:19
-#: output/views/contact.mustache:19
 msgid "Message"
 msgstr "Meddelande"
 
 #: views/contact.mustache:25
-#: staging/views/contact.mustache:25
-#: output/views/contact.mustache:25
 msgid "'Submit'"
 msgstr "'Skicka'"
 
-#: views/library_details.mustache:12
-#: staging/views/library_details.mustache:12
-#: output/views/library_details.mustache:12
-msgid "Slug missing, can't create pretty-url."
-msgstr "Slug fattas, kan inte göra en vacker URL."
-
-#: views/library_details.mustache:26
-#: staging/views/library_details.mustache:21
-#: output/views/library_details.mustache:21
-msgid "Directions"
-msgstr "Hur anlända"
-
-#: views/library_details.mustache:39
-msgid "locale"
-msgstr "sv"
-
-#: views/library_details.mustache:64
-#: staging/views/library_details.mustache:55
-#: output/views/library_details.mustache:55
-msgid "For loan"
-msgstr "Utlånas"
-
-#: views/library_details.mustache:87
-#: staging/views/library_details.mustache:77
-#: output/views/library_details.mustache:77
-msgid "Telephone numbers"
-msgstr "Telefonnummer"
-
-#: views/library_details.mustache:96
-#: staging/views/library_details.mustache:86
-#: output/views/library_details.mustache:86
-msgid "Mail address"
-msgstr "Postaddress"
-
-#: views/library_details.mustache:98
-#: staging/views/library_details.mustache:88
-#: output/views/library_details.mustache:88
-msgid "PB"
-msgstr "PB"
-
-#: views/library_details.mustache:110
-#: staging/views/library_details.mustache:100
-#: output/views/library_details.mustache:100
-msgid "Homepage"
-msgstr "Hemsida"
-
-#: views/library_details.mustache:121
-#: staging/views/library_details.mustache:109
-#: output/views/library_details.mustache:109
-msgid "Additional info"
-msgstr "Tillägsinformation"
-
-#: views/library_details.mustache:131
-#: staging/views/library_details.mustache:118
-#: output/views/library_details.mustache:118
-msgid "Library identificator and type"
-msgstr "Bibliotekets id och typ"
-
-#: views/library_details.mustache:134
-#: staging/views/library_details.mustache:121
-#: output/views/library_details.mustache:121
-msgid "ID"
-msgstr "ID"
-
-#: views/library_details.mustache:135
-#: staging/views/library_details.mustache:122
-#: output/views/library_details.mustache:122
-msgid "Branch"
-msgstr "Filial"
-
-#: views/library_details.mustache:136
-#: staging/views/library_details.mustache:123
-#: output/views/library_details.mustache:123
-msgid "Organisation"
-msgstr "Organisation"
-
-#: views/library_details.mustache:140
-#: staging/views/library_details.mustache:127
-#: output/views/library_details.mustache:127
-msgid "Established year"
-msgstr "Grundat år"
-
-#: views/library_details.mustache:150
-#: staging/views/library_details.mustache:137
-#: output/views/library_details.mustache:137
-msgid "Departments"
-msgstr "Avdelningar"
-
-#: views/library_details.mustache:157
-#: staging/views/library_details.mustache:144
-#: output/views/library_details.mustache:144
-msgid "Last modified"
-msgstr "Sist uppdaterat"
-
-#: views/library_details.mustache:164
-#: staging/views/library_details.mustache:151
-#: output/views/library_details.mustache:151
-msgid "No open times, since this is a {{organisation_type}}."
-msgstr "Inga öppettider, eftersom detta är en {{organisation_type}}."
-
-#: views/library_details.mustache:168
-#: staging/views/library_details.mustache:155
-#: output/views/library_details.mustache:155
-msgid "The library is now"
-msgstr "Biblioteket är nu"
-
-#: views/library_details.mustache:171
-#: staging/views/library_details.mustache:158
-#: output/views/library_details.mustache:158
-msgid "Opening hours today"
-msgstr "Öppettider idag"
-
-#: views/library_details.mustache:179
-#: staging/views/library_details.mustache:166
-#: output/views/library_details.mustache:166
-msgid "Opening hours this week"
-msgstr "Öppettider denna vecka"
-
-#: views/library_details.mustache:195
-#: staging/views/library_details.mustache:182
-#: output/views/library_details.mustache:182
-msgid "Building"
-msgstr "Byggnad"
-
-#: views/library_details.mustache:199
-#: staging/views/library_details.mustache:185
-#: output/views/library_details.mustache:185
-msgid "Built"
-msgstr "Bygt"
-
-#: views/library_details.mustache:202
-#: staging/views/library_details.mustache:188
-#: output/views/library_details.mustache:188
-msgid "Architect"
-msgstr "Arkitekt"
-
-#: views/library_details.mustache:211
-#: staging/views/library_details.mustache:197
-#: output/views/library_details.mustache:197
-msgid "Accessible entry"
-msgstr "Tillgänglig ingång"
-
-#: views/library_details.mustache:215
-#: staging/views/library_details.mustache:201
-#: output/views/library_details.mustache:201
-msgid "Accessible parking"
-msgstr "Tillgänglig parkering"
-
-#: views/library_details.mustache:219
-#: staging/views/library_details.mustache:205
-#: output/views/library_details.mustache:205
-msgid "Accessible toilet"
-msgstr "Tillgänglig toalett"
-
-#: views/library_details.mustache:227
-#: staging/views/library_details.mustache:213
-#: output/views/library_details.mustache:213
-msgid "Induction loop"
-msgstr "Induktionsslinga"
-
-#: views/library_details.mustache:231
-#: staging/views/library_details.mustache:217
-#: output/views/library_details.mustache:217
-msgid "Large typeface collection"
-msgstr "Stor typsnitts samling"
-
-#: views/library_details.mustache:235
-#: staging/views/library_details.mustache:221
-#: output/views/library_details.mustache:221
-msgid "Lift"
-msgstr "Hiss"
-
-#: views/library_details.mustache:243
-#: staging/views/library_details.mustache:229
-#: output/views/library_details.mustache:229
-msgid "Parking"
-msgstr "Parkering"
-
-#: views/feedback-sent.mustache:7
-#: staging/views/feedback-sent.mustache:7
-#: output/views/feedback-sent.mustache:7
-msgid "<strong>Feedback sent.</strong> Thank you!"
-msgstr "<strong>Feedback skickat.</strong> Tack!"
+#: views/header-dev.mustache:35
+#: views/header.mustache:33
+msgid "Library Directory"
+msgstr "Bibliotekskatalogen"
 
 #: views/about.mustache:6
-#: staging/views/about.mustache:6
-#: output/views/about.mustache:6
 msgid "This is a really cool thing."
 msgstr "Dettä är en häftig sak."
 
+#: views/feedback-sent.mustache:7
+msgid "<strong>Feedback sent.</strong> Thank you!"
+msgstr "<strong>Feedback skickat.</strong> Tack!"
+
 #: views/browse.mustache:5
-#: staging/views/browse.mustache:5
-#: output/views/browse.mustache:5
 msgid "Browse all libraries"
 msgstr "Bläddra alla biblioteken"
 
 #: views/browse.mustache:6
-#: staging/views/browse.mustache:6
-#: output/views/browse.mustache:6
 msgid "Listing totally {{count}} libraries."
 msgstr "Totalt {{count}} bibliotek."
 
 #: views/browse.mustache:16
 msgid "slug missing"
 msgstr "slug fattas"
+
+#: views/library_details.mustache:12
+msgid "Slug missing, can't create pretty-url."
+msgstr "Slug fattas, kan inte göra en vacker URL."
+
+#: views/library_details.mustache:26
+msgid "Directions"
+msgstr "Hur anlända"
+
+#: views/library_details.mustache:63
+msgid "For loan"
+msgstr "Utlånas"
+
+#: views/library_details.mustache:86
+msgid "Telephone numbers"
+msgstr "Telefonnummer"
+
+#: views/library_details.mustache:97
+msgid "Mail address"
+msgstr "Postaddress"
+
+#: views/library_details.mustache:99
+msgid "PB"
+msgstr "PB"
+
+#: views/library_details.mustache:111
+msgid "Homepage"
+msgstr "Hemsida"
+
+#: views/library_details.mustache:122
+msgid "Additional info"
+msgstr "Tillägsinformation"
+
+#: views/library_details.mustache:132
+msgid "Library identificator and type"
+msgstr "Bibliotekets id och typ"
+
+#: views/library_details.mustache:135
+msgid "ID"
+msgstr "ID"
+
+#: views/library_details.mustache:136
+msgid "Branch"
+msgstr "Filial"
+
+#: views/library_details.mustache:137
+msgid "Organisation"
+msgstr "Organisation"
+
+#: views/library_details.mustache:141
+msgid "Established year"
+msgstr "Grundat år"
+
+#: views/library_details.mustache:151
+msgid "Departments"
+msgstr "Avdelningar"
+
+#: views/library_details.mustache:158
+msgid "Last modified"
+msgstr "Sist uppdaterat"
+
+#: views/library_details.mustache:165
+msgid "No open times, since this is a {{organisation_type}}."
+msgstr "Inga öppettider, eftersom detta är en {{organisation_type}}."
+
+#: views/library_details.mustache:169
+msgid "The library is now"
+msgstr "Biblioteket är nu"
+
+#: views/library_details.mustache:172
+msgid "Opening hours today"
+msgstr "Öppettider idag"
+
+#: views/library_details.mustache:180
+msgid "Opening hours this week"
+msgstr "Öppettider denna vecka"
+
+#: views/library_details.mustache:196
+msgid "Building"
+msgstr "Byggnad"
+
+#: views/library_details.mustache:200
+msgid "Built"
+msgstr "Bygt"
+
+#: views/library_details.mustache:203
+msgid "Architect"
+msgstr "Arkitekt"
+
+#: views/library_details.mustache:212
+msgid "Accessible entry"
+msgstr "Tillgänglig ingång"
+
+#: views/library_details.mustache:216
+msgid "Accessible parking"
+msgstr "Tillgänglig parkering"
+
+#: views/library_details.mustache:220
+msgid "Accessible toilet"
+msgstr "Tillgänglig toalett"
+
+#: views/library_details.mustache:228
+msgid "Induction loop"
+msgstr "Induktionsslinga"
+
+#: views/library_details.mustache:232
+msgid "Large typeface collection"
+msgstr "Stor typsnitts samling"
+
+#: views/library_details.mustache:236
+msgid "Lift"
+msgstr "Hiss"
+
+#: views/library_details.mustache:244
+msgid "Parking"
+msgstr "Parkering"
+
+#: views/index.mustache:7
+msgid "Find your library!"
+msgstr "Hitta ditt bibliotek!"
+
+#: views/index.mustache:8
+msgid "Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries."
+msgstr "Skriv namnet på biblioteket eller tjänsten du behöver. Skriv en stads namn eller postkod för att hitta närmaste biblioteken."
 
 #~ msgid "Feedback?"
 #~ msgstr "Anna palautetta!"
