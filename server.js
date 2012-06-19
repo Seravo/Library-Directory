@@ -147,6 +147,17 @@ app.get("/:lang([a-z][a-z])/:resource(*)",function(req,res,next) {
 });
 
 function route_parser(req,res,next) {
+
+    // check that hostname matches, otherwise redirect
+    console.log("expected shostname: "+conf.server_host);
+    hostname = req.headers.host.match(/([0-9A-Za-z-]+)(:[0-9]+)?/)[1];
+    console.log("actual hostname:"+hostname);
+    
+    if (hostname != conf.server_host){
+        res.redirect("http://"+conf.server_host+":"+conf.server_port+req.url, 301); // 301 for permanent redirect
+        return; // nothing more to do here!
+    }
+
 	switch_locale(req);
 	var page = req.params.resource;
 	//console.log(page);
@@ -163,17 +174,12 @@ function route_parser(req,res,next) {
 		render_library_by_slug(page, req, res);
 	}
 
-    // TODO: there should be some more universal code to handle trailing slashes
-    // and redirects?
-	// get library by slug, redirect when ending slash
+    // TODO: there should be some more universal code to handle 
+    // trailing slashes and redirects
+	// get library by slug, redirect to remove trailing slash
 	else if (page.match(/^[a-z-]+\/$/)) {
 		//rlog("match slug");
-		console.log(req.params);
-		if (typeof(req.params.lang) == 'undefined') {
-    		res.redirect("/"+req.params.resource.slice(0,-1));
-		} else {
-    		res.redirect("/"+req.params.lang+"/"+req.params.resource.slice(0,-1));
-		}
+  		res.redirect(req.url.slice(0,-1), 301);
 	}
 	
 	// get library by id

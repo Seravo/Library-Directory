@@ -8,6 +8,7 @@
         "feedbackto": "webmaster@example.com"
     },
     "server_port": 8080,
+    "server_host": "localhost",
     "proxy_config": {
         "seeds" : ["localhost:9200"],
         "refresh" : 2000,
