@@ -13,7 +13,7 @@ set -x
 gnome-terminal -x elasticsearch/bin/elasticsearch -f
 sleep 12 # wait for ES to come up
 gnome-terminal -x node proxy.js
-NODE_ENV=dev gnome-terminal -x node server.js
+NODE_ENV=dev gnome-terminal -x nodemon server.js
 
 echo "Running. Open in a browser http://localhost:8080/"
 
