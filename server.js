@@ -177,7 +177,7 @@ function route_parser(req,res,next) {
     // TODO: there should be some more universal code to handle 
     // trailing slashes and redirects
 	// get library by slug, redirect to remove trailing slash
-	else if (page.match(/^[a-z-]+\/$/)) {
+	else if (page.match(/^[a-z-]{3,60}\/$/)) { // {3,60} to inhibit redirect loop for /en/ and /sv/
 		//rlog("match slug");
   		res.redirect(req.url.slice(0,-1), 301);
 	}
