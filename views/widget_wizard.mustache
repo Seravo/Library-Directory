@@ -1,0 +1,61 @@
+{{{header}}}
+<style>
+	<!--
+	.selectable .ui-selecting { background: #FECA40; }
+	.selectable .ui-selected { background: #F39814; color: white; }
+	.selectable { list-style-type: none; margin: 0; padding: 0; }
+	.selectable ul { width: 100%; }
+	.selectable li { background: #e9e9ff; margin: 5px; padding: 0.4em; font-size: 1em; width: 25%; }
+	.widget_type li { width: 10%; background: #f0e9e9; }
+	-->
+</style>
+
+<div class="row-fluid" id="introtext">
+	<div class="span12">
+		<h1>_("Build a widget")</h1>
+			<br>
+			<h4>1. _("Search library by name or street address, select one result")</h4>
+			<input id="search_txt" autofocus>
+
+			<div id=status>db ok</div>
+			<div id=hits>no hits</div>
+			<!--div id="widget_library">selected none</div-->
+			<input type="hidden" id="widget_library">
+			<input type="hidden" id="widget_consortium">
+			<ul id="libraries" class="selectable search_results">
+			</ul>
+
+			<br>
+			<h4>2. _("Select widget type")</h4>
+			<!--div id="widget_type">none</div-->
+			<input type="hidden" id="widget_type">
+			<ul id="types" class="selectable widget_type">
+				<li data-type=1>_("Search")
+				<li data-type=2>_("Small library details")
+				<li data-type=3>_("Full library details")
+				<li data-type=4>_("Services")
+				<li data-type=5>_("Opening times")
+			</ul>
+
+			<br>
+			<h4>3. _("Select widget language")</h4>
+			<input type="hidden" id="widget_lang">
+			<div id="radio">
+				<input class="langselector" type="radio" id="radio1" name="radio" value="" checked></input> <label for="radio1">_("Automatic")</label>
+				<input class="langselector" type="radio" id="radio2" name="radio" value="fi"></input> <label for="radio2">Suomi</label>
+				<input class="langselector" type="radio" id="radio3" name="radio" value="sv"></input> <label for="radio3">Svenska</label>
+				<input class="langselector" type="radio" id="radio4" name="radio" value="en"></input> <label for="radio4">English</label>
+			</div>
+
+			<br>
+			<h4>4. _("Customize widget CSS-styling")</h4>
+			<textarea class="widget" id="widgetstyle"></textarea>
+
+			<br>
+			<h4>5. _("Copy embed code")</h4>
+			<button id="makewidget">Click to generate code</button><br>
+			<textarea class="widget" id="widgetcode"></textarea>
+	</div>
+</div>
+
+{{{footer}}}

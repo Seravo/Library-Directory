@@ -249,21 +249,6 @@ app.post("/contact", // Route
   }
 );
 
-app.get('/widget/load', function(req, res){
-	//rlog("widget load");
-    // what kind of widget was requested?
-    // with what parameters?
-    // print out custom widget
-    res.send('prints out custom widget js');
-});
-
-app.get('/widget', function(req, res){
-	//rlog("widget");
-    // display form for generating custom widget code
-    // result <script src="http://hakemisto.kirjastot.fi/widget/load/?area=helmet"></script>
-    res.send('prints out customization wizard');
-});
-
 function render_static_page(page, req, res) {
 	switch_locale(req);
 
