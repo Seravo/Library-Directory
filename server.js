@@ -112,27 +112,11 @@ app.configure(function(){
     app.use(app.router); // must be last so that it's wildcard route does not override anything else
     // 404 page, really last if not any route matched
     app.use(function(req, res, next){
-        fs.readFile(__dirname + "/output/views/404.html", function(error, content) {
-            if (error) {
-                res.writeHead(500);
-                res.end();
-            }
-            else {
-                res.writeHead(404, { 'Content-Type': 'text/html' });
-                res.end(content, 'utf-8');
-            }
-        });
+		res.local("header", header.render(req, {title: _("Not found"), about_active: true}));
+		res.local("footer", footer.render());
+		res.render("404", res.locals());
     });
 });
-
-
-/*
-route logic:
-if /(.*) <html lang="fi"...
-if /fi/(.*) -> html lang fi
-if /en/(.*) -> html lang en
-if /sv/(.*) -> html lang sv
-*/
 
 // route handler for all dynamic data without language path
 app.get("/:resource(*)",function(req,res,next) {
