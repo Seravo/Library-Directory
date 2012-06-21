@@ -13,7 +13,14 @@
         {{^additional_info.slug}}
         href="{{id}}"
         {{/additional_info.slug}}
-        id="{{id}}">{{name_fi}} <span class="label">{{organisation_type}}</span> {{^additional_info.slug}}<span class="label label-important">_("slug missing")</span>{{/additional_info.slug}}</a></li>
+        id="{{id}}">
+		{{#name__("locale")}}
+			{{name__("locale")}}
+		{{/name__("locale")}}
+		{{#name__("locale")}}
+			{{name_fi}}
+		{{/name__("locale")}}
+		<span class="label">{{organisation_type}}</span> {{^additional_info.slug}}<span class="label label-important">_("slug missing")</span>{{/additional_info.slug}}</a></li>
       {{/libraries}}
       </ul>
   </div>
