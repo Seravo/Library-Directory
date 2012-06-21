@@ -34,7 +34,7 @@ gettext.loadLocaleDirectory("locale", function(){
 	console.log("Loaded messages for: " + languages.join(" "));
 });
 
-function rlog(str) { console.log(str); }
+function rlog(str) { console.log(str); }
 
 function switch_locale(req) {
 	var browser_lang = req.locale;   // accept-language: fi;q=1
@@ -133,7 +133,7 @@ app.get("/:lang(fi|en|sv)/:resource(*)",function(req,res,next) {
 function route_parser(req,res,next) {
 
     // check that hostname matches, otherwise redirect
-    console.log("expected shostname: "+conf.server_host);
+    console.log("expected hostname: "+conf.server_host);
     hostname = req.headers.host.match(/([0-9A-Za-z-.]+)(:[0-9]+)?/)[1];
     console.log("actual hostname:"+hostname);
     
@@ -144,7 +144,7 @@ function route_parser(req,res,next) {
 
 	switch_locale(req);
 	var page = req.params.resource;
-	//console.log(page);
+	//rlog("request: " + page);
 
 	// static page
 	if (page == '' || page.match(/^(about|browse|contact|feedback-sent|search)$/)) {
@@ -174,7 +174,7 @@ function route_parser(req,res,next) {
 
 	// static assets and unmatched requests
 	else {
-		//rlog("UNMATCHED");
+		rlog("UNMATCHED");
 		next('route');
 	}
 }
