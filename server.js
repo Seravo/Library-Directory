@@ -125,7 +125,7 @@ app.get("/:resource(*)",function(req,res,next) {
 });
 
 // route handler for all dynamic data with language path
-app.get("/:lang([a-z][a-z])/:resource(*)",function(req,res,next) {
+app.get("/:lang(fi|en|sv)/:resource(*)",function(req,res,next) {
 	//rlog(":lang/:resource -->");
 	route_parser(req,res,next);
 });
