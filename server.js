@@ -147,7 +147,7 @@ function route_parser(req,res,next) {
 	//rlog("request: " + page);
 
 	// static page
-	if (page == '' || page.match(/^(about|browse|contact|feedback-sent|search)$/)) {
+	if (page == '' || page.match(/^(about|browse|contact|feedback-sent|search|widget|loadwidget|widget[0-9])$/)) {
 		//rlog("match page");
 		render_static_page(page, req, res);
 	}
@@ -278,6 +278,71 @@ function render_static_page(page, req, res) {
 			res.render("feedback-sent", res.locals());
 			break;
 
+		// widget creation wizard
+		case "widget":
+			res.local("header", header.render(req, {title: "Widget wizard"}))
+			res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { ld_widget_wizard(); });"}));
+			res.render("widget_wizard", res.locals());
+			break;
+
+		// search with consortium selection /widget1/area=foo
+		case "widget1":
+			switch_locale(req);
+			var filter = req.query.area || "";
+			var js_code = "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({filter: '" + filter + "'}); });";
+
+			res.local("header", header.render(req, { nobanners: true }));
+			res.local("footer", footer.render({ nobanners: true, js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+			res.render("widget1", { lang: gettext.lang });
+			break;
+
+		// library details - lite
+		case "widget2":
+			switch_locale(req);
+			get_library_by_id(req.query.id, function(data) {
+				data._source["id"] = data._id;
+				switch_locale(req);
+
+				res.local("header", header.render(req, { nobanners: true }));
+				res.local("footer", footer.render({ nobanners: true, js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+				res.render("widget2", { data: data._source });
+			});
+			break;
+
+		// library details - full
+		case "widget3":
+			switch_locale(req);
+			get_library_by_id(req.query.id, function(data) {
+				data._source["id"] = data._id;
+				switch_locale(req);
+
+				res.local("header", header.render(req, { nobanners: true }));
+				res.local("footer", footer.render({ nobanners: true, js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+				res.render("widget3", { data: data._source } );
+			});
+			break;
+
+		case "loadwidget":
+			// get library details for widget
+			if (req.query.id != undefined) {
+				switch_locale(req);
+				get_library_by_id(req.query.id, function(data) {
+					switch_locale(req);
+
+					data._source["id"] = data._id;
+
+					var jsondata = {};
+					jsondata.html = widget.render(req, { data: data._source });
+					res.send(req.query.callback + '(' + JSON.stringify(jsondata) + ')');
+				});
+			}
+			break;
+
+		default:
+			res.local("header", header.render(req, {title: _("Not found") }));
+			res.local("footer", footer.render());
+			res.render("404", res.locals());
+			break;
 	}
 }
 
@@ -728,6 +793,7 @@ header = new function () {
         return adapter.init(hogan).compile(headerfilecontents)(options);
     }
 }
+
 footer = new function () {
     this.render = function (options) {
         if (typeof options == "undefined") {
