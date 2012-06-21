@@ -14,12 +14,15 @@
 	<meta name="viewport" content="width=device-width">
 
 	<link rel="stylesheet" href="/css/compressed.css">
+	{{^nobanners}}
 	<style type="text/css" media="all">{{{header_banner_css}}}</style>
+	{{/nobanners}}
 	<link rel="gettext" type="application/x-po" href="/locale/{{lang}}/messages.po" />
 	<script src="/js/libs/modernizr-2.5.3-respond-1.1.0.min.js"></script>
 </head>
 <body>
 
+{{^nobanners}}
 {{{header_banner}}}
 
     <div class="navbar">
@@ -57,6 +60,7 @@
     </div>
 
     <div class="betalabel"><a href="contact"><strong>BETA</strong><br><span>_("Send us feedback!")</span></a></div>
+{{/nobanners}}
 
     <div class="container">
 

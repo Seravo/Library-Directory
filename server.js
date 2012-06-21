@@ -804,6 +804,15 @@ footer = new function () {
     }
 }
 
+widget = new function() {
+	this.render = function (req, options) {
+		var widget_id = req.query.type;
+		var widgetdata = fs.readFileSync(__dirname + "/views/json_widget_" + widget_id + ".mustache", 'utf-8');
+		return adapter.init(hogan).compile(widgetdata)(options);
+	}
+}
+
+
 app.listen(conf.server_port);
 console.log("Server started at port " + conf.server_port);
 
