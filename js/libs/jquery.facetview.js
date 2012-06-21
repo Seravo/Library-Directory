@@ -128,6 +128,10 @@
         // and add in any overrides from the call
         var options = $.extend(settings, options);
 
+		// remove consortium facet if widget #1 consortium-filter is active
+		// it must be first item in facet list array!
+		if (options.filter != "") settings.facets.shift();
+
         // ===============================================
         // functions to do with filters
         // ===============================================
@@ -834,6 +838,13 @@
 
 				qs.sort = [ { "_geo_distance": { "contact.coordinates": { "lat": lat, "lon": lon }, "order": "asc" } } ]
 				}
+
+			// consortium pre-selection from widget #1
+			if (options.filter != undefined && options.filter != "") {
+				var obj = {'term':{}}
+				obj['term']['consortium'] = options.filter;
+				query_filters.push(obj);
+			}
 
 			// build the final query object
 			qs.query = {}
