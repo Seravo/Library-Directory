@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-21 15:34+0300\n"
+"POT-Creation-Date: 2012-06-25 15:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: server.js:115 server.js:342 views/404.mustache:4
+#: server.js:115 server.js:342 js/libs/jquery.facetview.js:643
+#: views/404.mustache:4
 msgid "Not found"
 msgstr ""
 
@@ -124,6 +125,7 @@ msgstr ""
 
 #: js/libs/jquery.facetview.js:72 views/widget2.mustache:124
 #: views/widget3.mustache:171 views/library_details.mustache:171
+#: views/json_widget_5.mustache:12
 msgid "Open"
 msgstr ""
 
@@ -133,6 +135,7 @@ msgstr ""
 
 #: js/libs/jquery.facetview.js:74 views/widget2.mustache:129
 #: views/widget3.mustache:176 views/library_details.mustache:176
+#: views/json_widget_5.mustache:17
 msgid "Closed"
 msgstr ""
 
@@ -164,7 +167,7 @@ msgstr ""
 
 #: js/libs/jquery.facetview.js:100 views/widget2.mustache:71
 #: views/widget3.mustache:46 views/library_details.mustache:46
-#: views/widget_wizard.mustache:36
+#: views/widget_wizard.mustache:29
 msgid "Services"
 msgstr ""
 
@@ -205,10 +208,6 @@ msgstr ""
 msgid "next"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:643
-msgid "Not found..."
-msgstr ""
-
 #: js/libs/jquery.facetview.js:872
 msgid "Could not connect to database. Please try again later."
 msgstr ""
@@ -217,8 +216,12 @@ msgstr ""
 msgid "library name, service, city, postcode..."
 msgstr ""
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:2 views/widget_wizard.mustache:33
+#: locale/templates/LC_MESSAGES/gettext.tmpl:2 views/widget_wizard.mustache:31
 msgid "Search"
+msgstr ""
+
+#: locale/templates/LC_MESSAGES/gettext.tmpl:3
+msgid "Widgets"
 msgstr ""
 
 #: views/index.mustache:7 views/widget1.mustache:7
@@ -267,22 +270,22 @@ msgid "Last modified"
 msgstr ""
 
 #: views/widget2.mustache:118 views/widget3.mustache:165
-#: views/library_details.mustache:165
+#: views/library_details.mustache:165 views/json_widget_5.mustache:6
 msgid "No open times, since this is a {{organisation_type}}."
 msgstr ""
 
 #: views/widget2.mustache:122 views/widget3.mustache:169
-#: views/library_details.mustache:169
+#: views/library_details.mustache:169 views/json_widget_5.mustache:10
 msgid "The library is now"
 msgstr ""
 
 #: views/widget2.mustache:125 views/widget3.mustache:172
-#: views/library_details.mustache:172
+#: views/library_details.mustache:172 views/json_widget_5.mustache:13
 msgid "Opening hours today"
 msgstr ""
 
 #: views/widget2.mustache:133 views/widget3.mustache:180
-#: views/library_details.mustache:180
+#: views/library_details.mustache:180 views/json_widget_5.mustache:21
 msgid "Opening hours this week"
 msgstr ""
 
@@ -325,8 +328,8 @@ msgstr ""
 msgid "Library Directory"
 msgstr ""
 
-#: views/header-dev.mustache:64 views/contact.mustache:7
-#: views/header.mustache:62
+#: views/header-dev.mustache:65 views/contact.mustache:7
+#: views/header.mustache:63
 msgid "Send us feedback!"
 msgstr ""
 
@@ -419,36 +422,40 @@ msgstr ""
 msgid "Search library by name or street address, select one result"
 msgstr ""
 
-#: views/widget_wizard.mustache:29
+#: views/widget_wizard.mustache:26
 msgid "Select widget type"
 msgstr ""
 
-#: views/widget_wizard.mustache:34
+#: views/widget_wizard.mustache:30
+msgid "Opening times"
+msgstr ""
+
+#: views/widget_wizard.mustache:32
 msgid "Small library details"
 msgstr ""
 
-#: views/widget_wizard.mustache:35
+#: views/widget_wizard.mustache:33
 msgid "Full library details"
 msgstr ""
 
 #: views/widget_wizard.mustache:37
-msgid "Opening times"
-msgstr ""
-
-#: views/widget_wizard.mustache:41
 msgid "Select widget language"
 msgstr ""
 
-#: views/widget_wizard.mustache:44
+#: views/widget_wizard.mustache:40
 msgid "Automatic"
 msgstr ""
 
-#: views/widget_wizard.mustache:51
+#: views/widget_wizard.mustache:47
 msgid "Customize widget CSS-styling"
 msgstr ""
 
-#: views/widget_wizard.mustache:55
+#: views/widget_wizard.mustache:51
 msgid "Copy embed code"
+msgstr ""
+
+#: views/widget_wizard.mustache:55
+msgid "Widget preview"
 msgstr ""
 
 #: views/browse.mustache:5

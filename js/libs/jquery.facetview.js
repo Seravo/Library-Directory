@@ -640,7 +640,7 @@
                 </ul> \
               </div> \
               ';
-            $('#facetview_metadata').html(_("Not found..."))
+            $('#facetview_metadata').html(_("Not found"))
             if (data.found) {
                 var from = options.paging.from + 1
                 var size = options.paging.size

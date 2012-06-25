@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-21 15:34+0300\n"
-"PO-Revision-Date: 2012-06-21 15:38+0200\n"
+"POT-Creation-Date: 2012-06-25 15:27+0300\n"
+"PO-Revision-Date: 2012-06-25 15:28+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -20,6 +20,7 @@ msgstr ""
 
 #: server.js:115
 #: server.js:342
+#: js/libs/jquery.facetview.js:643
 #: views/404.mustache:4
 msgid "Not found"
 msgstr "Ei hakutuloksia"
@@ -143,6 +144,7 @@ msgstr "Virhe"
 #: views/widget2.mustache:124
 #: views/widget3.mustache:171
 #: views/library_details.mustache:171
+#: views/json_widget_5.mustache:12
 msgid "Open"
 msgstr "Auki"
 
@@ -154,6 +156,7 @@ msgstr "tänään"
 #: views/widget2.mustache:129
 #: views/widget3.mustache:176
 #: views/library_details.mustache:176
+#: views/json_widget_5.mustache:17
 msgid "Closed"
 msgstr "Suljettu"
 
@@ -190,7 +193,7 @@ msgstr "Kirjastotyyppi"
 #: views/widget2.mustache:71
 #: views/widget3.mustache:46
 #: views/library_details.mustache:46
-#: views/widget_wizard.mustache:36
+#: views/widget_wizard.mustache:29
 msgid "Services"
 msgstr "Palvelut"
 
@@ -233,10 +236,6 @@ msgstr "/"
 msgid "next"
 msgstr "seuraavat"
 
-#: js/libs/jquery.facetview.js:643
-msgid "Not found..."
-msgstr "Ei hakutuloksia..."
-
 #: js/libs/jquery.facetview.js:872
 msgid "Could not connect to database. Please try again later."
 msgstr "Yhteyttä tietokantaan ei saatu, yritä hetken kuluttua uudelleen."
@@ -247,9 +246,13 @@ msgstr "kirjaston nimi, palvelu, kaupunki, postinumero..."
 
 # manually added
 #: locale/templates/LC_MESSAGES/gettext.tmpl:2
-#: views/widget_wizard.mustache:33
+#: views/widget_wizard.mustache:31
 msgid "Search"
 msgstr "Haku"
+
+#: locale/templates/LC_MESSAGES/gettext.tmpl:3
+msgid "Widgets"
+msgstr "Upokkeet"
 
 #: views/index.mustache:7
 #: views/widget1.mustache:7
@@ -306,24 +309,28 @@ msgstr "Muokattu viimeksi"
 #: views/widget2.mustache:118
 #: views/widget3.mustache:165
 #: views/library_details.mustache:165
+#: views/json_widget_5.mustache:6
 msgid "No open times, since this is a {{organisation_type}}."
 msgstr "Ei aukioloa, koska kyseessä {{organisation_type}}."
 
 #: views/widget2.mustache:122
 #: views/widget3.mustache:169
 #: views/library_details.mustache:169
+#: views/json_widget_5.mustache:10
 msgid "The library is now"
 msgstr "Kirjasto on nyt"
 
 #: views/widget2.mustache:125
 #: views/widget3.mustache:172
 #: views/library_details.mustache:172
+#: views/json_widget_5.mustache:13
 msgid "Opening hours today"
 msgstr "Avoinna tänään"
 
 #: views/widget2.mustache:133
 #: views/widget3.mustache:180
 #: views/library_details.mustache:180
+#: views/json_widget_5.mustache:21
 msgid "Opening hours this week"
 msgstr "Aukioloajat tällä viikolla"
 
@@ -374,9 +381,9 @@ msgstr "Pysäköinti"
 msgid "Library Directory"
 msgstr "Kirjastohakemisto"
 
-#: views/header-dev.mustache:64
+#: views/header-dev.mustache:65
 #: views/contact.mustache:7
-#: views/header.mustache:62
+#: views/header.mustache:63
 msgid "Send us feedback!"
 msgstr "Anna palautetta!"
 
@@ -477,39 +484,43 @@ msgstr "Rakenna upoke"
 
 #: views/widget_wizard.mustache:17
 msgid "Search library by name or street address, select one result"
-msgstr ""
+msgstr "Etsi kirjastoa nimen tai osoittee perusteella, valitse yksi hakutulos"
 
-#: views/widget_wizard.mustache:29
+#: views/widget_wizard.mustache:26
 msgid "Select widget type"
 msgstr "Valitse upoketyyppi"
 
-#: views/widget_wizard.mustache:34
+#: views/widget_wizard.mustache:30
+msgid "Opening times"
+msgstr "Aukioloajat"
+
+#: views/widget_wizard.mustache:32
 msgid "Small library details"
 msgstr "Lyhyt kirjastoesittely"
 
-#: views/widget_wizard.mustache:35
+#: views/widget_wizard.mustache:33
 msgid "Full library details"
 msgstr "Laaja kirjastoesittely"
 
 #: views/widget_wizard.mustache:37
-msgid "Opening times"
-msgstr "Aukioloajat"
-
-#: views/widget_wizard.mustache:41
 msgid "Select widget language"
 msgstr "Valitse upokkeen kieli"
 
-#: views/widget_wizard.mustache:44
+#: views/widget_wizard.mustache:40
 msgid "Automatic"
 msgstr "Automaattinen"
 
-#: views/widget_wizard.mustache:51
+#: views/widget_wizard.mustache:47
 msgid "Customize widget CSS-styling"
 msgstr "Kustomoi upokkeen css-tyylit"
 
-#: views/widget_wizard.mustache:55
+#: views/widget_wizard.mustache:51
 msgid "Copy embed code"
 msgstr "Kopioi upokkeen koodi"
+
+#: views/widget_wizard.mustache:55
+msgid "Widget preview"
+msgstr "Upokkeen esikatselu"
 
 #: views/browse.mustache:5
 msgid "Browse all libraries"
@@ -522,6 +533,9 @@ msgstr "Hakemistossa yhteensä {{count}} kirjastoa."
 #: views/browse.mustache:23
 msgid "slug missing"
 msgstr "slug puuttuu"
+
+#~ msgid "Not found..."
+#~ msgstr "Ei hakutuloksia..."
 
 #~ msgid "Feedback?"
 #~ msgstr "Anna palautetta!"
