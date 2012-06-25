@@ -280,7 +280,7 @@ function render_static_page(page, req, res) {
 
 		// widget creation wizard
 		case "widget":
-			res.local("header", header.render(req, {title: "Widget wizard"}))
+			res.local("header", header.render(req, {title: "Widget wizard", widget_active: true}))
 			res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { ld_widget_wizard(); });"}));
 			res.render("widget_wizard", res.locals());
 			break;
