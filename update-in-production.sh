@@ -10,7 +10,10 @@ set -x
 git checkout js/libs/jquery.facetview.js # move away old changes, they would otherwise stop the pull
 git pull
 
-sed -i "s/localhost/libdir.seravo.fi/" js/libs/jquery.facetview.js
+sed -i "s/localhost/hakemisto.kirjastot.fi/" js/libs/jquery.facetview.js
+sed -i "s/localhost:8080/hakemisto.kirjastot.fi/" js/script.js
+sed -i "s/localhost:8888/hakemisto.kirjastot.fi/" js/script.js
+sed -i "s/localhost:8080/hakemisto.kirjastot.fi/" js/widget.js
 
 cd css
 lessc style.less > style.css
