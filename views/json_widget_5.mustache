@@ -1,26 +1,24 @@
 {{#data}}
 
-Opening hours widget for {{name_fi}}<br>
-
     <div class="opentimes">
         <i class="icon-time"></i>
         {{#neveropen}}
-            No open times, since this is a {{organisation_type}}.
+            _("No open times, since this is a {{organisation_type}}.")
         {{/neveropen}}
 
         {{^neveropen}}
-            <h3>The library is now
+            <h3>_("The library is now")
 		    {{#opening_hours.open_now}}
-	            <strong class="open">Open</strong>
-			    Opening hours today {{opening_hours.open_hours_today}}
+	            <strong class="open">_("Open")</strong>
+			    _("Opening hours today") {{opening_hours.open_hours_today}}
 		    {{/opening_hours.open_now}}
 
 		    {{^opening_hours.open_now}}
-	            <strong class="closed">Closed</strong>
+	            <strong class="closed">_("Closed")</strong>
 	        {{/opening_hours.open_now}}
 		    </h3>
 		    <br>
-	        <h3>Opening hours this week</h3>
+	        <h3>_("Opening hours this week")</h3>
 	        <table>
 			    {{#opening_hours.open_hours_week}}
 				    <tr><td>{{day}}<td>&nbsp;<td>{{time}}</tr>
