@@ -114,21 +114,40 @@ function ld_format_time(time) {
 }
 
 function ld_widget_wizard() {
-	$("#widgetcode").empty();
+	function load_widget_css(type) {
+		var css_link = $("<link>", {
+			rel: "stylesheet",
+			type: "text/css",
+			href: "http://omppu:8080/css/json_widget" + type + ".css" });
+		css_link.appendTo('head');
+	}
+
+	// preload jsonp-widget css
+	load_widget_css(4);
+	load_widget_css(5);
+
+	$(".langselector").prop('disabled', true);
+	$(".typeselector").prop('disabled', true);
+	$("#widget_style").prop('disabled', true);
 
 	// construct the widget code
-	$("#makewidget").bind('click', function() {
+	function build_widget() {
+
 		var id = $("#widget_library").val();
 		var consortium = $("#widget_consortium").val();
 		var type = $("#widget_type").val();
 		var uuid = get_uuid();
 		var code = "";
 		var widget_lang = $("#widget_lang").val();
-		var style = $("#widgetstyle").val().replace(/\n+/g," ");
 		var lang = "";
+
+		// apply default css for iframe-widget
+		if (type=="1" || type=="2" || type=="3") { $("#widget_style").val("width: 550px;\nheight: 550px;") }
+		var style = $("#widget_style").val().replace(/\n+/g," ");
 
 		//if (widget_lang != "") lang = '?lang=' + widget_lang;
 		if (widget_lang != "") lang = widget_lang;
+
 
 		switch(type) {
 			// 1-3 iframe widgets
@@ -171,9 +190,30 @@ function ld_widget_wizard() {
 				code += 'id="libdir_widget-' + uuid + '"' + '></div>';
 				break;
 		}
-		$("#widgetcode").val(code);
-	});
+		$("#widget_code").val(code);
 
+		// update preview for jsonp-widgets
+		if (type=="4" || type=="5") {
+			var code = "";
+			code += '<div class="libdir_widget_' + type + '" ';
+			if (style!="") code += 'style="' + style + '" ';
+			code += 'id="libdir_widget-' + uuid + '"' + '></div>';
+
+			$("#widget_preview").html(code);
+
+			var jsonp_url = "";
+			if (lang != "") jsonp_url = "http://omppu:8080/" + lang + "/loadwidget?id="+id+"&type="+type+"&callback=?";
+			else jsonp_url = "http://omppu:8080/loadwidget?id="+id+"&type="+type+"&callback=?";
+
+			$.getJSON(jsonp_url, function(data) { $('#libdir_widget-' + uuid).html(data.html); });
+		}
+		// update preview for iframe-widgets
+		else {
+			$("#widget_preview").html(code);
+		}
+	}
+
+	// generate unique identifier for jsonp-widget to avoid namespace collisions
 	function get_uuid() {
 		// http://www.ietf.org/rfc/rfc4122.txt
 		var s = [];
@@ -192,33 +232,23 @@ function ld_widget_wizard() {
 	$(".langselector").bind('click', function(event) {
 		event.preventDefault();
 		$("#widget_lang").val($(this).attr('value'));
+		build_widget();
 	});
 
-	$(function() {
-		$( "#radio" ).buttonset();
+	$(".typeselector").bind('click', function(event) {
+		event.preventDefault();
+		$("#widget_type").val($(this).attr('value'));
+		build_widget();
 	});
 
-	$(function() {
-		$("#libraries").selectable({
-			stop: function() {
-				$(".ui-selected", this).each(function() {
-					$('#widget_library').val($(this).attr("data-id"));
-					$('#widget_consortium').val($(this).attr("data-consortium"));
-				});
-			}
-		});
-
-		$("#types").selectable({
-			stop: function() {
-				$(".ui-selected", this).each(function() {
-					$('#widget_type').val($(this).attr("data-type"));
-				});
-			}
-		});
+	// submit on each key press if interval>800 ms
+	$('#widget_style').keyup(function() {
+		typewatch(function () {
+			build_widget();
+		}, 800);
 	});
 
 	$(document).bind('search', function(event, data) {
-
 		var url = "http://localhost:8888/testink/organisation/_search";
 		var query2 =
 			{
@@ -241,10 +271,10 @@ function ld_widget_wizard() {
 			url: url,
 			data: { source: query },
 			dataType: "jsonp",
-			beforeSend: function() { $('#status').html("searching"); },
+			//beforeSend: function() { $('#status').html("searching"); },
 			complete: function(data) { /*console.log("ajax complete");*/ },
 			success: function(data) {
-				$('#status').html("done") ;
+				//$('#status').html("done") ;
 				results = new Object();
 				results["records"] = new Array();
 				var index=1;
@@ -258,29 +288,53 @@ function ld_widget_wizard() {
 
 				var template =
 					'{{#records}}' +
-					  '<li data-id="{{id}}" data-consortium="{{consortium}}"><strong>' +
+					  '<div style="width: 35%;" class="alert alert-info searchresults" data-id="{{id}}" data-consortium="{{consortium}}">' + 
+					  '<strong>' +
 					  '{{#name_' + _("locale") + '}}' +
 					    '{{name_' + _("locale") + '}}' +
 					  '{{/name_' + _("locale") + '}}' +
 					  '{{^name_' + _("locale") + '}}' +
 					    '{{name_fi}}' +
 					  '{{/name_' + _("locale") + '}}' +
-					  '</strong><br>' +
+					  '</strong>' +
+					  '<br>' +
 					  '{{#contact.street_address.street_' + _("locale") + '}}' +
 					    '{{contact.street_address.street_' + _("locale") + '}}' +
 					  '{{/contact.street_address.street_' + _("locale") + '}}' +
 					  '{{^contact.street_address.street_' + _("locale") + '}}' +
 					    '{{contact.street_address.street_fi}}' +
 					  '{{/contact.street_address.street_' + _("locale") + '}}' +
+					  ', ' +
+					  '{{#contact.street_address.municipality_' + _("locale") + '}}' +
+					    '{{contact.street_address.municipality_' + _("locale") + '}}' +
+					  '{{/contact.street_address.municipality_' + _("locale") + '}}' +
+					  '{{^contact.street_address.municipality_' + _("locale") + '}}' +
+					    '{{contact.street_address.municipality_fi}}' +
+					  '{{/contact.street_address.municipality_' + _("locale") + '}}' +
+					  '</div>' +
 					'{{/records}}';
 
 				$('.search_results').empty();
-				if (results.records.length>0) {
-					$('#hits').html(results.hits + " " + _("results, showing first 10 ordered by name"));
-					$('.search_results').html(Mustache.render(template, results)); }
-				else {
-					$('.search_results').html("No results");
-					$('#hits').html("No hits");
+				if (results.hits>0) {
+					if (results.hits>10) $('#hits').html(_("Too many search results, showing first 10"));
+					else $('#hits').html("");
+					$('.search_results').html(Mustache.render(template, results));
+					$('.searchresults').bind('click', function(event) {
+						event.preventDefault();
+						$(this).siblings().remove();
+						$(this).removeClass("alert-info");
+						$(this).addClass("alert-success");
+
+						$('#widget_library').val($(this).attr("data-id"));
+						$('#widget_consortium').val($(this).attr("data-consortium"));
+
+						$(".langselector").removeProp('disabled');
+						$(".typeselector").removeProp('disabled');
+						$("#widget_style").removeProp('disabled');
+						});
+				} else {
+					$('.search_results').html("");
+					$('#hits').html(_("No search results"));
 				}
 			}
 		})

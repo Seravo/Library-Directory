@@ -17,44 +17,39 @@
 			<h4>1. _("Search library by name or street address, select one result")</h4>
 			<input id="search_txt" autofocus>
 
-			<div id=status>db ok</div>
-			<div id=hits>no hits</div>
-			<!--div id="widget_library">selected none</div-->
+			<div id=hits></div>
 			<input type="hidden" id="widget_library">
 			<input type="hidden" id="widget_consortium">
-			<ul id="libraries" class="selectable search_results">
-			</ul>
+			<div id="libraries" class="search_results">
+			</div>
 
-			<br>
 			<h4>2. _("Select widget type")</h4>
-			<!--div id="widget_type">none</div-->
 			<input type="hidden" id="widget_type">
-			<ul id="types" class="selectable widget_type">
-				<li data-type=1>_("Search")
-				<li data-type=2>_("Small library details")
-				<li data-type=3>_("Full library details")
-				<li data-type=4>_("Services")
-				<li data-type=5>_("Opening times")
-			</ul>
+			<div class="btn-group">
+				<button class="btn typeselector" value="4">_("Services")</button>
+				<button class="btn typeselector" value="5">_("Opening times")</button>
+				<button class="btn typeselector" value="1">_("Search")</button>
+				<button class="btn typeselector" value="2">_("Small library details")</button>
+				<button class="btn typeselector" value="3">_("Full library details")</button>
+			</div>
 
 			<br>
 			<h4>3. _("Select widget language")</h4>
-			<input type="hidden" id="widget_lang">
-			<div id="radio">
-				<input class="langselector" type="radio" id="radio1" name="radio" value="" checked></input> <label for="radio1">_("Automatic")</label>
-				<input class="langselector" type="radio" id="radio2" name="radio" value="fi"></input> <label for="radio2">Suomi</label>
-				<input class="langselector" type="radio" id="radio3" name="radio" value="sv"></input> <label for="radio3">Svenska</label>
-				<input class="langselector" type="radio" id="radio4" name="radio" value="en"></input> <label for="radio4">English</label>
+			<input type="hidden" id="widget_lang" value="">
+			<div class="btn-group">
+				<button class="btn langselector" value="">_("Automatic")</button>
+				<button class="btn langselector" value="fi">Suomi</button>
+				<button class="btn langselector" value="sv">Svenska</button>
+				<button class="btn langselector" value="en">English</button>
 			</div>
 
 			<br>
 			<h4>4. _("Customize widget CSS-styling")</h4>
-			<textarea class="widget" id="widgetstyle"></textarea>
+			<textarea class="widget" id="widget_style"></textarea>
 
 			<br>
 			<h4>5. _("Copy embed code")</h4>
-			<button id="makewidget">Click to generate code</button><br>
-			<textarea class="widget" id="widgetcode"></textarea>
+			<textarea class="widget" id="widget_code"></textarea>
 	</div>
 	<div class="span6">
 		<h4>_("Widget preview")</h4>
