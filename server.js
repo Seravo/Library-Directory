@@ -133,9 +133,9 @@ app.get("/:lang(fi|en|sv)/:resource(*)",function(req,res,next) {
 function route_parser(req,res,next) {
 
     // check that hostname matches, otherwise redirect
-    console.log("expected hostname: "+conf.server_host);
+    //console.log("expected hostname: "+conf.server_host);
     hostname = req.headers.host.match(/([0-9A-Za-z-.]+)(:[0-9]+)?/)[1];
-    console.log("actual hostname:"+hostname);
+    //console.log("actual hostname: "+hostname);
     
     if (hostname != conf.server_host){
         res.redirect("http://"+conf.server_host+":"+conf.server_port+req.url, 301); // 301 for permanent redirect
@@ -174,7 +174,7 @@ function route_parser(req,res,next) {
 
 	// static assets and unmatched requests
 	else {
-		rlog("UNMATCHED");
+		//rlog("UNMATCHED: " + page);
 		next('route');
 	}
 }
