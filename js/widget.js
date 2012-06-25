@@ -1,6 +1,8 @@
 libdir_widgets_loaded = false;
 
 (function() {
+// url for client-side widgets
+var url = "http://localhost:8080/";
 
 var jQuery;
 
@@ -45,13 +47,13 @@ function main() {
 			var widget_lang = "";
 			if (widget.attr("data-lang")) widget_lang = widget.attr("data-lang") + "/";
 				
-			var jsonp_url = "http://omppu:8080/" + widget_lang + "loadwidget?"+widget_params+"&type="+widget_type+"&callback=?";
+			var jsonp_url = url + widget_lang + "loadwidget?"+widget_params+"&type="+widget_type+"&callback=?";
 
 			// load widget css
 			var css_link = $("<link>", { 
 				rel: "stylesheet", 
 				type: "text/css", 
-				href: "http://omppu:8080/css/json_widget" + widget_type + ".css" });
+				href: url + "css/json_widget" + widget_type + ".css" });
 			css_link.appendTo('head');
 
 			// load widget html & populate container

@@ -114,11 +114,14 @@ function ld_format_time(time) {
 }
 
 function ld_widget_wizard() {
+	// url for widgets/data
+	var url = "http://localhost:8080/";
+
 	function load_widget_css(type) {
 		var css_link = $("<link>", {
 			rel: "stylesheet",
 			type: "text/css",
-			href: "http://omppu:8080/css/json_widget" + type + ".css" });
+			href: url + "css/json_widget" + type + ".css" });
 		css_link.appendTo('head');
 	}
 
@@ -153,7 +156,7 @@ function ld_widget_wizard() {
 			// 1-3 iframe widgets
 			case "1":
 				if (lang != '') lang+="/";
-				var code =	'<iframe src="http://omppu:8080/' + lang + 'widget1';
+				var code =	'<iframe src="' + url + lang + 'widget1';
 				if (consortium != '') code += '?area='+consortium+'"';
 				else code += '"';
 				if (style != '') code += ' style="' + style + '"';
@@ -162,7 +165,7 @@ function ld_widget_wizard() {
 
 			case "2":
 				if (lang != '') lang+="/";
-				var code =	'<iframe src="http://omppu:8080/' + lang;
+				var code =	'<iframe src="' + url + lang;
 				code += 'widget2?id='  + id + '"';
 				if (style != '') code += ' style="' + style + '"';
 				code += '></iframe>';
@@ -170,7 +173,7 @@ function ld_widget_wizard() {
 
 			case "3":
 				if (lang != '') lang+="/";
-				var code =	'<iframe src="http://omppu:8080/' + lang;
+				var code =	'<iframe src="' + url + lang;
 				code += 'widget3?id='  + id + '"';
 				if (style != '') code += ' style="' + style + '"';
 				code += '></iframe>';
@@ -183,7 +186,7 @@ function ld_widget_wizard() {
 				code += 'data-type="' + type + '" ';
 				code += 'data-id="' + uuid + '" ';
 				code += 'data-lang="' + lang + '" ';
-				code += 'src="' + "http://omppu:8080/js/widget.js" + '" ';
+				code += 'src="' + url + 'js/widget.js' + '" ';
 				code += 'type="text/javascript"></script>';
 				code += '<div class="libdir_widget_' + type + '" ';
 				if (style!="") code += 'style="' + style + '" ';
@@ -202,8 +205,8 @@ function ld_widget_wizard() {
 			$("#widget_preview").html(code);
 
 			var jsonp_url = "";
-			if (lang != "") jsonp_url = "http://omppu:8080/" + lang + "/loadwidget?id="+id+"&type="+type+"&callback=?";
-			else jsonp_url = "http://omppu:8080/loadwidget?id="+id+"&type="+type+"&callback=?";
+			if (lang != "") jsonp_url = url + lang + "/loadwidget?id="+id+"&type="+type+"&callback=?";
+			else jsonp_url = url + "loadwidget?id="+id+"&type="+type+"&callback=?";
 
 			$.getJSON(jsonp_url, function(data) { $('#libdir_widget-' + uuid).html(data.html); });
 		}
