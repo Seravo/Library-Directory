@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-25 15:27+0300\n"
-"PO-Revision-Date: 2012-06-25 15:28+0200\n"
+"PO-Revision-Date: 2012-06-26 14:15+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -484,7 +484,7 @@ msgstr "Rakenna upoke"
 
 #: views/widget_wizard.mustache:17
 msgid "Search library by name or street address, select one result"
-msgstr "Etsi kirjastoa nimen tai osoittee perusteella, valitse yksi hakutulos"
+msgstr "Etsi kirjastoa nimen tai osoitteen perusteella, valitse yksi hakutulos"
 
 #: views/widget_wizard.mustache:26
 msgid "Select widget type"
