@@ -11,7 +11,7 @@ var params = {  "domain": "messages" };
 var gt = new Gettext(params);
 function _ (msgid) { return gt.gettext(msgid); }
 
-function ld_mapcontrol_init(coords, name, desc) {
+function ld_mapcontrol_init(coords, info) {
 	if (coords.length<2) {
 		alert("Error: coordinates are missing");
 		return true; }
@@ -50,23 +50,27 @@ function ld_mapcontrol_init(coords, name, desc) {
 
 	/* add marker layer with coordinate projection transform */
 	var vectorLayer = new OpenLayers.Layer.Vector("Overlay");
+	map.addLayer(vectorLayer);
+
 	var marker = new OpenLayers.Feature.Vector(
 		new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection),
-		{ },
-		{externalGraphic: 'js/libs/openlayers/markers/marker-black.png', graphicHeight: 41, graphicWidth: 25, graphicYOffset: -40});
-	if (name!="" && desc!="") {
-		popup = new OpenLayers.Popup.FramedCloud("popup", mapLocation, new OpenLayers.Size(200, 200), name+desc, null, false);
-		// dont' style name and desc here, they come prestyled from calling functions
-		// consider joining to one variable, e.g. htmlcontents
+		{ html: info },
+		{ externalGraphic: 'js/libs/openlayers/markers/marker-black.png', graphicHeight: 41, graphicWidth: 25, graphicYOffset: -41 }
+	);
+	vectorLayer.addFeatures(marker);
+
+	/* add marker popup */
+	if (info != "") {
+		var popup =
+		new OpenLayers.Popup.FramedCloud(
+			"pop", marker.geometry.getBounds().getCenterLonLat(), null,
+			'<div>'+marker.attributes.html+'</div>', null, false);
 		map.addPopup(popup);
 	}
 
-	vectorLayer.addFeatures(marker);
-	map.addLayer(vectorLayer);
-
 	// I don't think we need this?
 	// $('#mapcontrol').append('<button class="btn btn-danger" onclick="ld_mapcontrol_close();">Hide map</button>');
-      }
+}
 
 
 function ld_mapcontrol_close() {

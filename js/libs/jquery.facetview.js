@@ -76,11 +76,11 @@
 
 	var coordinate_format = "\
 		<i class='icon-map-marker'></i> \
-		{{#d0}}<a href=\"\" onclick='ld_mapcontrol_init(\"{{d0}}\", \"<b>{{d1}}</b>\", \"<br>{{d2}}<br>{{d3}} {{d4}}\"); return false;'>{{/d0}}";
+		{{#d0}}<a href=\"\" onclick='ld_mapcontrol_init(\"{{d0}}\", \"{{d1}}\"); return false;'>{{/d0}}";
 
 	var search_results = [
 		[ { "fields": "additional_info.slug,  name_" + _("locale"), "format": "<h3><a href='/{{d0}}'>{{d1}}</a></h3>" } ],
-		[ { "fields": "contact.coordinates, name_" +_("locale") +", contact.street_address.street_"+ _("locale") + ", contact.street_address.post_code, contact.street_address.municipality_" + _("locale"),
+		[ { "fields": "contact.coordinates, map_popup_html",
 		    "format": coordinate_format },
 		  { "fields": "contact.street_address.street_" + _("locale")+", contact.street_address.post_code, contact.street_address.municipality_"+ _("locale"), "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
 		[ { "fields": "open_now, opening_hours", "format": opening_hours_format } ],
@@ -569,6 +569,12 @@
 							}
 						}
 					}
+
+					var lib = library_data;
+					lib.map_popup_html =
+						"<strong>" + lib["name_" + _("locale")] + "</strong>" + "<br>" +
+						lib.contact.street_address["street_"+_("locale")] + "<br>" +
+						lib.contact.street_address.post_code + " " + lib.contact.street_address["municipality_" + _("locale")];
 
                     dataobj.hits.hits[item]._source["id"] = dataobj.hits.hits[item]._id;
                     resultobj["records"].push(dataobj.hits.hits[item]._source);
