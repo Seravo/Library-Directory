@@ -745,6 +745,10 @@
             // put the filtered results on the page
             $('#facetview_results').html("");
             var infofiltervals = new Array();
+
+			// display libraries in map if location is available
+			if (ld_position) ld_mapcontrol_init_geoloc(data.records);
+
             $.each(data.records, function(index, value) {
                 // write them out to the results div
                 $('#facetview_results').append( buildrecord(index) );

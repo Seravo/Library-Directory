@@ -11,6 +11,87 @@ var params = {  "domain": "messages" };
 var gt = new Gettext(params);
 function _ (msgid) { return gt.gettext(msgid); }
 
+function ld_mapcontrol_init_geoloc(data) {
+	/* initialize map canvas and set location for given coordinates */
+	$(window).scrollTop(0);
+	$('#basicmap').empty();
+	$('#mapcontrol').empty();
+	$('#basicmap').show();
+
+	var lat = ld_position_coords.latitude;
+	var lon = ld_position_coords.longitude;
+
+	var mapOptions = {
+		controls: [
+			new OpenLayers.Control.Navigation(),
+			new OpenLayers.Control.PanZoomBar(),
+			new OpenLayers.Control.Attribution() ],
+		theme: '/js/libs/openlayers/style.css'
+	};
+
+	/* convert wgs-84 coordinates into OSM spherical mercator projection */
+	var fromProjection = new OpenLayers.Projection("EPSG:4326");
+	var toProjection = new OpenLayers.Projection("EPSG:900913");
+	var mapLocation = new OpenLayers.LonLat(lon, lat).transform(fromProjection,toProjection);
+
+	/* add map layers */
+	var osmLayer = new OpenLayers.Layer.OSM("OpenStreetMap");
+	var map = new OpenLayers.Map("basicmap", mapOptions);
+	map.addLayers([osmLayer]);
+	map.setCenter(mapLocation, 12);
+
+	/* add marker layer with coordinate projection transform */
+	var vectorLayer = new OpenLayers.Layer.Vector("Overlay");
+	map.addLayer(vectorLayer);
+
+	// mark user location
+	var marker = new OpenLayers.Feature.Vector(
+		new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection),
+		{ html: _("My Location") },
+		{ externalGraphic: 'js/libs/openlayers/markers/blue_dot_circle.png', graphicHeight: 10, graphicWidth: 10, graphicYOffset: -5 }
+	);
+	vectorLayer.addFeatures(marker);
+
+	/* selector for marker popups */
+	var controls = { selector: new OpenLayers.Control.SelectFeature(vectorLayer, { onSelect: createPopup, onUnselect: destroyPopup }) };
+	map.addControl(controls['selector']);
+	controls['selector'].activate();
+
+	/* add all libraries from results */
+	for (item in data) {
+		var rec = data[item];
+		if (rec.contact.coordinates.length>2) {
+			var lat = rec.contact.coordinates.split(",")[0];
+			var lon = rec.contact.coordinates.split(",")[1];
+
+			var html = rec.map_popup_html;
+
+			var marker = new OpenLayers.Feature.Vector(
+				new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection),
+				{ html: html },
+				{ externalGraphic: 'js/libs/openlayers/markers/marker-black-small.png', graphicHeight: 26, graphicWidth: 16, graphicYOffset: -26 }
+			);
+			vectorLayer.addFeatures(marker);
+		}
+	}
+
+	/* click on marker */
+	function createPopup(feature) {
+		feature.popup =
+		new OpenLayers.Popup.FramedCloud(
+			"pop", feature.geometry.getBounds().getCenterLonLat(), null,
+			'<div>'+feature.attributes.html+'</div>', null, false,
+			function() { controls['selector'].unselectAll(); });
+		map.addPopup(feature.popup);
+	}
+
+	/* click somewhere else */
+	function destroyPopup(feature) {
+		feature.popup.destroy();
+		feature.popup = null;
+	}
+}
+
 function ld_mapcontrol_init(coords, info) {
 	if (coords.length<2) {
 		alert("Error: coordinates are missing");

@@ -487,6 +487,11 @@ function add_library_metadata(dataobj, callback){
 		lib.accessibility.lift ||
 		lib.extraaccessibilityinfo ) { lib.accessibility_available = true }
 
+	lib.map_popup_html =
+		"<strong>" + lib["name_" + _("locale")] + "</strong>" + "<br>" +
+		lib.contact.street_address["street_"+_("locale")] + "<br>" +
+		lib.contact.street_address.post_code + " " + lib.contact.street_address["municipality_" + _("locale")];
+
     // delete empty object so that they will not be displayed in Mustache templates
     if (dataobj._source.additional_info.slug == '') {
         delete dataobj._source.additional_info.slug;
