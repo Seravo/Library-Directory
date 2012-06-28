@@ -43,10 +43,13 @@ function switch_locale(req) {
 	//console.log(browser_lang, path_lang, get_lang);
 	// locale precedence:
 	// 1) get var 2) request path 3) browser setting
-	var locale = gettext.lang; // default application language (fi) from global var if nothing else is defined
+	var locale = "";
 	if (browser_lang != undefined) locale = browser_lang;
 	if (path_lang != undefined) locale = path_lang;
 	if (get_lang != undefined) locale = get_lang;
+
+	// set default application locale if request is hairy
+	if (!locale.match(/^(fi|en|sv)$/)) locale = "fi";
 
 	gettext.setlocale("LC_ALL", locale);
 }
