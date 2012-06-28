@@ -15,12 +15,14 @@
 	
 	
 	<h1>{{name__("locale")}}</h1>
-    <p><strong class="address"><i class="icon-map-marker"></i>
-	<a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q">
-	{{contact.street_address.street__("locale")}},
-	{{contact.street_address.area__("locale")}}
-	{{contact.street_address.post_code}}
-	{{contact.street_address.municipality__("locale")}}</a></strong></p>
+	{{#contact.coordinates}}
+	    <p><strong class="address"><i class="icon-map-marker"></i>
+		<a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q">
+		{{contact.street_address.street__("locale")}},
+		{{contact.street_address.area__("locale")}}
+		{{contact.street_address.post_code}}
+		{{contact.street_address.municipality__("locale")}}</a></strong></p>
+	{{/contact.coordinates}}
 
     {{#contact.directions__("locale")}}
         <p>_("Directions"):
@@ -39,8 +41,10 @@
 		</p>
 	{{/contact.coordinates}}
 
-    <p class="libdescription"><strong class="quotesign">”</strong>{{description__("locale")}}</p>
-        		
+	{{#description__("locale")}}
+		<p class="libdescription"><strong class="quotesign">”</strong>{{description__("locale")}}</p>
+	{{/description__("locale")}}
+
 	<dl>
 		{{#services.0.name__("locale")}}
 	    <dt>_("Services")</dt>
