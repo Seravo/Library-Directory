@@ -3,7 +3,7 @@
 <div class="row-fluid">
   <div class="span12">
       <h1>_("Browse all libraries")</h1>
-      <p>_("Listing totally {{count}} libraries.")</p>
+      <p>_("Listing total of {{count}} libraries.")</p>
       <ul  class="nav nav-pills nav-stacked">
       {{#libraries}}
         <li><a 
@@ -17,7 +17,7 @@
 		{{#name__("locale")}}
 			{{name__("locale")}}
 		{{/name__("locale")}}
-		{{#name__("locale")}}
+		{{^name__("locale")}}
 			{{name_fi}}
 		{{/name__("locale")}}
 		<span class="label">{{organisation_type}}</span> {{^additional_info.slug}}<span class="label label-important">_("slug missing")</span>{{/additional_info.slug}}</a></li>

@@ -438,11 +438,31 @@ function get_libraries(callback) {
         data += chunk;
       });
       res.on('end', function() {
-          callback(JSON.parse(data));
+		  dataobj = JSON.parse(data);
+		  add_library_metadata_for_browse(dataobj, callback);
       });
     }).on('error', function(e) {
       console.log('Problem with request: ' + e.message);
     });
+}
+
+function add_library_metadata_for_browse(dataobj, callback) {
+	for (var temp in dataobj.hits.hits) {
+		var lib = dataobj.hits.hits[temp]._source;
+
+		// localize organisation types
+		if (lib.organisation_type == "branchlibrary") lib.organisation_type = _("branchlibrary");
+		if (lib.organisation_type == "department") lib.organisation_type = _("department");
+		if (lib.organisation_type == "library") lib.organisation_type = _("library");
+		if (lib.organisation_type == "mobile_stop") lib.organisation_type = _("mobile_stop");
+		if (lib.organisation_type == "organisaatio") lib.organisation_type = _("organisation");
+		if (lib.organisation_type == "unit") lib.organisation_type = _("unit");
+
+		// delete empty names, default to name_fi in views if missing
+		if (lib.name_en == "") delete lib.name_en;
+		if (lib.name_sv == "") delete lib.name_sv;
+	}
+	callback(dataobj);
 }
 
 // enrich result meta data
@@ -509,7 +529,24 @@ function add_library_metadata(dataobj, callback){
     if (dataobj._source.established_year == '') {
         delete dataobj._source.established_year;
     }
-    
+
+	// localize organisation types
+	if (lib.organisation_type == "branchlibrary") lib.organisation_type = _("branchlibrary");
+	if (lib.organisation_type == "department") lib.organisation_type = _("department");
+	if (lib.organisation_type == "library") lib.organisation_type = _("library");
+	if (lib.organisation_type == "mobile_stop") lib.organisation_type = _("mobile_stop");
+	if (lib.organisation_type == "organisaatio") lib.organisation_type = _("organisation");
+	if (lib.organisation_type == "unit") lib.organisation_type = _("unit");
+
+	// delete empty names, default to name_fi in views
+	if (lib.name_en == "") delete lib.name_en;
+	if (lib.name_sv == "") delete lib.name_sv;
+
+	// delete empty description fields, default to _fi in views
+	if (lib.description_fi == "") delete lib.description_fi;
+	if (lib.description_sv == "") delete lib.description_sv;
+	if (lib.description_en == "") delete lib.description_en;
+
     // delete empty service fields
     dataobj._source.services.forEach( function(s) { 
         if (s.description_short_fi == '') { delete s.description_short_fi; }
