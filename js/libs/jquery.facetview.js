@@ -346,21 +346,22 @@
 		function (error) {
 			switch(error.code) {
 				case error.TIMEOUT:
-					showerror('Geolocation: Timeout');
+					/*showerror('Geolocation: Timeout');*/
 					break;
 				case error.POSITION_UNAVAILABLE:
-					showerror('Geolocation: Position unavailable');
+					/*showerror('Geolocation: Position unavailable');*/
 					break;
 				case error.PERMISSION_DENIED:
-					showerror('Geolocation: Permission denied');
+					/*showerror('Geolocation: Permission denied');*/
 					break;
 				case error.UNKNOWN_ERROR:
-					showerror('Geolocation: Unknown error');
+					/*showerror('Geolocation: Unknown error');*/
 					break; }
 		        } );
 		}
 	else {
-		showerror("Geolocation not supported"); }
+		 /* showerror("Geolocation not supported"); */
+		}
 
             options.visualise_filters ? $('.facetview_visualise').bind('click',show_vis) : ""
             $('.facetview_morefacetvals').bind('click',morefacetvals)
@@ -677,7 +678,6 @@
                 var recstr = JSON.stringify(record)
                 if (typeof record.additional_info.slug != 'undefined') { 
                     if (record.additional_info.slug.trim() == '') { 
-                        console.log("Slug empty for " + record.name_fi);
                         delete record.additional_info.slug;
                     }
                 }
