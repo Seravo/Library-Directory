@@ -80,7 +80,7 @@ function ld_mapcontrol_init_geoloc(data) {
 		feature.popup =
 		new OpenLayers.Popup.FramedCloud(
 			"pop", feature.geometry.getBounds().getCenterLonLat(), null,
-			'<div>'+feature.attributes.html+'</div>', null, false,
+			'<div>'+feature.attributes.html+'</div>', null, true,
 			function() { controls['selector'].unselectAll(); });
 		map.addPopup(feature.popup);
 	}
