@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-25 15:27+0300\n"
-"PO-Revision-Date: 2012-06-25 15:27+0200\n"
+"POT-Creation-Date: 2012-06-28 10:57+0300\n"
+"PO-Revision-Date: 2012-06-28 11:00+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: server.js:115
 #: server.js:342
-#: js/libs/jquery.facetview.js:643
+#: js/libs/jquery.facetview.js:653
 #: views/404.mustache:4
 msgid "Not found"
 msgstr "Not found"
@@ -82,48 +82,84 @@ msgstr "Feedback sent"
 msgid "Library details"
 msgstr "Library details"
 
-#: server.js:528
+#: server.js:491
+#: server.js:492
+#: server.js:493
+#: js/libs/jquery.facetview.js:82
+#: js/libs/jquery.facetview.js:85
+#: js/libs/jquery.facetview.js:579
+#: js/libs/jquery.facetview.js:580
+#: js/libs/jquery.facetview.js:581
+#: locale/templates/LC_MESSAGES/gettext.tmpl:1
+msgid "locale"
+msgstr "en"
+
+#: server.js:513
+msgid "branchlibrary"
+msgstr "branch library"
+
+#: server.js:514
+msgid "department"
+msgstr "department"
+
+#: server.js:515
+msgid "library"
+msgstr "library"
+
+#: server.js:516
+msgid "mobile_stop"
+msgstr "mobile library stop"
+
+#: server.js:517
+msgid "organisation"
+msgstr "organisation"
+
+#: server.js:518
+msgid "unit"
+msgstr "unit"
+
+#: server.js:540
 msgid "service type device"
 msgstr "device"
 
-#: server.js:529
+#: server.js:541
 msgid "service type room"
 msgstr "room"
 
-#: server.js:530
+#: server.js:542
 msgid "service type service"
 msgstr "service"
 
-#: server.js:691
+#: server.js:703
 msgid "Monday"
 msgstr "Monday"
 
-#: server.js:692
+#: server.js:704
 msgid "Tuesday"
 msgstr "Tuesday"
 
-#: server.js:693
+#: server.js:705
 msgid "Wednesday"
 msgstr "Wednesday"
 
-#: server.js:694
+#: server.js:706
 msgid "Thursday"
 msgstr "Thursday"
 
-#: server.js:695
+#: server.js:707
 msgid "Friday"
 msgstr "Friday"
 
-#: server.js:696
+#: server.js:708
 msgid "Saturday"
 msgstr "Saturday"
 
-#: server.js:697
+#: server.js:709
 msgid "Sunday"
 msgstr "Sunday"
 
-#: server.js:717
-#: server.js:735
+#: server.js:729
+#: server.js:747
 msgid "closed"
 msgstr "closed"
 
@@ -163,13 +199,6 @@ msgstr "Closed"
 #: js/libs/jquery.facetview.js:75
 msgid "open today"
 msgstr "open today"
-
-#: js/libs/jquery.facetview.js:82
-#: js/libs/jquery.facetview.js:83
-#: js/libs/jquery.facetview.js:85
-#: locale/templates/LC_MESSAGES/gettext.tmpl:1
-msgid "locale"
-msgstr "en"
 
 #: js/libs/jquery.facetview.js:87
 msgid "Show details"
@@ -220,27 +249,27 @@ msgstr "Clear all filters"
 msgid "Show libraries near my location"
 msgstr "Show libraries near my location"
 
-#: js/libs/jquery.facetview.js:342
+#: js/libs/jquery.facetview.js:345
 msgid "Libraries near my location"
 msgstr "Libraries near my location"
 
-#: js/libs/jquery.facetview.js:637
+#: js/libs/jquery.facetview.js:647
 msgid "back"
 msgstr "back"
 
-#: js/libs/jquery.facetview.js:638
+#: js/libs/jquery.facetview.js:648
 msgid "of"
 msgstr "of"
 
-#: js/libs/jquery.facetview.js:639
+#: js/libs/jquery.facetview.js:649
 msgid "next"
 msgstr "next"
 
-#: js/libs/jquery.facetview.js:872
+#: js/libs/jquery.facetview.js:887
 msgid "Could not connect to database. Please try again later."
 msgstr "Could not connect to database. Please try again later."
 
-#: js/libs/jquery.facetview.js:945
+#: js/libs/jquery.facetview.js:960
 msgid "library name, service, city, postcode..."
 msgstr "library name, service, city, postcode..."
 
@@ -527,8 +556,8 @@ msgid "Browse all libraries"
 msgstr "Browse all libraries"
 
 #: views/browse.mustache:6
-msgid "Listing totally {{count}} libraries."
-msgstr "Listing totally {{count}} libraries."
+msgid "Listing total of {{count}} libraries."
+msgstr "Listing total of {{count}} libraries."
 
 #: views/browse.mustache:23
 msgid "slug missing"
