@@ -1,17 +1,17 @@
 {{{header}}}
 
 {{#data}}
-<div class="row-fluid" itemscope itemtype ="http://schema.org/Library">
+<div class="row-fluid" itemscope itemtype="http://schema.org/Library">
   <div class="span6">
 
 	<h1 itemprop="name">{{name__("locale")}}</h1>
 	{{#contact.coordinates}}
-	    <p><strong class="address"><i class="icon-map-marker"></i>
-		<a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q">
-		{{contact.street_address.street__("locale")}},
-		{{contact.street_address.area__("locale")}}
-		{{contact.street_address.post_code}}
-		{{contact.street_address.municipality__("locale")}}</a></strong></p>
+        <p><strong class="address" itemprop="PostalAddress"><i class="icon-map-marker"></i>
+	    <a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q">
+	    {{contact.street_address.street__("locale")}},
+	    {{contact.street_address.area__("locale")}}
+	    {{contact.street_address.post_code}}
+	    {{contact.street_address.municipality__("locale")}}</a></strong></p>
 	{{/contact.coordinates}}
 
     {{#contact.directions__("locale")}}
@@ -32,7 +32,7 @@
 	{{/contact.coordinates}}
 
 	{{#description__("locale")}}
-		<p class="libdescription"><strong class="quotesign">”</strong>{{description__("locale")}}</p>
+		<p class="libdescription" itemprop="description"><strong class="quotesign">”</strong>{{description__("locale")}}</p>
 	{{/description__("locale")}}
 
 	<dl>
@@ -81,7 +81,7 @@
 	    <dd>
 	        {{#contact.telephones}}
                 <img src="/img/glyphicons_139_phone.png" alt="_("Phone icon")">
-				<a href="tel:{{telephone_number}}">{{telephone_number}}</a>
+				<a href="tel:{{telephone_number}}" itemprop="telephone">{{telephone_number}}</a>
 				/ {{telephone_name__("locale")}}<br>
             {{/contact.telephones}}
 	    </dd>
@@ -97,7 +97,7 @@
 
 		{{#contact.email}}
 	    <dt>_("E-mail")</dt>
-	    <dd><i class="icon-envelope"></i> <a href="mailto:{{contact.email}}">{{contact.email}}</a></dd>
+	    <dd><i class="icon-envelope"></i> <a href="mailto:{{contact.email}}" itemprop="email">{{contact.email}}</a></dd>
 	    {{/contact.email}}
 
 		{{#contact.homepage__("locale")}}
@@ -179,7 +179,7 @@
 		    </h3>
 		    <br>
 	        <h3>_("Opening hours this week")</h3>
-	        <table>
+	        <table itemprop="openingHours">
 			    {{#opening_hours.open_hours_week}}
 				    <tr><td>{{day}}<td>&nbsp;<td>{{time}}</tr>
 			    {{/opening_hours.open_hours_week}}
@@ -190,7 +190,7 @@
         
     <div class="buildinginfo">
         {{#image_url}}
-        <img src="{{image_url}}" alt="{{name__("locale")}}" itemprop="image">
+        <img src="{{image_url}}" alt="{{name__("locale")}}" itemprop="image photo">
         {{/image_url}}
         <table>
         {{#contact.building__("locale")}}
