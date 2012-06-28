@@ -381,7 +381,7 @@
                 var records = data["facets"][ options.facets[each]['field'] ];
                 for ( var item in records ) {
 					var append = "";
-					if (facetfilters.indexOf(item)!= -1 ) {
+					if (facetfilters.length>0 && facetfilters.indexOf(item)!= -1 ) {
 						append = "<li class='selectedfilter'>" + item + ' (' + records[item] + ')</li>';
 					}
 					else {
