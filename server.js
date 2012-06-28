@@ -23,7 +23,6 @@ gettext = require('gettext'),
 
 //gettext.setlocale('LC_ALL', 'en'); // default language English
 gettext.setlocale('LC_ALL', 'fi'); // default language Finnish (for server, not single request!)
-lang = gettext.lang; // save in global variable
 
 // load all localizations at once
 gettext.loadLocaleDirectory("locale", function(){
@@ -44,7 +43,7 @@ function switch_locale(req) {
 	//console.log(browser_lang, path_lang, get_lang);
 	// locale precedence:
 	// 1) get var 2) request path 3) browser setting
-	var locale = lang; // default application language (fi) from global var if nothing else is defined
+	var locale = gettext.lang; // default application language (fi) from global var if nothing else is defined
 	if (browser_lang != undefined) locale = browser_lang;
 	if (path_lang != undefined) locale = path_lang;
 	if (get_lang != undefined) locale = get_lang;
@@ -350,8 +349,6 @@ function render_static_page(page, req, res) {
 function render_library_by_id(page, req, res) {
 	switch_locale(req);
 
-    res.local("header", header.render(req, {title: _("Library details")}))
-    res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
     //console.log("Requested: "+req.params.id);
     get_library_by_id(page, function(data){
 		switch_locale(req);
@@ -378,6 +375,9 @@ function render_library_by_id(page, req, res) {
 			}
 
 			res.local("data", library);
+			console.log(locale);
+            res.local("header", header.render(req, {title: _("Library details") + ": " + eval("library.name_" + _("locale"))}))
+            res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 			res.render("library_details", res.locals());
 		});
 	});
