@@ -130,7 +130,7 @@
 
 		// remove consortium facet if widget #1 consortium-filter is active
 		// it must be first item in facet list array!
-		if (options.filter != "") settings.facets.shift();
+		if (options.filter != undefined && options.filter != "") settings.facets.shift();
 
         // ===============================================
         // functions to do with filters
