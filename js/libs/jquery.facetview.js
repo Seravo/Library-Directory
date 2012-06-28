@@ -79,12 +79,11 @@
 		{{#d0}}<a href=\"\" onclick='ld_mapcontrol_init(\"{{d0}}\", \"{{d1}}\"); return false;'>{{/d0}}";
 
 	var search_results = [
-		[ { "fields": "additional_info.slug,  name_" + _("locale"), "format": "<h3><a href='/{{d0}}'>{{d1}}</a></h3>" } ],
+		[ { "fields": "id, additional_info.slug,  name_" + _("locale"), "format": "<h3><a title='{{d2}} ({{d0}})' href='{{#d1}}{{d1}}{{/d1}}{{^d1}}{{d0}}{{/d1}}'>{{d2}} &rarr;</a></h3>" } ],
 		[ { "fields": "contact.coordinates, map_popup_html",
 		    "format": coordinate_format },
 		  { "fields": "contact.street_address.street_" + _("locale")+", contact.street_address.post_code, contact.street_address.municipality_"+ _("locale"), "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
 		[ { "fields": "open_now, opening_hours", "format": opening_hours_format } ],
-		[ { "fields": "id, additional_info.slug, name_fi, id", "format": "<a class='btn btn-big btn-info' title='{{d2}} ({{d0}})' href='{{#d1}}{{d1}}{{/d1}}{{^d1}}{{d3}}{{/d1}}'>" + _("Show details") + " &rarr;</a>" } ]
 	]
 /*		[ { "field": "services" } ], */
 /* optimal would be not to show list of services, but rather just icons for the most important services */
@@ -684,7 +683,7 @@
                 var regex = /(http:\/\/\S+?\.(jpg|png|gif|jpeg))/
                 var img = regex.exec(recstr)
                 if (img) {
-                    result += '<a href="/' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:150px;" src="' + img[0] + '" /></a>'
+                    result += '<a href="' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:150px;" src="' + img[0] + '" /></a>'
                 }
             }
             // container for data
