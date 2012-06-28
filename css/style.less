@@ -17,58 +17,29 @@ div.olControlAttribution, div.olControlScaleLine {
 
 .betalabel {
     position: absolute;
-    top: 100px;
-    right: -150px;
-    padding: 6px 200px;
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-    background-color: #f00;
-    color: #fff; 
-    text-transform: uppercase;
-    -webkit-transition: all 1s ease-in-out;
-    -moz-transition: all 1s ease-in-out;
-    -o-transition: all 1s ease-in-out;
-    -ms-transition: all 1s ease-in-out;
+    top: 0px;
+    right: 0px;
+    background: url("/img/beta-fi.png") no-repeat;
 }
 
-.betalabel {
-    position: absolute;
-    top: 80px;
-    right: -185px;
-    padding: 12px 200px 6px;
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    background-color: #d00;
-    color: #fff; 
-    text-transform: uppercase;
-    -webkit-transition: all 1s ease-in-out;
-    -moz-transition: all 1s ease-in-out;
-    -o-transition: all 1s ease-in-out;
-    -ms-transition: all 1s ease-in-out;
-    -webkit-box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.5);
-    box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.5);
+.betalabel.fi {
+    background: url("/img/beta-fi.png") no-repeat;
 }
-
-.betalabel:hover {
-    top: 100px;
-    right: -150px;
-    background-color: #f00;
+.betalabel.en {
+    background: url("/img/beta-en.png") no-repeat;
 }
-
-.betalabel strong {
-    font-size: 24pt;
+.betalabel.sv {
+    background: url("/img/beta-sv.png") no-repeat;
 }
 
 .betalabel a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 11pt;
+    display: block;
+    width: 240px;
+    height: 240px;
+}
+
+.betalabel strong, .betalabel span {
+    display: none;
 }
 
 .libdescription {
