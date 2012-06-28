@@ -96,9 +96,9 @@
 		{'field': 'consortium', 'size': 100, 'order':'term', 'display': _('Library consortium')},
 		{'field': 'organisation_type', 'display': _('Type')},
 		{'field': 'branch_type', 'display': _('Branch type')},
-		{'field': 'services.name_fi', 'order':'term', 'display': _('Services'), "size":40 },
+		{'field': 'services.name_'+_("locale"), 'order':'term', 'display': _('Services'), "size":40 },
 		{'field': 'accessibility.accessible_entry', 'display': _('Accessibility')},
-		{'field': 'contact.street_address.municipality_fi', 'display': _('City')}
+		{'field': 'contact.street_address.municipality_'+_("locale"), 'display': _('City')}
 		],
             "addremovefacets": false,
             "result_display": search_results,
@@ -382,12 +382,35 @@
                 for ( var item in records ) {
 					var append = "";
 					if (facetfilters.length>0 && facetfilters.indexOf(item)!= -1 ) {
-						append = "<li class='selectedfilter'>" + item + ' (' + records[item] + ')</li>';
+						var displayItem = "";
+						if (item=='T') displayItem = 'yes';
+						else displayItem = item;
+						append = "<li class='selectedfilter'>" + _(displayItem) + ' (' + records[item] + ')</li>';
 					}
 					else {
-						append = '<li><a class="facetview_filterchoice' + 
-							'" rel="' + options.facets[each]['field'] + '" href="' + item + '">' + item +
-							' (' + records[item] + ')</a></li>';
+						var facetType = options.facets[each]['field'];
+
+						// do not display empty selectors
+						if (item=='') continue;
+
+						// do not display some branch types at all
+						if (facetType=='branch_type' && (item == 'default' || item == 'novalue' || item == 'main_library')) continue;
+
+						// do not display some branch types if geolocation is active
+						if (facetType=='branch_type' && ld_position && (item == 'mobile' || item == 'home_service')) continue;
+
+						// do not display false accessibility data
+						if (facetType=='accessibility.accessible_entry' && item == 'F') continue;
+
+						// localize facet selectors
+						var displayItem = "";
+						if (facetType=='branch_type' || facetType=='organisation_type') displayItem = _(item);
+						else if (facetType=='accessibility.accessible_entry' && item == 'T') displayItem = _("yes");
+						else displayItem = item;
+
+						append = '<li><a class="facetview_filterchoice' +
+						'" rel="' + options.facets[each]['field'] + '" href="' + item + '">' + displayItem +
+						' (' + records[item] + ')</a></li>';
 					}
 
                     $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).append(append);
