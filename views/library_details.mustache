@@ -1,20 +1,10 @@
 {{{header}}}
 
 {{#data}}
-<div class="row-fluid">
+<div class="row-fluid" itemscope itemtype ="http://schema.org/Library">
   <div class="span6">
-	{{#additional_info.slug}}
-	<p><a href="/{{additional_info.slug}}" title="ID: {{id}}">hakemisto.kirjastot.fi/{{additional_info.slug}}</a></p>
-	{{/additional_info.slug}}
-	{{^additional_info.slug}}
-    <div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> 
-        <strong>_("Error"):</strong>
-		_("Slug missing, can't create pretty-url.")
-    </div>
-	{{/additional_info.slug}}
-	
-	
-	<h1>{{name__("locale")}}</h1>
+
+	<h1 itemprop="name">{{name__("locale")}}</h1>
 	{{#contact.coordinates}}
 	    <p><strong class="address"><i class="icon-map-marker"></i>
 		<a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q">
@@ -159,7 +149,14 @@
 		{{/has_children}}
     </dl>
 
-    <p><small>_("Last modified"): {{meta.modified}}</small></p>
+    <p><small><a href="{{additional_info.slug}}" itemprop="url">hakemisto.kirjastot.fi/{{additional_info.slug}}</a> _("last modified"): {{meta.modified}}</small></p>
+	{{^additional_info.slug}}
+    <div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> 
+        <strong>_("Error"):</strong>
+		_("Slug missing, can't create pretty-url.")
+    </div>
+	{{/additional_info.slug}}
+
   </div>
 
   <div class="span6">
@@ -193,7 +190,7 @@
         
     <div class="buildinginfo">
         {{#image_url}}
-        <img src="{{image_url}}" alt="{{name__("locale")}}">
+        <img src="{{image_url}}" alt="{{name__("locale")}}" itemprop="image">
         {{/image_url}}
         <table>
         {{#contact.building__("locale")}}
