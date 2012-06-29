@@ -14,5 +14,10 @@ try {
     throw "Syntax error in config.json";
 }
 
+function logrequest(req){
+    url = decodeURIComponent(req.url);
+    console.log(url);
+}
+
 var config = conf.proxy_config;
-var proxy = require('./node_modules/elasticsearch-proxy').getProxy(config).start();
+var proxy = require('./node_modules/elasticsearch-proxy').getProxy(config, logrequest).start();
