@@ -20,7 +20,11 @@
 		{{^name__("locale")}}
 			{{name_fi}}
 		{{/name__("locale")}}
-		<span class="label">{{organisation_type}}</span> {{^additional_info.slug}}<span class="label label-important">_("slug missing")</span>{{/additional_info.slug}}</a></li>
+		
+		<span class="label" style="background-color:#f00";>{{organisation_type}}</span> 
+		<!-- TODO: change color depending on org type -->
+				
+		{{^additional_info.slug}}<span class="label label-important">_("slug missing")</span>{{/additional_info.slug}}</a></li>
       {{/libraries}}
       </ul>
   </div>

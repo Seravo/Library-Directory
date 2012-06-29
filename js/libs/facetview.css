@@ -92,6 +92,10 @@ li.selectedfilter {
     text-decoration: none;
 }
 
+#facetview_results tr:hover h3::after {
+    content: " →";
+}
+
 #facetview_results tr:hover td {
 	background-color: #eee !important;
 }

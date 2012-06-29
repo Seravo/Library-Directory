@@ -79,7 +79,7 @@
 		{{#d0}}<a href=\"\" onclick='ld_mapcontrol_init(\"{{d0}}\", \"{{d1}}\"); return false;'>{{/d0}}";
 
 	var search_results = [
-		[ { "fields": "id, additional_info.slug,  name_" + _("locale"), "format": "<h3><a title='{{d2}} ({{d0}})' href='{{#d1}}{{d1}}{{/d1}}{{^d1}}{{d0}}{{/d1}}'>{{d2}} &rarr;</a></h3>" } ],
+		[ { "fields": "id, additional_info.slug,  name_" + _("locale"), "format": "<h3><a title='{{d2}} ({{d0}})' href='{{#d1}}{{d1}}{{/d1}}{{^d1}}{{d0}}{{/d1}}'>{{d2}}</a></h3>" } ],
 		[ { "fields": "contact.coordinates, map_popup_html",
 		    "format": coordinate_format },
 		  { "fields": "contact.street_address.street_" + _("locale")+", contact.street_address.post_code, contact.street_address.municipality_"+ _("locale"), "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
@@ -118,7 +118,7 @@
 					{ "terms": { "organisation_type" : [ "branchlibrary", "library" ] } }
 				]
 				,
-            "paging":{ from: 0, size: 5 }
+            "paging":{ from: 0, size: 10 }
         };
 
 		// container for active facetview filters for visualisation purposes

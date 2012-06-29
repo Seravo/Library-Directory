@@ -553,7 +553,8 @@ function add_library_metadata(dataobj, callback){
 
     // delete empty service fields
     dataobj._source.services.forEach( function(s) { 
-        if (s.description_short_fi == '') { delete s.description_short_fi; }
+        if (s.description_short_fi.trim() == '') { delete s.description_short_fi; }
+        // TODO: consider trimming all fields, some might be empty but have just whitespace or line feed
         if (s.description_short_sv == '') { delete s.description_short_sv; }
         if (s.description_short_en == '') { delete s.description_short_en; }
         if (s.description_long_fi == '') { delete s.description_long_fi; }

@@ -7,7 +7,10 @@ set -e
 # print commands before execution
 set -x
 
-# No need to build static
+# No need to build all of static, only just one CSS file
+cd css
+lessc style.less > style.css
+cd ..
 
 # start servers
 gnome-terminal -x elasticsearch/bin/elasticsearch -f
