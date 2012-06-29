@@ -26,3 +26,6 @@ xgettext -j --keyword=_ -L Python --output-dir=locale/templates/LC_MESSAGES --fr
 # `find client -name '*.js' | grep -v 'gettext.js'`
 # ejs
 # xgettext -j -L PHP --keyword=_ --output-dir=locale/templates/LC_MESSAGES --output=client.pot `find client -name '*.ejs'`
+
+echo "Notice: If there are warnings about unterminated strings it does not matter. We are using Python extraction for Javascript.."
+
