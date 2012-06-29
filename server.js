@@ -379,7 +379,7 @@ function render_library_by_id(page, req, res) {
 
 			res.local("data", library);
 			console.log(locale);
-            res.local("header", header.render(req, {title: _("Library details") + ": " + eval("library.name_" + _("locale"))}))
+            res.local("header", header.render(req, {title: eval("library.name_" + _("locale"))}))
             res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 			res.render("library_details", res.locals());
 		});
@@ -389,15 +389,16 @@ function render_library_by_id(page, req, res) {
 
 function render_library_by_slug(slug, req, res) {
 	switch_locale(req);
-    res.local("header", header.render(req, {title: _("Library details")}))
-    res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
     console.log("Requested: "+req.params);
     get_library_by_name(slug, req, function(data){
 		switch_locale(req);
         console.log("total: "+data.hits.total);
         if (data.hits.total > 0) {
 		    data.hits.hits[0]._source["id"] = data.hits.hits[0]._id;
-		    res.local("data", data.hits.hits[0]._source);
+    		var library = data.hits.hits[0]._source;
+		    res.local("data", library);
+            res.local("header", header.render(req, {title: eval("library.name_" + _("locale"))}))
+            res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 		    res.render("library_details", res.locals());
 		}
 	});

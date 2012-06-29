@@ -6,8 +6,8 @@
 
 	<h1 itemprop="name">{{name__("locale")}}</h1>
 	{{#contact.coordinates}}
-        <p><strong class="address" itemprop="PostalAddress"><i class="icon-map-marker"></i>
-	    <a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q">
+        <p><strong class="address" itemprop="address"><i class="icon-map-marker"></i>
+	    <a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q" itemprop="map">
 	    {{contact.street_address.street__("locale")}},
 	    {{contact.street_address.area__("locale")}}
 	    {{contact.street_address.post_code}}
@@ -18,9 +18,11 @@
         <p>_("Directions"):
 			{{contact.directions__("locale")}}</p>
     {{/contact.directions__("locale")}}
-    
+
 	{{#contact.coordinates}}
-		<p>
+		<p itemprop="geo">
+            <meta itemprop="latitude" content="{{contact.coordinnates_lat}}">
+            <meta itemprop="longitude" content="{{contact.coordinnates_lon}}">
 			<div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div></div>
 			<script type="text/javascript">
 			<!--
@@ -32,46 +34,52 @@
 	{{/contact.coordinates}}
 
 	{{#description__("locale")}}
-		<p class="libdescription" itemprop="description"><strong class="quotesign">”</strong>{{description__("locale")}}</p>
+		<p class="libdescription" itemprop="description">{{description__("locale")}}</p>
 	{{/description__("locale")}}
 
 	<dl>
 		{{#services.0.name__("locale")}}
 	    <dt>_("Services")</dt>
+	    <meta itemprop="currenciesAccepted" content="EUR">
 	    <dd>
 	         {{#services}}
-                <span title="Model: {{model}}">{{name__("locale")}}</span>
+	            <div itemscope itemtype="http://schema.org/Product">
+                    <span title="Model: {{model}}" itemprop="name">{{name__("locale")}}</span>
+                    <span class="hidden" itemprop="model">{{model}}</span>
                     <span class="label {{label}}" title="Priority: {{service_priority}} / Type:{{servicetype_priority}}">{{type}}</span> 
                     <ul>
                     {{#description_short__("locale")}}
-                    <li>{{description_short__("locale")}}
-                        {{#description_long__("locale")}}<br>
-							<cite>{{description_long__("locale")}}</cite>
-						{{/description_long__("locale")}}
-                    </li>
-                    {{/description_short__("locale")}}
-                    {{#price}}
-                    <li>{{price}}</li>
-                    {{/price}}
-                    {{#for_loan}}
-                    <li>_("For loan")</li>
-                    {{/for_loan}}
-                    {{#instance_name__("locale")}}
-                    <li>{{instance_name__("locale")}}<br>
-						<cite>{{instance_description__("locale")}}</cite></li>
-                    {{/instance_name__("locale")}}
-                    {{#tag.0}}
-                    <li><ul>{{#tag}}<li>{{.}}</li>{{/tag}}</ul></li>
-                    {{/tag.0}}
-                    {{#contact.0}}
-                    <li>_("Contact"):
-                        <ul>
-                        {{#contact}}
-                            <li>{{telephone}} / {{email}} / <a href="">{{url__("locale")}}</a></li>
-                        {{/contact}}
-                        </ul>
-                    {{/contact.0}}
+                        <li itemprop="description">{{description_short__("locale")}}
+                            {{#description_long__("locale")}}
+							    <br><cite>{{description_long__("locale")}}</cite>
+						    {{/description_long__("locale")}}
+                        </li>
+                        {{/description_short__("locale")}}
+                        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                            {{#price}}
+                                <li itemprop="price">{{price}}</li>
+                            {{/price}}
+                            {{#for_loan}}
+                            <li>_("For loan")</li>
+                            {{/for_loan}}
+                            {{#instance_name__("locale")}}
+                            <li>{{instance_name__("locale")}}<br>
+						        <cite>{{instance_description__("locale")}}</cite></li>
+                            {{/instance_name__("locale")}}
+                            {{#tag.0}}
+                            <li><ul>{{#tag}}<li>{{.}}</li>{{/tag}}</ul></li>
+                            {{/tag.0}}
+                            {{#contact.0}}
+                            <li itemprop="seller">_("Contact"):
+                                <ul>
+                                {{#contact}}
+                                    <li>{{telephone}} / {{email}} / <a href="{{url}}">{{url__("locale")}}</a></li>
+                                {{/contact}}
+                                </ul>
+                            {{/contact.0}}
+                        </div>
                     </ul>
+                    </div>
              {{/services}}
 	    </dd>
 	    {{/services.0.name__("locale")}}
@@ -80,7 +88,7 @@
 	    <dt>_("Telephone numbers")</dt>
 	    <dd>
 	        {{#contact.telephones}}
-                <img src="/img/glyphicons_139_phone.png" alt="_("Phone icon")">
+                <img src="/img/glyphicons_139_phone.png" alt='_("Phone icon")'>
 				<a href="tel:{{telephone_number}}" itemprop="telephone">{{telephone_number}}</a>
 				/ {{telephone_name__("locale")}}<br>
             {{/contact.telephones}}
@@ -138,13 +146,13 @@
 
 		{{#parent_organisation}}
 		    <dt>_("Library consortium")</dt>
-		    <dd><a href="{{parent_organisation}}">{{consortium}}</a></dd>
+		    <dd><a href="{{parent_organisation}}" itemprop="branchOf">{{consortium}}</a></dd>
 		{{/parent_organisation}}
 
 		{{#has_children}}
 		<dt>_("Departments")</dt>
 			{{#children}}
-				<dd><a href="{{id}}">{{name__("locale")}}</a></dd>
+				<dd><a href="{{id}}" itemprop="member">{{name__("locale")}}</a></dd>
 			{{/children}}
 		{{/has_children}}
     </dl>
@@ -179,11 +187,13 @@
 		    </h3>
 		    <br>
 	        <h3>_("Opening hours this week")</h3>
-	        <table itemprop="openingHours">
+	        <time itemprop="openingHours">
+	        <table>
 			    {{#opening_hours.open_hours_week}}
-				    <tr><td>{{day}}<td>&nbsp;<td>{{time}}</tr>
+				    <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden"> ,</span></tr>
 			    {{/opening_hours.open_hours_week}}
 	        </table>
+	        </time>
         {{/neveropen}}
 
     </div>
