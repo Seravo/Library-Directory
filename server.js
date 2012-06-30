@@ -102,7 +102,7 @@ app.configure('prod', function(){
 	app.set('view options',{layout:false});
     app.set('views',__dirname + '/output/views');
 	app.register('mustache',adapter.init(hogan));
-    app.use(connect.compress()); // works for static files, but not for res.render?
+    app.use(connect.compress());
     var oneYear = 31557600000;
     app.use(express.static(__dirname + '/output', { maxAge: oneYear }));
     app.use(express.errorHandler());
