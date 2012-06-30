@@ -88,6 +88,7 @@ app.configure('dev', function(){
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     headerfile = '/views/header-dev.mustache';
     footerfile = '/views/footer-dev.mustache';
+    view_cache_time = 0;
 });
 
 // specific settings if started with $ NODE_ENV=prod node server.js
@@ -107,6 +108,7 @@ app.configure('prod', function(){
     app.use(express.errorHandler());
     headerfile = '/output/views/header.mustache';
     footerfile = '/output/views/footer.mustache';
+    view_cache_time = 60*60*24*7;
 });
 
 // route must always be defined last and only last (override does not work)
@@ -142,6 +144,19 @@ function route_parser(req,res,next) {
     if (hostname != conf.server_host){
         res.redirect("http://"+conf.server_host+":"+conf.server_port+req.url, 301); // 301 for permanent redirect
         return; // nothing more to do here!
+    }
+
+    // cache view output
+    if (view_cache_time != 0) {
+        res.setHeader('Cache-Control', 'public, max-age=' + view_cache_time);
+        // Expires and max-age do the same thing, in theore either one is enough
+        // multiply with seconds with thousand to get milliseconds
+        res.setHeader("Expires", new Date(Date.now() + 1000*view_cache_time).toUTCString());
+        // TODO: last-modified still missing, should be available
+        // make update-production touch a file and server.js to read that timestamp,
+        // and deliver it as last modified for everything with the exeption of library pages
+        // since those get updates via ES database
+        // https://developers.google.com/speed/docs/best-practices/caching?hl=fi#LeverageBrowserCaching
     }
 
 	switch_locale(req);
@@ -388,6 +403,7 @@ function render_library_by_id(page, req, res) {
 
 function render_library_by_slug(slug, req, res) {
 	switch_locale(req);
+
     console.log("Requested: "+req.params);
     get_library_by_name(slug, req, function(data){
 		switch_locale(req);
