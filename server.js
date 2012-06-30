@@ -378,8 +378,7 @@ function render_library_by_id(page, req, res) {
 			}
 
 			res.local("data", library);
-			console.log(locale);
-            res.local("header", header.render(req, {title: eval("library.name_" + _("locale"))}))
+            res.local("header", header.render(req, {title: eval("library.name_" + _("locale")) + ": " + _("contact details, open hours, services")}))
             res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 			res.render("library_details", res.locals());
 		});
@@ -397,7 +396,7 @@ function render_library_by_slug(slug, req, res) {
 		    data.hits.hits[0]._source["id"] = data.hits.hits[0]._id;
     		var library = data.hits.hits[0]._source;
 		    res.local("data", library);
-            res.local("header", header.render(req, {title: eval("library.name_" + _("locale"))}))
+            res.local("header", header.render(req, {title: eval("library.name_" + _("locale")) + ": " + _("contact details, open hours, services")}))
             res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 		    res.render("library_details", res.locals());
 		}

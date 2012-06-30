@@ -20,7 +20,7 @@
     {{/contact.directions__("locale")}}
 
 	{{#contact.coordinates}}
-		<p itemprop="geo">
+		<p itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
             <meta itemprop="latitude" content="{{contact.coordinnates_lat}}">
             <meta itemprop="longitude" content="{{contact.coordinnates_lon}}">
 			<div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div></div>
@@ -190,7 +190,7 @@
 	        <time itemprop="openingHours">
 	        <table>
 			    {{#opening_hours.open_hours_week}}
-				    <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden"> ,</span></tr>
+				    <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
 			    {{/opening_hours.open_hours_week}}
 	        </table>
 	        </time>
