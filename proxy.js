@@ -15,13 +15,15 @@ try {
 }
 
 function logrequest(req){
-    url = decodeURIComponent(req.url);
-    ip_address = req.connection.remoteAddress;
-    user_agent = req.headers['user-agent'];
-    timestamp = new Date().toJSON();
-    
-    console.log(ip_address + " - \"" + user_agent + "\" [" + timestamp + "] \"GET " + url + " HTTP/1.1\" 200 1");
-//    console.log(req);
+    // don't log default (empty) search
+    if (req.url.length > 1088) {
+        url = decodeURIComponent(req.url);
+        ip_address = req.connection.remoteAddress;
+        user_agent = req.headers['user-agent'];
+        timestamp = new Date().toJSON();
+        // TODO: write to logfile, not just console
+        console.log(ip_address + " - \"" + user_agent + "\" [" + timestamp + "] \"GET " + url + " HTTP/1.1\" 200 1");
+    }
 }
 
 var config = conf.proxy_config;
