@@ -25,7 +25,10 @@ h5bp
 # files in output changes, but it works only for ./views, not ./output/views
 # as ./output can be deleted, it's contents cannot be watched with current software
 #
-# force server.js watcher to reload
-touch views/header.mustache
+# force server.js to reload
+killall node
+
+# does not restart node.js, PID stays same? Fix with manual kill.
+#restart libdir-server
 
 
