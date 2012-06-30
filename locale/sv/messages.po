@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-29 15:54+0300\n"
-"PO-Revision-Date: 2012-06-29 15:56+0200\n"
+"POT-Creation-Date: 2012-06-30 15:14+0300\n"
+"PO-Revision-Date: 2012-06-30 15:36+0200\n"
 "Last-Translator: Otto Kekäläinen <otto@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -77,11 +77,11 @@ msgstr "Bläddra alla"
 msgid "Feedback sent"
 msgstr "Feedback skickat"
 
-#: server.js:382
-#: server.js:400
+#: server.js:381
+#: server.js:399
+#: server.js:514
 #: server.js:515
 #: server.js:516
-#: server.js:517
 #: js/libs/jquery.facetview.js:82
 #: js/libs/jquery.facetview.js:85
 #: js/libs/jquery.facetview.js:99
@@ -93,80 +93,83 @@ msgstr "Feedback skickat"
 msgid "locale"
 msgstr "sv"
 
+#: server.js:381
+#: server.js:399
+msgid "contact details, open hours, services"
+msgstr "kontakt information, öppettider, tjänster"
+
+#: server.js:457
+#: server.js:537
+msgid "branchlibrary"
+msgstr "filial"
+
 #: server.js:458
 #: server.js:538
-msgid "branchlibrary"
-msgstr ""
+msgid "department"
+msgstr "avdelning"
 
 #: server.js:459
 #: server.js:539
-#, fuzzy
-msgid "department"
-msgstr "Avdelningar"
+msgid "library"
+msgstr "huvudbibliotek"
 
 #: server.js:460
 #: server.js:540
-msgid "library"
-msgstr ""
+msgid "mobile_stop"
+msgstr "bilbioteksbusshållplats"
 
 #: server.js:461
 #: server.js:541
-msgid "mobile_stop"
-msgstr ""
-
-#: server.js:462
-#: server.js:542
-#, fuzzy
 msgid "organisation"
 msgstr "Organisation"
 
-#: server.js:463
-#: server.js:543
+#: server.js:462
+#: server.js:542
 msgid "unit"
-msgstr ""
+msgstr "Enhet"
 
-#: server.js:575
+#: server.js:574
 msgid "service type device"
 msgstr "maskin"
 
-#: server.js:576
+#: server.js:575
 msgid "service type room"
 msgstr "rum"
 
-#: server.js:577
+#: server.js:576
 msgid "service type service"
 msgstr "tjänst"
 
-#: server.js:738
+#: server.js:737
 msgid "Monday"
 msgstr "Måndag"
 
-#: server.js:739
+#: server.js:738
 msgid "Tuesday"
 msgstr "Tisdag"
 
-#: server.js:740
+#: server.js:739
 msgid "Wednesday"
 msgstr "Onsdag"
 
-#: server.js:741
+#: server.js:740
 msgid "Thursday"
 msgstr "Torsdag"
 
-#: server.js:742
+#: server.js:741
 msgid "Friday"
 msgstr "Fredag"
 
-#: server.js:743
+#: server.js:742
 msgid "Saturday"
 msgstr "Lördag"
 
-#: server.js:744
+#: server.js:743
 msgid "Sunday"
 msgstr "Söndag"
 
-#: server.js:764
-#: server.js:782
+#: server.js:763
+#: server.js:781
 msgid "closed"
 msgstr "stängt"
 
@@ -289,28 +292,27 @@ msgstr "Sök"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:3
 msgid "Widgets"
-msgstr ""
+msgstr "Widgets"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:4
 msgid "institution_library"
-msgstr ""
+msgstr "anstaltbibliotek"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:5
 msgid "regional"
-msgstr ""
+msgstr "regionalt bibliotek"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:6
 msgid "childrens_library"
-msgstr ""
+msgstr "barnbibliotek"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:7
 msgid "mobile"
-msgstr ""
+msgstr "biblioteksbuss"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:8
-#, fuzzy
 msgid "home_service"
-msgstr "Tjänster"
+msgstr "hembibliotek"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:10
 msgid "The Finnish Library Directory"
@@ -541,7 +543,7 @@ msgstr "slug fattas"
 
 #: views/widget_wizard.mustache:15
 msgid "Build a widget"
-msgstr ""
+msgstr "Bygg en widget"
 
 #: views/widget_wizard.mustache:17
 msgid "Search library by name or street address, select one result"
@@ -549,57 +551,55 @@ msgstr "Sök bibliotek enligt namn eller address. Välj ett av resultaten."
 
 #: views/widget_wizard.mustache:26
 msgid "Select widget type"
-msgstr ""
+msgstr "Välj type"
 
 #: views/widget_wizard.mustache:30
 msgid "Opening times"
 msgstr "Öppettider"
 
 #: views/widget_wizard.mustache:32
-#, fuzzy
 msgid "Small library details"
-msgstr "Information om biblioteket"
+msgstr "Kort om biblioteket"
 
 #: views/widget_wizard.mustache:33
-#, fuzzy
 msgid "Full library details"
-msgstr "Information om biblioteket"
+msgstr "Allt om biblioteket"
 
 #: views/widget_wizard.mustache:37
 msgid "Select widget language"
-msgstr ""
+msgstr "Välj språk"
 
 #: views/widget_wizard.mustache:40
 msgid "Automatic"
-msgstr ""
+msgstr "Automatiskt"
 
 #: views/widget_wizard.mustache:47
 msgid "Customize widget CSS-styling"
-msgstr ""
+msgstr "Kustomera CSS-stilerna"
 
 #: views/widget_wizard.mustache:51
 msgid "Copy embed code"
-msgstr ""
+msgstr "Kopiera koden för inbäddning"
 
 #: views/widget_wizard.mustache:55
 msgid "Widget preview"
-msgstr ""
+msgstr "Förhandsvisning"
 
 #: views/404.mustache:6
 msgid "Sorry, but the page you were trying to view does not exist."
-msgstr ""
+msgstr "Sidan du sökte existerar tyvärr inte."
 
 #: views/404.mustache:7
 msgid "It looks like this was the result of either:"
-msgstr ""
+msgstr "Det ser ut som ett fall av"
 
 #: views/404.mustache:9
 msgid "a mistyped address"
-msgstr ""
+msgstr "felskriven address"
 
 #: views/404.mustache:10
 msgid "an out-of-date link"
-msgstr ""
+msgstr "föråldrad link"
 
 #~ msgid "Library details"
 #~ msgstr "Information om biblioteket"

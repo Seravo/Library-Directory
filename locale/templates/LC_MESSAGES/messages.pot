@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-29 15:54+0300\n"
+"POT-Creation-Date: 2012-06-30 15:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Feedback sent"
 msgstr ""
 
-#: server.js:382 server.js:400 server.js:515 server.js:516 server.js:517
+#: server.js:381 server.js:399 server.js:514 server.js:515 server.js:516
 #: js/libs/jquery.facetview.js:82 js/libs/jquery.facetview.js:85
 #: js/libs/jquery.facetview.js:99 js/libs/jquery.facetview.js:101
 #: js/libs/jquery.facetview.js:598 js/libs/jquery.facetview.js:599
@@ -73,71 +73,75 @@ msgstr ""
 msgid "locale"
 msgstr ""
 
-#: server.js:458 server.js:538
+#: server.js:381 server.js:399
+msgid "contact details, open hours, services"
+msgstr ""
+
+#: server.js:457 server.js:537
 msgid "branchlibrary"
 msgstr ""
 
-#: server.js:459 server.js:539
+#: server.js:458 server.js:538
 msgid "department"
 msgstr ""
 
-#: server.js:460 server.js:540
+#: server.js:459 server.js:539
 msgid "library"
 msgstr ""
 
-#: server.js:461 server.js:541
+#: server.js:460 server.js:540
 msgid "mobile_stop"
 msgstr ""
 
-#: server.js:462 server.js:542
+#: server.js:461 server.js:541
 msgid "organisation"
 msgstr ""
 
-#: server.js:463 server.js:543
+#: server.js:462 server.js:542
 msgid "unit"
 msgstr ""
 
-#: server.js:575
+#: server.js:574
 msgid "service type device"
 msgstr ""
 
-#: server.js:576
+#: server.js:575
 msgid "service type room"
 msgstr ""
 
-#: server.js:577
+#: server.js:576
 msgid "service type service"
 msgstr ""
 
-#: server.js:738
+#: server.js:737
 msgid "Monday"
 msgstr ""
 
-#: server.js:739
+#: server.js:738
 msgid "Tuesday"
 msgstr ""
 
-#: server.js:740
+#: server.js:739
 msgid "Wednesday"
 msgstr ""
 
-#: server.js:741
+#: server.js:740
 msgid "Thursday"
 msgstr ""
 
-#: server.js:742
+#: server.js:741
 msgid "Friday"
 msgstr ""
 
-#: server.js:743
+#: server.js:742
 msgid "Saturday"
 msgstr ""
 
-#: server.js:744
+#: server.js:743
 msgid "Sunday"
 msgstr ""
 
-#: server.js:764 server.js:782
+#: server.js:763 server.js:781
 msgid "closed"
 msgstr ""
 
