@@ -16,7 +16,12 @@ try {
 
 function logrequest(req){
     url = decodeURIComponent(req.url);
-    console.log(url);
+    ip_address = req.connection.remoteAddress;
+    user_agent = req.headers['user-agent'];
+    timestamp = new Date().toJSON();
+    
+    console.log(ip_address + " - \"" + user_agent + "\" [" + timestamp + "] \"GET " + url + " HTTP/1.1\" 200 1");
+//    console.log(req);
 }
 
 var config = conf.proxy_config;
