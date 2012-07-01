@@ -8,6 +8,19 @@ footer {
 	margin: 12px auto 0px;
 }
 
+
+// hide hero-unit and filters for really small screens
+@media (max-width: 480px) {
+
+    #introtext, #filter-by, #facetview_filterbuttons {
+        visibility: hidden;
+        position: absolute;
+        top: -999px;
+    }
+
+}
+ 
+
 textarea.widget { width: 500px; height: 100px; }
 
 /* OpenLayers/OSM attribution styling */

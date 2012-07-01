@@ -274,7 +274,7 @@
         // pass a list of filters to be displayed
         var buildfilters = function() {
             var filters = options.facets;
-			var filterheader = "<h3>" + _("Filter by") + "</h3>";
+			var filterheader = "<h3 id='filter-by'>" + _("Filter by") + "</h3>";
 			var thefilters = "";
 
             for ( var idx in filters ) {
