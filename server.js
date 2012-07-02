@@ -283,8 +283,9 @@ function render_static_page(page, req, res) {
 
 		case "search":
 		case "":
+			var cityfilter = req.query.city || "";
 			res.local("header", header.render(req, {search_active: true}))
-			res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+			res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({cityfilter: '" + cityfilter + "'}); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 			res.render("index", res.locals());
 			break;
 
@@ -302,11 +303,15 @@ function render_static_page(page, req, res) {
 			res.render("widget_wizard", res.locals());
 			break;
 
-		// search with consortium selection /widget1/area=foo
+		// search with consortium selection /widget1/?area=foo OR city selection /widget1/?city=bar
 		case "widget1":
 			switch_locale(req);
-			var filter = req.query.area || "";
-			var js_code = "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({filter: '" + filter + "'}); });";
+			var areafilter = req.query.area || "";
+			var cityfilter = req.query.city || "";
+			var js_code = "";
+			if (areafilter != "") js_code = "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({areafilter: '" + areafilter + "'}); });";
+			else if (cityfilter != "") js_code = "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({cityfilter: '" + cityfilter + "'}); });";
+			else js_code = "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });";
 
 			res.local("header", header.render(req, { nobanners: true }));
 			res.local("footer", footer.render({ nobanners: true, js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));

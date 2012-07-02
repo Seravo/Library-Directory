@@ -127,9 +127,13 @@
         // and add in any overrides from the call
         var options = $.extend(settings, options);
 
-		// remove consortium facet if widget #1 consortium-filter is active
-		// it must be first item in facet list array!
-		if (options.filter != undefined && options.filter != "") settings.facets.shift();
+		// remove consortium facet if consortium-filter is active
+		// it must be the FIRST item in predefined facet array!
+		if (options.areafilter != undefined && options.areafilter != "") settings.facets.shift();
+
+		// remove city facet if city-filter is active
+		// it must be the LAST item in predefined facet array!
+		if (options.cityfilter != undefined && options.cityfilter != "") settings.facets.pop();
 
         // ===============================================
         // functions to do with filters
@@ -872,9 +876,16 @@
 				}
 
 			// consortium pre-selection from widget #1
-			if (options.filter != undefined && options.filter != "") {
+			if (options.areafilter != undefined && options.areafilter != "") {
 				var obj = {'term':{}}
-				obj['term']['consortium'] = options.filter;
+				obj['term']['consortium'] = options.areafilter;
+				query_filters.push(obj);
+			}
+
+			// optional city filter from get-parameter
+			if (options.cityfilter != undefined && options.cityfilter != "") {
+				var obj = {'term':{}}
+				obj['term']['contact.street_address.municipality_'+_("locale")] = options.cityfilter;
 				query_filters.push(obj);
 			}
 
