@@ -18,9 +18,6 @@ function ld_mapcontrol_init_geoloc(data) {
 	$('#mapcontrol').empty();
 	$('#basicmap').show();
 
-	var lat = ld_position_coords.latitude;
-	var lon = ld_position_coords.longitude;
-
 	var mapOptions = {
 		controls: [
 			new OpenLayers.Control.Navigation(),
@@ -32,37 +29,48 @@ function ld_mapcontrol_init_geoloc(data) {
 	/* convert wgs-84 coordinates into OSM spherical mercator projection */
 	var fromProjection = new OpenLayers.Projection("EPSG:4326");
 	var toProjection = new OpenLayers.Projection("EPSG:900913");
-	var mapLocation = new OpenLayers.LonLat(lon, lat).transform(fromProjection,toProjection);
+	//var mapLocation = new OpenLayers.LonLat(lon, lat).transform(fromProjection,toProjection);
 
 	/* add map layers */
 	var osmLayer = new OpenLayers.Layer.OSM("OpenStreetMap");
 	var map = new OpenLayers.Map("basicmap", mapOptions);
 	map.addLayers([osmLayer]);
-	map.setCenter(mapLocation, 12);
+	//map.setCenter(mapLocation, 12);
 
 	/* add marker layer with coordinate projection transform */
 	var vectorLayer = new OpenLayers.Layer.Vector("Overlay");
 	map.addLayer(vectorLayer);
 
-	// mark user location
-	var marker = new OpenLayers.Feature.Vector(
-		new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection),
-		{ html: _("My Location") },
-		{ externalGraphic: 'js/libs/openlayers/markers/blue_dot_circle.png', graphicHeight: 10, graphicWidth: 10, graphicYOffset: -5 }
-	);
-	vectorLayer.addFeatures(marker);
+	// show user position, if available
+	if (ld_position) {
+		var lat = ld_position_coords.latitude;
+		var lon = ld_position_coords.longitude;
+
+		var marker = new OpenLayers.Feature.Vector(
+			new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection),
+			{ html: _("My Location") },
+			{ externalGraphic: 'js/libs/openlayers/markers/blue_dot_circle.png', graphicHeight: 10, graphicWidth: 10, graphicYOffset: -5 }
+		);
+		vectorLayer.addFeatures(marker);
+	}
 
 	/* selector for marker popups */
 	var controls = { selector: new OpenLayers.Control.SelectFeature(vectorLayer, { onSelect: createPopup, onUnselect: destroyPopup }) };
 	map.addControl(controls['selector']);
 	controls['selector'].activate();
 
+	// bounding box for marker data
+	var bounds = new OpenLayers.Bounds();
+
 	/* add all libraries from results */
-	for (item in data) {
+	for (var item in data) {
 		var rec = data[item];
-		if (rec.contact.coordinates.length>2) {
+		if (rec.contact.coordinates != undefined && rec.contact.coordinates.length>2) {
 			var lat = rec.contact.coordinates.split(",")[0];
 			var lon = rec.contact.coordinates.split(",")[1];
+
+			// extend marker bounding box
+			bounds.extend(new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection));
 
 			var html = rec.map_popup_html;
 
@@ -74,6 +82,9 @@ function ld_mapcontrol_init_geoloc(data) {
 			vectorLayer.addFeatures(marker);
 		}
 	}
+
+	// center map on markers and set proper zoomlevel
+	map.zoomToExtent(bounds, false);
 
 	/* click on marker */
 	function createPopup(feature) {
