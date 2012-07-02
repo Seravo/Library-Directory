@@ -61,57 +61,6 @@
 	    <dt>_("E-mail")</dt>
 	    <dd><i class="icon-envelope"></i> <a href="mailto:{{contact.email}}">{{contact.email}}</a></dd>
 	    {{/contact.email}}
-
-		{{#contact.homepage__("locale")}}
-		<dd>
-        <dt>_("Homepage")</dt>
-            <i class="icon-home"></i> <a href="{{contact.homepage__("locale")}}">
-			{{contact.homepage__("locale")}}</a>
-            {{#contact.internet}}
-                <br><a href="{{url__("locale")}}" title="{{url_description__("locale")}}">
-				{{name__("locale")}}</a>
-            {{/contact.internet}}
-		</dd>
-	    {{/contact.homepage__("locale")}}
-		{{#services.0.name__("locale")}}
-	    <dt>_("Services")</dt>
-	    <dd>
-	         {{#services}}
-                <span title="Model: {{model}}">{{name__("locale")}}</span>
-                    <span class="label {{label}}" title="Priority: {{service_priority}} / Type:{{servicetype_priority}}">{{type}}</span> 
-                    <ul>
-                    {{#description_short__("locale")}}
-                    <li>{{description_short__("locale")}}
-                        {{#description_long__("locale")}}<br>
-							<cite>{{description_long__("locale")}}</cite>
-						{{/description_long__("locale")}}
-                    </li>
-                    {{/description_short__("locale")}}
-                    {{#price}}
-                    <li>{{price}}</li>
-                    {{/price}}
-                    {{#for_loan}}
-                    <li>_("For loan")</li>
-                    {{/for_loan}}
-                    {{#instance_name__("locale")}}
-                    <li>{{instance_name__("locale")}}<br>
-						<cite>{{instance_description__("locale")}}</cite></li>
-                    {{/instance_name__("locale")}}
-                    {{#tag.0}}
-                    <li><ul>{{#tag}}<li>{{.}}</li>{{/tag}}</ul></li>
-                    {{/tag.0}}
-                    {{#contact.0}}
-                    <li>_("Contact"):
-                        <ul>
-                        {{#contact}}
-                            <li>{{telephone}} / {{email}} / <a href="">{{url__("locale")}}</a></li>
-                        {{/contact}}
-                        </ul>
-                    {{/contact.0}}
-                    </ul>
-             {{/services}}
-	    </dd>
-	    {{/services.0.name__("locale")}}
     </dl>
 
     <p><small>_("Last modified"): {{meta.modified}}</small></p>
@@ -145,51 +94,6 @@
         {{/neveropen}}
 
     </div>
-        
-    <div class="buildinginfo">
-        <table>
-		{{#accessibility_available}}
-        <tr><td colspan=2>
-			<dt>_("Accessibility")</dt>
-			<dd>
-			{{#accessibility.accessible_entry}}
-				_("Accessible entry")<br>
-			{{/accessibility.accessible_entry}}
-
-			{{#accessibility.accessible_parking}}
-				_("Accessible parking")<br>
-			{{/accessibility.accessible_parking}}
-
-			{{#accessibility.accessible_toilet}}
-				_("Accessible toilet")<br>
-			{{/accessibility.accessible_toilet}}
-
-			{{#extraaccessibilityinfo}}
-				{{extra_accessibility_property_label__("locale")}}: {{extra_accessibility_property_value__("locale")}}<br>
-			{{/extraaccessibilityinfo}}
-
-			{{#accessibility.induction_loop}}
-				 _("Induction loop")<br>
-			{{/accessibility.induction_loop}}
-
-			{{#accessibility.large_typeface_collection}}
-				_("Large typeface collection")<br>
-			{{/accessibility.large_typeface_collection}}
-
-			{{#accessibility.lift}}
-				_("Lift")<br>
-			{{/accessibility.lift}}
-		</dd>
-		</td>
-		</tr>
-        <td><th colspan="2">&nbsp;</td></tr>
-		{{/accessibility_available}}
-        {{#contact.parking__("locale")}}
-            <tr><th>_("Parking"):</th><td>{{contact.parking__("locale")}}</td></tr>
-        {{/contact.parking__("locale")}}
-        </table>
-    </div>
-
   </div>
 
 </div>
