@@ -541,6 +541,13 @@ function add_library_metadata(dataobj, callback){
     if (dataobj._source.contact.telephones[0].telephone_number == '') {
         delete dataobj._source.contact.telephones;
     }
+
+	// delete empty telephone name descriptions in locale
+	for (var temp in lib.contact.telephones) {
+		var name = lib.contact.telephones[temp]['telephone_name_'+_('locale')];
+		if (name=='') delete lib.contact.telephones[temp]['telephone_name_'+_('locale')];
+	}
+
     // TODO: Change data model to have own extrainfo branches for each language
     if (dataobj._source.additional_info.extrainfo[0].property_label_fi == '') {
         delete dataobj._source.additional_info;
