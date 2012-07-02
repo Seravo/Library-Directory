@@ -501,17 +501,18 @@ function add_library_metadata(dataobj, callback){
         dataobj._source = dataobj.hits.hits[0]._source;
     }
 
-    dataobj._source.opening_hours = get_library_open_hours(dataobj._source.period);
+	var lib = dataobj._source;
 
-    switch(dataobj._source.organisation_type) {
+	lib.opening_hours = get_library_open_hours(lib.period);
+
+    switch(lib.organisation_type) {
         case "library":
         case "unit":
         case "department":
-            dataobj._source.neveropen = true;
+            lib.neveropen = true;
             break;
     }
 
-	var lib = dataobj._source;
 
 	for (var item in lib.contact.internet) {
 		var temp = lib.contact.internet[item];
@@ -537,14 +538,14 @@ function add_library_metadata(dataobj, callback){
 		lib.contact.street_address.post_code + " " + lib.contact.street_address["municipality_" + _("locale")];
 
     // delete empty object so that they will not be displayed in Mustache templates
-    if (dataobj._source.additional_info.slug == '') {
-        delete dataobj._source.additional_info.slug;
+    if (lib.additional_info.slug == '') {
+        delete lib.additional_info.slug;
     }
-	if (dataobj._source.parent_organisation == '') {
-		delete dataobj._source.parent_organisation;
+	if (lib.parent_organisation == '') {
+		delete lib.parent_organisation;
 	}
-    if (dataobj._source.contact.telephones[0].telephone_number == '') {
-        delete dataobj._source.contact.telephones;
+    if (lib.contact.telephones[0].telephone_number == '') {
+        delete lib.contact.telephones;
     }
 
 	// delete empty telephone name descriptions in locale
@@ -554,11 +555,11 @@ function add_library_metadata(dataobj, callback){
 	}
 
     // TODO: Change data model to have own extrainfo branches for each language
-    if (dataobj._source.additional_info.extrainfo[0].property_label_fi == '') {
-        delete dataobj._source.additional_info;
+    if (lib.additional_info.extrainfo[0].property_label_fi == '') {
+        delete lib.additional_info;
     }
-    if (dataobj._source.established_year == '') {
-        delete dataobj._source.established_year;
+    if (lib.established_year == '') {
+        delete lib.established_year;
     }
 
 	// localize organisation types
@@ -579,7 +580,7 @@ function add_library_metadata(dataobj, callback){
 	if (lib.description_en == "") delete lib.description_en;
 
     // delete empty service fields
-    dataobj._source.services.forEach( function(s) { 
+    lib.services.forEach( function(s) {
         if (s.description_short_fi.trim() == '') { delete s.description_short_fi; }
         // TODO: consider trimming all fields, some might be empty but have just whitespace or line feed
         if (s.description_short_sv == '') { delete s.description_short_sv; }
@@ -604,14 +605,14 @@ function add_library_metadata(dataobj, callback){
         if (s.type == 'palvelu') { s.type = _("service type service"); }
     });
    
-    if (dataobj._source.established_year == '') {
-        delete dataobj._source.established_year;
+    if (lib.established_year == '') {
+        delete lib.established_year;
     }
     
-    if (dataobj._source.contact.coordinates != undefined && dataobj._source.contact.coordinates != '') {
-        latlon = dataobj._source.contact.coordinates.split(",");
-        dataobj._source.contact.coordinnates_lat = latlon[0];
-        dataobj._source.contact.coordinnates_lon = latlon[1];
+    if (lib.contact.coordinates != undefined && lib.contact.coordinates != '') {
+        latlon = lib.contact.coordinates.split(",");
+        lib.contact.coordinnates_lat = latlon[0];
+        lib.contact.coordinnates_lon = latlon[1];
     }
 
     callback(dataobj);
