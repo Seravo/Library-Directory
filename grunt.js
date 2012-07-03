@@ -76,6 +76,7 @@ module.exports = function(grunt) {
         'js/libs/bootstrap/bootstrap.min.js',
         'js/libs/bootstrap/transition.js',
         'js/libs/bootstrap/collapse.js',
+        'js/libs/bootstrap/button.js',
 //        'js/libs/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js',
         'js/libs/mustache/mustache.js',
 //        'js/libs/linkify/1.0/jquery.linkify-1.0-min.js',

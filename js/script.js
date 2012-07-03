@@ -241,7 +241,9 @@ function ld_widget_wizard() {
 		var lang = "";
 
 		// apply default css for iframe-widget
-		if (type=="1" || type=="2" || type=="3") { $("#widget_style").val("width: 550px;\nheight: 550px;") }
+		if (type=="1" || type=="2" || type=="3") {
+			if ($("#widget_style").val() == "") $("#widget_style").val("width: 550px;\nheight: 550px;")
+		}
 		var style = $("#widget_style").val().replace(/\n+/g," ");
 
 		//if (widget_lang != "") lang = '?lang=' + widget_lang;
@@ -426,6 +428,9 @@ function ld_widget_wizard() {
 
 						$('#widget_library').val($(this).attr("data-id"));
 						$('#widget_consortium').val($(this).attr("data-consortium"));
+
+						$('.typeselector').first().button('toggle').trigger('click');
+						$('.langselector').first().button('toggle').trigger('click');
 
 						$(".langselector").removeProp('disabled');
 						$(".typeselector").removeProp('disabled');

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-03 10:01+0300\n"
-"PO-Revision-Date: 2012-07-03 10:03+0200\n"
+"PO-Revision-Date: 2012-07-03 13:21+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -590,7 +590,7 @@ msgstr "Automaattinen"
 
 #: views/widget_wizard.mustache:47
 msgid "Customize widget CSS-styling"
-msgstr "Kustomoi upokkeen css-tyylit"
+msgstr "Räätälöi upokkeen css-tyylit"
 
 #: views/widget_wizard.mustache:51
 msgid "Copy embed code"
