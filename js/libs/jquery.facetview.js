@@ -772,8 +772,8 @@
             $('#facetview_results').html("");
             var infofiltervals = new Array();
 
-			// display libraries in map only if there's any user input
-			if (facetfilters.length>0 || $('#facetview_freetext').val() != "") ld_mapcontrol_init_geoloc(data.records);
+			// display libraries in map only if there's any user input or geolocation is active
+			if (facetfilters.length>0 || $('#facetview_freetext').val() != "" || ld_position==true ) ld_mapcontrol_init_geoloc(data.records);
 
             $.each(data.records, function(index, value) {
                 // write them out to the results div
