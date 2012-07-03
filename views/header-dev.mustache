@@ -68,5 +68,13 @@
 {{/nobanners}}
 
     <div class="container">
+      <!--[if lt IE 8]>
+        <div class="alert alert-error alert-block">
+          <h4 class="alert-heading">_("Warning")!</h4>
+            _("Your browser version is too old"),
+			<a href="http://windows.microsoft.com/fi-FI/internet-explorer/downloads/ie-8">_("please upgrade")</a>
+			_("for best experience").
+        </div>
+      <![endif]-->
 
 <!-- TODO: Should we refactor flash messages to be printed here, in header files? Or just use ajax style everywhere and not rely on POST for anything else than one single feedback box (so that it can be used without JavaScript)? -->

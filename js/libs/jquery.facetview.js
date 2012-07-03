@@ -103,7 +103,7 @@
             "addremovefacets": false,
             "result_display": search_results,
             "display_images": true,
-            "visualise_filters": true,
+            "visualise_filters": false,
             "description":"",
             "search_url":"http://localhost:8888/testink/organisation/_search?",
             // TODO: if localhost unreachable, use public server
