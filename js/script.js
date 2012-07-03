@@ -234,6 +234,8 @@ function ld_widget_wizard() {
 
 		var id = $("#widget_library").val();
 		var consortium = $("#widget_consortium").val();
+		var city = $("#widget_city").val();
+		var filter = $("#widget_filter").val();
 		var type = $("#widget_type").val();
 		var uuid = get_uuid();
 		var code = "";
@@ -255,7 +257,8 @@ function ld_widget_wizard() {
 			case "1":
 				if (lang != '') lang+="/";
 				var code =	'<iframe src="' + url + lang + 'widget1';
-				if (consortium != '') code += '?area='+consortium+'"';
+				if (filter == 'area' && consortium != '') code += '?area='+consortium+'"';
+				else if (filter == 'city') code += '?city='+city+'"';
 				else code += '"';
 				if (style != '') code += ' style="' + style + '"';
 				code += '></iframe>';
@@ -338,7 +341,16 @@ function ld_widget_wizard() {
 
 	$(".typeselector").bind('click', function(event) {
 		event.preventDefault();
-		$("#widget_type").val($(this).attr('value'));
+		var value = $(this).attr('value');
+		$("#widget_type").val(value);
+		if (value==1) $(".filter").show();
+		else $(".filter").hide();
+		build_widget();
+	});
+
+	$(".filterselector").bind('click', function(event) {
+		event.preventDefault();
+		$("#widget_filter").val($(this).attr('value'));
 		build_widget();
 	});
 
@@ -389,7 +401,8 @@ function ld_widget_wizard() {
 
 				var template =
 					'{{#records}}' +
-					  '<div style="width: 35%;" class="alert alert-info searchresults" data-id="{{id}}" data-consortium="{{consortium}}">' + 
+					  '<div style="width: 35%;" class="alert alert-info searchresults" data-id="{{id}}" data-consortium="{{consortium}}" '+
+					  'data-city="' + '{{contact.street_address.municipality_' + _("locale") + '}}' + '">' +
 					  '<strong>' +
 					  '{{#name_' + _("locale") + '}}' +
 					    '{{name_' + _("locale") + '}}' +
@@ -428,9 +441,11 @@ function ld_widget_wizard() {
 
 						$('#widget_library').val($(this).attr("data-id"));
 						$('#widget_consortium').val($(this).attr("data-consortium"));
+						$('#widget_city').val($(this).attr("data-city"));
 
 						$('.typeselector').first().button('toggle').trigger('click');
 						$('.langselector').first().button('toggle').trigger('click');
+						$('.filterselector').first().button('toggle').trigger('click');
 
 						$(".langselector").removeProp('disabled');
 						$(".typeselector").removeProp('disabled');

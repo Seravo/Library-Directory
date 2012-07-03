@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-03 10:01+0300\n"
+"POT-Creation-Date: 2012-07-03 14:55+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,7 +176,7 @@ msgid "open today"
 msgstr ""
 
 #: js/libs/jquery.facetview.js:96 views/widget3.mustache:154
-#: views/library_details.mustache:154
+#: views/library_details.mustache:154 views/widget_wizard.mustache:43
 msgid "Library consortium"
 msgstr ""
 
@@ -198,7 +198,7 @@ msgstr ""
 msgid "Accessibility"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:101
+#: js/libs/jquery.facetview.js:101 views/widget_wizard.mustache:44
 msgid "City"
 msgstr ""
 
@@ -498,23 +498,31 @@ msgstr ""
 msgid "Full library details"
 msgstr ""
 
-#: views/widget_wizard.mustache:37
+#: views/widget_wizard.mustache:38
+msgid "Filter search by consortium or city"
+msgstr ""
+
+#: views/widget_wizard.mustache:42
+msgid "No filtering"
+msgstr ""
+
+#: views/widget_wizard.mustache:49
 msgid "Select widget language"
 msgstr ""
 
-#: views/widget_wizard.mustache:40
+#: views/widget_wizard.mustache:52
 msgid "Automatic"
 msgstr ""
 
-#: views/widget_wizard.mustache:47
+#: views/widget_wizard.mustache:59
 msgid "Customize widget CSS-styling"
 msgstr ""
 
-#: views/widget_wizard.mustache:51
+#: views/widget_wizard.mustache:63
 msgid "Copy embed code"
 msgstr ""
 
-#: views/widget_wizard.mustache:55
+#: views/widget_wizard.mustache:67
 msgid "Widget preview"
 msgstr ""
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-03 10:01+0300\n"
-"PO-Revision-Date: 2012-07-03 10:03+0200\n"
+"POT-Creation-Date: 2012-07-03 14:55+0300\n"
+"PO-Revision-Date: 2012-07-03 14:58+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -215,6 +215,7 @@ msgstr "open today"
 #: js/libs/jquery.facetview.js:96
 #: views/widget3.mustache:154
 #: views/library_details.mustache:154
+#: views/widget_wizard.mustache:43
 msgid "Library consortium"
 msgstr "Library consortium"
 
@@ -240,6 +241,7 @@ msgid "Accessibility"
 msgstr "Accessibility"
 
 #: js/libs/jquery.facetview.js:101
+#: views/widget_wizard.mustache:44
 msgid "City"
 msgstr "City"
 
@@ -580,23 +582,31 @@ msgstr "Small library details"
 msgid "Full library details"
 msgstr "Full library details"
 
-#: views/widget_wizard.mustache:37
+#: views/widget_wizard.mustache:38
+msgid "Filter search by consortium or city"
+msgstr "Filter search by consortium or city"
+
+#: views/widget_wizard.mustache:42
+msgid "No filtering"
+msgstr "No filtering"
+
+#: views/widget_wizard.mustache:49
 msgid "Select widget language"
 msgstr "Select widget language"
 
-#: views/widget_wizard.mustache:40
+#: views/widget_wizard.mustache:52
 msgid "Automatic"
 msgstr "Automatic"
 
-#: views/widget_wizard.mustache:47
+#: views/widget_wizard.mustache:59
 msgid "Customize widget CSS-styling"
 msgstr "Customize widget CSS-styling"
 
-#: views/widget_wizard.mustache:51
+#: views/widget_wizard.mustache:63
 msgid "Copy embed code"
 msgstr "Copy embed code"
 
-#: views/widget_wizard.mustache:55
+#: views/widget_wizard.mustache:67
 msgid "Widget preview"
 msgstr "Widget preview"
 
