@@ -4,6 +4,10 @@ This is an initial prototype of the library directory website and widgets.
 
 ![Screenshot](https://github.com/Seravo/Library-Directory/raw/master/screenshot.png "Screenshot of main page")
 
+![Screenshot](https://github.com/Seravo/Library-Directory/raw/master/screenshot-mobile.png "Screenshot of main page with narrow screen (mobile). Showcases responsive design.")
+
+![Screenshot](https://github.com/Seravo/Library-Directory/raw/master/screenshot-tablet-detailspage.png "Screenshot of details page with medium screen (tablet).")
+
 Dependencies
 ------------
 
