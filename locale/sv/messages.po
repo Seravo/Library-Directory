@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-03 14:55+0300\n"
-"PO-Revision-Date: 2012-07-03 14:59+0200\n"
-"Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
+"POT-Creation-Date: 2012-07-03 22:19+0300\n"
+"PO-Revision-Date: 2012-07-03 22:21+0200\n"
+"Last-Translator: Otto Kekäläinen <otto@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -98,7 +98,7 @@ msgstr "sv"
 #: server.js:401
 #: server.js:420
 msgid "contact details, open hours, services"
-msgstr "kontakt information, öppettider, tjänster"
+msgstr "kontaktinformation, öppettider, tjänster"
 
 #: server.js:478
 #: server.js:566
@@ -189,10 +189,10 @@ msgid "Error"
 msgstr "Fel"
 
 #: js/libs/jquery.facetview.js:72
+#: views/json_widget_5.mustache:12
 #: views/widget2.mustache:79
 #: views/widget3.mustache:186
 #: views/library_details.mustache:186
-#: views/json_widget_5.mustache:12
 msgid "Open"
 msgstr "Öppet"
 
@@ -201,10 +201,10 @@ msgid "today"
 msgstr "idag"
 
 #: js/libs/jquery.facetview.js:74
+#: views/json_widget_5.mustache:17
 #: views/widget2.mustache:84
 #: views/widget3.mustache:191
 #: views/library_details.mustache:191
-#: views/json_widget_5.mustache:17
 msgid "Closed"
 msgstr "Stängt"
 
@@ -278,11 +278,11 @@ msgstr "av"
 msgid "next"
 msgstr "nästa"
 
-#: js/libs/jquery.facetview.js:916
+#: js/libs/jquery.facetview.js:915
 msgid "Could not connect to database. Please try again later."
 msgstr "Kan inte nå databasen. Försök pånytt senare."
 
-#: js/libs/jquery.facetview.js:989
+#: js/libs/jquery.facetview.js:988
 msgid "library name, service, city, postcode..."
 msgstr "bibliotekets namn, tjänst, stad, postkod..."
 
@@ -320,15 +320,33 @@ msgstr "hembibliotek"
 msgid "The Finnish Library Directory"
 msgstr "Finlands bibliotekskatalog"
 
-#: views/index.mustache:7
-#: views/widget1.mustache:7
-msgid "Find your library!"
-msgstr "Hitta ditt bibliotek!"
+#: views/json_widget_5.mustache:6
+#: views/widget2.mustache:73
+#: views/widget3.mustache:180
+#: views/library_details.mustache:180
+msgid "No open times, since this is a {{organisation_type}}."
+msgstr "Inga öppettider, eftersom detta är en {{organisation_type}}."
 
-#: views/index.mustache:8
-#: views/widget1.mustache:8
-msgid "Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries."
-msgstr "Skriv namnet på biblioteket eller tjänsten du behöver. Skriv en stads namn eller postkod för att hitta närmaste biblioteken."
+#: views/json_widget_5.mustache:10
+#: views/widget2.mustache:77
+#: views/widget3.mustache:184
+#: views/library_details.mustache:184
+msgid "The library is now"
+msgstr "Biblioteket är nu"
+
+#: views/json_widget_5.mustache:13
+#: views/widget2.mustache:80
+#: views/widget3.mustache:187
+#: views/library_details.mustache:187
+msgid "Opening hours today"
+msgstr "Öppettider idag"
+
+#: views/json_widget_5.mustache:21
+#: views/widget2.mustache:88
+#: views/widget3.mustache:195
+#: views/library_details.mustache:195
+msgid "Opening hours this week"
+msgstr "Öppettider denna vecka"
 
 #: views/widget2.mustache:16
 #: views/widget3.mustache:18
@@ -358,68 +376,15 @@ msgstr "PB"
 msgid "Last modified"
 msgstr "Sist uppdaterat"
 
-#: views/widget2.mustache:73
-#: views/widget3.mustache:180
-#: views/library_details.mustache:180
-#: views/json_widget_5.mustache:6
-msgid "No open times, since this is a {{organisation_type}}."
-msgstr "Inga öppettider, eftersom detta är en {{organisation_type}}."
-
-#: views/widget2.mustache:77
-#: views/widget3.mustache:184
-#: views/library_details.mustache:184
-#: views/json_widget_5.mustache:10
-msgid "The library is now"
-msgstr "Biblioteket är nu"
-
-#: views/widget2.mustache:80
-#: views/widget3.mustache:187
-#: views/library_details.mustache:187
-#: views/json_widget_5.mustache:13
-msgid "Opening hours today"
-msgstr "Öppettider idag"
-
-#: views/widget2.mustache:88
-#: views/widget3.mustache:195
-#: views/library_details.mustache:195
-#: views/json_widget_5.mustache:21
-msgid "Opening hours this week"
-msgstr "Öppettider denna vecka"
-
-#: views/header-dev.mustache:38
-#: views/header.mustache:36
-msgid "Library Directory"
-msgstr "Bibliotekskatalogen"
-
-#: views/header-dev.mustache:66
-#: views/contact.mustache:7
-#: views/header.mustache:64
-msgid "Send us feedback!"
-msgstr "Skicka feedback!"
-
-#: views/header-dev.mustache:73
-#: views/header.mustache:71
-msgid "Warning"
-msgstr "Warning"
-
-#: views/header-dev.mustache:74
-#: views/header.mustache:72
-msgid "Your browser version is too old"
-msgstr "Your browser version is too old"
-
-#: views/header-dev.mustache:75
-#: views/header.mustache:73
-msgid "please upgrade"
-msgstr "please upgrade"
-
-#: views/header-dev.mustache:76
-#: views/header.mustache:74
-msgid "for best experience"
-msgstr "for best experience"
-
 #: views/contact.mustache:6
 msgid "This site is the product of <a href='http://kirjastot.fi/'>Kirjastot.fi</a>."
 msgstr "Denna sida är en produkt av <a href='http://kirjastot.fi/'>Kirjastot.fi</a>."
+
+#: views/contact.mustache:7
+#: views/header-dev.mustache:66
+#: views/header.mustache:64
+msgid "Send us feedback!"
+msgstr "Skicka feedback!"
 
 #: views/contact.mustache:19
 msgid "Message"
@@ -534,29 +499,60 @@ msgstr "Hiss"
 msgid "Parking"
 msgstr "Parkering"
 
-#: views/404.mustache:6
-msgid "Sorry, but the page you were trying to view does not exist."
-msgstr "Sidan du sökte existerar tyvärr inte."
+#: views/header-dev.mustache:38
+#: views/header.mustache:36
+msgid "Library Directory"
+msgstr "Bibliotekskatalogen"
 
-#: views/404.mustache:7
-msgid "It looks like this was the result of either:"
-msgstr "Det ser ut som ett fall av"
+#: views/header-dev.mustache:73
+#: views/header.mustache:71
+msgid "Warning"
+msgstr "Warning"
 
-#: views/404.mustache:9
-msgid "a mistyped address"
-msgstr "felskriven address"
+#: views/header-dev.mustache:74
+#: views/header.mustache:72
+msgid "Your browser version is too old"
+msgstr "Your browser version is too old"
 
-#: views/404.mustache:10
-msgid "an out-of-date link"
-msgstr "föråldrad link"
+#: views/header-dev.mustache:75
+#: views/header.mustache:73
+msgid "please upgrade"
+msgstr "please upgrade"
+
+#: views/header-dev.mustache:76
+#: views/header.mustache:74
+msgid "for best experience"
+msgstr "for best experience"
+
+#: views/about.mustache:6
+msgid "This is a really cool thing."
+msgstr "Dettä är en häftig sak."
 
 #: views/feedback-sent.mustache:7
 msgid "<strong>Feedback sent.</strong> Thank you!"
 msgstr "<strong>Feedback skickat.</strong> Tack!"
 
-#: views/about.mustache:6
-msgid "This is a really cool thing."
-msgstr "Dettä är en häftig sak."
+#: views/widget1.mustache:7
+#: views/index.mustache:7
+msgid "Find your library!"
+msgstr "Hitta ditt bibliotek!"
+
+#: views/widget1.mustache:8
+#: views/index.mustache:8
+msgid "Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries."
+msgstr "Skriv namnet på biblioteket eller tjänsten du behöver. Skriv en stads namn eller postkod för att hitta närmaste biblioteken."
+
+#: views/browse.mustache:5
+msgid "Browse all libraries"
+msgstr "Bläddra alla biblioteken"
+
+#: views/browse.mustache:6
+msgid "Listing total of {{count}} libraries."
+msgstr "Totalt {{count}} bibliotek."
+
+#: views/browse.mustache:27
+msgid "slug missing"
+msgstr "slug fattas"
 
 #: views/widget_wizard.mustache:15
 msgid "Build a widget"
@@ -584,11 +580,11 @@ msgstr "Allt om biblioteket"
 
 #: views/widget_wizard.mustache:38
 msgid "Filter search by consortium or city"
-msgstr "Filter search by consortium or city"
+msgstr "Filtrera resultaten enligt biblioteksgrupp eller stad"
 
 #: views/widget_wizard.mustache:42
 msgid "No filtering"
-msgstr "No filtering"
+msgstr "Ingen filtrering"
 
 #: views/widget_wizard.mustache:49
 msgid "Select widget language"
@@ -610,17 +606,21 @@ msgstr "Kopiera koden för inbäddning"
 msgid "Widget preview"
 msgstr "Förhandsvisning"
 
-#: views/browse.mustache:5
-msgid "Browse all libraries"
-msgstr "Bläddra alla biblioteken"
+#: views/404.mustache:6
+msgid "Sorry, but the page you were trying to view does not exist."
+msgstr "Sidan du sökte existerar tyvärr inte."
 
-#: views/browse.mustache:6
-msgid "Listing total of {{count}} libraries."
-msgstr "Totalt {{count}} bibliotek."
+#: views/404.mustache:7
+msgid "It looks like this was the result of either:"
+msgstr "Det ser ut som ett fall av"
 
-#: views/browse.mustache:27
-msgid "slug missing"
-msgstr "slug fattas"
+#: views/404.mustache:9
+msgid "a mistyped address"
+msgstr "felskriven address"
+
+#: views/404.mustache:10
+msgid "an out-of-date link"
+msgstr "föråldrad link"
 
 #~ msgid "Library details"
 #~ msgstr "Information om biblioteket"
