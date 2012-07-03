@@ -12,6 +12,11 @@ var gt = new Gettext(params);
 function _ (msgid) { return gt.gettext(msgid); }
 
 function ld_mapcontrol_init_geoloc(data) {
+	if (data.length==0) {
+		$('#basicmap').hide();
+		return;
+	}
+
 	/* initialize map canvas and set location for given coordinates */
 	$(window).scrollTop(0);
 	$('#basicmap').empty();
