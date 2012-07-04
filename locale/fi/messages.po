@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-07-04 11:15+0300\n"
-"PO-Revision-Date: 2012-07-04 11:18+0200\n"
+"PO-Revision-Date: 2012-07-04 11:26+0200\n"
 "Last-Translator: Otto Kekäläinen <otto@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -568,7 +568,7 @@ msgstr "Rakenna upoke"
 
 #: views/widget_wizard.mustache:16
 msgid "This feature is intended for web developers who want to integrate the library search in their own website."
-msgstr "Tämä ominaisuus on tarkoitettu web-kehittäjille, jotka haluavat upottaa kirjastohaun omalla sivustolleen."
+msgstr "Tämä ominaisuus on tarkoitettu web-kehittäjille, jotka haluavat upottaa kirjastohaun omalle sivustolleen."
 
 #: views/widget_wizard.mustache:18
 msgid "Search library by name or street address, select one result"
