@@ -605,10 +605,6 @@ function add_library_metadata(dataobj, callback){
         if (s.type == 'palvelu') { s.type = _("service type service"); }
     });
    
-    if (lib.established_year == '') {
-        delete lib.established_year;
-    }
-    
     if (lib.contact.coordinates != undefined && lib.contact.coordinates != '') {
         latlon = lib.contact.coordinates.split(",");
         lib.contact.coordinnates_lat = latlon[0];
