@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-03 22:19+0300\n"
-"PO-Revision-Date: 2012-07-03 22:21+0200\n"
+"POT-Creation-Date: 2012-07-04 11:15+0300\n"
+"PO-Revision-Date: 2012-07-04 11:20+0200\n"
 "Last-Translator: Otto Kekäläinen <otto@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -142,36 +142,36 @@ msgstr "rum"
 msgid "service type service"
 msgstr "tjänst"
 
-#: server.js:766
+#: server.js:762
 msgid "Monday"
 msgstr "Måndag"
 
-#: server.js:767
+#: server.js:763
 msgid "Tuesday"
 msgstr "Tisdag"
 
-#: server.js:768
+#: server.js:764
 msgid "Wednesday"
 msgstr "Onsdag"
 
-#: server.js:769
+#: server.js:765
 msgid "Thursday"
 msgstr "Torsdag"
 
-#: server.js:770
+#: server.js:766
 msgid "Friday"
 msgstr "Fredag"
 
-#: server.js:771
+#: server.js:767
 msgid "Saturday"
 msgstr "Lördag"
 
-#: server.js:772
+#: server.js:768
 msgid "Sunday"
 msgstr "Söndag"
 
-#: server.js:792
-#: server.js:810
+#: server.js:788
+#: server.js:806
 msgid "closed"
 msgstr "stängt"
 
@@ -215,7 +215,7 @@ msgstr "öppet idag"
 #: js/libs/jquery.facetview.js:96
 #: views/widget3.mustache:154
 #: views/library_details.mustache:154
-#: views/widget_wizard.mustache:43
+#: views/widget_wizard.mustache:44
 msgid "Library consortium"
 msgstr "Biblioteksgrupp"
 
@@ -230,24 +230,24 @@ msgstr "Fililaltyp"
 #: js/libs/jquery.facetview.js:99
 #: views/widget3.mustache:42
 #: views/library_details.mustache:42
-#: views/widget_wizard.mustache:29
+#: views/widget_wizard.mustache:30
 msgid "Services"
 msgstr "Tjänster"
 
 #: js/libs/jquery.facetview.js:100
-#: views/widget3.mustache:226
-#: views/library_details.mustache:226
+#: views/widget3.mustache:227
+#: views/library_details.mustache:227
 msgid "Accessibility"
 msgstr "Tillgänglighet"
 
 #: js/libs/jquery.facetview.js:101
-#: views/widget_wizard.mustache:44
+#: views/widget_wizard.mustache:45
 msgid "City"
 msgstr "Stad"
 
 #: js/libs/jquery.facetview.js:281
-msgid "Filter by"
-msgstr "Filtrera"
+msgid "Filter search results by"
+msgstr "Filtrera resultaten enligt"
 
 #: js/libs/jquery.facetview.js:315
 msgid "Clear all filters"
@@ -283,12 +283,12 @@ msgid "Could not connect to database. Please try again later."
 msgstr "Kan inte nå databasen. Försök pånytt senare."
 
 #: js/libs/jquery.facetview.js:988
-msgid "library name, service, city, postcode..."
-msgstr "bibliotekets namn, tjänst, stad, postkod..."
+msgid "search starts automatically after 3 letters"
+msgstr "sökandet börjar automatiskt efter 3 bokstäver"
 
 # manually added
 #: locale/templates/LC_MESSAGES/gettext.tmpl:2
-#: views/widget_wizard.mustache:31
+#: views/widget_wizard.mustache:32
 msgid "Search"
 msgstr "Sök"
 
@@ -322,8 +322,6 @@ msgstr "Finlands bibliotekskatalog"
 
 #: views/json_widget_5.mustache:6
 #: views/widget2.mustache:73
-#: views/widget3.mustache:180
-#: views/library_details.mustache:180
 msgid "No open times, since this is a {{organisation_type}}."
 msgstr "Inga öppettider, eftersom detta är en {{organisation_type}}."
 
@@ -449,53 +447,63 @@ msgstr "sist uppdaterat"
 msgid "Slug missing, can't create pretty-url."
 msgstr "Slug fattas, kan inte göra en vacker URL."
 
-#: views/widget3.mustache:213
-#: views/library_details.mustache:213
+#: views/widget3.mustache:180
+#: views/library_details.mustache:180
+msgid "No open times, since this is of type <cite>{{organisation_type}}</cite>."
+msgstr "Inga öppettider, eftersom detta är av typ <cite>{{organisation_type}}</cite>."
+
+#: views/widget3.mustache:204
+#: views/library_details.mustache:204
+msgid "To borrow from this library you need a <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a> card."
+msgstr "För att låna från detta bibliotek behöver man ett <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a>-kort."
+
+#: views/widget3.mustache:214
+#: views/library_details.mustache:214
 msgid "Building"
 msgstr "Byggnad"
 
-#: views/widget3.mustache:217
-#: views/library_details.mustache:217
+#: views/widget3.mustache:218
+#: views/library_details.mustache:218
 msgid "Built"
 msgstr "Bygt"
 
-#: views/widget3.mustache:220
-#: views/library_details.mustache:220
+#: views/widget3.mustache:221
+#: views/library_details.mustache:221
 msgid "Architect"
 msgstr "Arkitekt"
 
-#: views/widget3.mustache:229
-#: views/library_details.mustache:229
+#: views/widget3.mustache:230
+#: views/library_details.mustache:230
 msgid "Accessible entry"
 msgstr "Tillgänglig ingång"
 
-#: views/widget3.mustache:233
-#: views/library_details.mustache:233
+#: views/widget3.mustache:234
+#: views/library_details.mustache:234
 msgid "Accessible parking"
 msgstr "Tillgänglig parkering"
 
-#: views/widget3.mustache:237
-#: views/library_details.mustache:237
+#: views/widget3.mustache:238
+#: views/library_details.mustache:238
 msgid "Accessible toilet"
 msgstr "Tillgänglig toalett"
 
-#: views/widget3.mustache:245
-#: views/library_details.mustache:245
+#: views/widget3.mustache:246
+#: views/library_details.mustache:246
 msgid "Induction loop"
 msgstr "Induktionsslinga"
 
-#: views/widget3.mustache:249
-#: views/library_details.mustache:249
+#: views/widget3.mustache:250
+#: views/library_details.mustache:250
 msgid "Large typeface collection"
 msgstr "Stor typsnitts samling"
 
-#: views/widget3.mustache:253
-#: views/library_details.mustache:253
+#: views/widget3.mustache:254
+#: views/library_details.mustache:254
 msgid "Lift"
 msgstr "Hiss"
 
-#: views/widget3.mustache:261
-#: views/library_details.mustache:261
+#: views/widget3.mustache:262
+#: views/library_details.mustache:262
 msgid "Parking"
 msgstr "Parkering"
 
@@ -558,51 +566,55 @@ msgstr "slug fattas"
 msgid "Build a widget"
 msgstr "Bygg en widget"
 
-#: views/widget_wizard.mustache:17
+#: views/widget_wizard.mustache:16
+msgid "This feature is intended for web developers who want to integrate the library search in their own website."
+msgstr "Denna egenskap är menad för web-utvecklare som vill integrera bibliotekskatalogen på deras egen sida."
+
+#: views/widget_wizard.mustache:18
 msgid "Search library by name or street address, select one result"
 msgstr "Sök bibliotek enligt namn eller address. Välj ett av resultaten."
 
-#: views/widget_wizard.mustache:26
+#: views/widget_wizard.mustache:27
 msgid "Select widget type"
 msgstr "Välj type"
 
-#: views/widget_wizard.mustache:30
+#: views/widget_wizard.mustache:31
 msgid "Opening times"
 msgstr "Öppettider"
 
-#: views/widget_wizard.mustache:32
+#: views/widget_wizard.mustache:33
 msgid "Small library details"
 msgstr "Kort om biblioteket"
 
-#: views/widget_wizard.mustache:33
+#: views/widget_wizard.mustache:34
 msgid "Full library details"
 msgstr "Allt om biblioteket"
 
-#: views/widget_wizard.mustache:38
+#: views/widget_wizard.mustache:39
 msgid "Filter search by consortium or city"
 msgstr "Filtrera resultaten enligt biblioteksgrupp eller stad"
 
-#: views/widget_wizard.mustache:42
+#: views/widget_wizard.mustache:43
 msgid "No filtering"
 msgstr "Ingen filtrering"
 
-#: views/widget_wizard.mustache:49
+#: views/widget_wizard.mustache:50
 msgid "Select widget language"
 msgstr "Välj språk"
 
-#: views/widget_wizard.mustache:52
+#: views/widget_wizard.mustache:53
 msgid "Automatic"
 msgstr "Automatiskt"
 
-#: views/widget_wizard.mustache:59
+#: views/widget_wizard.mustache:60
 msgid "Customize widget CSS-styling"
 msgstr "Kustomera CSS-stilerna"
 
-#: views/widget_wizard.mustache:63
+#: views/widget_wizard.mustache:64
 msgid "Copy embed code"
 msgstr "Kopiera koden för inbäddning"
 
-#: views/widget_wizard.mustache:67
+#: views/widget_wizard.mustache:68
 msgid "Widget preview"
 msgstr "Förhandsvisning"
 
@@ -621,6 +633,12 @@ msgstr "felskriven address"
 #: views/404.mustache:10
 msgid "an out-of-date link"
 msgstr "föråldrad link"
+
+#~ msgid "Filter by"
+#~ msgstr "Filtrera"
+
+#~ msgid "library name, service, city, postcode..."
+#~ msgstr "bibliotekets namn, tjänst, stad, postkod..."
 
 #~ msgid "Library details"
 #~ msgstr "Information om biblioteket"

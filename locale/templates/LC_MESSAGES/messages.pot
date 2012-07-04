@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-03 22:19+0300\n"
+"POT-Creation-Date: 2012-07-04 11:15+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,35 +113,35 @@ msgstr ""
 msgid "service type service"
 msgstr ""
 
-#: server.js:766
+#: server.js:762
 msgid "Monday"
 msgstr ""
 
-#: server.js:767
+#: server.js:763
 msgid "Tuesday"
 msgstr ""
 
-#: server.js:768
+#: server.js:764
 msgid "Wednesday"
 msgstr ""
 
-#: server.js:769
+#: server.js:765
 msgid "Thursday"
 msgstr ""
 
-#: server.js:770
+#: server.js:766
 msgid "Friday"
 msgstr ""
 
-#: server.js:771
+#: server.js:767
 msgid "Saturday"
 msgstr ""
 
-#: server.js:772
+#: server.js:768
 msgid "Sunday"
 msgstr ""
 
-#: server.js:792 server.js:810
+#: server.js:788 server.js:806
 msgid "closed"
 msgstr ""
 
@@ -176,7 +176,7 @@ msgid "open today"
 msgstr ""
 
 #: js/libs/jquery.facetview.js:96 views/widget3.mustache:154
-#: views/library_details.mustache:154 views/widget_wizard.mustache:43
+#: views/library_details.mustache:154 views/widget_wizard.mustache:44
 msgid "Library consortium"
 msgstr ""
 
@@ -189,21 +189,21 @@ msgid "Branch type"
 msgstr ""
 
 #: js/libs/jquery.facetview.js:99 views/widget3.mustache:42
-#: views/library_details.mustache:42 views/widget_wizard.mustache:29
+#: views/library_details.mustache:42 views/widget_wizard.mustache:30
 msgid "Services"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:100 views/widget3.mustache:226
-#: views/library_details.mustache:226
+#: js/libs/jquery.facetview.js:100 views/widget3.mustache:227
+#: views/library_details.mustache:227
 msgid "Accessibility"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:101 views/widget_wizard.mustache:44
+#: js/libs/jquery.facetview.js:101 views/widget_wizard.mustache:45
 msgid "City"
 msgstr ""
 
 #: js/libs/jquery.facetview.js:281
-msgid "Filter by"
+msgid "Filter search results by"
 msgstr ""
 
 #: js/libs/jquery.facetview.js:315
@@ -239,10 +239,10 @@ msgid "Could not connect to database. Please try again later."
 msgstr ""
 
 #: js/libs/jquery.facetview.js:988
-msgid "library name, service, city, postcode..."
+msgid "search starts automatically after 3 letters"
 msgstr ""
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:2 views/widget_wizard.mustache:31
+#: locale/templates/LC_MESSAGES/gettext.tmpl:2 views/widget_wizard.mustache:32
 msgid "Search"
 msgstr ""
 
@@ -275,7 +275,6 @@ msgid "The Finnish Library Directory"
 msgstr ""
 
 #: views/json_widget_5.mustache:6 views/widget2.mustache:73
-#: views/widget3.mustache:180 views/library_details.mustache:180
 msgid "No open times, since this is a {{organisation_type}}."
 msgstr ""
 
@@ -380,43 +379,54 @@ msgstr ""
 msgid "Slug missing, can't create pretty-url."
 msgstr ""
 
-#: views/widget3.mustache:213 views/library_details.mustache:213
+#: views/widget3.mustache:180 views/library_details.mustache:180
+msgid ""
+"No open times, since this is of type <cite>{{organisation_type}}</cite>."
+msgstr ""
+
+#: views/widget3.mustache:204 views/library_details.mustache:204
+msgid ""
+"To borrow from this library you need a <a href='{{parent_organisation}}' "
+"itemprop='branchOf'>{{consortium}}</a> card."
+msgstr ""
+
+#: views/widget3.mustache:214 views/library_details.mustache:214
 msgid "Building"
 msgstr ""
 
-#: views/widget3.mustache:217 views/library_details.mustache:217
+#: views/widget3.mustache:218 views/library_details.mustache:218
 msgid "Built"
 msgstr ""
 
-#: views/widget3.mustache:220 views/library_details.mustache:220
+#: views/widget3.mustache:221 views/library_details.mustache:221
 msgid "Architect"
 msgstr ""
 
-#: views/widget3.mustache:229 views/library_details.mustache:229
+#: views/widget3.mustache:230 views/library_details.mustache:230
 msgid "Accessible entry"
 msgstr ""
 
-#: views/widget3.mustache:233 views/library_details.mustache:233
+#: views/widget3.mustache:234 views/library_details.mustache:234
 msgid "Accessible parking"
 msgstr ""
 
-#: views/widget3.mustache:237 views/library_details.mustache:237
+#: views/widget3.mustache:238 views/library_details.mustache:238
 msgid "Accessible toilet"
 msgstr ""
 
-#: views/widget3.mustache:245 views/library_details.mustache:245
+#: views/widget3.mustache:246 views/library_details.mustache:246
 msgid "Induction loop"
 msgstr ""
 
-#: views/widget3.mustache:249 views/library_details.mustache:249
+#: views/widget3.mustache:250 views/library_details.mustache:250
 msgid "Large typeface collection"
 msgstr ""
 
-#: views/widget3.mustache:253 views/library_details.mustache:253
+#: views/widget3.mustache:254 views/library_details.mustache:254
 msgid "Lift"
 msgstr ""
 
-#: views/widget3.mustache:261 views/library_details.mustache:261
+#: views/widget3.mustache:262 views/library_details.mustache:262
 msgid "Parking"
 msgstr ""
 
@@ -474,51 +484,57 @@ msgstr ""
 msgid "Build a widget"
 msgstr ""
 
-#: views/widget_wizard.mustache:17
+#: views/widget_wizard.mustache:16
+msgid ""
+"This feature is intended for web developers who want to integrate the "
+"library search in their own website."
+msgstr ""
+
+#: views/widget_wizard.mustache:18
 msgid "Search library by name or street address, select one result"
 msgstr ""
 
-#: views/widget_wizard.mustache:26
+#: views/widget_wizard.mustache:27
 msgid "Select widget type"
 msgstr ""
 
-#: views/widget_wizard.mustache:30
+#: views/widget_wizard.mustache:31
 msgid "Opening times"
 msgstr ""
 
-#: views/widget_wizard.mustache:32
+#: views/widget_wizard.mustache:33
 msgid "Small library details"
 msgstr ""
 
-#: views/widget_wizard.mustache:33
+#: views/widget_wizard.mustache:34
 msgid "Full library details"
 msgstr ""
 
-#: views/widget_wizard.mustache:38
+#: views/widget_wizard.mustache:39
 msgid "Filter search by consortium or city"
 msgstr ""
 
-#: views/widget_wizard.mustache:42
+#: views/widget_wizard.mustache:43
 msgid "No filtering"
 msgstr ""
 
-#: views/widget_wizard.mustache:49
+#: views/widget_wizard.mustache:50
 msgid "Select widget language"
 msgstr ""
 
-#: views/widget_wizard.mustache:52
+#: views/widget_wizard.mustache:53
 msgid "Automatic"
 msgstr ""
 
-#: views/widget_wizard.mustache:59
+#: views/widget_wizard.mustache:60
 msgid "Customize widget CSS-styling"
 msgstr ""
 
-#: views/widget_wizard.mustache:63
+#: views/widget_wizard.mustache:64
 msgid "Copy embed code"
 msgstr ""
 
-#: views/widget_wizard.mustache:67
+#: views/widget_wizard.mustache:68
 msgid "Widget preview"
 msgstr ""
 
