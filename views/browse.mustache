@@ -21,9 +21,9 @@
 			{{name_fi}}
 		{{/name__("locale")}}
 		
-		<span class="label" style="background-color:#f00";>{{organisation_type}}</span> 
 		<!-- TODO: change color depending on org type -->
-				
+		<span class="label" style="background-color:#0a0";>{{organisation_type}}</span> 
+		{{#consortium}}<span class="label" style="background-color:#00a";>{{consortium}}</span>{{/consortium}}
 		{{^additional_info.slug}}<span class="label label-important">_("slug missing")</span>{{/additional_info.slug}}</a></li>
       {{/libraries}}
       </ul>

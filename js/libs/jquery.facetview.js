@@ -278,7 +278,7 @@
         // pass a list of filters to be displayed
         var buildfilters = function() {
             var filters = options.facets;
-			var filterheader = "<h3 id='filter-by'>" + _("Filter by") + "</h3>";
+			var filterheader = "<h3 id='filter-by'>" + _("Filter search results by") + "</h3>";
 			var thefilters = "";
 
             for ( var idx in filters ) {
@@ -985,7 +985,7 @@
                <div class="span9" id="facetview_rightcol"> \
                    <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend"> \
                    <span class="add-on"><i id="search_static" class="icon-search"></i><img id="search_spinner" src="img/spinner.gif" style="display: hidden;" alt="[spinner]"> </span> \
-                   <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("library name, service, city, postcode...") + '" autofocus /> \
+                   <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("search starts automatically after 3 letters") + '" autofocus /> \
                    </div> \
                    <div style="float:left;" id="facetview_selectedfilters"></div> \
                    <div style="float:left;" id="facetview_selectedextrafilters"></div> \

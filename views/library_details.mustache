@@ -152,13 +152,13 @@
 
 		{{#parent_organisation}}
 		    <dt>_("Library consortium")</dt>
-		    <dd><a href="{{parent_organisation}}" itemprop="branchOf">{{consortium}}</a></dd>
+		    <dd><a href="{{parent_organisation}}" itemprop="branchOf">{{consortium}} &rarr;</a></dd>
 		{{/parent_organisation}}
 
 		{{#has_children}}
 		<dt>_("Departments")</dt>
 			{{#children}}
-				<dd><a href="{{id}}" itemprop="member">{{name__("locale")}}</a></dd>
+				<dd><a href="{{id}}" itemprop="member">{{name__("locale")}} &rarr;</a></dd>
 			{{/children}}
 		{{/has_children}}
     </dl>
@@ -177,7 +177,7 @@
     <div class="opentimes">
         <i class="icon-time"></i>
         {{#neveropen}}
-            _("No open times, since this is a {{organisation_type}}.")
+            _("No open times, since this is of type <cite>{{organisation_type}}</cite>.")
         {{/neveropen}}
 
         {{^neveropen}}
@@ -200,8 +200,9 @@
 			    {{/opening_hours.open_hours_week}}
 	        </table>
 	        </time>
+            <br>
+            <p>_("To borrow from this library you need a <a href="{{parent_organisation}}" itemprop="branchOf">{{consortium}}</a> card.")</p>
         {{/neveropen}}
-
     </div>
         
     <div class="buildinginfo">
