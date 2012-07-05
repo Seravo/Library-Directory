@@ -280,7 +280,7 @@
         // pass a list of filters to be displayed
         var buildfilters = function() {
             var filters = options.facets;
-			var filterheader = "<h3 id='filter-by'>" + _("Filter search results by") + "</h3>";
+			var filterheader = "<h3 id='filter-by'>" + _("Filter results") + "</h3>";
 			var thefilters = "";
 
             for ( var idx in filters ) {
@@ -315,6 +315,8 @@
             }
             $('#facetview_filters').html("").append(filterheader+thefilters)
 			$('#facetview_filters').after('<div id=clearbutton style="display: none;"><button style="min-width: 78%;" class="btn btn-success" id="clear_facetfilters">' + _("Clear all filters") + '</button></div>');
+			$('#facetview_filters').after("<p id='facetview_filter_helptext'>" + _("The number in parenthesis shows the number of results available.") + "</p>");
+
 			$('#clear_facetfilters').bind('click', function(event) {
 				event.preventDefault();
 				$('#facetview_selectedfilters').children().each(function(){
@@ -675,7 +677,11 @@
                 </ul> \
               </div> \
               ';
-            $('#facetview_metadata').html(_("Not found"))
+            $('#facetview_metadata').html("<h3>" + _("No results found") + "</h3>" + 
+            _("Please try") + "<ul><li>" + 
+            _("Search with only the first 3-5 letters of your search word to get more matches.") + "</li><li>" + 
+            _("Remove all search words and drill down to your wanted results using only the search filters.") + "</li></ul>");
+
             if (data.found) {
                 var from = options.paging.from + 1
                 var size = options.paging.size
