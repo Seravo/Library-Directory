@@ -83,48 +83,6 @@
              {{/services}}
 	    </dd>
 	    {{/services.0.name__("locale")}}
-	    
-		{{#contact.telephones.0.telephone_number}}
-	    <dt>_("Telephone numbers")</dt>
-	    <dd>
-	        {{#contact.telephones}}
-                <img src="/img/glyphicons_139_phone.png" alt='_("Phone icon")'>
-				<a href="tel:{{telephone_number}}" itemprop="telephone">{{telephone_number}}</a> /
-				{{#telephone_name__("locale")}}
-					{{telephone_name__("locale")}}
-				{{/telephone_name__("locale")}}
-				{{^telephone_name__("locale")}}
-					{{telephone_name_fi}}
-				{{/telephone_name__("locale")}}
-				<br>
-            {{/contact.telephones}}
-	    </dd>
-	    {{/contact.telephones.0.telephone_number}}
-	    
-		{{#contact.mail_address.post_box}}
-	    <dt>_("Mail address")</dt>
-	    <dd>
-	        _("PB") {{contact.mail_address.post_box}}<br>
-	        {{contact.mail_address.post_code}} {{contact.mail_address.post_office__("locale")}}
-	    </dd>
-	    {{/contact.mail_address.post_box}}
-
-		{{#contact.email}}
-	    <dt>_("E-mail")</dt>
-	    <dd><i class="icon-envelope"></i> <a href="mailto:{{contact.email}}" itemprop="email">{{contact.email}}</a></dd>
-	    {{/contact.email}}
-
-		{{#contact.homepage__("locale")}}
-		<dd>
-        <dt>_("Homepage")</dt>
-            <i class="icon-home"></i> <a href="{{contact.homepage__("locale")}}">
-			{{contact.homepage__("locale")}}</a>
-            {{#contact.internet}}
-                <br><a href="{{url__("locale")}}" title="{{url_description__("locale")}}">
-				{{name__("locale")}}</a>
-            {{/contact.internet}}
-		</dd>
-	    {{/contact.homepage__("locale")}}
 
 		{{#additional_info}}
         <dt>_("Additional info")</dt>
@@ -204,7 +162,52 @@
             <p>_("To borrow from this library you need a <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a> card.")</p>
         {{/neveropen}}
     </div>
-        
+    
+    <div class="contactdetails">
+		{{#contact.telephones.0.telephone_number}}
+	    <dt>_("Telephone numbers")</dt>
+	    <dd>
+	        {{#contact.telephones}}
+                <img src="/img/glyphicons_139_phone.png" alt='_("Phone icon")'>
+				<a href="tel:{{telephone_number}}" itemprop="telephone">{{telephone_number}}</a> /
+				{{#telephone_name__("locale")}}
+					{{telephone_name__("locale")}}
+				{{/telephone_name__("locale")}}
+				{{^telephone_name__("locale")}}
+					{{telephone_name_fi}}
+				{{/telephone_name__("locale")}}
+				<br>
+            {{/contact.telephones}}
+	    </dd>
+	    {{/contact.telephones.0.telephone_number}}
+	    
+		{{#contact.mail_address.post_box}}
+	    <dt>_("Mail address")</dt>
+	    <dd>
+	        _("PB") {{contact.mail_address.post_box}}<br>
+	        {{contact.mail_address.post_code}} {{contact.mail_address.post_office__("locale")}}
+	    </dd>
+	    {{/contact.mail_address.post_box}}
+
+		{{#contact.email}}
+	    <dt>_("E-mail")</dt>
+	    <dd><i class="icon-envelope"></i> <a href="mailto:{{contact.email}}" itemprop="email">{{contact.email}}</a></dd>
+	    {{/contact.email}}
+
+		{{#contact.homepage__("locale")}}
+		<dd>
+        <dt>_("Homepage")</dt>
+        <dd>
+            <i class="icon-home"></i> <a href="{{contact.homepage__("locale")}}">
+			{{contact.homepage__("locale")}}</a>
+            {{#contact.internet}}
+                <br><a href="{{url__("locale")}}" title="{{url_description__("locale")}}" class="iconless-link">
+				{{name__("locale")}}</a>
+            {{/contact.internet}}
+		</dd>
+	    {{/contact.homepage__("locale")}}    
+    </div>
+    
     <div class="buildinginfo">
         {{#image_url}}
         <img src="{{image_url}}" alt="{{name__("locale")}}" itemprop="image photo">
