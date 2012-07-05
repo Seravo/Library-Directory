@@ -6,6 +6,52 @@
 var gt = new Gettext( { "domain": "messages" } );
 function _(msgid) { return gt.gettext(msgid); }
 
+function ld_parse_url_hash() {
+	var hash = window.location.hash;
+
+	var data = {};
+	var params = [];
+	if (hash.indexOf("#") != -1) params = hash.slice(1).split("&");
+
+	if (params.length==0) return data;
+
+	for (var temp in params) {
+		var param = params[temp];
+		var args = param.split("=");
+
+		data[args[0]]=args[1];
+	}
+	return data;
+}
+
+function ld_append_url_hash(param) {
+	// get current parameters
+	var newHash = [];
+	var oldHash = window.location.hash;
+
+	if (oldHash.indexOf("#") != -1) newHash = oldHash.slice(1).split("&");
+
+	var newParams = param.split("=");
+	var newKey = newParams[0];
+	var newVal = newParams[1];
+
+
+	// check for duplicate parameter key and update, delete if empty
+	var dupe = false;
+	for (var temp in newHash) {
+		var oldKey = newHash[temp].split("=")[0];
+		if (oldKey==newKey) {
+			newHash[temp] = encodeURI(oldKey + "=" + newVal);
+			dupe = true;
+			break;
+		}
+	}
+	// otherwise insert new param as is
+	if (!dupe) newHash.push(encodeURI(param));
+
+	window.location.hash = newHash.join("&");
+}
+
 function ld_mapcontrol_init_geoloc(data) {
 	if (data.length==0) {
 		$('#basicmap').hide();

@@ -127,13 +127,15 @@
         // and add in any overrides from the call
         var options = $.extend(settings, options);
 
+		var hashParams = ld_parse_url_hash();
+
 		// remove consortium facet if consortium-filter is active
 		// it must be the FIRST item in predefined facet array!
-		if (options.areafilter != undefined && options.areafilter != "") settings.facets.shift();
+		if ( (options.areafilter != undefined && options.areafilter != "") || hashParams.area != undefined ) settings.facets.shift();
 
 		// remove city facet if city-filter is active
 		// it must be the LAST item in predefined facet array!
-		if (options.cityfilter != undefined && options.cityfilter != "") settings.facets.pop();
+		if ( (options.cityfilter != undefined && options.cityfilter != "") || hashParams.city != undefined ) settings.facets.pop();
 
         // ===============================================
         // functions to do with filters
@@ -779,6 +781,9 @@
                 // write them out to the results div
                 $('#facetview_results').append( buildrecord(index) );
             });
+
+			var sStr = $('#facetview_freetext').val();
+			ld_append_url_hash("q=" + sStr);
         }
 
         // ===============================================
@@ -886,6 +891,22 @@
 			if (options.cityfilter != undefined && options.cityfilter != "") {
 				var obj = {'term':{}}
 				obj['term']['contact.street_address.municipality_'+_("locale")] = options.cityfilter;
+				query_filters.push(obj);
+			}
+
+			// city pre-selection from url hash
+			var hash = ld_parse_url_hash();
+			if (hash.city != undefined) {
+				var obj = {'term':{}}
+				obj['term']['contact.street_address.municipality_'+_("locale")] = hash.city;
+				query_filters.push(obj);
+			}
+
+			// consortium pre-selection from url hash
+			var hash = ld_parse_url_hash();
+			if (hash.area != undefined) {
+				var obj = {'term':{}}
+				obj['term']['consortium'] = hash.area;
 				query_filters.push(obj);
 			}
 
@@ -1014,6 +1035,15 @@
             // append the filters to the facetview object
             buildfilters();
             $('#facetview_freetext',obj).bindWithDelay('keyup',dosearch,options.freetext_submit_delay);
+
+			// check and apply url hash parameters
+			var url_data = ld_parse_url_hash();
+			if (url_data.q != undefined) {
+				// hide introtext if query parameter is present
+				$("#introtext").hide();	
+				$('#facetview_freetext').val(url_data.q);
+			}
+
             // trigger the search once on load, to get all results
             dosearch();
         }
