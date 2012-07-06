@@ -114,3 +114,9 @@ li.selectedfilter {
     display: none;
 }
 
+#search_status {
+    color: #888;
+    margin: 0 0 0 32px;
+    position: relative;
+    top: -12px;
+}
