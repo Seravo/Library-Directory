@@ -783,6 +783,11 @@
 			// display libraries in map only if there's any user input or geolocation is active
 			if (facetfilters.length>0 || $('#facetview_freetext').val() != "" || ld_position==true ) ld_mapcontrol_init_geoloc(data.records);
 
+			var count = data.found;
+			if (count==1) $('#search_status').html( _("One search result"));
+			else if (count>1) $('#search_status').html( _("%d search results").replace("%d", count) );
+			else $('#search_status').html("");
+
             $.each(data.records, function(index, value) {
                 // write them out to the results div
                 $('#facetview_results').append( buildrecord(index) );
@@ -1014,6 +1019,7 @@
                    <span class="add-on"><i id="search_static" class="icon-search"></i><img id="search_spinner" src="img/spinner.gif" style="display: hidden;" alt="[spinner]"> </span> \
                    <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("search starts automatically after 3 letters") + '" autofocus /> \
                    </div> \
+				   <div id="search_status" style="clear: both;"></div><br> \
                    <div style="float:left;" id="facetview_selectedfilters"></div> \
                    <div style="float:left;" id="facetview_selectedextrafilters"></div> \
                    <div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div><div id="mapcontrol"></div></div> \
