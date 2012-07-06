@@ -19,37 +19,48 @@ function ld_parse_url_hash() {
 		var param = params[temp];
 		var args = param.split("=");
 
-		data[args[0]]=args[1];
+		data[args[0]]=decodeURI(args[1]);
 	}
 	return data;
 }
 
 function ld_append_url_hash(param) {
 	// get current parameters
-	var newHash = [];
-	var oldHash = window.location.hash;
+	var curHash = window.location.hash;
 
-	if (oldHash.indexOf("#") != -1) newHash = oldHash.slice(1).split("&");
-
+	// get new parameters
 	var newParams = param.split("=");
 	var newKey = newParams[0];
 	var newVal = newParams[1];
 
+	// decode current hash data into object	
+	var newData = {};
+	if (curHash.indexOf("#") != -1) {
+		var params = curHash.slice(1).split("&");
 
-	// check for duplicate parameter key and update, delete if empty
-	var dupe = false;
-	for (var temp in newHash) {
-		var oldKey = newHash[temp].split("=")[0];
-		if (oldKey==newKey) {
-			newHash[temp] = encodeURI(oldKey + "=" + newVal);
-			dupe = true;
-			break;
+		for (var temp in params) {
+			var param = params[temp];
+			var args = param.split("=");
+			newData[args[0]]=decodeURI(args[1]);
 		}
 	}
-	// otherwise insert new param as is
-	if (!dupe) newHash.push(encodeURI(param));
 
-	window.location.hash = newHash.join("&");
+	// check for old key
+	if (newData[newKey] != undefined) {
+		if (newVal=='') delete newData[newKey];
+		else newData[newKey] = encodeURI(newVal);
+	}
+	// insert new key & val if value is nonempty
+	else if (newVal != '') newData[newKey] = encodeURI(newVal);
+
+	// put new data into array
+	var newHash = [];
+	for (var key in newData) {
+		newHash.push(key + "=" + newData[key]);
+	}
+
+	if (newHash.length>0) window.location.hash = newHash.join("&");
+	else window.location.hash = "";
 }
 
 function ld_mapcontrol_init_geoloc(data) {
