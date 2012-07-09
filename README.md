@@ -1,12 +1,56 @@
-README
-======
-This is an initial prototype of the library directory website and widgets.
+About
+=====
 
+The Library Directory (published at http://hakemisto.kirjastot.fi/) is a website by [Seravo Oy](http://seravo.fi/) on comission from [Kirjastot.fi](http://kirjasto.fi/) / City of Helsinki. It provides an easy to use interface for the public to search libraries and their details, like open times, contact information, list of services etc. It also provides widgets that web developers can embed, for example if somebody wants to display local library information on the city or muncipality website.
+
+The site is available in Finnish, Swedish and English. A gettext-based translation systems makes it easy to add more languages.
+
+The source, comments and other project documentation is in English. The code is designed for reuse in other countries and is not limited just to Finland.
+
+Screenshots
+-----------
+
+Screenshot of main page
 ![Screenshot](https://github.com/Seravo/Library-Directory/raw/master/screenshot.png "Screenshot of main page")
 
+Screenshot of main page with narrow screen (mobile). Showcases responsive design.
 ![Screenshot](https://github.com/Seravo/Library-Directory/raw/master/screenshot-mobile.png "Screenshot of main page with narrow screen (mobile). Showcases responsive design.")
 
+Screenshot of details page with medium screen (tablet).
 ![Screenshot](https://github.com/Seravo/Library-Directory/raw/master/screenshot-tablet-detailspage.png "Screenshot of details page with medium screen (tablet).")
+
+
+Credits
+-------
+
+Project built on HTM5boilerplate for Node.js (http//github.com/h5bp/html5-boilerplate) and HTM5boilerplate for Twitter Bootstrap Responsive.
+
+Other libraries are:
+
+* http://www.initializr.com/
+
+    * HTML5 Boilerplate
+    * Modernizr
+    * JQuery
+    * Twitter Bootstrap (responsive)
+        
+* http://github.com/okfn/facetview
+
+* Node.js
+
+    * Express.js
+    * Mustache / Hogan.js
+    * Node-gettext
+    
+Icons by Glyphicons (http://glyphicons.com/), license CC-BY-3.0.
+
+The Dark theme for OpenLayers by MapBox (from http://zzolo.org/thoughts/openlayers-facelift), license GPL2+ (as modules in Drupal-git are derivates of Drupal).
+
+Thank you also for all the great Node.js packages we use in this project!
+
+
+Installation
+============
 
 Dependencies
 ------------
@@ -137,30 +181,10 @@ There is also a script `update-in-production.sh` that will automatically check o
 Note! If you want to run the server in port 80, you need to grant special permissions, since ports below 1024 are normally reserved only for the root user:
     $ sudo apt-get install libcap2-bin 
     $ sudo setcap 'cap_net_bind_service=+ep' /usr/bin/node
-        
-Credits
--------
+      
+Database
+--------
 
-Project built on HTM5boilerplate for Node.js (http//github.com/h5bp/html5-boilerplate) and HTM5boilerplate for Twitter Bootstrap Responsive.
-
-Other libraries are:
-
-* http://www.initializr.com/
-
-    * HTML5 Boilerplate
-    * Modernizr
-    * JQuery
-    * Twitter Bootstrap (responsive)
-        
-* http://github.com/okfn/facetview
-    * JQuery UI
-    * D3.js
-    * Linkify
-
-Icons by Glyphicons (http://glyphicons.com/), license CC-BY-3.0.
-
-The Dark theme for OpenLayers by MapBox (from http://zzolo.org/thoughts/openlayers-facelift), license GPL2+ (as modules in Drupal-git are derivates of Drupal).
-
-Thank you also for all the great Node.js packages we use in this project!
+Elastic Serach is used as the database and search backend. More documentation about the database and administration UI will be written soon..
 
 
