@@ -437,14 +437,18 @@ function ld_widget_wizard() {
 		query = JSON.stringify(query2);
 		//console.log(query);
 
+		var showerror = function(msg) {
+			if (!msg){ msg = _("Error: unspecified"); }
+			$('.search_results').html('<div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>' + _("Error") + ':</strong> '+msg+'</div>');
+		}
+
+		var searchTimer = window.setTimeout(function() { showerror(_("Could not connect to database. Please try again later.")) }, 2500);
 		$.ajax({
 			url: url,
 			data: { source: query },
 			dataType: "jsonp",
-			//beforeSend: function() { $('#status').html("searching"); },
-			complete: function(data) { /*console.log("ajax complete");*/ },
 			success: function(data) {
-				//$('#status').html("done") ;
+				window.clearTimeout(searchTimer);
 				results = new Object();
 				results["records"] = new Array();
 				var index=1;
