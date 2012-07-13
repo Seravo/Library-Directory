@@ -12,7 +12,7 @@ git pull
 
 sed -i "s/localhost/hakemisto.kirjastot.fi/" js/libs/jquery.facetview.js
 sed -i "s/localhost:8080/hakemisto.kirjastot.fi/" js/script.js
-sed -i "s/localhost:8888/hakemisto.kirjastot.fi:8888/" js/script.js
+sed -i "s/localhost:8888/hakemisto.kirjastot.fi:443/" js/script.js
 sed -i "s/localhost:8080/hakemisto.kirjastot.fi/" js/widget.js
 
 cd css
