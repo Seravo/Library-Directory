@@ -447,7 +447,7 @@ function get_libraries(callback) {
 
     var options = {
       host: conf.proxy_config.host,
-      port: 8888,
+      port: conf.proxy_config.port,
       path: '/testink/organisation/_search?source='+query,
       method: 'GET'
     };
@@ -618,7 +618,7 @@ function add_library_metadata(dataobj, callback){
 function get_library_by_id(id, callback) {
     var options = {
       host: conf.proxy_config.host,
-      port: 8888,
+      port: conf.proxy_config.port,
       path: '/testink/organisation/' + id,
       method: 'GET'
     };
@@ -658,7 +658,7 @@ function get_library_by_name(name, browser_req, callback) {
 
     var options = {
       host: conf.proxy_config.host,
-      port: 8888,
+      port: conf.proxy_config.port,
       path: '/testink/organisation/_search?source='+query,
       method: 'GET'
     };
@@ -703,7 +703,7 @@ function get_library_children(id, callback) {
 
     var options = {
       host: conf.proxy_config.host,
-      port: 8888,
+      port: conf.proxy_config.port,
       path: '/testink/organisation/_search?source='+query,
       method: 'GET'
     };
