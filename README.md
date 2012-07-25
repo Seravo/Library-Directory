@@ -7,6 +7,10 @@ The site is available in Finnish, Swedish and English. A gettext-based translati
 
 The source, comments and other project documentation is in English. The code is designed for reuse in other countries and is not limited just to Finland.
 
+Ohloh profile: https://www.ohloh.net/p/libdir
+
+<script type="text/javascript" src="http://www.ohloh.net/p/603249/widgets/project_partner_badge.js"></script>
+
 Screenshots
 -----------
 
