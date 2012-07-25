@@ -112,7 +112,7 @@ function ld_mapcontrol_init_geoloc(data) {
 	}
 
 	/* selector for marker popups */
-	var controls = { selector: new OpenLayers.Control.SelectFeature(vectorLayer, { onSelect: createPopup, onUnselect: destroyPopup }) };
+	var controls = { selector: new OpenLayers.Control.SelectFeature(vectorLayer, { onSelect: createPopup, onUnselect: destroyPopup, hover: true }) };
 	map.addControl(controls['selector']);
 	controls['selector'].activate();
 
