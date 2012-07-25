@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-06 10:49+0300\n"
-"PO-Revision-Date: 2012-07-06 10:50+0200\n"
-"Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
+"POT-Creation-Date: 2012-07-25 10:12+0300\n"
+"PO-Revision-Date: 2012-07-25 10:13+0200\n"
+"Last-Translator: Otto Kekäläinen <otto@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -189,10 +189,10 @@ msgid "Error"
 msgstr "Virhe"
 
 #: js/libs/jquery.facetview.js:72
+#: views/json_widget_5.mustache:12
 #: views/widget2.mustache:79
 #: views/widget3.mustache:144
 #: views/library_details.mustache:144
-#: views/json_widget_5.mustache:12
 msgid "Open"
 msgstr "Auki"
 
@@ -201,10 +201,10 @@ msgid "today"
 msgstr "tänään"
 
 #: js/libs/jquery.facetview.js:74
+#: views/json_widget_5.mustache:17
 #: views/widget2.mustache:84
 #: views/widget3.mustache:149
 #: views/library_details.mustache:149
-#: views/json_widget_5.mustache:17
 msgid "Closed"
 msgstr "Suljettu"
 
@@ -307,11 +307,11 @@ msgstr "Yksi hakutulos"
 msgid "%d search results"
 msgstr "Yhteensä %d hakutulosta"
 
-#: js/libs/jquery.facetview.js:948
+#: js/libs/jquery.facetview.js:947
 msgid "Could not connect to database. Please try again later."
 msgstr "Yhteyttä tietokantaan ei saatu, yritä hetken kuluttua uudelleen."
 
-#: js/libs/jquery.facetview.js:1021
+#: js/libs/jquery.facetview.js:1020
 msgid "search starts automatically after 3 letters"
 msgstr "haku käynnistyy 3 kirjaimen jälkeen"
 
@@ -349,15 +349,35 @@ msgstr "kotikirjasto"
 msgid "The Finnish Library Directory"
 msgstr "Suomen kirjastohakemisto"
 
-#: views/index.mustache:7
-#: views/widget1.mustache:7
-msgid "Find your library!"
-msgstr "Löydä kirjastosi!"
+#: locale/templates/LC_MESSAGES/gettext.tmpl:11
+msgid "My Location"
+msgstr "Oma sijainti"
 
-#: views/index.mustache:8
-#: views/widget1.mustache:8
-msgid "Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries."
-msgstr "Syötä etsimäsi kirjaston tai palvelun nimi. Syötä kaupungin nimi tai postinumero löytääksesi lähimmän kirjaston."
+#: views/json_widget_5.mustache:6
+#: views/widget2.mustache:73
+msgid "No open times, since this is a {{organisation_type}}."
+msgstr "Ei aukioloa, koska kyseessä {{organisation_type}}."
+
+#: views/json_widget_5.mustache:10
+#: views/widget2.mustache:77
+#: views/widget3.mustache:142
+#: views/library_details.mustache:142
+msgid "The library is now"
+msgstr "Kirjasto on nyt"
+
+#: views/json_widget_5.mustache:13
+#: views/widget2.mustache:80
+#: views/widget3.mustache:145
+#: views/library_details.mustache:145
+msgid "Opening hours today"
+msgstr "Avoinna tänään"
+
+#: views/json_widget_5.mustache:21
+#: views/widget2.mustache:88
+#: views/widget3.mustache:153
+#: views/library_details.mustache:153
+msgid "Opening hours this week"
+msgstr "Aukioloajat tällä viikolla"
 
 #: views/widget2.mustache:16
 #: views/widget3.mustache:18
@@ -387,66 +407,15 @@ msgstr "PL"
 msgid "Last modified"
 msgstr "Muokattu viimeksi"
 
-#: views/widget2.mustache:73
-#: views/json_widget_5.mustache:6
-msgid "No open times, since this is a {{organisation_type}}."
-msgstr "Ei aukioloa, koska kyseessä {{organisation_type}}."
-
-#: views/widget2.mustache:77
-#: views/widget3.mustache:142
-#: views/library_details.mustache:142
-#: views/json_widget_5.mustache:10
-msgid "The library is now"
-msgstr "Kirjasto on nyt"
-
-#: views/widget2.mustache:80
-#: views/widget3.mustache:145
-#: views/library_details.mustache:145
-#: views/json_widget_5.mustache:13
-msgid "Opening hours today"
-msgstr "Avoinna tänään"
-
-#: views/widget2.mustache:88
-#: views/widget3.mustache:153
-#: views/library_details.mustache:153
-#: views/json_widget_5.mustache:21
-msgid "Opening hours this week"
-msgstr "Aukioloajat tällä viikolla"
-
-#: views/header-dev.mustache:38
-#: views/header.mustache:36
-msgid "Library Directory"
-msgstr "Kirjastohakemisto"
-
-#: views/header-dev.mustache:66
-#: views/contact.mustache:7
-#: views/header.mustache:64
-msgid "Send us feedback!"
-msgstr "Anna palautetta!"
-
-#: views/header-dev.mustache:73
-#: views/header.mustache:71
-msgid "Warning"
-msgstr "Varoitus"
-
-#: views/header-dev.mustache:74
-#: views/header.mustache:72
-msgid "Your browser version is too old"
-msgstr "Käyttämäsi selainversio on liian vanha"
-
-#: views/header-dev.mustache:75
-#: views/header.mustache:73
-msgid "please upgrade"
-msgstr "päivitä selaimesi"
-
-#: views/header-dev.mustache:76
-#: views/header.mustache:74
-msgid "for best experience"
-msgstr "saadaksesi parhaan mahdollisen käyttökokemuksen"
-
 #: views/contact.mustache:6
 msgid "This site is the product of <a href='http://kirjastot.fi/'>Kirjastot.fi</a>."
 msgstr "Tämä sivusto on <a href='http://kirjastot.fi/'>Kirjastot.fi</a>:n tuottama."
+
+#: views/contact.mustache:7
+#: views/header-dev.mustache:67
+#: views/header.mustache:65
+msgid "Send us feedback!"
+msgstr "Anna palautetta!"
 
 #: views/contact.mustache:19
 msgid "Message"
@@ -571,29 +540,60 @@ msgstr "Hissi"
 msgid "Parking"
 msgstr "Pysäköinti"
 
-#: views/404.mustache:6
-msgid "Sorry, but the page you were trying to view does not exist."
-msgstr "Sivua ei löytynyt"
+#: views/header-dev.mustache:39
+#: views/header.mustache:37
+msgid "Library Directory"
+msgstr "Kirjastohakemisto"
 
-#: views/404.mustache:7
-msgid "It looks like this was the result of either:"
-msgstr "Tämä saattaa johtua esimerkiksi seuraavista:"
+#: views/header-dev.mustache:74
+#: views/header.mustache:72
+msgid "Warning"
+msgstr "Varoitus"
 
-#: views/404.mustache:9
-msgid "a mistyped address"
-msgstr "osoite on väärin kirjoitettu"
+#: views/header-dev.mustache:75
+#: views/header.mustache:73
+msgid "Your browser version is too old"
+msgstr "Käyttämäsi selainversio on liian vanha"
 
-#: views/404.mustache:10
-msgid "an out-of-date link"
-msgstr "seuraamasi linkki on vanhentunut"
+#: views/header-dev.mustache:76
+#: views/header.mustache:74
+msgid "please upgrade"
+msgstr "päivitä selaimesi"
+
+#: views/header-dev.mustache:77
+#: views/header.mustache:75
+msgid "for best experience"
+msgstr "saadaksesi parhaan mahdollisen käyttökokemuksen"
+
+#: views/about.mustache:6
+msgid "This is a really cool thing."
+msgstr "Tämä on hieno juttu."
 
 #: views/feedback-sent.mustache:7
 msgid "<strong>Feedback sent.</strong> Thank you!"
 msgstr "<strong>Palaute lähetetty</strong> Kiitos!"
 
-#: views/about.mustache:6
-msgid "This is a really cool thing."
-msgstr "Tämä on hieno juttu."
+#: views/widget1.mustache:7
+#: views/index.mustache:7
+msgid "Find your library!"
+msgstr "Löydä kirjastosi!"
+
+#: views/widget1.mustache:8
+#: views/index.mustache:8
+msgid "Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries."
+msgstr "Syötä etsimäsi kirjaston tai palvelun nimi. Syötä kaupungin nimi tai postinumero löytääksesi lähimmän kirjaston."
+
+#: views/browse.mustache:5
+msgid "Browse all libraries"
+msgstr "Selaa kaikkia kirjastoja"
+
+#: views/browse.mustache:6
+msgid "Listing total of {{count}} libraries."
+msgstr "Hakemistossa yhteensä {{count}} kirjastoa."
+
+#: views/browse.mustache:27
+msgid "slug missing"
+msgstr "slug puuttuu"
 
 #: views/widget_wizard.mustache:15
 msgid "Build a widget"
@@ -651,17 +651,21 @@ msgstr "Kopioi upokkeen koodi"
 msgid "Widget preview"
 msgstr "Upokkeen esikatselu"
 
-#: views/browse.mustache:5
-msgid "Browse all libraries"
-msgstr "Selaa kaikkia kirjastoja"
+#: views/404.mustache:6
+msgid "Sorry, but the page you were trying to view does not exist."
+msgstr "Sivua ei löytynyt"
 
-#: views/browse.mustache:6
-msgid "Listing total of {{count}} libraries."
-msgstr "Hakemistossa yhteensä {{count}} kirjastoa."
+#: views/404.mustache:7
+msgid "It looks like this was the result of either:"
+msgstr "Tämä saattaa johtua esimerkiksi seuraavista:"
 
-#: views/browse.mustache:27
-msgid "slug missing"
-msgstr "slug puuttuu"
+#: views/404.mustache:9
+msgid "a mistyped address"
+msgstr "osoite on väärin kirjoitettu"
+
+#: views/404.mustache:10
+msgid "an out-of-date link"
+msgstr "seuraamasi linkki on vanhentunut"
 
 #~ msgid "Filter by"
 #~ msgstr "Rajaa tuloksia"
