@@ -77,7 +77,7 @@ function ld_mapcontrol_init_geoloc(data) {
 
 	var mapOptions = {
 		controls: [
-			new OpenLayers.Control.Navigation(),
+			new OpenLayers.Control.Navigation({'zoomWheelEnabled': false}),
 			new OpenLayers.Control.PanZoomBar(),
 			new OpenLayers.Control.Attribution() ],
 		theme: '/js/libs/openlayers/style.css'
