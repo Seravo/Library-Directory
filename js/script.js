@@ -69,6 +69,9 @@ function ld_mapcontrol_init_geoloc(data) {
 		return;
 	}
 
+    // hide hero-unit if map visible
+	$("#introtext").slideUp();	
+
 	/* initialize map canvas and set location for given coordinates */
 	$(window).scrollTop(0);
 	$('#basicmap').empty();
