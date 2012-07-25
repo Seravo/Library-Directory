@@ -391,7 +391,7 @@
 					var append = "";
 					if (facetfilters.length>0 && facetfilters.indexOf(item)!= -1 ) {
 						var displayItem = "";
-						if (item=='T') displayItem = 'yes';
+						if (item=='T') displayItem = _('yes');
 						else displayItem = item;
 						append = "<li class='selectedfilter'>" + _(displayItem) + ' (' + records[item] + ')</li>';
 					}
@@ -962,11 +962,16 @@
         var clickfilterchoice = function(event) {
             event.preventDefault();
 			facetfilters.push($(this).attr("href"));
+
+			// handle special case for accessibility facet filter
+			var buttontext = $(this).html().replace(/\(.*\)/,'');
+			if ($(this).attr("href") == 'T') buttontext = _("Accessibility");
+
             var newobj = '<a class="facetview_filterselected facetview_clear ' + 
                 'btn btn-info" rel="' + $(this).attr("rel") + 
                 '" alt="remove" title="remove"' +
                 ' href="' + $(this).attr("href") + '">' +
-                $(this).html().replace(/\(.*\)/,'') + ' <i class="icon-remove"></i></a>';
+                buttontext + ' <i class="icon-remove"></i></a>';
             $('#facetview_selectedfilters').append(newobj);
             $('.facetview_filterselected').unbind('click',clearfilter);
             $('.facetview_filterselected').bind('click',clearfilter);
