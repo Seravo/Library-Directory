@@ -781,11 +781,7 @@
             var infofiltervals = new Array();
 
 			// display libraries in map only if there's any user input or geolocation is active
-			if (facetfilters.length>0 || $('#facetview_freetext').val() != "" || ld_position==true ) {
-			    ld_mapcontrol_init_geoloc(data.records);
-			    // hide hero-unit if map visible
-   				$("#introtext").hide();	
-			}
+			if (facetfilters.length>0 || $('#facetview_freetext').val() != "" || ld_position==true ) ld_mapcontrol_init_geoloc(data.records);
 
 			var count = data.found;
 			if (count==1) $('#search_status').html( _("One search result"));
