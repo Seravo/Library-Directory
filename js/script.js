@@ -445,7 +445,7 @@ function ld_widget_wizard() {
 			$('.search_results').html('<div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>' + _("Error") + ':</strong> '+msg+'</div>');
 		}
 
-		var searchTimer = window.setTimeout(function() { showerror(_("Could not connect to database. Please try again later.")) }, 2500);
+		var searchTimer = window.setTimeout(function() { showerror(_("Could not connect to database. Please try again later.")) }, 5000);
 		$.ajax({
 			url: url,
 			data: { source: query },
