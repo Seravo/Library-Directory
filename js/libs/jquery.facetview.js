@@ -592,8 +592,27 @@
 							var start = p[days[j]+"_start"];
 							var end = p[days[j]+"_end"];
 							/* find a matching time frame within period and apply specific open/close state */
-							if ( unixtime >= Date.parse(p.start) && unixtime <= Date.parse(p.end) ) {
-								if ( (start!=0 && end!=0) && (start!= null && end!= null) ) {
+
+							/* workaround for IE8 Date.parse issues */
+							var start_time = false;
+							var end_time = false;
+							if (p.start != null && p.end != null) {
+								var s_date = p.start.split("T")[0];
+								var s_year = s_date.split("-")[0];
+								var s_month = s_date.split("-")[1];
+								var s_day = s_date.split("-")[2];
+
+								var e_date = p.end.split("T")[0];
+								var e_year = e_date.split("-")[0];
+								var e_month = e_date.split("-")[1];
+								var e_day = e_date.split("-")[2];
+
+								start_time = unixtime >= new Date(s_year, s_month, s_day);
+								end_time = unixtime <= new Date(e_year, e_month, e_day);
+							}
+
+							if ( start_time && end_time ) {
+								if ( (start!=0 && end!=0) && (start!= null && end!= null) && j==daynum ) {
 									library_data.open_now = ld_open_now( { start: start, end: end } );
 									library_data.opening_hours = ld_format_time(start) + " - " + ld_format_time(end);
 								}
