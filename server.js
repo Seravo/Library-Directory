@@ -170,7 +170,7 @@ function route_parser(req,res,next) {
 	}
 
 	// get library by slug
-	else if (page.match(/^[a-z-]+$/)) {
+	else if (page.match(/^[a-z][-a-z0-9]+$/)) {
 		//rlog("match slug");
 		render_library_by_slug(page, req, res);
 	}
