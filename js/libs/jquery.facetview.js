@@ -1061,9 +1061,17 @@
             $(obj).append(thefacetview);
 
             // resize the searchbar
-            var thewidth = $('#facetview_searchbar').parent().width()
-            $('#facetview_searchbar').css('width',thewidth - 50 + 'px')
-            $('#facetview_freetext').css('width', thewidth - 88 + 'px')
+            function freetext_resize(){
+                var thewidth = $('#facetview_searchbar').parent().width()
+                $('#facetview_searchbar').css('width',thewidth - 50 + 'px')
+                $('#facetview_freetext').css('width', thewidth - 88 + 'px')
+            }
+            freetext_resize(); // run on initial page load
+            
+            // fire each time window size changes
+            $(window).resize(function() {
+                freetext_resize();
+            });
 
             // check paging info is available
             !options.paging.size ? options.paging.size = 10 : ""
