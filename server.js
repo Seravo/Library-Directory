@@ -431,16 +431,18 @@ function get_libraries(callback) {
 	var query = {
 		"size": 999,
 		"sort": [ { "name_fi" : {} } ],
-		"query":
-			{ "bool":
-				{ "should" :
-					[
-						{ "term" : { "organisation_type" : "library" } },
-						{ "term" : { "organisation_type" : "branchlibrary" } }
-					]
-				}
-			}
-		};
+		"query" : {
+		    "filtered" : {
+                "query" : {"match_all":{}},
+                "filter" : { 
+                    "and" : [
+                        {"terms": { "organisation_type" : [ "branchlibrary", "library" ] } },
+			            {"term": { "meta.document_state" : "published" } }
+			        ]
+			    }
+		    }
+        }
+	};
 
 	query = JSON.stringify(query);
 	query = encodeURIComponent(query);

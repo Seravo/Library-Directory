@@ -115,7 +115,8 @@
             "q":"*:*",
             "predefined_filters":
 				[
-					{ "terms": { "organisation_type" : [ "branchlibrary", "library" ] } }
+					{ "terms": { "organisation_type" : [ "branchlibrary", "library" ] } },
+					{ "term": { "meta.document_state" : "published" } }
 				]
 				,
             "paging":{ from: 0, size: 10 }
