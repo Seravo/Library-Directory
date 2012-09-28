@@ -208,10 +208,10 @@ app.post("/contact", // Route
     } else {
         // Or, use filtered form data from the form object:
 
-        message = _("Feedback from: ") + req.form.fname + " <" + req.form.femail + "> \n\nMessage: \n" + req.form.fmessage + "\n";
+        message = _("Feedback from: ") + req.form.fname + " <" + req.form.femail + "> \n\nMessage: \n" + req.form.fmessage + "\n\n";
+        message += "\n\nRequest headers:\n" + JSON.stringify(req.headers);
         console.log("Feedback message: " + message);
         var nodemailer = require("nodemailer");
-        console.log("conf.nodemailer_config: " + conf.nodemailer_config);
 
         // create reusable transport method (opens pool of SMTP connections)
         var smtpTransport = nodemailer.createTransport("SMTP", conf.nodemailer_config);
@@ -225,17 +225,17 @@ app.post("/contact", // Route
         }
 
         // send mail with defined transport object
-        smtpTransport.sendMail(mailOptions, function(error, response){
-            if(error){
+        smtpTransport.sendMail(mailOptions, function(error, mailresponse){
+            if (error){
                 console.log(error);
-            }else{
-                console.log("Message sent: " + response.message);
+                return res.end("Library directory error, please send this to admin: \n\n" + error.toString());
+            } else {
+                console.log("Message sent: " + mailresponse.message);
+                return res.redirect('/feedback-sent');
             }
-
             // if you don't want to use this transport object anymore, uncomment following line
             //smtpTransport.close(); // shut down the connection pool, no more messages
         });
-        res.redirect('/feedback-sent');
     }
   }
 );
