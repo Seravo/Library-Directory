@@ -11,7 +11,7 @@ git checkout js/libs/jquery.facetview.js js/script.js js/widget.js # move away o
 git pull
 
 sed -i "s/localhost:8080/hakemisto.kirjastot.fi/" js/libs/jquery.facetview.js
-sed -i "s/localhost:8888/libdir-es-proxy.seravo.fi/" js/libs/jquery.facetview.js
+sed -i "s/localhost:8888/es-proxy.kirjastot.fi/" js/libs/jquery.facetview.js
 sed -i "s/localhost:8080/hakemisto.kirjastot.fi/" js/script.js
 sed -i "s/localhost:8888/libdir-es-proxy.seravo.fi/" js/script.js
 sed -i "s/localhost:8080/hakemisto.kirjastot.fi/" js/widget.js
