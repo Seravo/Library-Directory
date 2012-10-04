@@ -174,7 +174,7 @@ function route_parser(req,res,next) {
 	}
 	
 	// get library by id
-	else if (page.match(/^[a-zA-Z0-9_-]{22}$/)) {
+	else if (page.match(/^([a-zA-Z0-9_-]{22}|b[0-9]+)$/)) {
 		//rlog("match id");
 		render_library_by_id(page, req, res);
 	}
