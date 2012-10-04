@@ -410,6 +410,10 @@ function render_library_by_slug(slug, req, res) {
             res.local("header", header.render(req, {title: eval("library.name_" + _("locale")) + ": " + _("contact details, open hours, services")}))
             res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 		    res.render("library_details", res.locals());
+		} else {
+			res.local("header", header.render(req, {title: _("Not found") }));
+			res.local("footer", footer.render());
+			res.render("404", res.locals());
 		}
 	});
 }
