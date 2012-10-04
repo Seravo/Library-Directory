@@ -539,7 +539,6 @@ function add_library_metadata(dataobj, callback){
 	    }
 	} else {
 	    console.log("Error: lib.accessibility undefined for id " + dataobj._id );
-	    lib.accessibility = '';
 	}
 
 	lib.map_popup_html =
@@ -565,8 +564,10 @@ function add_library_metadata(dataobj, callback){
 	}
 
     // TODO: Change data model to have own extrainfo branches for each language
-    if (lib.additional_info.extrainfo[0].property_label_fi == '') {
-        delete lib.additional_info;
+    if (typeof(lib.additional_info) != "undefined") {
+        if (lib.additional_info.extrainfo[0].property_label_fi == '') {
+            delete lib.additional_info;
+        }
     }
     if (lib.established_year == '') {
         delete lib.established_year;
