@@ -160,7 +160,8 @@ function route_parser(req,res,next) {
 	}
 
 	// get library by slug
-	else if (page.match(/^[a-z][-a-z0-9]+$/)) {
+	// must start with at least two characters, otherwise conflict with IDs of form "b620"
+	else if (page.match(/^[a-z][a-z][-a-z0-9]+$/)) {
 		//rlog("match slug");
 		render_library_by_slug(page, req, res);
 	}
@@ -174,8 +175,8 @@ function route_parser(req,res,next) {
 	}
 	
 	// get library by id
-	else if (page.match(/^([a-zA-Z0-9_-]{22}|b[0-9]+)$/)) {
-		//rlog("match id");
+	else if (page.match(/^([a-zA-Z0-9_-]{22})|(b[0-9]+)$/)) {
+		//rlog("match id " + page);
 		render_library_by_id(page, req, res);
 	}
 
@@ -362,9 +363,19 @@ function render_static_page(page, req, res) {
 function render_library_by_id(page, req, res) {
 	switch_locale(req);
 
-    //console.log("Requested: "+req.params.id);
+    console.log("Requested id: "+page);
     get_library_by_id(page, function(data){
 		switch_locale(req);
+
+        // return 404 if no library was returned
+        // TODO: is this the elegent place to check for results and throw 404?
+        if (typeof(data) == "undefined"){
+			res.local("header", header.render(req, {title: _("Not found") }));
+			res.local("footer", footer.render());
+			res.render("404", res.locals());
+			return false;
+		}
+
 		var id = data._id;
 		data._source["id"] = id;
 
@@ -399,7 +410,7 @@ function render_library_by_id(page, req, res) {
 function render_library_by_slug(slug, req, res) {
 	switch_locale(req);
 
-    console.log("Requested: "+req.params);
+    console.log("Requested slug: "+req.params);
     get_library_by_name(slug, req, function(data){
 		switch_locale(req);
         console.log("total: "+data.hits.total);
@@ -489,10 +500,6 @@ function add_library_metadata_for_browse(dataobj, callback) {
 function add_library_metadata(dataobj, callback){
     //console.log(JSON.stringify(dataobj, null, 4).slice(0,500));
 
-    if (typeof dataobj.exists == false) {
-        console.log("Bogus request: no matching record for id");
-        return false; // TODO: write better error handling with error message to end user
-    }
     if (typeof dataobj._source == "undefined") {
         dataobj._source = dataobj.hits.hits[0]._source;
     }
@@ -618,17 +625,22 @@ function get_library_by_id(id, callback) {
       path: '/testink/organisation/' + id,
       method: 'GET'
     };
-    var req = http.get(options, function(res) {
-      res.setEncoding('utf8');
+    var req = http.get(options, function(es_res) {
+      es_res.setEncoding('utf8');
       data = '';
-      res.on('data', function(chunk){
+      es_res.on('data', function(chunk){
         data += chunk;
         // console.log("...read chunk: " + chunk);
       });
-      res.on('end', function() {
+      es_res.on('end', function() {
           dataobj = JSON.parse(data);
           //console.log(JSON.stringify(dataobj));
-          add_library_metadata(dataobj, callback);
+          if (dataobj.exists) {
+            add_library_metadata(dataobj, callback);
+          } else {
+            console.log("Library with id " + id + " does not exist.");
+            callback(); // no parameter, return will notice empty value
+          }
       });
     }).on('error', function(e) {
       console.log('Problem with request: ' + e.message);
