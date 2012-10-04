@@ -33,8 +33,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href='/_("locale")/'>
-		  _("Library Directory")</a>
+          <a class="brand" href='/{{^fi_active}}_("locale")/{{/fi_active}}'>
+           _("Library Directory")</a>
           <div class="nav-collapse">
             <ul class="nav">
               <li {{#search_active}}class="active"{{/search_active}}><a href="search">_("Search")</a></li>
@@ -50,7 +50,7 @@
 					<li><a href="/en/{{resource}}">English</a></li>
 				{{/en_active}}
 				{{^fi_active}}
-					<li><a href="/fi/{{resource}}">Suomi</a></li>
+					<li><a href="/{{resource}}">Suomi</a></li>
 				{{/fi_active}}
 				{{^sv_active}}
 					<li><a href="/sv/{{resource}}">Svenska</a></li>
