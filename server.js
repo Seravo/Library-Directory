@@ -547,7 +547,7 @@ function add_library_metadata(dataobj, callback){
 		lib.contact.street_address.post_code + " " + lib.contact.street_address["municipality_" + _("locale")];
 
     // delete empty object so that they will not be displayed in Mustache templates
-    if (lib.additional_info.slug == '') {
+    if (typeof(lib.additional_info) != "undefined" && lib.additional_info.slug == '') {
         delete lib.additional_info.slug;
     }
 	if (lib.parent_organisation == '') {
@@ -591,30 +591,32 @@ function add_library_metadata(dataobj, callback){
 	if (lib.description_en == "") delete lib.description_en;
 
     // delete empty service fields
-    lib.services.forEach( function(s) {
-        if (s.description_short_fi.trim() == '') { delete s.description_short_fi; }
-        // TODO: consider trimming all fields, some might be empty but have just whitespace or line feed
-        if (s.description_short_sv == '') { delete s.description_short_sv; }
-        if (s.description_short_en == '') { delete s.description_short_en; }
-        if (s.description_long_fi == '') { delete s.description_long_fi; }
-        if (s.description_long_sv == '') { delete s.description_long_sv; }
-        if (s.description_long_en == '') { delete s.description_long_en; }
-        if (s.price == '') { delete s.price; }
-        if (s.for_loan == '') { delete s.for_loan; }
-        if (s.instance_name_fi == '') { delete s.instance_name_fi; }
-        if (s.instance_name_sv == '') { delete s.instance_name_sv; }
-        if (s.instance_name_en == '') { delete s.instance_name_en; }
-        if (s.tag[0] == '') { delete s.tag[0]; }
-		if (s.contact != undefined) {
-			if (s.contact[0] == '') { delete s.contact[0]; }
-		}
+    if (typeof(lib.services) != "undefined") {
+        lib.services.forEach( function(s) {
+            if (s.description_short_fi.trim() == '') { delete s.description_short_fi; }
+            // TODO: consider trimming all fields, some might be empty but have just whitespace or line feed
+            if (s.description_short_sv == '') { delete s.description_short_sv; }
+            if (s.description_short_en == '') { delete s.description_short_en; }
+            if (s.description_long_fi == '') { delete s.description_long_fi; }
+            if (s.description_long_sv == '') { delete s.description_long_sv; }
+            if (s.description_long_en == '') { delete s.description_long_en; }
+            if (s.price == '') { delete s.price; }
+            if (s.for_loan == '') { delete s.for_loan; }
+            if (s.instance_name_fi == '') { delete s.instance_name_fi; }
+            if (s.instance_name_sv == '') { delete s.instance_name_sv; }
+            if (s.instance_name_en == '') { delete s.instance_name_en; }
+            if (s.tag[0] == '') { delete s.tag[0]; }
+		    if (s.contact != undefined) {
+			    if (s.contact[0] == '') { delete s.contact[0]; }
+		    }
 
-        // style label for visuals
-        // use Twitter Bootstrap classes
-        if (s.type == 'laite') { s.type = _("service type device"); s.label = "label-inverse"; }
-        if (s.type == 'tila') { s.type = _("service type room"); s.label = "label-info"; }
-        if (s.type == 'palvelu') { s.type = _("service type service"); }
-    });
+            // style label for visuals
+            // use Twitter Bootstrap classes
+            if (s.type == 'laite') { s.type = _("service type device"); s.label = "label-inverse"; }
+            if (s.type == 'tila') { s.type = _("service type room"); s.label = "label-info"; }
+            if (s.type == 'palvelu') { s.type = _("service type service"); }
+        });
+    }
    
     if (lib.contact.coordinates != undefined && lib.contact.coordinates != '') {
         latlon = lib.contact.coordinates.split(",");
