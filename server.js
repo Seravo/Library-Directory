@@ -527,7 +527,7 @@ function add_library_metadata(dataobj, callback){
 
 	if (lib.image_url=="") delete lib.image_url;
 
-    if (typeof(lib.accessibility != "undefined") {
+    if (typeof(lib.accessibility) != "undefined") {
 	    if (lib.accessibility.accessible_entry ||
 		    lib.accessibility.accessible_parking ||
 		    lib.accessibility.accessible_toilet ||
