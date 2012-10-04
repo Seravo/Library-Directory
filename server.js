@@ -527,13 +527,20 @@ function add_library_metadata(dataobj, callback){
 
 	if (lib.image_url=="") delete lib.image_url;
 
-	if (lib.accessibility.accessible_entry ||
-		lib.accessibility.accessible_parking ||
-		lib.accessibility.accessible_toilet ||
-		lib.accessibility.induction_loop ||
-		lib.accessibility.large_typeface_collection ||
-		lib.accessibility.lift ||
-		lib.extraaccessibilityinfo ) { lib.accessibility_available = true }
+    if (typeof(lib.accessibility != "undefined") {
+	    if (lib.accessibility.accessible_entry ||
+		    lib.accessibility.accessible_parking ||
+		    lib.accessibility.accessible_toilet ||
+		    lib.accessibility.induction_loop ||
+		    lib.accessibility.large_typeface_collection ||
+		    lib.accessibility.lift ||
+		    lib.extraaccessibilityinfo ) { 
+                lib.accessibility_available = true 
+	    }
+	} else {
+	    console.log("Error: lib.accessibility undefined for id " + dataobj._id );
+	    lib.accessibility = '';
+	}
 
 	lib.map_popup_html =
 		"<strong>" + lib["name_" + _("locale")] + "</strong>" + "<br>" +
