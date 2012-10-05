@@ -118,9 +118,10 @@ dd {
 @import "bootstrap-less/responsive.less";
 
 
-/* ===== Primary Styles ========================================================
-   Author: Otto Kekäläinen (Seravo Oy)
-   ========================================================================== */
+@media print {
+  body {font: fit-to-print}
+  div.header-banner-row, div.navbar, div.betalabel, body > iframe, footer {display: none}
+}
 
 
 
