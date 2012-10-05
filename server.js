@@ -142,7 +142,7 @@ app.get("/:lang(fi)/:resource(*)",function(req,res,next) {
 });
 
 function route_parser(req,res,next) {
-
+    
     // cache view output
     if (view_cache_time != 0) {
         res.setHeader('Cache-Control', 'public, max-age=' + view_cache_time);
@@ -168,23 +168,21 @@ function route_parser(req,res,next) {
 
 	// get library by slug
 	// must start with at least two characters, otherwise conflict with IDs of form "b620"
-	else if (page.match(/^[a-z][a-z][-a-z0-9]+$/)) {
-		//rlog("match slug");
+	else if (page.match(/^[a-z][a-z][a-z0-9-]+$/)) {
+		rlog("match slug: " + page);
 		render_library_by_slug(page, req, res);
 	}
 
-    // TODO: there should be some more universal code to handle 
-    // trailing slashes and redirects
-	// get library by slug, redirect to remove trailing slash
-	else if (page.match(/^[a-z-]{3,60}\/$/)) { // {3,60} to inhibit redirect loop for /en/ and /sv/
-		//rlog("match slug");
-  		res.redirect(req.url.slice(0,-1), 301);
-	}
-	
 	// get library by id
-	else if (page.match(/^([a-zA-Z0-9_-]{22})|(b[0-9]+)$/)) {
-		//rlog("match id " + page);
+	else if (page.match(/(^[a-zA-Z0-9_-]{22}$)|(^b[0-9]+$)/)) {
+		rlog("match id " + page);
 		render_library_by_id(page, req, res);
+	}
+
+	// redirect to remove trailing slash
+	else if (page.match(/^[a-zA-Z0-9_-]{3,60}\/$/)) { // {3,60} to inhibit redirect loop for /en/ and /sv/
+		rlog("Redirect trailing slash: " + page + " (referer " + req.headers['referer'] + ")");
+  		res.redirect(req.url.slice(0,-1), 301);
 	}
 
 	// static assets and unmatched requests
