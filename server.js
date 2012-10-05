@@ -129,9 +129,16 @@ app.get("/:resource(*)",function(req,res,next) {
 });
 
 // route handler for all dynamic data with language path
-app.get("/:lang(fi|en|sv)/:resource(*)",function(req,res,next) {
+app.get("/:lang(en|sv)/:resource(*)",function(req,res,next) {
 	//rlog(":lang/:resource -->");
 	route_parser(req,res,next);
+});
+
+// remove /fi/ in path, redirect to / to avoid same content in different urls
+app.get("/:lang(fi)/:resource(*)",function(req,res,next) {
+    rlog("Request url " + req.url + " redirected to " + req.url.slice(3));
+    res.redirect(req.url.slice(3), 301); // 301 for permanent redirect
+    return; // nothing more to do here!
 });
 
 function route_parser(req,res,next) {
