@@ -36,7 +36,9 @@ gettext.loadLocaleDirectory("locale", function(){
 function rlog(str) { console.log(str); }
 
 function switch_locale(req) {
-	var browser_lang = req.locale;   // accept-language: fi;q=1
+// turn of language headers sniffing, since / should always return
+// the Finnish version, both to end users, Varnish cache and crawlers
+//	var browser_lang = req.locale;   // accept-language: fi;q=1
 	var path_lang = req.params.lang; // /fi/about
 	var get_lang = req.query.lang;   // /about?lang=fi
 
@@ -44,7 +46,7 @@ function switch_locale(req) {
 	// locale precedence:
 	// 1) get var 2) request path 3) browser setting
 	var locale = "";
-	if (browser_lang != undefined) locale = browser_lang;
+//	if (browser_lang != undefined) locale = browser_lang;
 	if (path_lang != undefined) locale = path_lang;
 	if (get_lang != undefined) locale = get_lang;
 
