@@ -394,6 +394,7 @@ function render_library_by_id(page, req, res) {
 			{
 				var children = [];
 				for (item in child_data.hits.hits) {
+				    // TODO: check state = published
 					var child = child_data.hits.hits[item]._source;
 					if (typeof child.additional_info != "undefined" && typeof child.additional_info.slug != "undefined") {
     					child.link = child.additional_info.slug;
@@ -719,14 +720,21 @@ function get_library_by_name(name, browser_req, callback) {
 
 // get library's children organisations
 function get_library_children(id, callback) {
-    query = {
-	  "size": 999,
-      "sort": [ { "name_fi" : {} } ],
-      "query":
-		{ "term":
-			{ "parent_organisation": id }
-		}
-    };
+	var query = {
+		"size": 999,
+		"sort": [ { "name_fi" : {} } ],
+		"query" : {
+		    "filtered" : {
+                "query" : {"match_all":{}},
+                "filter" : { 
+                    "and" : [
+                        {"term": { "parent_organisation" : id } },
+			            {"term": { "meta.document_state" : "published" } }
+			        ]
+			    }
+		    }
+        }
+	};
 
     query = JSON.stringify(query);
 	query = encodeURIComponent(query);
