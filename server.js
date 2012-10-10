@@ -176,7 +176,7 @@ function route_parser(req,res,next) {
 	}
 
 	// get library by id
-	else if (page.match(/(^[a-zA-Z0-9_-]{22}$)|(^b[0-9]+$)/)) {
+	else if (page.match(/(^[a-zA-Z0-9_-]{22}$)|(^[bm][0-9]+$)/)) {
 		rlog("match id " + page);
 		render_library_by_id(page, req, res);
 	}
@@ -376,7 +376,7 @@ function render_library_by_id(page, req, res) {
 
         // return 404 if no library was returned
         // TODO: is this the elegent place to check for results and throw 404?
-        if (typeof(data) == "undefined"){
+        if (typeof data == "undefined"){
 			res.local("header", header.render(req, {title: _("Not found") }));
 			res.local("footer", footer.render());
 			res.render("404", res.locals());
@@ -395,7 +395,11 @@ function render_library_by_id(page, req, res) {
 				var children = [];
 				for (item in child_data.hits.hits) {
 					var child = child_data.hits.hits[item]._source;
-					child.id = child_data.hits.hits[item]._id;
+					if (typeof child.additional_info != "undefined" && typeof child.additional_info.slug != "undefined") {
+    					child.link = child.additional_info.slug;
+    				} else {
+    					child.link = child_data.hits.hits[item]._id;
+    				}
 					children.push(child);
 				}
 
@@ -534,7 +538,7 @@ function add_library_metadata(dataobj, callback){
 
 	if (lib.image_url=="") delete lib.image_url;
 
-    if (typeof(lib.accessibility) != "undefined") {
+    if (typeof lib.accessibility != "undefined") {
 	    if (lib.accessibility.accessible_entry ||
 		    lib.accessibility.accessible_parking ||
 		    lib.accessibility.accessible_toilet ||
@@ -554,7 +558,7 @@ function add_library_metadata(dataobj, callback){
 		lib.contact.street_address.post_code + " " + lib.contact.street_address["municipality_" + _("locale")];
 
     // delete empty object so that they will not be displayed in Mustache templates
-    if (typeof(lib.additional_info) != "undefined") {
+    if (typeof lib.additional_info != "undefined") {
         if (lib.additional_info.slug == '') {
             delete lib.additional_info.slug;
         } else {
@@ -575,7 +579,7 @@ function add_library_metadata(dataobj, callback){
 	}
 
     // TODO: Change data model to have own extrainfo branches for each language
-    if (typeof(lib.additional_info.extrainfo) != "undefined") {
+    if (typeof lib.additional_info.extrainfo != "undefined") {
         if (lib.additional_info.extrainfo[0].property_label_fi == '') {
             delete lib.additional_info;
         }
@@ -602,7 +606,7 @@ function add_library_metadata(dataobj, callback){
 	if (lib.description_en == "") delete lib.description_en;
 
     // delete empty service fields
-    if (typeof(lib.services) != "undefined") {
+    if (typeof lib.services != "undefined") {
         lib.services.forEach( function(s) {
             if (s.description_short_fi.trim() == '') { delete s.description_short_fi; }
             // TODO: consider trimming all fields, some might be empty but have just whitespace or line feed
@@ -655,7 +659,6 @@ function get_library_by_id(id, callback) {
       });
       es_res.on('end', function() {
           dataobj = JSON.parse(data);
-          //console.log(JSON.stringify(dataobj));
           if (dataobj.exists) {
             add_library_metadata(dataobj, callback);
           } else {
@@ -701,7 +704,6 @@ function get_library_by_name(name, browser_req, callback) {
       });
       res.on('end', function() {
           dataobj = JSON.parse(data);
-          console.log("by name: " + JSON.stringify(dataobj));
           if (dataobj.hits.total>0) {
 	          switch_locale(browser_req);
 	          add_library_metadata(dataobj, callback);
