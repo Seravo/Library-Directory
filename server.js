@@ -375,7 +375,7 @@ function render_library_by_id(page, req, res) {
 		switch_locale(req);
 
         // return 404 if no library was returned
-        // TODO: is this the elegent place to check for results and throw 404?
+        // TODO: is this the most elegant place to check for results and throw 404?
         if (typeof data == "undefined"){
 			res.local("header", header.render(req, {title: _("Not found") }));
 			res.local("footer", footer.render());
@@ -394,7 +394,6 @@ function render_library_by_id(page, req, res) {
 			{
 				var children = [];
 				for (item in child_data.hits.hits) {
-				    // TODO: check state = published
 					var child = child_data.hits.hits[item]._source;
 					if (typeof child.additional_info != "undefined" && typeof child.additional_info.slug != "undefined") {
     					child.link = child.additional_info.slug;
