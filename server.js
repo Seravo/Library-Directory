@@ -165,6 +165,9 @@ function route_parser(req,res,next) {
         // https://developers.google.com/speed/docs/best-practices/caching?hl=fi#LeverageBrowserCaching
     }
 
+    // this is supposed to be good practice
+    res.setHeader("Vary", "Accept-Encoding");
+
     // only one lang switcher and it is here now
 	switch_locale(req);
 	
