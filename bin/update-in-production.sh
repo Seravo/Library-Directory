@@ -33,5 +33,6 @@ killall node
 #restart libdir-server
 
 # force Varnish cache purge
-/etc/init.d/varnish restart
+echo "Refresh Varnish cache by running:"
+echo "sudo /etc/init.d/varnish restart"
 

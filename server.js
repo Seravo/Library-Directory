@@ -29,7 +29,7 @@ gettext.loadLocaleDirectory("locale", function(){
 	for (var key in gettext.data) {
 		languages.push(key);
 	}
-	console.log("Loaded messages for: " + languages.join(" "));
+	rlog("Loaded messages for: " + languages.join(" "));
 });
 
 function rlog(str) { console.log(str); }
@@ -41,7 +41,7 @@ function switch_locale(req) {
 	var path_lang = req.params.lang; // /fi/about
 	var get_lang = req.query.lang;   // /about?lang=fi
 
-	//console.log(browser_lang, path_lang, get_lang);
+	//rlog(browser_lang, path_lang, get_lang);
 	// locale precedence:
 	// 1) get var 2) request path 3) browser setting
 	var locale = "";
@@ -59,7 +59,7 @@ function switch_locale(req) {
 	} else {
     	req.locale_url_prefix = "/" + locale + "/";
     }
-    console.log("Language: " + locale);
+    rlog("Language: " + locale);
 }
 
 // Use consolidate.js in Express.js 3.0, otherwise custom adaptor
@@ -83,7 +83,7 @@ form.configure({flashErrors: false});
 
 // default settings assume development environment
 app.configure('dev', function(){
-    console.log("Using development settings.");
+    rlog("Using development settings.");
     app.use(express.logger('dev'))
     app.use(express.methodOverride());
     app.use(express.bodyParser());
@@ -101,7 +101,7 @@ app.configure('dev', function(){
 
 // specific settings if started with $ NODE_ENV=prod node server.js
 app.configure('prod', function(){
-    console.log("Using production settings.");
+    rlog("Using production settings.");
     //app.use(express.logger('dev'))
     app.use(express.methodOverride());
     app.use(express.bodyParser());
@@ -227,7 +227,7 @@ app.post("/contact", // Route
 
         message = _("Feedback from: ") + req.form.fname + " <" + req.form.femail + "> \n\nMessage: \n" + req.form.fmessage + "\n\n";
         message += "\n\nRequest headers:\n" + JSON.stringify(req.headers);
-        console.log("Feedback message: " + message);
+        rlog("Feedback message: " + message);
         var nodemailer = require("nodemailer");
 
         // create reusable transport method (opens pool of SMTP connections)
@@ -244,10 +244,10 @@ app.post("/contact", // Route
         // send mail with defined transport object
         smtpTransport.sendMail(mailOptions, function(error, mailresponse){
             if (error){
-                console.log(error);
+                rlog(error);
                 return res.end("Library directory error, please send this to admin: \n\n" + error.toString());
             } else {
-                console.log("Message sent: " + mailresponse.message);
+                rlog("Message sent: " + mailresponse.message);
                 return res.redirect('/feedback-sent');
             }
             // if you don't want to use this transport object anymore, uncomment following line
@@ -258,7 +258,7 @@ app.post("/contact", // Route
 );
 
 function render_static_page(page, req, res) {
-	// not needed? switch_locale(req);
+	// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
 	switch(page) {
 		case "about":
@@ -271,7 +271,7 @@ function render_static_page(page, req, res) {
 			res.local("header", header.render(req, {title: _("Browse all"), browse_active: true}))
 			res.local("footer", footer.render());
 			get_libraries(function(data){
-				// not needed? switch_locale(req);
+				// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 				res.local("count", data.hits.total);
 				res.local("libraries", []);
 				for (var item in data.hits.hits) {
@@ -297,7 +297,7 @@ function render_static_page(page, req, res) {
 			break;
 
 		case "feedback-sent":
-			//console.log(JSON.stringify(res.locals()));
+			//rlog(JSON.stringify(res.locals()));
 			res.local("header", header.render(req, {title: _("Feedback sent"), contact_active: true}))
 			res.local("footer", footer.render());
 			res.render("feedback-sent", res.locals());
@@ -312,7 +312,7 @@ function render_static_page(page, req, res) {
 
 		// search with consortium selection /widget1/?area=foo OR city selection /widget1/?city=bar
 		case "widget1":
-			// not needed? switch_locale(req);
+			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 			var areafilter = req.query.area || "";
 			var cityfilter = req.query.city || "";
 			var js_code = "";
@@ -327,10 +327,10 @@ function render_static_page(page, req, res) {
 
 		// library details - lite
 		case "widget2":
-			// not needed? switch_locale(req);
+			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 			get_library_by_id(req.query.id, function(data) {
 				data._source["id"] = data._id;
-				// not needed? switch_locale(req);
+				// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
 				res.local("header", header.render(req, { nobanners: true }));
 				res.local("footer", footer.render({ nobanners: true, js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
@@ -340,10 +340,10 @@ function render_static_page(page, req, res) {
 
 		// library details - full
 		case "widget3":
-			// not needed? switch_locale(req);
+			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 			get_library_by_id(req.query.id, function(data) {
 				data._source["id"] = data._id;
-				// not needed? switch_locale(req);
+				// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
 				res.local("header", header.render(req, { nobanners: true }));
 				res.local("footer", footer.render({ nobanners: true, js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
@@ -354,9 +354,9 @@ function render_static_page(page, req, res) {
 		case "loadwidget":
 			// get library details for widget
 			if (req.query.id != undefined) {
-				// not needed? switch_locale(req);
+				// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 				get_library_by_id(req.query.id, function(data) {
-					// not needed? switch_locale(req);
+					// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
 					data._source["id"] = data._id;
 
@@ -377,11 +377,11 @@ function render_static_page(page, req, res) {
 
 
 function render_library_by_id(page, req, res) {
-	// not needed? switch_locale(req);
+	// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
-    console.log("Requested id: "+page);
+    rlog("Requested id: "+page);
     get_library_by_id(page, function(data){
-		// not needed? switch_locale(req);
+		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
     
         // if slug exists, redirect to pretty url
         if (typeof data._source.slug == "string" && data._source.slug.length > 1) {
@@ -405,7 +405,7 @@ function render_library_by_id(page, req, res) {
 		var library = data._source;
 
 		get_library_children(id, function(child_data) {
-			// not needed? switch_locale(req);
+			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 			if (child_data.hits.hits.length>0)
 			{
 				var children = [];
@@ -435,12 +435,12 @@ function render_library_by_id(page, req, res) {
 
 
 function render_library_by_slug(slug, req, res) {
-	// not needed? switch_locale(req);
+	// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
-    console.log("Requested slug: "+req.params);
+    rlog("Requested slug: "+req.params);
     get_library_by_name(slug, req, function(data){
-		// not needed? switch_locale(req);
-        console.log("Total results: "+data.hits.total);
+		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+        rlog("Total results: "+data.hits.total);
         if (data.hits.total > 0) {
 		    data.hits.hits[0]._source["id"] = data.hits.hits[0]._id;
     		var library = data.hits.hits[0]._source;
@@ -487,9 +487,9 @@ function get_libraries(callback) {
     };
 
     var req = http.get(options, function(res) {
-      //console.log('GET: ' + options.path);
-      //console.log('STATUS: ' + res.statusCode);
-      //console.log('HEADERS: ' + JSON.stringify(res.headers));
+      //rlog('GET: ' + options.path);
+      //rlog('STATUS: ' + res.statusCode);
+      //rlog('HEADERS: ' + JSON.stringify(res.headers));
       res.setEncoding('utf8');
       data = '';
       res.on('data', function(chunk){ 
@@ -500,7 +500,7 @@ function get_libraries(callback) {
 		  add_library_metadata_for_browse(dataobj, callback);
       });
     }).on('error', function(e) {
-      console.log('Problem with request: ' + e.message);
+      rlog('Problem with request: ' + e.message);
     });
 }
 
@@ -525,7 +525,7 @@ function add_library_metadata_for_browse(dataobj, callback) {
 
 // enrich result meta data
 function add_library_metadata(dataobj, callback){
-    //console.log(JSON.stringify(dataobj, null, 4).slice(0,500));
+    //rlog(JSON.stringify(dataobj, null, 4).slice(0,500));
 
     if (typeof dataobj._source == "undefined") {
         dataobj._source = dataobj.hits.hits[0]._source;
@@ -565,7 +565,7 @@ function add_library_metadata(dataobj, callback){
                 lib.accessibility_available = true 
 	    }
 	} else {
-	    console.log("Error: lib.accessibility undefined for id " + dataobj._id );
+	    rlog("Error: lib.accessibility undefined for id " + dataobj._id );
 	}
 
 	lib.map_popup_html =
@@ -671,19 +671,19 @@ function get_library_by_id(id, callback) {
       data = '';
       es_res.on('data', function(chunk){
         data += chunk;
-        // console.log("...read chunk: " + chunk);
+        // rlog("...read chunk: " + chunk);
       });
       es_res.on('end', function() {
           dataobj = JSON.parse(data);
           if (dataobj.exists) {
             add_library_metadata(dataobj, callback);
           } else {
-            console.log("Library with id " + id + " does not exist.");
+            rlog("Library with id " + id + " does not exist.");
             callback(); // no parameter, return will notice empty value
           }
       });
     }).on('error', function(e) {
-      console.log('Problem with request: ' + e.message);
+      rlog('Problem with request: ' + e.message);
     });
 }
 
@@ -716,12 +716,12 @@ function get_library_by_name(name, browser_req, callback) {
       data = '';
       res.on('data', function(chunk){
         data += chunk;
-        //console.log("...read chunk: " + chunk);
+        //rlog("...read chunk: " + chunk);
       });
       res.on('end', function() {
           dataobj = JSON.parse(data);
           if (dataobj.hits.total>0) {
-	          // not needed? switch_locale(browser_req);
+	          // might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(browser_req);
 	          add_library_metadata(dataobj, callback);
 		  }
 		  else {
@@ -729,7 +729,7 @@ function get_library_by_name(name, browser_req, callback) {
 		  }
       });
     }).on('error', function(e) {
-      console.log('Problem with request: ' + e.message);
+      rlog('Problem with request: ' + e.message);
     });
 }
 
@@ -754,7 +754,7 @@ function get_library_children(id, callback) {
     query = JSON.stringify(query);
 	query = encodeURIComponent(query);
 
-	//console.log("requested children of :", id);
+	//rlog("requested children of :", id);
 
     var options = {
       host: conf.proxy_config.host,
@@ -768,14 +768,14 @@ function get_library_children(id, callback) {
       data = '';
       res.on('data', function(chunk){
         data += chunk;
-        //console.log("...read chunk: " + chunk);
+        //rlog("...read chunk: " + chunk);
       });
       res.on('end', function() {
 		dataobj = JSON.parse(data);
 		callback(dataobj);
       });
     }).on('error', function(e) {
-      console.log('Problem with request: ' + e.message);
+      rlog('Problem with request: ' + e.message);
     });
 }
 
@@ -833,7 +833,7 @@ function get_library_open_hours(periods) {
 
 	/* get timestmp for current week's monday */
 	var mondaystamp = unixtime-24*60*60*1000*daynum;
-	// console.log(unixtime, mondaystamp);
+	// rlog(unixtime, mondaystamp);
 
 	/* library is not open until proven otherwise */
 	opening_hours.open_now = false;
@@ -853,7 +853,7 @@ function get_library_open_hours(periods) {
 
 			/* find opening hours for current week */
 			var curday = mondaystamp + 24*60*60*1000*j;
-			//if (j==6) console.log(p.name_fi, days[j], curday, Date.parse(p.start), Date.parse(p.end), curday >= Date.parse(p.start) && curday <= Date.parse(p.end))
+			//if (j==6) rlog(p.name_fi, days[j], curday, Date.parse(p.start), Date.parse(p.end), curday >= Date.parse(p.start) && curday <= Date.parse(p.end))
 			if ( curday >= Date.parse(p.start) && curday <= Date.parse(p.end) ) {
 				if ( (start!=0 && end!=0) && (start!= null && end!= null) ) {
 					opening_hours.open_hours_week[j] = { "day": days_translated[j], "time": ld_format_time(start) + " - " + ld_format_time(end) }; }
@@ -862,7 +862,7 @@ function get_library_open_hours(periods) {
 			}
 
 			/* find opening hours for current day */
-			//if (j==4) console.log(p.name_fi, days[j], unixtime, Date.parse(p.start), Date.parse(p.end), unixtime >= Date.parse(p.start) && unixtime <= Date.parse(p.end))
+			//if (j==4) rlog(p.name_fi, days[j], unixtime, Date.parse(p.start), Date.parse(p.end), unixtime >= Date.parse(p.start) && unixtime <= Date.parse(p.end))
 			if ( unixtime >= Date.parse(p.start) && unixtime <= Date.parse(p.end) && j==daynum ) {
 				if ( (start!=0 && end!=0) && (start!= null && end!= null) ) {
 					opening_hours.open_now = ld_open_now( { start: start, end: end } );
@@ -880,17 +880,17 @@ footerfilecontents = fs.readFileSync(__dirname + footerfile, 'utf-8');
 try {
     header_banner = fs.readFileSync("./views/header-banner.html",'utf8');
 } catch(err) {
-    console.log("No header banner in use. OK");
+    rlog("No header banner in use. OK");
 }
 try {
     header_banner_css = fs.readFileSync("./views/header-banner.css",'utf8');
 } catch(err) {
-    console.log("No header banner css in use. OK");
+    rlog("No header banner css in use. OK");
 }
 try {
     footer_banner = fs.readFileSync("./views/footer-banner.html",'utf8');
 } catch(err) {
-    console.log("No footer banner in use. OK");
+    rlog("No footer banner in use. OK");
 }
 
 var watch = require('nodewatch');
@@ -900,7 +900,7 @@ var watch = require('nodewatch');
 watch.add("./views").onChange(function(file,prev,curr,action){
     // .add("./output/views") omitted since it would crash entire server.js
     // each time h5bp is run and output folder emptied
-    console.log("Views changed and reloaded");
+    rlog("Views changed and reloaded");
     // Hogan.js does not support template inheritance yet, must do workaround
     // https://gist.github.com/1854699
     headerfilecontents = fs.readFileSync(__dirname + headerfile, 'utf-8');
@@ -940,5 +940,5 @@ widget = new function() {
 
 
 app.listen(conf.server_port);
-console.log("Server started at port " + conf.server_port);
+rlog("Server started at port " + conf.server_port);
 
