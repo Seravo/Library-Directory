@@ -130,15 +130,9 @@ app.configure(function(){
     });
 });
 
-// route handler for all dynamic data without language path
-app.get("/:resource(*)",function(req,res,next) {
-	//rlog(":resource -->");
-	route_parser(req,res,next);
-});
-
 // route handler for all dynamic data with language path
 app.get("/:lang(en|sv)/:resource(*)",function(req,res,next) {
-	//rlog(":lang/:resource -->");
+	// rlog(":lang/:resource -->");
 	route_parser(req,res,next);
 });
 
@@ -147,6 +141,13 @@ app.get("/:lang(" + conf.default_lang + ")/:resource(*)",function(req,res,next) 
     rlog("Request url " + req.url + " redirected to " + req.url.slice(3));
     res.redirect(req.url.slice(3), 301); // 301 for permanent redirect
     return; // nothing more to do here!
+});
+
+// route handler for all dynamic data without language path
+// as this has the most generic matcher it should be last
+app.get("/:resource(*)",function(req,res,next) {
+	// rlog(":resource -->");
+	route_parser(req,res,next);
 });
 
 function route_parser(req,res,next) {
@@ -164,7 +165,9 @@ function route_parser(req,res,next) {
         // https://developers.google.com/speed/docs/best-practices/caching?hl=fi#LeverageBrowserCaching
     }
 
+    // only one lang switcher and it is here now
 	switch_locale(req);
+	
 	var page = req.params.resource;
 	//rlog("request: " + page);
 
@@ -255,7 +258,7 @@ app.post("/contact", // Route
 );
 
 function render_static_page(page, req, res) {
-	switch_locale(req);
+	// not needed? switch_locale(req);
 
 	switch(page) {
 		case "about":
@@ -268,7 +271,7 @@ function render_static_page(page, req, res) {
 			res.local("header", header.render(req, {title: _("Browse all"), browse_active: true}))
 			res.local("footer", footer.render());
 			get_libraries(function(data){
-				switch_locale(req);
+				// not needed? switch_locale(req);
 				res.local("count", data.hits.total);
 				res.local("libraries", []);
 				for (var item in data.hits.hits) {
@@ -309,7 +312,7 @@ function render_static_page(page, req, res) {
 
 		// search with consortium selection /widget1/?area=foo OR city selection /widget1/?city=bar
 		case "widget1":
-			switch_locale(req);
+			// not needed? switch_locale(req);
 			var areafilter = req.query.area || "";
 			var cityfilter = req.query.city || "";
 			var js_code = "";
@@ -324,10 +327,10 @@ function render_static_page(page, req, res) {
 
 		// library details - lite
 		case "widget2":
-			switch_locale(req);
+			// not needed? switch_locale(req);
 			get_library_by_id(req.query.id, function(data) {
 				data._source["id"] = data._id;
-				switch_locale(req);
+				// not needed? switch_locale(req);
 
 				res.local("header", header.render(req, { nobanners: true }));
 				res.local("footer", footer.render({ nobanners: true, js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
@@ -337,10 +340,10 @@ function render_static_page(page, req, res) {
 
 		// library details - full
 		case "widget3":
-			switch_locale(req);
+			// not needed? switch_locale(req);
 			get_library_by_id(req.query.id, function(data) {
 				data._source["id"] = data._id;
-				switch_locale(req);
+				// not needed? switch_locale(req);
 
 				res.local("header", header.render(req, { nobanners: true }));
 				res.local("footer", footer.render({ nobanners: true, js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
@@ -351,9 +354,9 @@ function render_static_page(page, req, res) {
 		case "loadwidget":
 			// get library details for widget
 			if (req.query.id != undefined) {
-				switch_locale(req);
+				// not needed? switch_locale(req);
 				get_library_by_id(req.query.id, function(data) {
-					switch_locale(req);
+					// not needed? switch_locale(req);
 
 					data._source["id"] = data._id;
 
@@ -374,11 +377,11 @@ function render_static_page(page, req, res) {
 
 
 function render_library_by_id(page, req, res) {
-	switch_locale(req);
+	// not needed? switch_locale(req);
 
     console.log("Requested id: "+page);
     get_library_by_id(page, function(data){
-		switch_locale(req);
+		// not needed? switch_locale(req);
     
         // if slug exists, redirect to pretty url
         if (typeof data._source.slug == "string" && data._source.slug.length > 1) {
@@ -402,7 +405,7 @@ function render_library_by_id(page, req, res) {
 		var library = data._source;
 
 		get_library_children(id, function(child_data) {
-			switch_locale(req);
+			// not needed? switch_locale(req);
 			if (child_data.hits.hits.length>0)
 			{
 				var children = [];
@@ -432,11 +435,11 @@ function render_library_by_id(page, req, res) {
 
 
 function render_library_by_slug(slug, req, res) {
-	switch_locale(req);
+	// not needed? switch_locale(req);
 
     console.log("Requested slug: "+req.params);
     get_library_by_name(slug, req, function(data){
-		switch_locale(req);
+		// not needed? switch_locale(req);
         console.log("Total results: "+data.hits.total);
         if (data.hits.total > 0) {
 		    data.hits.hits[0]._source["id"] = data.hits.hits[0]._id;
@@ -718,7 +721,7 @@ function get_library_by_name(name, browser_req, callback) {
       res.on('end', function() {
           dataobj = JSON.parse(data);
           if (dataobj.hits.total>0) {
-	          switch_locale(browser_req);
+	          // not needed? switch_locale(browser_req);
 	          add_library_metadata(dataobj, callback);
 		  }
 		  else {
