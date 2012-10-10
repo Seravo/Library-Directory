@@ -437,7 +437,7 @@ function render_library_by_slug(slug, req, res) {
     console.log("Requested slug: "+req.params);
     get_library_by_name(slug, req, function(data){
 		switch_locale(req);
-        console.log("total: "+data.hits.total);
+        console.log("Total results: "+data.hits.total);
         if (data.hits.total > 0) {
 		    data.hits.hits[0]._source["id"] = data.hits.hits[0]._id;
     		var library = data.hits.hits[0]._source;

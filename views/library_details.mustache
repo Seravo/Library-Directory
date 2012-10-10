@@ -4,7 +4,7 @@
 <div class="row-fluid" itemscope itemtype="http://schema.org/Library">
   <div class="span6">
 
-	<h1 itemprop="name">{{name__("locale")}}</h1>
+	<h1 itemprop="name" id="{{id}}">{{name__("locale")}}</h1>
 	{{#contact.coordinates}}
         <p><strong class="address" itemprop="address"><i class="icon-map-marker"></i>
 	    <a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q" itemprop="map">
