@@ -21,8 +21,7 @@ try {
 gettext = require('gettext'),
     _ = gettext.gettext;
 
-//gettext.setlocale('LC_ALL', 'en'); // default language English
-gettext.setlocale('LC_ALL', 'fi'); // default language Finnish (for server, not single request!)
+gettext.setlocale('LC_ALL', conf.default_lang); // initial language (when server starts, may change on each request)
 
 // load all localizations at once
 gettext.loadLocaleDirectory("locale", function(){
@@ -51,9 +50,16 @@ function switch_locale(req) {
 	if (get_lang != undefined) locale = get_lang;
 
 	// set default application locale if request is hairy
-	if (!locale.match(/^(fi|en|sv)$/)) locale = "fi";
+	if (!locale.match(/^(fi|en|sv)$/)) locale = conf.default_lang;
 
 	gettext.setlocale("LC_ALL", locale);
+	
+	if (locale == conf.default_lang) {
+    	req.locale_url_prefix = "/";
+	} else {
+    	req.locale_url_prefix = "/" + locale + "/";
+    }
+    console.log("Language: " + locale);
 }
 
 // Use consolidate.js in Express.js 3.0, otherwise custom adaptor
@@ -110,7 +116,7 @@ app.configure('prod', function(){
     app.use(express.errorHandler());
     headerfile = '/output/views/header.mustache';
     footerfile = '/output/views/footer.mustache';
-    view_cache_time = 60*60*24*7;
+    view_cache_time = 60*60*24*1;
 });
 
 // route must always be defined last and only last (override does not work)
@@ -136,8 +142,8 @@ app.get("/:lang(en|sv)/:resource(*)",function(req,res,next) {
 	route_parser(req,res,next);
 });
 
-// remove /fi/ in path, redirect to / to avoid same content in different urls
-app.get("/:lang(fi)/:resource(*)",function(req,res,next) {
+// remove default lang from url
+app.get("/:lang(" + conf.default_lang + ")/:resource(*)",function(req,res,next) {
     rlog("Request url " + req.url + " redirected to " + req.url.slice(3));
     res.redirect(req.url.slice(3), 301); // 301 for permanent redirect
     return; // nothing more to do here!
@@ -170,7 +176,7 @@ function route_parser(req,res,next) {
 
 	// get library by slug
 	// must start with at least two characters, otherwise conflict with IDs of form "b620"
-	else if (page.match(/^[a-z][a-z][a-z0-9-]+$/)) {
+	else if (page.match(/^[a-z][a-z][a-z0-9-_]+$/)) {
 		rlog("match slug: " + page);
 		render_library_by_slug(page, req, res);
 	}
@@ -373,9 +379,16 @@ function render_library_by_id(page, req, res) {
     console.log("Requested id: "+page);
     get_library_by_id(page, function(data){
 		switch_locale(req);
+    
+        // if slug exists, redirect to pretty url
+        if (typeof data._source.slug == "string" && data._source.slug.length > 1) {
+    		rlog("Redirect to pretty url: /" + data._source.slug + " (referer " + req.headers['referer'] + ")");
+      		res.redirect(req.locale_url_prefix + data._source.slug, 301);
+      		return false; // don't print out stuff after headers sent
+        }
 
         // return 404 if no library was returned
-        // TODO: is this the most elegant place to check for results and throw 404?
+        // TODO: is this the most elegant place to check for results and render 404?
         if (typeof data == "undefined"){
 			res.local("header", header.render(req, {title: _("Not found") }));
 			res.local("footer", footer.render());
@@ -579,7 +592,7 @@ function add_library_metadata(dataobj, callback){
 	}
 
     // TODO: Change data model to have own extrainfo branches for each language
-    if (typeof lib.additional_info.extrainfo != "undefined") {
+    if (typeof lib.additional_info != "undefined" && typeof lib.additional_info.extrainfo != "undefined") {
         if (lib.additional_info.extrainfo[0].property_label_fi == '') {
             delete lib.additional_info;
         }
