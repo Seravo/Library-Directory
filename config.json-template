@@ -7,6 +7,7 @@
         },
         "feedbackto": "webmaster@example.com"
     },
+    "default_lang": "fi",
     "server_port": 8080,
     "server_host": "localhost",
     "proxy_config": {

@@ -177,13 +177,13 @@ function route_parser(req,res,next) {
 	// get library by slug
 	// must start with at least two characters, otherwise conflict with IDs of form "b620"
 	else if (page.match(/^[a-z][a-z][a-z0-9-_]+$/)) {
-		rlog("match slug: " + page);
+	//	rlog("Route slug: " + page);
 		render_library_by_slug(page, req, res);
 	}
 
 	// get library by id
 	else if (page.match(/(^[a-zA-Z0-9_-]{22}$)|(^[bm][0-9]+$)/)) {
-		rlog("match id " + page);
+	//	rlog("Route id: " + page);
 		render_library_by_id(page, req, res);
 	}
 
