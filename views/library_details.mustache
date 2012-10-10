@@ -121,7 +121,7 @@
 		{{/has_children}}
     </dl>
 
-    <p><small><a href="{{additional_info.slug}}" itemprop="url">hakemisto.kirjastot.fi/{{additional_info.slug}}</a> _("last modified"): {{meta.modified}}</small></p>
+    <p><small><a href="{{slug}}" itemprop="url">hakemisto.kirjastot.fi/{{slug}}</a> _("last modified"): {{meta.modified}}</small></p>
 
   </div>
 
@@ -195,7 +195,8 @@
             <i class="icon-home"></i> <a href="{{contact.homepage__("locale")}}">
 			{{contact.homepage__("locale")}}</a>
             {{#contact.internet}}
-                <br><a href="{{url__("locale")}}" title="{{url_description__("locale")}}" class="iconless-link">
+                <br><a href="{{url__("locale")}}" 
+                    title="{{url_description__("locale")}}" class="iconless-link">
 				{{name__("locale")}}</a>
             {{/contact.internet}}
 		</dd>

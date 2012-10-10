@@ -554,8 +554,12 @@ function add_library_metadata(dataobj, callback){
 		lib.contact.street_address.post_code + " " + lib.contact.street_address["municipality_" + _("locale")];
 
     // delete empty object so that they will not be displayed in Mustache templates
-    if (typeof(lib.additional_info) != "undefined" && lib.additional_info.slug == '') {
-        delete lib.additional_info.slug;
+    if (typeof(lib.additional_info) != "undefined") {
+        if (lib.additional_info.slug == '') {
+            delete lib.additional_info.slug;
+        } else {
+            lib.slug = lib.additional_info.slug;
+        }
     }
 	if (lib.parent_organisation == '') {
 		delete lib.parent_organisation;
@@ -571,7 +575,7 @@ function add_library_metadata(dataobj, callback){
 	}
 
     // TODO: Change data model to have own extrainfo branches for each language
-    if (typeof(lib.additional_info) != "undefined") {
+    if (typeof(lib.additional_info.extrainfo) != "undefined") {
         if (lib.additional_info.extrainfo[0].property_label_fi == '') {
             delete lib.additional_info;
         }
@@ -697,6 +701,7 @@ function get_library_by_name(name, browser_req, callback) {
       });
       res.on('end', function() {
           dataobj = JSON.parse(data);
+          console.log("by name: " + JSON.stringify(dataobj));
           if (dataobj.hits.total>0) {
 	          switch_locale(browser_req);
 	          add_library_metadata(dataobj, callback);
