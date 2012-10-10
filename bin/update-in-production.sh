@@ -32,4 +32,6 @@ killall node
 # does not restart node.js, PID stays same? Fix with manual kill.
 #restart libdir-server
 
+# force Varnish cache purge
+/etc/init.d/varnish restart
 
