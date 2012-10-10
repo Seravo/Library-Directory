@@ -26,5 +26,7 @@ function logrequest(req){
     }
 }
 
+function comp_response(req, res, data) {}
+
 var config = conf.proxy_config;
-var proxy = require('./node_modules/elasticsearch-proxy').getProxy(config, logrequest).start();
+var proxy = require('./node_modules/elasticsearch-proxy').getProxy(config, logrequest, comp_response).start();
