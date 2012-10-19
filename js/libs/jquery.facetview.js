@@ -321,7 +321,7 @@
 			$('#clear_facetfilters').bind('click', function(event) {
 				event.preventDefault();
 				$('#facetview_selectedfilters').children().each(function(){
-					var index = facetfilters.indexOf($(this).attr("href"));
+					var index = $.inArray($(this).attr("href"), facetfilters);
 					facetfilters.splice(index,1);
 					$(this).remove();
 				});
@@ -390,7 +390,7 @@
                 var records = data["facets"][ options.facets[each]['field'] ];
                 for ( var item in records ) {
 					var append = "";
-					if (facetfilters.length>0 && facetfilters.indexOf(item)!= -1 ) {
+					if (facetfilters.length>0 && $.inArray(item, facetfilters) != -1 ) {
 						var displayItem = "";
 						if (item=='T') displayItem = _('yes');
 						else displayItem = item;
@@ -1003,7 +1003,7 @@
         // clear a filter when clear button is pressed, and re-do the search
         var clearfilter = function(event) {
             event.preventDefault();
-			var index = facetfilters.indexOf($(this).attr("href"));
+			var index = $.inArray($(this).attr("href"), facetfilters);
 			facetfilters.splice(index,1);
 			if (facetfilters.length==0 && ld_position == null) $('#clearbutton').hide();
             $(this).remove();
