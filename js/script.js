@@ -6,6 +6,9 @@
 var gt = new Gettext( { "domain": "messages" } );
 function _(msgid) { return gt.gettext(msgid); }
 
+// variable to hold the facet filters in memory, hash params across page navigation/history
+var facethash = {};
+
 function ld_parse_url_hash() {
 	var hash = window.location.hash;
 
