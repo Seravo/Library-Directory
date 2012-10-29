@@ -137,10 +137,13 @@ function ld_mapcontrol_init_geoloc(data) {
 
 			var html = rec.map_popup_html;
 
+			var markersymbol = 'js/libs/openlayers/markers/marker-red-small.png';
+			if (rec.open_now==true) markersymbol = 'js/libs/openlayers/markers/marker-green-small.png';
+
 			var marker = new OpenLayers.Feature.Vector(
 				new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection),
 				{ html: html },
-				{ externalGraphic: 'js/libs/openlayers/markers/marker-black-small.png', graphicHeight: 26, graphicWidth: 16, graphicYOffset: -26 }
+				{ externalGraphic: markersymbol, graphicHeight: 26, graphicWidth: 16, graphicYOffset: -26 }
 			);
 			vectorLayer.addFeatures(marker);
 		}
