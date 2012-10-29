@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-29 11:38+0200\n"
-"PO-Revision-Date: 2012-10-29 11:43+0200\n"
+"PO-Revision-Date: 2012-10-29 17:48+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -245,7 +245,7 @@ msgstr "Esteettömyyspalvelut"
 #: js/libs/jquery.facetview.js:101
 #: views/widget_wizard.mustache:45
 msgid "City"
-msgstr "Kaupunki"
+msgstr "Paikkakunta"
 
 #: js/libs/jquery.facetview.js:284
 msgid "Filter results"
