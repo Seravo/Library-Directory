@@ -601,17 +601,27 @@
 							/* workaround for IE8 Date.parse issues */
 							var start_time = false;
 							var end_time = false;
-							if (p.start != null && p.end != null) {
+							if (p.start != null) {
 								var s_date = p.start.split("T")[0];
 								var s_year = s_date.split("-")[0];
 								var s_month = s_date.split("-")[1];
 								var s_day = s_date.split("-")[2];
 
-								var e_date = p.end.split("T")[0];
-								var e_year = e_date.split("-")[0];
-								var e_month = e_date.split("-")[1];
-								var e_day = e_date.split("-")[2];
+								var e_date, e_year, e_month, e_day;
 
+								// if period has no end defined, assume today + 1 year
+								if (p.end == null) {
+									var now = new Date();
+									e_year = now.getFullYear()+1;
+									e_month = now.getMonth();
+									e_day = now.getDate();
+								}
+								else {
+									e_date = p.end.split("T")[0];
+									e_year = e_date.split("-")[0];
+									e_month = e_date.split("-")[1];
+									e_day = e_date.split("-")[2];
+								}
 								start_time = unixtime >= new Date(s_year, s_month, s_day);
 								end_time = unixtime <= new Date(e_year, e_month, e_day);
 							}
