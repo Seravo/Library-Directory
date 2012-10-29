@@ -146,11 +146,11 @@
         var showfiltervals = function(event) {
             event.preventDefault();
             if ( $(this).hasClass('facetview_open') ) {
-                $(this).children('i').replaceWith('<i class="icon-plus"></i>')
+                $(this).children('span').replaceWith('<span>▸</span>')
                 $(this).removeClass('facetview_open');
                 $('#facetview_' + $(this).attr('rel') ).children().hide();
             } else {
-                $(this).children('i').replaceWith('<i class="icon-minus"></i>')
+                $(this).children('span').replaceWith('<span>▾</span>')
                 $(this).addClass('facetview_open');
                 $('#facetview_' + $(this).attr('rel') ).children().show();      
             }
@@ -289,7 +289,7 @@
                     <div id="facetview_filterbuttons" class="btn-group"> \
                     <a style="text-align:left; min-width:70%;" class="facetview_filtershow btn" \
                       rel="{{FILTER_NAME}}" href=""> \
-                      <i class="icon-plus"></i> \
+                      <span>▸</span> \
                       {{FILTER_DISPLAY}}</a> \
                       </div> \
                   <ul id="facetview_{{FILTER_NAME}}" \
