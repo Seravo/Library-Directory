@@ -98,7 +98,7 @@
 		{'field': 'branch_type', 'display': _('Branch type')},
 		{'field': 'services.name_'+_("locale"), 'order':'term', 'display': _('Services'), "size":40 },
 		{'field': 'accessibility.accessible_entry', 'display': _('Accessibility')},
-		{'field': 'contact.street_address.municipality_'+_("locale"), 'display': _('City')}
+		{'field': 'contact.street_address.municipality_'+_("locale"), 'order':'term', 'display': _('City')}
 		],
             "addremovefacets": false,
             "result_display": search_results,
@@ -146,11 +146,11 @@
         var showfiltervals = function(event) {
             event.preventDefault();
             if ( $(this).hasClass('facetview_open') ) {
-                $(this).children('i').replaceWith('<i class="icon-plus"></i>')
+                $(this).children('span').replaceWith('<span>▸</span>')
                 $(this).removeClass('facetview_open');
                 $('#facetview_' + $(this).attr('rel') ).children().hide();
             } else {
-                $(this).children('i').replaceWith('<i class="icon-minus"></i>')
+                $(this).children('span').replaceWith('<span>▾</span>')
                 $(this).addClass('facetview_open');
                 $('#facetview_' + $(this).attr('rel') ).children().show();      
             }
@@ -289,7 +289,7 @@
                     <div id="facetview_filterbuttons" class="btn-group"> \
                     <a style="text-align:left; min-width:70%;" class="facetview_filtershow btn" \
                       rel="{{FILTER_NAME}}" href=""> \
-                      <i class="icon-plus"></i> \
+                      <span>▸</span> \
                       {{FILTER_DISPLAY}}</a> \
                       </div> \
                   <ul id="facetview_{{FILTER_NAME}}" \
@@ -333,6 +333,10 @@
 				});
 
 				if (facetfilters.length==0 && ld_position == null) $('#clearbutton').hide();
+
+				// clear facet memory
+				facethash = {};
+				ld_append_url_hash("f=");
 				dosearch();
 			});
 
@@ -597,17 +601,27 @@
 							/* workaround for IE8 Date.parse issues */
 							var start_time = false;
 							var end_time = false;
-							if (p.start != null && p.end != null) {
+							if (p.start != null) {
 								var s_date = p.start.split("T")[0];
 								var s_year = s_date.split("-")[0];
 								var s_month = s_date.split("-")[1];
 								var s_day = s_date.split("-")[2];
 
-								var e_date = p.end.split("T")[0];
-								var e_year = e_date.split("-")[0];
-								var e_month = e_date.split("-")[1];
-								var e_day = e_date.split("-")[2];
+								var e_date, e_year, e_month, e_day;
 
+								// if period has no end defined, assume today + 1 year
+								if (p.end == null) {
+									var now = new Date();
+									e_year = now.getFullYear()+1;
+									e_month = now.getMonth();
+									e_day = now.getDate();
+								}
+								else {
+									e_date = p.end.split("T")[0];
+									e_year = e_date.split("-")[0];
+									e_month = e_date.split("-")[1];
+									e_day = e_date.split("-")[2];
+								}
 								start_time = unixtime >= new Date(s_year, s_month, s_day);
 								end_time = unixtime <= new Date(e_year, e_month, e_day);
 							}
@@ -993,6 +1007,14 @@
                 ' href="' + $(this).attr("href") + '">' +
                 buttontext + ' <i class="icon-remove"></i></a>';
             $('#facetview_selectedfilters').append(newobj);
+
+			// store active filter into facet memory
+			var name = $(this).attr("rel");
+			var value = $(this).attr("href");
+			if (facethash[name] == undefined) facethash[name] = [];
+			facethash[name].push(value);
+			ld_append_url_hash("f=" + JSON.stringify(facethash));
+
             $('.facetview_filterselected').unbind('click',clearfilter);
             $('.facetview_filterselected').bind('click',clearfilter);
 			if (facetfilters.length>0) $('#clearbutton').show();
@@ -1006,6 +1028,16 @@
 			var index = $.inArray($(this).attr("href"), facetfilters);
 			facetfilters.splice(index,1);
 			if (facetfilters.length==0 && ld_position == null) $('#clearbutton').hide();
+
+			var key = $(this).attr("rel");
+			var val = $(this).attr("href");
+			var cacheindex = $.inArray(val, facethash[key]);
+			facethash[key].splice(cacheindex,1);
+			if (facethash[key].length==0) delete facethash[key];
+
+			if ($.isEmptyObject(facethash)) ld_append_url_hash("f=");
+			else ld_append_url_hash("f=" + JSON.stringify(facethash));
+
             $(this).remove();
             dosearch();
         }
@@ -1077,20 +1109,58 @@
             // check paging info is available
             !options.paging.size ? options.paging.size = 10 : ""
             !options.paging.from ? options.paging.from = 0 : ""
-            // append the filters to the facetview object
-            buildfilters();
-            $('#facetview_freetext',obj).bindWithDelay('keyup',dosearch,options.freetext_submit_delay);
 
 			// check and apply url hash parameters
 			var url_data = ld_parse_url_hash();
+
+			// facet parameters
+			if (url_data.f != undefined) {
+				facethash = JSON.parse(url_data.f);
+
+				for (var key in facethash) {
+					var values = facethash[key];
+
+					for (var temp in values) {
+						var val = values[temp];
+						facetfilters.push(val);
+
+						var buttontext = val;
+						// handle special case for accessibility facet filter
+						if (buttontext=='T') buttontext = _("Accessibility");
+
+						var newobj = '<a class="facetview_filterselected facetview_clear ' +
+							'btn btn-info" rel="' + key +
+							'" alt="remove" title="remove"' +
+							' href="' + val + '">' +
+							buttontext + ' <i class="icon-remove"></i></a>';
+						$('#facetview_selectedfilters').append(newobj);
+						$('.facetview_filterselected').unbind('click',clearfilter);
+						$('.facetview_filterselected').bind('click',clearfilter);
+						if (facetfilters.length>0) $('#clearbutton').show();
+						options.paging.from = 0
+					}
+				}
+			}
+
+			// freetext query param
 			if (url_data.q != undefined) {
 				// hide introtext if query parameter is present
 				$("#introtext").hide();	
 				$('#facetview_freetext').val(url_data.q);
 			}
 
+            // append the filters to the facetview object
+            buildfilters();
+            $('#facetview_freetext',obj).bindWithDelay('keyup',dosearch,options.freetext_submit_delay);
+
             // trigger the search once on load, to get all results
             dosearch();
+
+			// if predefined facet filters, open up the facet tree completely
+			if (url_data.f != undefined) {
+				$('.facetview_filtershow').trigger('click');
+				$('#clearbutton').show();
+			}
         }
 
         // ===============================================

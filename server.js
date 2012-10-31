@@ -857,6 +857,13 @@ function get_library_open_hours(periods) {
 			/* find opening hours for current week */
 			var curday = mondaystamp + 24*60*60*1000*j;
 			//if (j==6) rlog(p.name_fi, days[j], curday, Date.parse(p.start), Date.parse(p.end), curday >= Date.parse(p.start) && curday <= Date.parse(p.end))
+
+			// if period has no end defined, assume today + 1 year
+			if (p.end == null) {
+				var now = new Date();
+				now.setYear(now.getFullYear()+1);
+				p.end = now;
+			}
 			if ( curday >= Date.parse(p.start) && curday <= Date.parse(p.end) ) {
 				if ( (start!=0 && end!=0) && (start!= null && end!= null) ) {
 					opening_hours.open_hours_week[j] = { "day": days_translated[j], "time": ld_format_time(start) + " - " + ld_format_time(end) }; }
