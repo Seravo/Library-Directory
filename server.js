@@ -116,7 +116,7 @@ app.configure('prod', function(){
     app.use(express.errorHandler());
     headerfile = '/output/views/header.mustache';
     footerfile = '/output/views/footer.mustache';
-    view_cache_time = 60*60*24*1;
+    view_cache_time = 60*10; // ten minutes
 });
 
 // route must always be defined last and only last (override does not work)

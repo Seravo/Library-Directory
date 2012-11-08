@@ -185,6 +185,12 @@ There is also a script `update-in-production.sh` that will automatically check o
 Note! If you want to run the server in port 80, you need to grant special permissions, since ports below 1024 are normally reserved only for the root user:
     $ sudo apt-get install libcap2-bin 
     $ sudo setcap 'cap_net_bind_service=+ep' /usr/bin/node
+
+Possibly also:
+    $ sudo chmod +s /usb/bin/node
+
+If Elastic Search complains about too few file descriptors, try
+    $ ulimit -n 5000
       
 Database
 --------
