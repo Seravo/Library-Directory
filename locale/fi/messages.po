@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-29 11:38+0200\n"
-"PO-Revision-Date: 2012-10-29 17:48+0200\n"
-"Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
+"POT-Creation-Date: 2012-11-14 15:41+0200\n"
+"PO-Revision-Date: 2012-11-14 15:42+0200\n"
+"Last-Translator: Otto Kekäläinen <otto@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: server.js:127
 #: server.js:374
 #: server.js:399
-#: server.js:455
+#: server.js:456
 #: views/404.mustache:4
 msgid "Not found"
 msgstr "Ei hakutuloksia"
@@ -77,103 +77,103 @@ msgstr "Selaa kaikkia"
 msgid "Feedback sent"
 msgstr "Palaute lähetetty"
 
-#: server.js:432
-#: server.js:451
-#: server.js:575
+#: server.js:433
+#: server.js:452
 #: server.js:576
 #: server.js:577
-#: server.js:596
+#: server.js:578
 #: server.js:597
+#: server.js:598
 #: js/libs/jquery.facetview.js:82
 #: js/libs/jquery.facetview.js:85
 #: js/libs/jquery.facetview.js:99
 #: js/libs/jquery.facetview.js:101
-#: js/libs/jquery.facetview.js:630
-#: js/libs/jquery.facetview.js:631
-#: js/libs/jquery.facetview.js:632
-#: js/libs/jquery.facetview.js:928
-#: js/libs/jquery.facetview.js:936
+#: js/libs/jquery.facetview.js:640
+#: js/libs/jquery.facetview.js:641
+#: js/libs/jquery.facetview.js:642
+#: js/libs/jquery.facetview.js:938
+#: js/libs/jquery.facetview.js:946
 #: locale/templates/LC_MESSAGES/gettext.tmpl:1
 msgid "locale"
 msgstr "fi"
 
-#: server.js:432
-#: server.js:451
+#: server.js:433
+#: server.js:452
 msgid "contact details, open hours, services"
 msgstr "yhteystiedot, aukiolo, palvelut"
 
-#: server.js:515
-#: server.js:611
+#: server.js:516
+#: server.js:612
 msgid "branchlibrary"
 msgstr "sivukirjasto"
 
-#: server.js:516
-#: server.js:612
-msgid "department"
-msgstr "osasto"
-
 #: server.js:517
 #: server.js:613
-msgid "library"
-msgstr "pääkirjasto"
+msgid "department"
+msgstr "toimipiste"
 
 #: server.js:518
 #: server.js:614
-msgid "mobile_stop"
-msgstr "kirjastoauton pysäkki"
+msgid "library"
+msgstr "pääkirjasto"
 
 #: server.js:519
 #: server.js:615
-msgid "organisation"
-msgstr "organisaatio"
+msgid "mobile_stop"
+msgstr "kirjastoauton pysäkki"
 
 #: server.js:520
 #: server.js:616
+msgid "organisation"
+msgstr "organisaatio"
+
+#: server.js:521
+#: server.js:617
 msgid "unit"
 msgstr "yksikkö"
 
-#: server.js:649
+#: server.js:650
 msgid "service type device"
 msgstr "laite"
 
-#: server.js:650
+#: server.js:651
 msgid "service type room"
 msgstr "tila"
 
-#: server.js:651
+#: server.js:652
 msgid "service type service"
 msgstr "palvelu"
 
-#: server.js:820
+#: server.js:821
 msgid "Monday"
 msgstr "Maanantai"
 
-#: server.js:821
+#: server.js:822
 msgid "Tuesday"
 msgstr "Tiistai"
 
-#: server.js:822
+#: server.js:823
 msgid "Wednesday"
 msgstr "Keskiviikko"
 
-#: server.js:823
+#: server.js:824
 msgid "Thursday"
 msgstr "Torstai"
 
-#: server.js:824
+#: server.js:825
 msgid "Friday"
 msgstr "Perjantai"
 
-#: server.js:825
+#: server.js:826
 msgid "Saturday"
 msgstr "Lauantai"
 
-#: server.js:826
+#: server.js:827
 msgid "Sunday"
 msgstr "Sunnuntai"
 
-#: server.js:846
-#: server.js:864
+#: server.js:847
+#: server.js:872
 msgid "closed"
 msgstr "suljettu"
 
@@ -189,10 +189,10 @@ msgid "Error"
 msgstr "Virhe"
 
 #: js/libs/jquery.facetview.js:72
+#: views/json_widget_5.mustache:12
 #: views/widget2.mustache:79
 #: views/widget3.mustache:138
 #: views/library_details.mustache:138
-#: views/json_widget_5.mustache:12
 msgid "Open"
 msgstr "Auki"
 
@@ -201,10 +201,10 @@ msgid "today"
 msgstr "tänään"
 
 #: js/libs/jquery.facetview.js:74
+#: views/json_widget_5.mustache:17
 #: views/widget2.mustache:84
 #: views/widget3.mustache:143
 #: views/library_details.mustache:143
-#: views/json_widget_5.mustache:17
 msgid "Closed"
 msgstr "Suljettu"
 
@@ -235,8 +235,8 @@ msgid "Services"
 msgstr "Palvelut"
 
 #: js/libs/jquery.facetview.js:100
-#: js/libs/jquery.facetview.js:992
-#: js/libs/jquery.facetview.js:1119
+#: js/libs/jquery.facetview.js:1002
+#: js/libs/jquery.facetview.js:1129
 #: views/widget3.mustache:225
 #: views/library_details.mustache:225
 msgid "Accessibility"
@@ -273,48 +273,48 @@ msgstr "Lähellä olevat kirjastot"
 msgid "yes"
 msgstr "kyllä"
 
-#: js/libs/jquery.facetview.js:698
+#: js/libs/jquery.facetview.js:708
 msgid "back"
 msgstr "edelliset"
 
-#: js/libs/jquery.facetview.js:699
+#: js/libs/jquery.facetview.js:709
 msgid "of"
 msgstr "/"
 
-#: js/libs/jquery.facetview.js:700
+#: js/libs/jquery.facetview.js:710
 msgid "next"
 msgstr "seuraavat"
 
-#: js/libs/jquery.facetview.js:704
+#: js/libs/jquery.facetview.js:714
 msgid "No results found"
 msgstr "Ei hakutuloksia"
 
-#: js/libs/jquery.facetview.js:705
+#: js/libs/jquery.facetview.js:715
 msgid "Please try"
 msgstr "Ole hyvä ja kokeile"
 
-#: js/libs/jquery.facetview.js:706
+#: js/libs/jquery.facetview.js:716
 msgid "Search with only the first 3-5 letters of your search word to get more matches."
 msgstr "Lyhennä hakua ja hae vain 3-5 ensimmäisellä kirjaimella, jolloin tulee enemmän osumia."
 
-#: js/libs/jquery.facetview.js:707
+#: js/libs/jquery.facetview.js:717
 msgid "Remove all search words and drill down to your wanted results using only the search filters."
 msgstr "Poista kaikki hakusanat ja poraudu haluttuun tulokseen käyttämällä yksinomaan rajauksia."
 
-#: js/libs/jquery.facetview.js:811
+#: js/libs/jquery.facetview.js:821
 msgid "One search result"
 msgstr "Yksi hakutulos"
 
-#: js/libs/jquery.facetview.js:812
+#: js/libs/jquery.facetview.js:822
 #, python-format
 msgid "%d search results"
 msgstr "Yhteensä %d hakutulosta"
 
-#: js/libs/jquery.facetview.js:971
+#: js/libs/jquery.facetview.js:981
 msgid "Could not connect to database. Please try again later."
 msgstr "Yhteyttä tietokantaan ei saatu, yritä hetken kuluttua uudelleen."
 
-#: js/libs/jquery.facetview.js:1067
+#: js/libs/jquery.facetview.js:1077
 msgid "search starts automatically after 3 letters"
 msgstr "haku käynnistyy 3 kirjaimen jälkeen"
 
@@ -356,20 +356,31 @@ msgstr "Suomen kirjastohakemisto"
 msgid "My Location"
 msgstr "Oma sijainti"
 
-#: views/index.mustache:7
-#: views/widget1.mustache:7
-msgid "Find your library!"
-msgstr "Löydä kirjastosi!"
+#: views/json_widget_5.mustache:6
+#: views/widget2.mustache:73
+msgid "No open times, since this is a {{organisation_type}}."
+msgstr "Ei aukioloa, koska kyseessä {{organisation_type}}."
 
-#: views/index.mustache:8
-#: views/widget1.mustache:8
-msgid "Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries."
-msgstr "Syötä etsimäsi kirjaston tai palvelun nimi. Syötä kaupungin nimi tai postinumero löytääksesi lähimmän kirjaston."
+#: views/json_widget_5.mustache:10
+#: views/widget2.mustache:77
+#: views/widget3.mustache:136
+#: views/library_details.mustache:136
+msgid "The library is now"
+msgstr "Kirjasto on nyt"
 
-#: views/index.mustache:9
-#: views/widget1.mustache:9
-msgid "The library index does not yet contain the contact and service information to all finnish libraries. The index will be updated during the rest of the year 2012.<br>For now all the information can be found under the Libraries page on Libraries.fi <a href='http://www.libraries.fi/libraries'>http://www.libraries.fi/libraries</a>"
-msgstr "Kirjastohakemistossa ei ole vielä kaikkien kirjastojen yhteys- ja palvelutietoja. Tietoja täydennetään loppuvuoden 2012 ajan.<br>Toistaiseksi kaikki tiedot löytyvät Kirjastot.fi:n Kirjasto-osiosta <a href='http://www.kirjastot.fi/kirjastot'>http://www.kirjastot.fi/kirjastot</a>"
+#: views/json_widget_5.mustache:13
+#: views/widget2.mustache:80
+#: views/widget3.mustache:139
+#: views/library_details.mustache:139
+msgid "Opening hours today"
+msgstr "Avoinna tänään"
+
+#: views/json_widget_5.mustache:21
+#: views/widget2.mustache:88
+#: views/widget3.mustache:147
+#: views/library_details.mustache:147
+msgid "Opening hours this week"
+msgstr "Aukioloajat tällä viikolla"
 
 #: views/widget2.mustache:16
 #: views/widget3.mustache:18
@@ -389,76 +400,19 @@ msgstr "Puhelinnumerot"
 msgid "Mail address"
 msgstr "Postiosoite"
 
-#: views/widget2.mustache:55
-#: views/widget3.mustache:181
-#: views/library_details.mustache:181
-msgid "PB"
-msgstr "PL"
-
 #: views/widget2.mustache:66
 msgid "Last modified"
 msgstr "Muokattu viimeksi"
 
-#: views/widget2.mustache:73
-#: views/json_widget_5.mustache:6
-msgid "No open times, since this is a {{organisation_type}}."
-msgstr "Ei aukioloa, koska kyseessä {{organisation_type}}."
-
-#: views/widget2.mustache:77
-#: views/widget3.mustache:136
-#: views/library_details.mustache:136
-#: views/json_widget_5.mustache:10
-msgid "The library is now"
-msgstr "Kirjasto on nyt"
-
-#: views/widget2.mustache:80
-#: views/widget3.mustache:139
-#: views/library_details.mustache:139
-#: views/json_widget_5.mustache:13
-msgid "Opening hours today"
-msgstr "Avoinna tänään"
-
-#: views/widget2.mustache:88
-#: views/widget3.mustache:147
-#: views/library_details.mustache:147
-#: views/json_widget_5.mustache:21
-msgid "Opening hours this week"
-msgstr "Aukioloajat tällä viikolla"
-
-#: views/header-dev.mustache:39
-#: views/header.mustache:37
-msgid "Library Directory"
-msgstr "Kirjastohakemisto"
-
-#: views/header-dev.mustache:67
-#: views/contact.mustache:7
-#: views/header.mustache:65
-msgid "Send us feedback!"
-msgstr "Anna palautetta!"
-
-#: views/header-dev.mustache:74
-#: views/header.mustache:72
-msgid "Warning"
-msgstr "Varoitus"
-
-#: views/header-dev.mustache:75
-#: views/header.mustache:73
-msgid "Your browser version is too old"
-msgstr "Käyttämäsi selainversio on liian vanha"
-
-#: views/header-dev.mustache:76
-#: views/header.mustache:74
-msgid "please upgrade"
-msgstr "päivitä selaimesi"
-
-#: views/header-dev.mustache:77
-#: views/header.mustache:75
-msgid "for best experience"
-msgstr "saadaksesi parhaan mahdollisen käyttökokemuksen"
-
 #: views/contact.mustache:6
 msgid "This site is the product of <a href='http://kirjastot.fi/'>Kirjastot.fi</a>."
 msgstr "Tämä sivusto on <a href='http://kirjastot.fi/'>Kirjastot.fi</a>:n tuottama."
+
+#: views/contact.mustache:7
+#: views/header-dev.mustache:67
+#: views/header.mustache:65
+msgid "Send us feedback!"
+msgstr "Anna palautetta!"
 
 #: views/contact.mustache:19
 msgid "Message"
@@ -506,7 +460,7 @@ msgstr "Perustamisvuosi"
 #: views/widget3.mustache:117
 #: views/library_details.mustache:117
 msgid "Departments"
-msgstr "Osastot"
+msgstr "Toimipisteet"
 
 #: views/widget3.mustache:124
 #: views/library_details.mustache:124
@@ -578,29 +532,65 @@ msgstr "Hissi"
 msgid "Parking"
 msgstr "Pysäköinti"
 
-#: views/404.mustache:6
-msgid "Sorry, but the page you were trying to view does not exist."
-msgstr "Sivua ei löytynyt"
+#: views/header-dev.mustache:39
+#: views/header.mustache:37
+msgid "Library Directory"
+msgstr "Kirjastohakemisto"
 
-#: views/404.mustache:7
-msgid "It looks like this was the result of either:"
-msgstr "Tämä saattaa johtua esimerkiksi seuraavista:"
+#: views/header-dev.mustache:74
+#: views/header.mustache:72
+msgid "Warning"
+msgstr "Varoitus"
 
-#: views/404.mustache:9
-msgid "a mistyped address"
-msgstr "osoite on väärin kirjoitettu"
+#: views/header-dev.mustache:75
+#: views/header.mustache:73
+msgid "Your browser version is too old"
+msgstr "Käyttämäsi selainversio on liian vanha"
 
-#: views/404.mustache:10
-msgid "an out-of-date link"
-msgstr "seuraamasi linkki on vanhentunut"
+#: views/header-dev.mustache:76
+#: views/header.mustache:74
+msgid "please upgrade"
+msgstr "päivitä selaimesi"
+
+#: views/header-dev.mustache:77
+#: views/header.mustache:75
+msgid "for best experience"
+msgstr "saadaksesi parhaan mahdollisen käyttökokemuksen"
+
+#: views/about.mustache:6
+msgid "This is a really cool thing."
+msgstr "Tämä on hieno juttu."
 
 #: views/feedback-sent.mustache:7
 msgid "<strong>Feedback sent.</strong> Thank you!"
 msgstr "<strong>Palaute lähetetty</strong> Kiitos!"
 
-#: views/about.mustache:6
-msgid "This is a really cool thing."
-msgstr "Tämä on hieno juttu."
+#: views/widget1.mustache:7
+#: views/index.mustache:7
+msgid "Find your library!"
+msgstr "Löydä kirjastosi!"
+
+#: views/widget1.mustache:8
+#: views/index.mustache:8
+msgid "Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries."
+msgstr "Syötä etsimäsi kirjaston tai palvelun nimi. Syötä kaupungin nimi tai postinumero löytääksesi lähimmän kirjaston."
+
+#: views/widget1.mustache:9
+#: views/index.mustache:9
+msgid "The library index does not yet contain the contact and service information to all finnish libraries. The index will be updated during the rest of the year 2012.<br>For now all the information can be found under the Libraries page on Libraries.fi <a href='http://www.libraries.fi/libraries'>http://www.libraries.fi/libraries</a>"
+msgstr "Kirjastohakemistossa ei ole vielä kaikkien kirjastojen yhteys- ja palvelutietoja. Tietoja täydennetään loppuvuoden 2012 ajan.<br>Toistaiseksi kaikki tiedot löytyvät Kirjastot.fi:n Kirjasto-osiosta <a href='http://www.kirjastot.fi/kirjastot'>http://www.kirjastot.fi/kirjastot</a>"
+
+#: views/browse.mustache:5
+msgid "Browse all libraries"
+msgstr "Selaa kaikkia kirjastoja"
+
+#: views/browse.mustache:6
+msgid "Listing total of {{count}} libraries."
+msgstr "Hakemistossa yhteensä {{count}} kirjastoa."
+
+#: views/browse.mustache:27
+msgid "nice URL slug missing"
+msgstr "kaunis URL-tunniste puuttuu"
 
 #: views/widget_wizard.mustache:15
 msgid "Build a widget"
@@ -658,17 +648,24 @@ msgstr "Kopioi upokkeen koodi"
 msgid "Widget preview"
 msgstr "Upokkeen esikatselu"
 
-#: views/browse.mustache:5
-msgid "Browse all libraries"
-msgstr "Selaa kaikkia kirjastoja"
+#: views/404.mustache:6
+msgid "Sorry, but the page you were trying to view does not exist."
+msgstr "Sivua ei löytynyt"
 
-#: views/browse.mustache:6
-msgid "Listing total of {{count}} libraries."
-msgstr "Hakemistossa yhteensä {{count}} kirjastoa."
+#: views/404.mustache:7
+msgid "It looks like this was the result of either:"
+msgstr "Tämä saattaa johtua esimerkiksi seuraavista:"
 
-#: views/browse.mustache:27
-msgid "nice URL slug missing"
-msgstr "kaunis URL-tunniste puuttuu"
+#: views/404.mustache:9
+msgid "a mistyped address"
+msgstr "osoite on väärin kirjoitettu"
+
+#: views/404.mustache:10
+msgid "an out-of-date link"
+msgstr "seuraamasi linkki on vanhentunut"
+
+#~ msgid "PB"
+#~ msgstr "PL"
 
 #~ msgid ""
 #~ "No open times, since this is of type <cite>{{organisation_type}}</cite>."
