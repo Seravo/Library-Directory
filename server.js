@@ -414,7 +414,7 @@ function render_library_by_id(page, req, res) {
 				var children = [];
 				for (item in child_data.hits.hits) {
 					var child = child_data.hits.hits[item]._source;
-					if (typeof child.additional_info != "undefined" && typeof child.additional_info.slug != "undefined") {
+					if (typeof child.additional_info != "undefined" && typeof child.additional_info.slug != "undefined" && child.additional_info.slug != '') {
     					child.link = child.additional_info.slug;
     				} else {
     					child.link = child_data.hits.hits[item]._id;
@@ -423,6 +423,7 @@ function render_library_by_id(page, req, res) {
 				}
 
 				library.children = children;
+				console.log("children: " + JSON.stringify(children, null, 4));
 				library.has_children = true;
 			} else {
 				library.has_children = false;
