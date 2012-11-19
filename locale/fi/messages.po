@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-14 15:41+0200\n"
-"PO-Revision-Date: 2012-11-14 15:42+0200\n"
-"Last-Translator: Otto Kekäläinen <otto@seravo.fi>\n"
+"POT-Creation-Date: 2012-11-19 09:15+0200\n"
+"PO-Revision-Date: 2012-11-19 09:15+0200\n"
+"Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -32,10 +32,10 @@ msgid "Name"
 msgstr "Nimi"
 
 #: server.js:215
-#: views/widget2.mustache:61
+#: views/widget2.mustache:70
 #: views/contact.mustache:14
-#: views/widget3.mustache:187
-#: views/library_details.mustache:187
+#: views/widget3.mustache:194
+#: views/library_details.mustache:194
 msgid "E-mail"
 msgstr "Sähköposti"
 
@@ -50,8 +50,8 @@ msgstr "Palaute"
 #: server.js:224
 #: server.js:289
 #: views/contact.mustache:5
-#: views/widget3.mustache:73
-#: views/library_details.mustache:73
+#: views/widget3.mustache:80
+#: views/library_details.mustache:80
 msgid "Contact"
 msgstr "Yhteystiedot"
 
@@ -189,10 +189,10 @@ msgid "Error"
 msgstr "Virhe"
 
 #: js/libs/jquery.facetview.js:72
+#: views/widget2.mustache:88
+#: views/widget3.mustache:145
+#: views/library_details.mustache:145
 #: views/json_widget_5.mustache:12
-#: views/widget2.mustache:79
-#: views/widget3.mustache:138
-#: views/library_details.mustache:138
 msgid "Open"
 msgstr "Auki"
 
@@ -201,10 +201,10 @@ msgid "today"
 msgstr "tänään"
 
 #: js/libs/jquery.facetview.js:74
+#: views/widget2.mustache:93
+#: views/widget3.mustache:150
+#: views/library_details.mustache:150
 #: views/json_widget_5.mustache:17
-#: views/widget2.mustache:84
-#: views/widget3.mustache:143
-#: views/library_details.mustache:143
 msgid "Closed"
 msgstr "Suljettu"
 
@@ -213,8 +213,8 @@ msgid "open today"
 msgstr "avoinna tänään"
 
 #: js/libs/jquery.facetview.js:96
-#: views/widget3.mustache:112
-#: views/library_details.mustache:112
+#: views/widget3.mustache:119
+#: views/library_details.mustache:119
 #: views/widget_wizard.mustache:44
 msgid "Library consortium"
 msgstr "Kirjastoyhtymä"
@@ -228,8 +228,8 @@ msgid "Branch type"
 msgstr "Kirjastotyyppi"
 
 #: js/libs/jquery.facetview.js:99
-#: views/widget3.mustache:42
-#: views/library_details.mustache:42
+#: views/widget3.mustache:49
+#: views/library_details.mustache:49
 #: views/widget_wizard.mustache:30
 msgid "Services"
 msgstr "Palvelut"
@@ -237,8 +237,8 @@ msgstr "Palvelut"
 #: js/libs/jquery.facetview.js:100
 #: js/libs/jquery.facetview.js:1002
 #: js/libs/jquery.facetview.js:1129
-#: views/widget3.mustache:225
-#: views/library_details.mustache:225
+#: views/widget3.mustache:232
+#: views/library_details.mustache:232
 msgid "Accessibility"
 msgstr "Esteettömyyspalvelut"
 
@@ -356,186 +356,86 @@ msgstr "Suomen kirjastohakemisto"
 msgid "My Location"
 msgstr "Oma sijainti"
 
-#: views/json_widget_5.mustache:6
-#: views/widget2.mustache:73
-msgid "No open times, since this is a {{organisation_type}}."
-msgstr "Ei aukioloa, koska kyseessä {{organisation_type}}."
+#: locale/templates/LC_MESSAGES/gettext.tmpl:12
+msgid "routefinder locale"
+msgstr "fi"
 
-#: views/json_widget_5.mustache:10
-#: views/widget2.mustache:77
-#: views/widget3.mustache:136
-#: views/library_details.mustache:136
-msgid "The library is now"
-msgstr "Kirjasto on nyt"
+#: views/index.mustache:7
+#: views/widget1.mustache:7
+msgid "Find your library!"
+msgstr "Löydä kirjastosi!"
 
-#: views/json_widget_5.mustache:13
-#: views/widget2.mustache:80
-#: views/widget3.mustache:139
-#: views/library_details.mustache:139
-msgid "Opening hours today"
-msgstr "Avoinna tänään"
+#: views/index.mustache:8
+#: views/widget1.mustache:8
+msgid "Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries."
+msgstr "Syötä etsimäsi kirjaston tai palvelun nimi. Syötä kaupungin nimi tai postinumero löytääksesi lähimmän kirjaston."
 
-#: views/json_widget_5.mustache:21
-#: views/widget2.mustache:88
-#: views/widget3.mustache:147
-#: views/library_details.mustache:147
-msgid "Opening hours this week"
-msgstr "Aukioloajat tällä viikolla"
+#: views/index.mustache:9
+#: views/widget1.mustache:9
+msgid "The library index does not yet contain the contact and service information to all finnish libraries. The index will be updated during the rest of the year 2012.<br>For now all the information can be found under the Libraries page on Libraries.fi <a href='http://www.libraries.fi/libraries'>http://www.libraries.fi/libraries</a>"
+msgstr "Kirjastohakemistossa ei ole vielä kaikkien kirjastojen yhteys- ja palvelutietoja. Tietoja täydennetään loppuvuoden 2012 ajan.<br>Toistaiseksi kaikki tiedot löytyvät Kirjastot.fi:n Kirjasto-osiosta <a href='http://www.kirjastot.fi/kirjastot'>http://www.kirjastot.fi/kirjastot</a>"
 
-#: views/widget2.mustache:16
-#: views/widget3.mustache:18
-#: views/library_details.mustache:18
+#: views/widget2.mustache:21
+#: views/widget2.mustache:25
+#: views/widget3.mustache:21
+#: views/widget3.mustache:25
+#: views/library_details.mustache:21
+#: views/library_details.mustache:25
 msgid "Directions"
 msgstr "Saapumisohjeet"
 
-#: views/widget2.mustache:36
-#: views/widget3.mustache:162
-#: views/library_details.mustache:162
+#: views/widget2.mustache:45
+#: views/widget3.mustache:169
+#: views/library_details.mustache:169
 msgid "Telephone numbers"
 msgstr "Puhelinnumerot"
 
-#: views/widget2.mustache:53
-#: views/widget3.mustache:179
-#: views/library_details.mustache:179
+#: views/widget2.mustache:62
+#: views/widget3.mustache:186
+#: views/library_details.mustache:186
 msgid "Mail address"
 msgstr "Postiosoite"
 
-#: views/widget2.mustache:66
+#: views/widget2.mustache:75
 msgid "Last modified"
 msgstr "Muokattu viimeksi"
 
-#: views/contact.mustache:6
-msgid "This site is the product of <a href='http://kirjastot.fi/'>Kirjastot.fi</a>."
-msgstr "Tämä sivusto on <a href='http://kirjastot.fi/'>Kirjastot.fi</a>:n tuottama."
+#: views/widget2.mustache:82
+#: views/json_widget_5.mustache:6
+msgid "No open times, since this is a {{organisation_type}}."
+msgstr "Ei aukioloa, koska kyseessä {{organisation_type}}."
 
-#: views/contact.mustache:7
-#: views/header-dev.mustache:67
-#: views/header.mustache:65
-msgid "Send us feedback!"
-msgstr "Anna palautetta!"
+#: views/widget2.mustache:86
+#: views/widget3.mustache:143
+#: views/library_details.mustache:143
+#: views/json_widget_5.mustache:10
+msgid "The library is now"
+msgstr "Kirjasto on nyt"
 
-#: views/contact.mustache:19
-msgid "Message"
-msgstr "Viesti"
+#: views/widget2.mustache:89
+#: views/widget3.mustache:146
+#: views/library_details.mustache:146
+#: views/json_widget_5.mustache:13
+msgid "Opening hours today"
+msgstr "Avoinna tänään"
 
-#: views/contact.mustache:25
-msgid "'Submit'"
-msgstr "'Lähetä'"
-
-#: views/widget3.mustache:63
-#: views/library_details.mustache:63
-msgid "For loan"
-msgstr "Lainattavissa"
-
-#: views/widget3.mustache:88
-#: views/library_details.mustache:88
-msgid "Additional info"
-msgstr "Lisätietoja"
-
-#: views/widget3.mustache:98
-#: views/library_details.mustache:98
-msgid "Library identificator and type"
-msgstr "Kirjaston tunniste ja laji"
-
-#: views/widget3.mustache:101
-#: views/library_details.mustache:101
-msgid "ID"
-msgstr "Tunniste"
-
-#: views/widget3.mustache:102
-#: views/library_details.mustache:102
-msgid "Branch"
-msgstr "Osasto"
-
-#: views/widget3.mustache:103
-#: views/library_details.mustache:103
-msgid "Organisation"
-msgstr "Organisaatio"
-
-#: views/widget3.mustache:107
-#: views/library_details.mustache:107
-msgid "Established year"
-msgstr "Perustamisvuosi"
-
-#: views/widget3.mustache:117
-#: views/library_details.mustache:117
-msgid "Departments"
-msgstr "Toimipisteet"
-
-#: views/widget3.mustache:124
-#: views/library_details.mustache:124
-msgid "last modified"
-msgstr "muokattu viimeksi"
-
-#: views/widget3.mustache:132
-#: views/library_details.mustache:132
-msgid "This organization type does not have opening times."
-msgstr "Tällä yksiköllä ei ole aukioloaikoja."
-
-#: views/widget3.mustache:156
-#: views/library_details.mustache:156
-msgid "To borrow from this library you need a <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a> card."
-msgstr "Tästä kirjastosta lainaamiseksi tarvitaan <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a>-kortti."
-
-#: views/widget3.mustache:193
-#: views/library_details.mustache:193
-msgid "Homepage"
-msgstr "Verkkosivut"
-
-#: views/widget3.mustache:212
-#: views/library_details.mustache:212
-msgid "Building"
-msgstr "Rakennus"
-
-#: views/widget3.mustache:216
-#: views/library_details.mustache:216
-msgid "Built"
-msgstr "Rakennettu"
-
-#: views/widget3.mustache:219
-#: views/library_details.mustache:219
-msgid "Architect"
-msgstr "Arkkitehti"
-
-#: views/widget3.mustache:228
-#: views/library_details.mustache:228
-msgid "Accessible entry"
-msgstr "Helppo kulku pyörätuolilla"
-
-#: views/widget3.mustache:232
-#: views/library_details.mustache:232
-msgid "Accessible parking"
-msgstr "Invapysäköinti"
-
-#: views/widget3.mustache:236
-#: views/library_details.mustache:236
-msgid "Accessible toilet"
-msgstr "Inva-wc"
-
-#: views/widget3.mustache:244
-#: views/library_details.mustache:244
-msgid "Induction loop"
-msgstr "Induktiosilmukka"
-
-#: views/widget3.mustache:248
-#: views/library_details.mustache:248
-msgid "Large typeface collection"
-msgstr "Suuren kirjasinkoon kokoelma"
-
-#: views/widget3.mustache:252
-#: views/library_details.mustache:252
-msgid "Lift"
-msgstr "Hissi"
-
-#: views/widget3.mustache:260
-#: views/library_details.mustache:260
-msgid "Parking"
-msgstr "Pysäköinti"
+#: views/widget2.mustache:97
+#: views/widget3.mustache:154
+#: views/library_details.mustache:154
+#: views/json_widget_5.mustache:21
+msgid "Opening hours this week"
+msgstr "Aukioloajat tällä viikolla"
 
 #: views/header-dev.mustache:39
 #: views/header.mustache:37
 msgid "Library Directory"
 msgstr "Kirjastohakemisto"
+
+#: views/header-dev.mustache:67
+#: views/contact.mustache:7
+#: views/header.mustache:65
+msgid "Send us feedback!"
+msgstr "Anna palautetta!"
 
 #: views/header-dev.mustache:74
 #: views/header.mustache:72
@@ -557,40 +457,151 @@ msgstr "päivitä selaimesi"
 msgid "for best experience"
 msgstr "saadaksesi parhaan mahdollisen käyttökokemuksen"
 
-#: views/about.mustache:6
-msgid "This is a really cool thing."
-msgstr "Tämä on hieno juttu."
+#: views/contact.mustache:6
+msgid "This site is the product of <a href='http://kirjastot.fi/'>Kirjastot.fi</a>."
+msgstr "Tämä sivusto on <a href='http://kirjastot.fi/'>Kirjastot.fi</a>:n tuottama."
+
+#: views/contact.mustache:19
+msgid "Message"
+msgstr "Viesti"
+
+#: views/contact.mustache:25
+msgid "'Submit'"
+msgstr "'Lähetä'"
+
+#: views/widget3.mustache:70
+#: views/library_details.mustache:70
+msgid "For loan"
+msgstr "Lainattavissa"
+
+#: views/widget3.mustache:95
+#: views/library_details.mustache:95
+msgid "Additional info"
+msgstr "Lisätietoja"
+
+#: views/widget3.mustache:105
+#: views/library_details.mustache:105
+msgid "Library identificator and type"
+msgstr "Kirjaston tunniste ja laji"
+
+#: views/widget3.mustache:108
+#: views/library_details.mustache:108
+msgid "ID"
+msgstr "Tunniste"
+
+#: views/widget3.mustache:109
+#: views/library_details.mustache:109
+msgid "Branch"
+msgstr "Osasto"
+
+#: views/widget3.mustache:110
+#: views/library_details.mustache:110
+msgid "Organisation"
+msgstr "Organisaatio"
+
+#: views/widget3.mustache:114
+#: views/library_details.mustache:114
+msgid "Established year"
+msgstr "Perustamisvuosi"
+
+#: views/widget3.mustache:124
+#: views/library_details.mustache:124
+msgid "Departments"
+msgstr "Toimipisteet"
+
+#: views/widget3.mustache:131
+#: views/library_details.mustache:131
+msgid "last modified"
+msgstr "muokattu viimeksi"
+
+#: views/widget3.mustache:139
+#: views/library_details.mustache:139
+msgid "This organization type does not have opening times."
+msgstr "Tällä yksiköllä ei ole aukioloaikoja."
+
+#: views/widget3.mustache:163
+#: views/library_details.mustache:163
+msgid "To borrow from this library you need a <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a> card."
+msgstr "Tästä kirjastosta lainaamiseksi tarvitaan <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a>-kortti."
+
+#: views/widget3.mustache:200
+#: views/library_details.mustache:200
+msgid "Homepage"
+msgstr "Verkkosivut"
+
+#: views/widget3.mustache:219
+#: views/library_details.mustache:219
+msgid "Building"
+msgstr "Rakennus"
+
+#: views/widget3.mustache:223
+#: views/library_details.mustache:223
+msgid "Built"
+msgstr "Rakennettu"
+
+#: views/widget3.mustache:226
+#: views/library_details.mustache:226
+msgid "Architect"
+msgstr "Arkkitehti"
+
+#: views/widget3.mustache:235
+#: views/library_details.mustache:235
+msgid "Accessible entry"
+msgstr "Helppo kulku pyörätuolilla"
+
+#: views/widget3.mustache:239
+#: views/library_details.mustache:239
+msgid "Accessible parking"
+msgstr "Invapysäköinti"
+
+#: views/widget3.mustache:243
+#: views/library_details.mustache:243
+msgid "Accessible toilet"
+msgstr "Inva-wc"
+
+#: views/widget3.mustache:251
+#: views/library_details.mustache:251
+msgid "Induction loop"
+msgstr "Induktiosilmukka"
+
+#: views/widget3.mustache:255
+#: views/library_details.mustache:255
+msgid "Large typeface collection"
+msgstr "Suuren kirjasinkoon kokoelma"
+
+#: views/widget3.mustache:259
+#: views/library_details.mustache:259
+msgid "Lift"
+msgstr "Hissi"
+
+#: views/widget3.mustache:267
+#: views/library_details.mustache:267
+msgid "Parking"
+msgstr "Pysäköinti"
+
+#: views/404.mustache:6
+msgid "Sorry, but the page you were trying to view does not exist."
+msgstr "Sivua ei löytynyt"
+
+#: views/404.mustache:7
+msgid "It looks like this was the result of either:"
+msgstr "Tämä saattaa johtua esimerkiksi seuraavista:"
+
+#: views/404.mustache:9
+msgid "a mistyped address"
+msgstr "osoite on väärin kirjoitettu"
+
+#: views/404.mustache:10
+msgid "an out-of-date link"
+msgstr "seuraamasi linkki on vanhentunut"
 
 #: views/feedback-sent.mustache:7
 msgid "<strong>Feedback sent.</strong> Thank you!"
 msgstr "<strong>Palaute lähetetty</strong> Kiitos!"
 
-#: views/widget1.mustache:7
-#: views/index.mustache:7
-msgid "Find your library!"
-msgstr "Löydä kirjastosi!"
-
-#: views/widget1.mustache:8
-#: views/index.mustache:8
-msgid "Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries."
-msgstr "Syötä etsimäsi kirjaston tai palvelun nimi. Syötä kaupungin nimi tai postinumero löytääksesi lähimmän kirjaston."
-
-#: views/widget1.mustache:9
-#: views/index.mustache:9
-msgid "The library index does not yet contain the contact and service information to all finnish libraries. The index will be updated during the rest of the year 2012.<br>For now all the information can be found under the Libraries page on Libraries.fi <a href='http://www.libraries.fi/libraries'>http://www.libraries.fi/libraries</a>"
-msgstr "Kirjastohakemistossa ei ole vielä kaikkien kirjastojen yhteys- ja palvelutietoja. Tietoja täydennetään loppuvuoden 2012 ajan.<br>Toistaiseksi kaikki tiedot löytyvät Kirjastot.fi:n Kirjasto-osiosta <a href='http://www.kirjastot.fi/kirjastot'>http://www.kirjastot.fi/kirjastot</a>"
-
-#: views/browse.mustache:5
-msgid "Browse all libraries"
-msgstr "Selaa kaikkia kirjastoja"
-
-#: views/browse.mustache:6
-msgid "Listing total of {{count}} libraries."
-msgstr "Hakemistossa yhteensä {{count}} kirjastoa."
-
-#: views/browse.mustache:27
-msgid "nice URL slug missing"
-msgstr "kaunis URL-tunniste puuttuu"
+#: views/about.mustache:6
+msgid "This is a really cool thing."
+msgstr "Tämä on hieno juttu."
 
 #: views/widget_wizard.mustache:15
 msgid "Build a widget"
@@ -648,21 +659,17 @@ msgstr "Kopioi upokkeen koodi"
 msgid "Widget preview"
 msgstr "Upokkeen esikatselu"
 
-#: views/404.mustache:6
-msgid "Sorry, but the page you were trying to view does not exist."
-msgstr "Sivua ei löytynyt"
+#: views/browse.mustache:5
+msgid "Browse all libraries"
+msgstr "Selaa kaikkia kirjastoja"
 
-#: views/404.mustache:7
-msgid "It looks like this was the result of either:"
-msgstr "Tämä saattaa johtua esimerkiksi seuraavista:"
+#: views/browse.mustache:6
+msgid "Listing total of {{count}} libraries."
+msgstr "Hakemistossa yhteensä {{count}} kirjastoa."
 
-#: views/404.mustache:9
-msgid "a mistyped address"
-msgstr "osoite on väärin kirjoitettu"
-
-#: views/404.mustache:10
-msgid "an out-of-date link"
-msgstr "seuraamasi linkki on vanhentunut"
+#: views/browse.mustache:27
+msgid "nice URL slug missing"
+msgstr "kaunis URL-tunniste puuttuu"
 
 #~ msgid "PB"
 #~ msgstr "PL"
