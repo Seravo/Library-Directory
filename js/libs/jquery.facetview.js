@@ -98,7 +98,7 @@
 		{'field': 'branch_type', 'display': _('Branch type')},
 		{'field': 'services.name_'+_("locale"), 'order':'term', 'display': _('Services'), "size":40 },
 		{'field': 'accessibility.accessible_entry', 'display': _('Accessibility')},
-		{'field': 'contact.street_address.municipality_'+_("locale"), 'order':'term', 'display': _('City')}
+		{'field': 'contact.street_address.municipality_'+_("locale"), 'order':'term', 'display': _('City'), "size":400 }
 		],
             "addremovefacets": false,
             "result_display": search_results,
