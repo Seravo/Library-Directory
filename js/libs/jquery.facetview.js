@@ -622,6 +622,10 @@
 									e_month = e_date.split("-")[1];
 									e_day = e_date.split("-")[2];
 								}
+
+								if (s_month=="12") s_month="11";
+								if (e_month=="12") e_month="11";
+
 								start_time = unixtime >= new Date(s_year, s_month, s_day);
 								end_time = unixtime <= new Date(e_year, e_month, e_day);
 							}
