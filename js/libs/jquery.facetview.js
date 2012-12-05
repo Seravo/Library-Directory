@@ -607,6 +607,8 @@
 								var s_month = s_date.split("-")[1];
 								var s_day = s_date.split("-")[2];
 
+								s_month = parseInt(s_month)-1;
+
 								var e_date, e_year, e_month, e_day;
 
 								// if period has no end defined, assume today + 1 year
@@ -621,10 +623,9 @@
 									e_year = e_date.split("-")[0];
 									e_month = e_date.split("-")[1];
 									e_day = e_date.split("-")[2];
-								}
 
-								if (s_month=="12") s_month="11";
-								if (e_month=="12") e_month="11";
+									e_month = parseInt(e_month)-1;
+								}
 
 								start_time = unixtime >= new Date(s_year, s_month, s_day);
 								end_time = unixtime <= new Date(e_year, e_month, e_day);
