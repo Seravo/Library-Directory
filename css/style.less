@@ -27,9 +27,46 @@ footer {
 
 textarea.widget { width: 500px; height: 100px; }
 
+/* OpenLayers layer selector styling */
+#layerswitcher.olControlLayerSwitcher {
+	background-color: black !important;
+}
+
+.olControlLayerSwitcher > div > span {
+	background-color: black !important;
+}
+
+.olControlLayerSwitcher .layersDiv {
+	background-color: black !important;
+}
+
 /* OpenLayers/OSM attribution styling */
 div.olControlAttribution, div.olControlScaleLine {
 	bottom: 1px;
+}
+
+/* OpenLayers Google maps styling */
+.olLayerGoogleCopyright
+{
+	right:3px;
+	bottom:2px;
+	left:auto;
+}
+
+.olLayerGoogleV3.olLayerGoogleCopyright
+{
+	bottom:0;
+	right:0!important;
+}
+
+.olLayerGoogleV3.olLayerGooglePoweredBy
+{
+	bottom:0!important;
+}
+
+div.olLayerGoogleCopyright, div.olLayerGooglePoweredBy
+{
+	  display: none !important;
 }
 
 .betalabel {

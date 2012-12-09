@@ -85,6 +85,7 @@ function ld_mapcontrol_init_geoloc(data) {
 		controls: [
 			new OpenLayers.Control.Navigation({'zoomWheelEnabled': false}),
 			new OpenLayers.Control.PanZoomBar(),
+			new OpenLayers.Control.LayerSwitcher(),
 			new OpenLayers.Control.Attribution() ],
 		theme: '/js/libs/openlayers/style.css'
 	};
@@ -96,8 +97,10 @@ function ld_mapcontrol_init_geoloc(data) {
 
 	/* add map layers */
 	var osmLayer = new OpenLayers.Layer.OSM("OpenStreetMap");
+	var gmapLayer = new OpenLayers.Layer.Google("Google Streets", { numZoomLevels: 19 });
 	var map = new OpenLayers.Map("basicmap", mapOptions);
-	map.addLayers([osmLayer]);
+	//map.addLayers([osmLayer]);
+	map.addLayers([gmapLayer, osmLayer]);
 	//map.setCenter(mapLocation, 12);
 
 	/* add marker layer with coordinate projection transform */
@@ -187,7 +190,7 @@ function ld_mapcontrol_init(coords, info) {
 		controls: [
 			new OpenLayers.Control.Navigation(),
 			new OpenLayers.Control.PanZoomBar(),
-			//new OpenLayers.Control.LayerSwitcher(),
+			new OpenLayers.Control.LayerSwitcher(),
 			new OpenLayers.Control.Attribution() ],
 		theme: '/js/libs/openlayers/style.css'
 	};
@@ -199,11 +202,12 @@ function ld_mapcontrol_init(coords, info) {
 
 	/* add map layers */
 	var osmLayer = new OpenLayers.Layer.OSM("OpenStreetMap");
-	//var gmapLayer = new OpenLayers.Layer.Google("Google Streets", { numZoomLevels: 22 });
+	var gmapLayer = new OpenLayers.Layer.Google("Google Streets", { numZoomLevels: 19 });
 
 	map = new OpenLayers.Map("basicmap", mapOptions);
 
-	map.addLayers([osmLayer]);
+	//map.addLayers([osmLayer]);
+	map.addLayers([gmapLayer, osmLayer]);
 	map.setCenter(mapLocation, 15);
 
 	/* add marker layer with coordinate projection transform */
