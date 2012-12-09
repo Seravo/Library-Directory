@@ -68,22 +68,31 @@
     $.fn.facetview = function(options) {
 
 	var opening_hours_format =
+		"{{#d2}}" +
 		"<i class='icon-time'></i> "+
 		"{{#d0}}<span style='color: green;'>" + _("Open") +
 		 "</span> " + _("today") + " {{d1}} {{/d0}}" +
 		"{{^d0}}<span style='color: red; font-style: italic;'>" + _("Closed") +	"</span> " +
-		"{{#d1}}(" + _("open today") + " {{d1}}){{/d1}} {{/d0}}";
+		"{{#d1}}(" + _("open today") + " {{d1}}){{/d1}} {{/d0}}" +
+		"{{/d2}}";
 
 	var coordinate_format = "\
+		{{#d2}} \
 		<i class='icon-map-marker'></i> \
-		{{#d0}}<a href=\"\" onclick='ld_mapcontrol_init(\"{{d0}}\", \"{{d1}}\"); return false;'>{{/d0}}";
+		{{#d0}}<a href=\"\" onclick='ld_mapcontrol_init(\"{{d0}}\", \"{{d1}}\"); return false;'>{{/d0}}" +
+		"{{/d2}}";
+
+	var address_format =
+		"{{#d3}}" +
+		"{{d0}}, {{d1}} {{d2}}</a>" +
+		"{{/d3}}";
 
 	var search_results = [
 		[ { "fields": "id, additional_info.slug,  name_" + _("locale"), "format": "<h3><a href='{{#d1}}{{d1}}{{/d1}}{{^d1}}{{d0}}{{/d1}}'>{{d2}}</a></h3>" } ],
-		[ { "fields": "contact.coordinates, map_popup_html",
+		[ { "fields": "contact.coordinates, map_popup_html, show_address_entry",
 		    "format": coordinate_format },
-		  { "fields": "contact.street_address.street_" + _("locale")+", contact.street_address.post_code, contact.street_address.municipality_"+ _("locale"), "format": "{{d0}}, {{d1}} {{d2}}</a>" } ],
-		[ { "fields": "open_now, opening_hours", "format": opening_hours_format } ],
+		  { "fields": "contact.street_address.street_" + _("locale")+", contact.street_address.post_code, contact.street_address.municipality_"+ _("locale") + ", show_address_entry", "format": address_format } ],
+		[ { "fields": "open_now, opening_hours, show_opening_hours", "format": opening_hours_format } ],
 	]
 /*		[ { "field": "services" } ], */
 /* optimal would be not to show list of services, but rather just icons for the most important services */
@@ -585,6 +594,14 @@
 					/* js daynum is 0-6 starting from sunday, libdir daynum is 0-6 starting from monday, fix it */
 					if (daynum==0) daynum = 7;
 					daynum = daynum-1;
+
+					/* show opening times on front page only if organisation type is branch */
+					library_data.show_opening_hours = true;
+					if (library_data.organisation_type == 'library') library_data.show_opening_hours = false;
+
+					/* show address entry only if it is present */
+					library_data.show_address_entry = true;
+					if (library_data.contact.street_address["street_"+_("locale")]=="") library_data.show_address_entry = false;
 
 					/* library is not open until proven otherwise */
 					library_data.open_now = false;
