@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-19 09:15+0200\n"
-"PO-Revision-Date: 2012-12-09 11:44+0200\n"
+"PO-Revision-Date: 2012-12-09 11:52+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -105,7 +105,7 @@ msgstr "yhteystiedot, aukiolo, palvelut"
 #: server.js:516
 #: server.js:612
 msgid "branchlibrary"
-msgstr "sivukirjasto"
+msgstr "kirjasto"
 
 #: server.js:517
 #: server.js:613
@@ -115,7 +115,7 @@ msgstr "toimipiste"
 #: server.js:518
 #: server.js:614
 msgid "library"
-msgstr "pääkirjasto"
+msgstr "organisaatio"
 
 #: server.js:519
 #: server.js:615
