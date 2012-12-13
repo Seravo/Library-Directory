@@ -598,6 +598,13 @@ function add_library_metadata(dataobj, callback){
 		if (name=='') delete lib.contact.telephones[temp]['telephone_name_'+_('locale')];
 	}
 
+    // TODO: Change data model to have own extrainfo branches for each language
+    if (typeof lib.additional_info != "undefined" && typeof lib.additional_info.extrainfo != "undefined") {
+        if (lib.additional_info.extrainfo[0].property_label_fi == '') {
+            delete lib.additional_info;
+        }
+    }
+
 	// delete ifla-visit & accessibility code from fi-locale extrainfo
     if (typeof lib.additional_info != "undefined" && typeof lib.additional_info.extrainfo != "undefined") {
 		var len = lib.additional_info.extrainfo.length;
@@ -607,12 +614,6 @@ function add_library_metadata(dataobj, callback){
 		}
 	}
 
-    // TODO: Change data model to have own extrainfo branches for each language
-    if (typeof lib.additional_info != "undefined" && typeof lib.additional_info.extrainfo != "undefined") {
-        if (lib.additional_info.extrainfo[0].property_label_fi == '') {
-            delete lib.additional_info;
-        }
-    }
     if (lib.established_year == '') {
         delete lib.established_year;
     }
