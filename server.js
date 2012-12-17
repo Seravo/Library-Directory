@@ -533,6 +533,7 @@ function add_library_metadata(dataobj, callback){
 
     if (typeof dataobj._source == "undefined") {
         dataobj._source = dataobj.hits.hits[0]._source;
+		dataobj._source.id = dataobj.hits.hits[0]._id;
     }
 
 	var lib = dataobj._source;
@@ -669,7 +670,11 @@ function add_library_metadata(dataobj, callback){
         lib.contact.coordinnates_lon = latlon[1];
     }
 
-    callback(dataobj);
+	//rlog("personnel slug: " + lib.slug);
+	//rlog("personnel id: " + lib.id);
+
+	if (typeof lib.id == "undefined") callback(dataobj);
+	else get_library_personnel(lib.id, dataobj, callback);
 }
 
 // get a specific library
@@ -786,6 +791,104 @@ function get_library_children(id, callback) {
       });
       res.on('end', function() {
 		dataobj = JSON.parse(data);
+		callback(dataobj);
+      });
+    }).on('error', function(e) {
+      rlog('Problem with request: ' + e.message);
+    });
+}
+
+// get library's personnel by library id
+function get_library_personnel(id, dataobj, callback) {
+	var query = {
+		"size": 999,
+		"sort": [ { "last_name" : {} } ],
+		"query": {
+		    "filtered": {
+                "query": { "match_all": {} },
+                "filter": {
+                    "and": [
+                        {"term": { "organisation" : id } },
+			            {"term": { "meta.document_state" : "published" } }
+					]
+			    }
+			}
+		}
+	};
+
+    query = JSON.stringify(query);
+	query = encodeURIComponent(query);
+
+    var options = {
+      host: conf.proxy_config.host,
+      port: conf.proxy_config.port,
+      path: '/testink/person/_search?source='+query,
+      method: 'GET'
+    };
+
+    var req = http.get(options, function(res) {
+	  rlog("Requested personnel of: " + id);
+
+      res.setEncoding('utf8');
+      data = '';
+      res.on('data', function(chunk){
+        data += chunk;
+        //rlog("...read chunk: " + chunk);
+      });
+      res.on('end', function() {
+
+		// obfuscate displayed email-addresses a bit to avoid harvester bots
+		function obfuscate_email(email) {
+			parts = email.split('@');
+			head = parts[0];
+			tail = parts[1].split('');
+			tail.unshift('@');
+
+			obfuscated = [];
+			tail.forEach(function(char) {
+				obfuscated.push('&#' + char.charCodeAt() + ';');
+			});
+
+			return head + obfuscated.join('');
+		}
+
+		function obfuscate_email_addresses(data) {
+			data.forEach(function(person) {
+				person = person._source;
+				// obfuscate if person's email is defined and valid-ish
+				if (typeof person.contact.email != "undefined" && person.contact.email.length>0 && person.contact.email.indexOf('@') != -1) {
+					person.contact.email = obfuscate_email(person.contact.email);
+					//rlog("email: " + person.contact.email);
+				}
+
+				// delete person's empty fields
+				if (typeof person.contact.email != "undefined" && person.contact.email == "") { delete person.contact.email; }
+				if (typeof person.contact.phone != "undefined" && person.contact.phone == "") { delete person.contact.phone; }
+				if (typeof person.job_title_fi != "undefined" && person.job_title_fi == "") { delete person.job_title_fi; }
+
+			});
+			return data;
+		}
+
+		// by default, library has no personnel defined (for library details view rendering)
+		dataobj.hits.hits[0]._source.has_personnel = false;
+
+		dataobj2 = JSON.parse(data);
+		// if personnel exists, inject it into library data
+		if (typeof dataobj2.hits != "undefined" && typeof dataobj2.hits.hits != "undefined") {
+			personnel = dataobj2.hits.hits;
+
+			if (personnel.length>0) {
+				personnel = obfuscate_email_addresses(personnel);
+
+				dataobj.hits.hits[0]._source.personnel = personnel;
+				dataobj.hits.hits[0]._source.has_personnel = true;
+			}
+
+			//rlog(personnel);
+			rlog("Personnel size: " + personnel.length);
+		}
+
 		callback(dataobj);
       });
     }).on('error', function(e) {
