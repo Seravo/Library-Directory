@@ -1,1 +1,297 @@
-library_details.mustache
+{{{header}}}
+
+{{#data}}
+<div class="row-fluid" itemscope itemtype="http://schema.org/Library">
+  <div class="span6">
+
+	<h1 itemprop="name" id="{{id}}">{{name__("locale")}}</h1>
+	{{#contact.coordinates}}
+        <p><strong class="address" itemprop="address"><i class="icon-map-marker"></i>
+	    <a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q" itemprop="map">
+	    {{contact.street_address.street__("locale")}},
+	    {{contact.street_address.area__("locale")}}
+	    {{contact.street_address.post_code}}
+	    {{contact.street_address.municipality__("locale")}}</a></strong></p>
+	{{/contact.coordinates}}
+
+	<p><strong><i class="icon-move"></i>
+	<a href='http://www.matka.fi/_("routefinder locale")/?keya=&keyb=
+	{{contact.street_address.street__("locale")}},
+	{{contact.street_address.municipality__("locale")}}'>
+	_("Directions")</a>
+	</strong></p>
+
+    {{#contact.directions__("locale")}}
+        <p>_("Directions"):
+			{{contact.directions__("locale")}}</p>
+    {{/contact.directions__("locale")}}
+
+	{{#contact.coordinates}}
+		[Map missing]
+	{{/contact.coordinates}}
+
+	{{#description__("locale")}}
+		<p class="libdescription" itemprop="description">{{description__("locale")}}</p>
+	{{/description__("locale")}}
+
+	<dl>
+		{{#services.0.name__("locale")}}
+	    <dt>_("Services")</dt>
+	    <meta itemprop="currenciesAccepted" content="EUR">
+	    <dd>
+	         {{#services}}
+	            <div itemscope itemtype="http://schema.org/Product">
+                    <span title="Model: {{model}}" itemprop="name">{{name__("locale")}}</span>
+                    <span class="hidden" itemprop="model">{{model}}</span>
+                    <span class="label {{label}}" title="Priority: {{service_priority}} / Type:{{servicetype_priority}}">{{type}}</span> 
+                    <ul>
+                    {{#description_short__("locale")}}
+                        <li itemprop="description">{{description_short__("locale")}}
+                            {{#description_long__("locale")}}
+							    <br><cite>{{description_long__("locale")}}</cite>
+						    {{/description_long__("locale")}}
+                        </li>
+                        {{/description_short__("locale")}}
+                        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                            {{#price}}
+                                <li itemprop="price">{{price}}</li>
+                            {{/price}}
+                            {{#for_loan}}
+                            <li>_("For loan")</li>
+                            {{/for_loan}}
+                            {{#instance_name__("locale")}}
+                            <li>{{instance_name__("locale")}}<br>
+						        <cite>{{instance_description__("locale")}}</cite></li>
+                            {{/instance_name__("locale")}}
+                            {{#tag.0}}
+                            <li><ul>{{#tag}}<li>{{.}}</li>{{/tag}}</ul></li>
+                            {{/tag.0}}
+                            {{#contact.0}}
+                            <li itemprop="seller">_("Contact"):
+                                <ul>
+                                {{#contact}}
+                                    <li>{{telephone}} / {{email}} / <a href="{{url}}">{{url__("locale")}}</a></li>
+                                {{/contact}}
+                                </ul>
+                            {{/contact.0}}
+                        </div>
+                    </ul>
+                    </div>
+             {{/services}}
+	    </dd>
+	    {{/services.0.name__("locale")}}
+
+		{{#additional_info}}
+        <dt>_("Additional info")</dt>
+        <dd>
+            {{#extrainfo}}
+                {{property_label__("locale")}}:
+					{{property_value__("locale")}}<br>
+            {{/extrainfo}}
+        </dd>
+	    {{/additional_info}}
+
+
+	    <!-- dt>_("Library identificator and type")</dt>
+	    <dd>
+	        ISIL: {{isil}}<br>
+	        _("ID"): {{identificator}}<br>
+	        _("Branch"): {{branch_type}}<br>
+	        _("Organisation"): {{organisation_type}}
+	    </dd -->
+
+		{{#established_year}}
+	    <dt>_("Established year")</dt>
+	    <dd>{{established_year}}</dd>
+	    {{/established_year}}
+
+		{{#parent_organisation}}
+		    <dt>_("Library consortium")</dt>
+		    <dd><a href="{{parent_organisation}}" itemprop="branchOf">{{consortium}} &rarr;</a></dd>
+		{{/parent_organisation}}
+
+		{{#has_children}}
+		<dt>_("Departments")</dt>
+			{{#children}}
+				<dd><a href="{{link}}" itemprop="member">{{name__("locale")}} &rarr;</a></dd>
+			{{/children}}
+		{{/has_children}}
+    </dl>
+
+    <p><small><a href="{{slug}}" itemprop="url">hakemisto.kirjastot.fi/{{slug}}</a> _("last modified"): {{meta.modified}}</small></p>
+
+  </div>
+
+  <div class="span6">
+    <div class="opentimes">
+        <i class="icon-time"></i>
+        {{#neveropen}}
+            _("This organization type does not have opening times.")
+        {{/neveropen}}
+
+        {{^neveropen}}
+            <h3>_("The library is now")
+		    {{#opening_hours.open_now}}
+	            <strong class="open">_("Open")</strong>
+			    _("Opening hours today") {{opening_hours.open_hours_today}}
+		    {{/opening_hours.open_now}}
+
+		    {{^opening_hours.open_now}}
+	            <strong class="closed">_("Closed")</strong>
+	        {{/opening_hours.open_now}}
+		    </h3>
+		    <br>
+	        <h3>_("Opening hours this week")</h3>
+	        <time itemprop="openingHours">
+	        <table>
+			    {{#opening_hours.open_hours_week}}
+				    <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
+			    {{/opening_hours.open_hours_week}}
+	        </table>
+	        </time>
+            <br>
+            <p>_("To borrow from this library you need a <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a> card.")</p>
+        {{/neveropen}}
+    </div>
+    
+    <div class="contactdetails">
+		{{#has_personnel}}
+		<dt>_("Personnel")</dt>
+		<dd>
+			<table>
+			{{#personnel}}
+				<tr>
+					<td>
+					{{_source.first_name}} {{_source.last_name}}
+						{{#_source.job_title_fi}}
+							/ {{_source.job_title_fi}}
+						{{/_source.job_title_fi}}
+					</td>
+					{{#_source.contact.telephone}}
+					<td>
+						&nbsp;
+						<img src="/img/glyphicons_139_phone.png" alt='_("Phone icon")'>
+						<a href="tel:{{_source.contact.telephone}}" itemprop="telephone">{{_source.contact.telephone}}</a>
+					</td>
+					{{/_source.contact.telephone}}
+					{{#_source.contact.email}}
+					<td>
+						&nbsp;<i class="icon-envelope"></i> <a href="mailto:{{{_source.contact.email}}}" itemprop="email">{{{_source.contact.email}}}</a>
+					</td>
+					{{/_source.contact.email}}
+				</tr>
+			{{/personnel}}
+			</table>
+		</dd>
+		{{/has_personnel}}
+
+		{{#contact.telephones.0.telephone_number}}
+	    <dt>_("Telephone numbers")</dt>
+	    <dd>
+	        {{#contact.telephones}}
+                <img src="/img/glyphicons_139_phone.png" alt='_("Phone icon")'>
+				<a href="tel:{{telephone_number}}" itemprop="telephone">{{telephone_number}}</a> /
+				{{#telephone_name__("locale")}}
+					{{telephone_name__("locale")}}
+				{{/telephone_name__("locale")}}
+				{{^telephone_name__("locale")}}
+					{{telephone_name_fi}}
+				{{/telephone_name__("locale")}}
+				<br>
+            {{/contact.telephones}}
+	    </dd>
+	    {{/contact.telephones.0.telephone_number}}
+
+		{{#contact.mail_address.post_box}}
+	    <dt>_("Mail address")</dt>
+	    <dd>
+	        {{contact.mail_address.post_box}}<br>
+	        {{contact.mail_address.post_code}} {{contact.mail_address.post_office__("locale")}}
+	    </dd>
+	    {{/contact.mail_address.post_box}}
+
+		{{#contact.email}}
+	    <dt>_("E-mail")</dt>
+	    <dd><i class="icon-envelope"></i> <a href="mailto:{{contact.email}}" itemprop="email">{{contact.email}}</a></dd>
+	    {{/contact.email}}
+
+		{{#contact.homepage__("locale")}}
+		<dd>
+        <dt>_("Homepage")</dt>
+        <dd>
+            <i class="icon-home"></i> <a href="{{contact.homepage__("locale")}}">
+			{{contact.homepage__("locale")}}</a>
+            {{#contact.internet}}
+                <br><a href="{{url__("locale")}}" 
+                    title="{{url_description__("locale")}}" class="iconless-link">
+				{{name__("locale")}}</a>
+            {{/contact.internet}}
+		</dd>
+	    {{/contact.homepage__("locale")}}    
+    </div>
+    
+    <div class="buildinginfo">
+        {{#image_url}}
+        <img src="{{image_url}}" alt="{{name__("locale")}}" itemprop="image photo">
+        {{/image_url}}
+        <table>
+        {{#contact.building__("locale")}}
+            <tr><th>_("Building"):</th>
+				<td>{{contact.building__("locale")}}</td></tr>
+        {{/contact.building__("locale")}}
+        {{#contact.building_year}}
+            <tr><th>_("Built"):</th><td>{{contact.building_year}}</td></tr>
+        {{/contact.building_year}}
+        {{#contact.building_architect}}
+            <tr><th>_("Architect"):</th><td>{{contact.building_architect}}</td></tr>
+        {{/contact.building_architect}} 
+        <td><th colspan="2">&nbsp;</td></tr>
+
+		{{#accessibility_available}}
+        <tr><td colspan=2>
+			<dt>_("Accessibility")</dt>
+			<dd>
+			{{#accessibility.accessible_entry}}
+				_("Accessible entry")<br>
+			{{/accessibility.accessible_entry}}
+
+			{{#accessibility.accessible_parking}}
+				_("Accessible parking")<br>
+			{{/accessibility.accessible_parking}}
+
+			{{#accessibility.accessible_toilet}}
+				_("Accessible toilet")<br>
+			{{/accessibility.accessible_toilet}}
+
+			{{#extraaccessibilityinfo}}
+				{{extra_accessibility_property_label__("locale")}}: {{extra_accessibility_property_value__("locale")}}<br>
+			{{/extraaccessibilityinfo}}
+
+			{{#accessibility.induction_loop}}
+				 _("Induction loop")<br>
+			{{/accessibility.induction_loop}}
+
+			{{#accessibility.large_typeface_collection}}
+				_("Large typeface collection")<br>
+			{{/accessibility.large_typeface_collection}}
+
+			{{#accessibility.lift}}
+				_("Lift")<br>
+			{{/accessibility.lift}}
+		</dd>
+		</td>
+		</tr>
+        <td><th colspan="2">&nbsp;</td></tr>
+		{{/accessibility_available}}
+        {{#contact.parking__("locale")}}
+            <tr><th>_("Parking"):</th><td>{{contact.parking__("locale")}}</td></tr>
+        {{/contact.parking__("locale")}}
+        </table>
+    </div>
+
+  </div>
+
+</div>
+{{/data}}
+
+{{{footer}}}
