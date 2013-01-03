@@ -386,13 +386,6 @@ function render_library_by_id(page, req, res) {
     get_library_by_id(page, function(data){
 		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
     
-        // if slug exists, redirect to pretty url
-        if (typeof data._source.slug == "string" && data._source.slug.length > 1) {
-    		rlog("Redirect to pretty url: /" + data._source.slug + " (referer " + req.headers['referer'] + ")");
-      		res.redirect(req.locale_url_prefix + data._source.slug, 301);
-      		return false; // don't print out stuff after headers sent
-        }
-
         // return 404 if no library was returned
         // TODO: is this the most elegant place to check for results and render 404?
         if (typeof data == "undefined"){
@@ -401,6 +394,13 @@ function render_library_by_id(page, req, res) {
 			res.render("404", res.locals());
 			return false;
 		}
+
+        // if slug exists, redirect to pretty url
+        if (typeof data._source.slug == "string" && data._source.slug.length > 1) {
+			rlog("Redirect to pretty url: /" + data._source.slug + " (referer " + req.headers['referer'] + ")");
+			res.redirect(req.locale_url_prefix + data._source.slug, 301);
+			return false; // don't print out stuff after headers sent
+        }
 
 		var id = data._id;
 		data._source["id"] = id;
