@@ -128,7 +128,7 @@
 					{ "term": { "meta.document_state" : "published" } }
 				]
 				,
-            "paging":{ from: 0, size: 10 }
+            "paging":{ from: 0, size: 50 }
         };
 
 		// container for active facetview filters for visualisation purposes
