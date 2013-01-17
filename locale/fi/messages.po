@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-11 16:00+0200\n"
-"PO-Revision-Date: 2013-01-11 16:01+0200\n"
+"PO-Revision-Date: 2013-01-17 18:43+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -177,7 +177,7 @@ msgstr "Sunnuntai"
 #: server.js:961
 #: server.js:986
 msgid "closed"
-msgstr "suljettu"
+msgstr "kiinni"
 
 #: js/libs/jquery.facetview.js:59
 msgid "Error: unspecified"
@@ -208,7 +208,7 @@ msgstr "tänään"
 #: views/library_details.mustache:140
 #: views/json_widget_5.mustache:17
 msgid "Closed"
-msgstr "Suljettu"
+msgstr "Kiinni"
 
 #: js/libs/jquery.facetview.js:76
 msgid "open today"
