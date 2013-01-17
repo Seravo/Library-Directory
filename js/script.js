@@ -100,7 +100,7 @@ function ld_mapcontrol_init_geoloc(data) {
 	var gmapLayer = new OpenLayers.Layer.Google("Google Streets", { numZoomLevels: 19 });
 	var map = new OpenLayers.Map("basicmap", mapOptions);
 	//map.addLayers([osmLayer]);
-	map.addLayers([gmapLayer, osmLayer]);
+	map.addLayers([osmLayer, gmapLayer]);
 	//map.setCenter(mapLocation, 12);
 
 	/* add marker layer with coordinate projection transform */
@@ -207,7 +207,7 @@ function ld_mapcontrol_init(coords, info) {
 	map = new OpenLayers.Map("basicmap", mapOptions);
 
 	//map.addLayers([osmLayer]);
-	map.addLayers([gmapLayer, osmLayer]);
+	map.addLayers([osmLayer, gmapLayer]);
 	map.setCenter(mapLocation, 15);
 
 	/* add marker layer with coordinate projection transform */
