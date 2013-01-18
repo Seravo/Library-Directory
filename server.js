@@ -319,9 +319,9 @@ function render_static_page(page, req, res) {
 			var areafilter = req.query.area || "";
 			var cityfilter = req.query.city || "";
 			var js_code = "";
-			if (areafilter != "") js_code = "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({areafilter: '" + areafilter + "'}); });";
-			else if (cityfilter != "") js_code = "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({cityfilter: '" + cityfilter + "'}); });";
-			else js_code = "jQuery(document).ready(function($) { $('.facet-view-simple').facetview(); });";
+			if (areafilter != "") js_code = "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({widget: true, areafilter: '" + areafilter + "'}); });";
+			else if (cityfilter != "") js_code = "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({widget: true, cityfilter: '" + cityfilter + "'}); });";
+			else js_code = "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({widget: true}); });";
 
 			res.local("header", header.render(req, { nobanners: true }));
 			res.local("footer", footer.render({ nobanners: true, js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));

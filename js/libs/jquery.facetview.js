@@ -1086,28 +1086,54 @@
             }
         }
 
-        // the facet view object to be appended to the page
-        var thefacetview = ' \
-           <div id="facetview"> \
-             <div class="row-fluid"> \
-               <div class="span3"> \
-                 <div id="facetview_filters"></div> \
-               </div> \
-               <div class="span9" id="facetview_rightcol"> \
-                   <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend"> \
-                   <span class="add-on"><i id="search_static" class="icon-search"></i><img id="search_spinner" src="img/spinner.gif" style="display: hidden;" alt="[spinner]"> </span> \
-                   <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("search starts automatically after 3 letters") + '" autofocus /> \
-                   </div> \
-				   <div id="search_status" style="clear: both;"></div> \
-                   <div style="float:left;" id="facetview_selectedfilters"></div> \
-                   <div style="float:left;" id="facetview_selectedextrafilters"></div> \
-                   <div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div><div id="mapcontrol"></div></div> \
-                 <table class="table table-striped" id="facetview_results"></table> \
-                 <div id="facetview_metadata"></div> \
-               </div> \
-             </div> \
-           </div> \
-           ';
+		var thefacetview = "";
+		if ( (options.widget != undefined && options.widget == true) ) {
+			// facet object for search widget (map first)
+			thefacetview = ' \
+			   <div id="facetview"> \
+				 <div class="row-fluid"> \
+				   <div class="span9" id="facetview_rightcol"> \
+					   <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend"> \
+					   <span class="add-on"><i id="search_static" class="icon-search"></i><img id="search_spinner" src="img/spinner.gif" style="display: hidden;" alt="[spinner]"> </span> \
+					   <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("search starts automatically after 3 letters") + '" autofocus /> \
+					   </div> \
+					   <div id="search_status" style="clear: both;"></div> \
+					   <div style="float:left;" id="facetview_selectedfilters"></div> \
+					   <div style="float:left;" id="facetview_selectedextrafilters"></div> \
+					   <div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div><div id="mapcontrol"></div></div> \
+					 <table class="table table-striped" id="facetview_results"></table> \
+					 <div id="facetview_metadata"></div> \
+				   </div> \
+				   <div class="span3"> \
+					 <div id="facetview_filters"></div> \
+				   </div> \
+				 </div> \
+			   </div> \
+			   ';
+		} else {
+			// the facet object for normal serach (filters first)
+			thefacetview = ' \
+			   <div id="facetview"> \
+				 <div class="row-fluid"> \
+				   <div class="span3"> \
+					 <div id="facetview_filters"></div> \
+				   </div> \
+				   <div class="span9" id="facetview_rightcol"> \
+					   <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend"> \
+					   <span class="add-on"><i id="search_static" class="icon-search"></i><img id="search_spinner" src="img/spinner.gif" style="display: hidden;" alt="[spinner]"> </span> \
+					   <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("search starts automatically after 3 letters") + '" autofocus /> \
+					   </div> \
+					   <div id="search_status" style="clear: both;"></div> \
+					   <div style="float:left;" id="facetview_selectedfilters"></div> \
+					   <div style="float:left;" id="facetview_selectedextrafilters"></div> \
+					   <div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div><div id="mapcontrol"></div></div> \
+					 <table class="table table-striped" id="facetview_results"></table> \
+					 <div id="facetview_metadata"></div> \
+				   </div> \
+				 </div> \
+			   </div> \
+			   ';
+		}
 
         // what to do when ready to go
         var whenready = function() {
