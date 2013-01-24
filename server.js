@@ -443,18 +443,21 @@ function render_library_by_slug(slug, req, res) {
 
     rlog("Requested slug: "+req.params);
     get_library_by_name(slug, req, function(data){
+		var nobanners = false;
+		if (req.header("Referrer") != undefined && req.header("Referrer").indexOf('widget') != -1) nobanners = true;
+
 		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
         rlog("Total results: "+data.hits.total);
         if (data.hits.total > 0) {
 		    data.hits.hits[0]._source["id"] = data.hits.hits[0]._id;
     		var library = data.hits.hits[0]._source;
 		    res.local("data", library);
-            res.local("header", header.render(req, {title: eval("library.name_" + _("locale")) + ": " + _("contact details, open hours, services")}))
-            res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+            res.local("header", header.render(req, {nobanners: nobanners, title: eval("library.name_" + _("locale")) + ": " + _("contact details, open hours, services")}))
+            res.local("footer", footer.render({nobanners: nobanners, js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 		    res.render("library_details", res.locals());
 		} else {
-			res.local("header", header.render(req, {title: _("Not found") }));
-			res.local("footer", footer.render());
+			res.local("header", header.render(req, {nobanners: nobanners, title: _("Not found") }));
+			res.local("footer", footer.render({nobanners: nobanners}));
 			res.render("404", res.locals());
 		}
 	});
