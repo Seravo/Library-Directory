@@ -140,6 +140,7 @@
         {{/neveropen}}
 
         {{^neveropen}}
+			{{#opening_hours.has_opening_hours}}
             <h3>_("The library is now")
 		    {{#opening_hours.open_now}}
 	            <strong class="open">_("Open")</strong>
@@ -161,6 +162,10 @@
 	        </time>
             <br>
             <p>_("To borrow from this library you need a <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a> card.")</p>
+			{{/opening_hours.has_opening_hours}}
+			{{^opening_hours.has_opening_hours}}
+            _("This organization type does not have opening times.")
+			{{/opening_hours.has_opening_hours}}
         {{/neveropen}}
     </div>
     

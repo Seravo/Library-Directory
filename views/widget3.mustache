@@ -130,6 +130,7 @@
         {{/neveropen}}
 
         {{^neveropen}}
+			{{#opening_hours.has_opening_hours}}
             <h3>_("The library is now")
 		    {{#opening_hours.open_now}}
 	            <strong class="open">_("Open")</strong>
@@ -149,6 +150,10 @@
 			    {{/opening_hours.open_hours_week}}
 	        </table>
 	        </time>
+			{{/opening_hours.has_opening_hours}}
+			{{^opening_hours.has_opening_hours}}
+            _("This organization type does not have opening times.")
+			{{/opening_hours.has_opening_hours}}
         {{/neveropen}}
     </div>
     
