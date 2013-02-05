@@ -353,7 +353,7 @@
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(
 			function (position) {
-			    //console.log(position);
+			    // bind event for later manual geoloc sorting
 			    $('#facetview_filters h3').after('<button style="min-width: 78%;" class="btn btn-primary" id="facetview_location">' + _("Show libraries near my location") + '</button>');
 			    $('#facetview_location').bind('click',function(event){ 
 					$('#facetview_location').hide();
@@ -361,7 +361,14 @@
 					ld_position=true;
 					ld_position_coords=position.coords;
 					clickextrabubble("ld_location",_("Libraries near my location"));
-			    }); 
+				});
+
+				// activate automatic geolocation, if available
+				$('#facetview_location').hide();
+				$('#clearbutton').show();
+				ld_position=true;
+				ld_position_coords=position.coords;
+				clickextrabubble("ld_location",_("Libraries near my location"));
 			},
 		// the error callback that never gets called (in firefox?)
 		function (error) {
