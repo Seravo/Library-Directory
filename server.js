@@ -898,11 +898,6 @@ function get_library_personnel(id, dataobj, callback) {
 // get library's opening times by library id
 function get_library_opening_times(id, dataobj, callback) {
 
-	function zpad(num) {
-		return ("0" + num).slice(-2);
-	}
-
-	var days = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" ];
 	var days_translated = [ _("Monday"),
 							_("Tuesday"),
 							_("Wednesday"),
@@ -917,7 +912,7 @@ function get_library_opening_times(id, dataobj, callback) {
 	opening_hours.open_now = false;
 
 	var curtime = new Date();
-	var unixtime = curtime.getTime(); /* -24*60*60*1000*7; */
+	var unixtime = curtime.getTime();
 	var daynum = curtime.getDay();
 
 	/* js daynum is 0-6 starting from sunday, libdir daynum is 0-6 starting from monday, fix it */
@@ -926,6 +921,11 @@ function get_library_opening_times(id, dataobj, callback) {
 
 	/* get time for current week's monday */
 	var mtime = new Date(unixtime-24*60*60*1000*daynum);
+
+	// number formatting for zeropadded dates
+	function zpad(num) {
+		return ("0" + num).slice(-2);
+	}
 
 	/* get YYYY-MM-DD for current week's monday */
 	var mondaydate = mtime.getFullYear() + "-" + zpad(mtime.getMonth()+1) + "-" + zpad(mtime.getDate());
@@ -937,9 +937,9 @@ function get_library_opening_times(id, dataobj, callback) {
                 "query": { "match_all": {} },
                 "filter": {
                     "and": [
-                        {"term": { "organisation" : id } },
-			            {"term": { "_type" : "week" } },
-			            {"term": { "_id" : id + "::" + mondaydate } }
+						{"term": { "organisation" : id } },
+						{"term": { "_type" : "week" } },
+						{"term": { "_id" : id + "::" + mondaydate } }
 					]
 			    }
 			}
@@ -963,14 +963,12 @@ function get_library_opening_times(id, dataobj, callback) {
       data = '';
       res.on('data', function(chunk){
         data += chunk;
-        //rlog("...read chunk: " + chunk);
       });
       res.on('end', function() {
 		data=JSON.parse(data);
 
 		if (data.hits.total==0) {
 			dataobj._source.opening_hours = opening_hours;
-			//console.log(opening_hours);
 			callback(dataobj);
 			return;
 		}
@@ -992,30 +990,28 @@ function get_library_opening_times(id, dataobj, callback) {
 
 			if (idx == daynum && day.closed == true) {
 				opening_hours.open_now = false;
+			}
+
+			if (day.closed==true) {
+				opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: _('closed') };
 				continue;
+			}
+			else {
+				var opens = format_time(day.opens);
+				var closes = format_time(day.closes);
+				opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: opens + " - " + closes };
 			}
 
 			if (idx == daynum && day.closed == false) {
 				var opens = format_time(day.opens);
 				var closes = format_time(day.closes);
-
 				var tzoffset = curtime.getTimezoneOffset();
-
 				var opentime = new Date(day.opens).getTime()+tzoffset*60*1000;
 				var closetime = new Date(day.closes).getTime()+tzoffset*60*1000;
 
 				if (curtime >= opentime && curtime <= closetime) opening_hours.open_now = true;
 
 				opening_hours.open_hours_today = opens + " - " + closes;
-			}
-
-			if (day.closed==true) {
-				opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: _('closed') };
-			}
-		    else {
-				var opens = format_time(day.opens);
-				var closes = format_time(day.closes);
-				opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: opens + " - " + closes };
 			}
 		}
 		dataobj._source.opening_hours = opening_hours;
