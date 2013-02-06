@@ -532,12 +532,14 @@ function add_library_metadata_for_browse(dataobj, callback) {
 
 // enrich result meta data
 function add_library_metadata(dataobj, callback){
-    //rlog(JSON.stringify(dataobj, null, 4).slice(0,500));
+    //rlog(JSON.stringify(dataobj, null, 4).slice(0,700));
 
     if (typeof dataobj._source == "undefined") {
         dataobj._source = dataobj.hits.hits[0]._source;
 		dataobj._source.id = dataobj.hits.hits[0]._id;
-    }
+    } else {
+		dataobj._source.id = dataobj._id;
+	}
 
 	var lib = dataobj._source;
 
@@ -870,19 +872,20 @@ function get_library_personnel(id, dataobj, callback) {
 			return data;
 		}
 
-		// by default, library has no personnel defined (for library details view rendering)
-		dataobj.hits.hits[0]._source.has_personnel = false;
 
 		dataobj2 = JSON.parse(data);
 		// if personnel exists, inject it into library data
 		if (typeof dataobj2.hits != "undefined" && typeof dataobj2.hits.hits != "undefined") {
 			personnel = dataobj2.hits.hits;
 
+			// by default, library has no personnel defined (for library details view rendering)
+			dataobj._source.has_personnel = false;
+
 			if (personnel.length>0) {
 				personnel = obfuscate_email_addresses(personnel);
 
-				dataobj.hits.hits[0]._source.personnel = personnel;
-				dataobj.hits.hits[0]._source.has_personnel = true;
+				dataobj._source.personnel = personnel;
+				dataobj._source.has_personnel = true;
 			}
 
 			//rlog(personnel);
