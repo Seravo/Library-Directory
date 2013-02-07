@@ -123,7 +123,7 @@
 		{{#has_children}}
 		<dt>_("Departments")</dt>
 			{{#children}}
-				<dd><a href="{{link}}" itemprop="member">{{name__("locale")}} &rarr;</a></dd>
+				<dd><a href="{{link}}" itemprop="member">{{name}} &rarr;</a></dd>
 			{{/children}}
 		{{/has_children}}
     </dl>
@@ -149,6 +149,9 @@
 
 		    {{^opening_hours.open_now}}
 	            <strong class="closed">_("Closed")</strong>
+				{{#opening_hours.open_hours_today}}
+					_("Opening hours today") {{opening_hours.open_hours_today}}
+				{{/opening_hours.open_hours_today}}
 	        {{/opening_hours.open_now}}
 		    </h3>
 		    <br>

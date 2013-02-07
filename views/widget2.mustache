@@ -91,6 +91,9 @@
 
 		    {{^opening_hours.open_now}}
 	            <strong class="closed">_("Closed")</strong>
+				{{#opening_hours.open_hours_today}}
+					_("Opening hours today") {{opening_hours.open_hours_today}}
+				{{/opening_hours.open_hours_today}}
 	        {{/opening_hours.open_now}}
 		    </h3>
 		    <br>
