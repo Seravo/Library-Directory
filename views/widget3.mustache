@@ -112,9 +112,11 @@
 
 		{{#has_children}}
 		<dt>_("Departments")</dt>
+			<dd>
 			{{#children}}
-				<dd><a href="{{link}}" itemprop="member">{{name__("locale")}} &rarr;</a></dd>
+				<a href="{{link}}" itemprop="member">{{name__("locale")}} &rarr;</a><br>
 			{{/children}}
+			</dd>
 		{{/has_children}}
     </dl>
 
