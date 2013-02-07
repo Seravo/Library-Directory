@@ -402,38 +402,12 @@ function render_library_by_id(page, req, res) {
 			return false; // don't print out stuff after headers sent
         }
 
-		var id = data._id;
-		data._source["id"] = id;
-
 		var library = data._source;
 
-		get_library_children(id, function(child_data) {
-			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
-			if (child_data.hits.hits.length>0)
-			{
-				var children = [];
-				for (item in child_data.hits.hits) {
-					var child = child_data.hits.hits[item]._source;
-					if (typeof child.additional_info != "undefined" && typeof child.additional_info.slug != "undefined" && child.additional_info.slug != '') {
-    					child.link = child.additional_info.slug;
-    				} else {
-    					child.link = child_data.hits.hits[item]._id;
-    				}
-					children.push(child);
-				}
-
-				library.children = children;
-				console.log("children: " + JSON.stringify(children, null, 4));
-				library.has_children = true;
-			} else {
-				library.has_children = false;
-			}
-
-			res.local("data", library);
-            res.local("header", header.render(req, {title: eval("library.name_" + _("locale")) + ": " + _("contact details, open hours, services")}))
-            res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
-			res.render("library_details", res.locals());
-		});
+		res.local("data", library);
+        res.local("header", header.render(req, {title: eval("library.name_" + _("locale")) + ": " + _("contact details, open hours, services")}))
+        res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+		res.render("library_details", res.locals());
 	});
 }
 
@@ -755,7 +729,7 @@ function get_library_by_name(name, browser_req, callback) {
 }
 
 // get library's children organisations
-function get_library_children(id, callback) {
+function get_library_children(id, library_data, callback) {
 	var query = {
 		"size": 999,
 		"sort": [ { "name_fi" : {} } ],
@@ -793,7 +767,26 @@ function get_library_children(id, callback) {
       });
       res.on('end', function() {
 		dataobj = JSON.parse(data);
-		callback(dataobj);
+
+		library = library_data._source;
+
+		if (dataobj.hits.hits.length>0)
+		{
+			var children = [];
+			for (item in dataobj.hits.hits) {
+				var child = dataobj.hits.hits[item]._source;
+				if (typeof child.additional_info != "undefined" && typeof child.additional_info.slug != "undefined" && child.additional_info.slug != '') {
+					children.push( { link: child.additional_info.slug, name: child.name_fi });
+				}
+			}
+
+			library.children = children;
+			library.has_children = true;
+		} else {
+			library.has_children = false;
+		}
+
+		get_library_opening_times(id, library_data, callback);
       });
     }).on('error', function(e) {
       rlog('Problem with request: ' + e.message);
@@ -891,7 +884,7 @@ function get_library_personnel(id, dataobj, callback) {
 			//rlog(personnel);
 			rlog("Personnel size: " + personnel.length);
 		}
-		get_library_opening_times(id, dataobj, callback);
+		get_library_children(id, dataobj, callback);
       });
     }).on('error', function(e) {
       rlog('Problem with request: ' + e.message);
