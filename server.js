@@ -852,7 +852,8 @@ function get_library_personnel(id, dataobj, callback) {
 				person = person._source;
 				// obfuscate if person's email is defined and valid-ish
 				if (typeof person.contact.email != "undefined" && person.contact.email.length>0 && person.contact.email.indexOf('@') != -1) {
-					person.contact.email = obfuscate_email(person.contact.email);
+					if (typeof person.contact.public_email != "undefined" && person.contact.public_email == true) person.contact.email = obfuscate_email(person.contact.email);
+					else delete person.contact.email;
 					//rlog("email: " + person.contact.email);
 				}
 
