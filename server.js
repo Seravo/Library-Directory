@@ -787,8 +787,7 @@ function get_library_children(id, library_data, callback) {
 		} else {
 			library.has_children = false;
 		}
-
-		get_library_opening_times(id, library_data, callback);
+		get_centralized_services(id, library_data, callback);
       });
     }).on('error', function(e) {
       rlog('Problem with request: ' + e.message);
@@ -888,6 +887,71 @@ function get_library_personnel(id, dataobj, callback) {
 			rlog("Personnel size: " + personnel.length);
 		}
 		get_library_children(id, dataobj, callback);
+      });
+    }).on('error', function(e) {
+      rlog('Problem with request: ' + e.message);
+    });
+}
+
+// get library's centralized services by library id
+function get_centralized_services(id, library_data, callback) {
+	var query = {
+		"size": 999,
+		"sort": [ { "name_fi" : {} } ],
+		"query": {
+		    "filtered": {
+                "query": { "match_all": {} },
+                "filter": {
+                    "and": [
+						{"term": { "parent_organisation" : id } },
+						{"term": { "organisation_type" : "unit" } }
+					]
+			    }
+			}
+		}
+	};
+
+    query = JSON.stringify(query);
+	query = encodeURIComponent(query);
+
+    var options = {
+      host: conf.proxy_config.host,
+      port: conf.proxy_config.port,
+      path: '/testink/organisation/_search?source='+query,
+      method: 'GET'
+    };
+
+    var req = http.get(options, function(res) {
+	  rlog("Requested centralized services of: " + id);
+
+      res.setEncoding('utf8');
+      data = '';
+      res.on('data', function(chunk){
+        data += chunk;
+        //rlog("...read chunk: " + chunk);
+      });
+      res.on('end', function() {
+
+		// if centralized services exist, inject them into library data
+		dataobj = JSON.parse(data);
+		var library = library_data._source;
+		library.has_services = false;
+
+		if (typeof dataobj.hits != "undefined" && typeof dataobj.hits.hits != "undefined") {
+			results = dataobj.hits.hits;
+
+			var services = []
+			if (results.length>0) {
+				for (item in results) {
+					var temp = results[item];
+					services.push( { name: temp._source.name_fi, link: temp._id });
+				}
+				library.has_services = true;
+				library.services = services;
+			}
+			rlog("Services size: " + results.length);
+		}
+		get_library_opening_times(id, library_data, callback);
       });
     }).on('error', function(e) {
       rlog('Problem with request: ' + e.message);
