@@ -118,6 +118,15 @@
 			{{/children}}
 			</dd>
 		{{/has_children}}
+
+		{{#has_services}}
+		<dt>_("Centralized services")</dt>
+			<dd>
+			{{#services}}
+				<a href="{{link}}" itemprop="member">{{name}} &rarr;</a><br>
+			{{/services}}
+			</dd>
+		{{/has_services}}
     </dl>
 
     <p><small><a href="{{slug}}" itemprop="url">hakemisto.kirjastot.fi/{{slug}}</a> _("last modified"): {{meta.modified}}</small></p>
