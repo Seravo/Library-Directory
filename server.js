@@ -739,6 +739,7 @@ function get_library_children(id, library_data, callback) {
                 "filter" : { 
                     "and" : [
                         {"term": { "parent_organisation" : id } },
+			            {"term": { "organisation_type": [ "branchlibrary", "library" ] } },
 			            {"term": { "meta.document_state" : "published" } }
 			        ]
 			    }
@@ -749,8 +750,6 @@ function get_library_children(id, library_data, callback) {
     query = JSON.stringify(query);
 	query = encodeURIComponent(query);
 
-	//rlog("requested children of :", id);
-
     var options = {
       host: conf.proxy_config.host,
       port: conf.proxy_config.port,
@@ -759,6 +758,7 @@ function get_library_children(id, library_data, callback) {
     };
 
     var req = http.get(options, function(res) {
+	  rlog("Requested children of: " + id);
       res.setEncoding('utf8');
       data = '';
       res.on('data', function(chunk){
@@ -767,9 +767,11 @@ function get_library_children(id, library_data, callback) {
       });
       res.on('end', function() {
 		dataobj = JSON.parse(data);
-
 		library = library_data._source;
+		var results = dataobj.hits.hits;
 
+		rlog("Children size: " + results.length);
+		//rlog(results);
 		if (dataobj.hits.hits.length>0)
 		{
 			var children = [];
@@ -779,8 +781,8 @@ function get_library_children(id, library_data, callback) {
 					children.push( { link: child.additional_info.slug, name: child.name_fi });
 				}
 			}
-
 			library.children = children;
+			rlog(children);
 			library.has_children = true;
 		} else {
 			library.has_children = false;
