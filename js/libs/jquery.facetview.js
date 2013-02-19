@@ -787,7 +787,7 @@
 				}
 				else {
 					var image = "/img/missing.jpg";
-					result += '<a href=' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:100px;" src="' + image + '" /></a>';
+					result += '<a href="' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:100px;" src="' + image + '" /></a>';
 				}
             }
             // container for data
