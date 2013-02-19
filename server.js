@@ -533,7 +533,7 @@ function add_library_metadata(dataobj, callback){
 		if (typeof temp.url_description_en=='string' && temp.url_description_en=="") delete temp.url_description_en;
 	}
 
-	if (typeof lib.default_attachment != 'undefined') {
+	if (typeof lib.default_attachment != 'undefined' && lib.default_attachment != null) {
 		var index = lib.default_attachment;
 		var base = lib.attachments[index].file;
 		var image = "http://kirkanta.kirjastot.fi/media/image_content/medium/"+base;

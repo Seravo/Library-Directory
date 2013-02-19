@@ -778,7 +778,7 @@
                         delete record.additional_info.slug;
                     }
                 }
-				if (typeof record.default_attachment != 'undefined') {
+				if (typeof record.default_attachment != 'undefined' && record.default_attachment != null) {
 					var index = record.default_attachment;
 					var base = record.attachments[index].file;
 					var image = "http://kirkanta.kirjastot.fi/media/image_content/small/"+base;
