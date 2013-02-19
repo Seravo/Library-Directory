@@ -778,11 +778,17 @@
                         delete record.additional_info.slug;
                     }
                 }
-                var regex = /(http:\/\/\S+?\.(jpg|png|gif|jpeg))/
-                var img = regex.exec(recstr)
-                if (img) {
-                    result += '<a href="' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:150px;" src="' + img[0] + '" /></a>'
-                }
+				if (typeof record.default_attachment != 'undefined') {
+					var index = record.default_attachment;
+					var base = record.attachments[index].file;
+					var image = "http://kirkanta.kirjastot.fi/media/image_content/small/"+base;
+
+					result += '<a href="' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:100px;" src="' + image + '" /></a>';
+				}
+				else {
+					var image = "/img/missing.jpg";
+					result += '<a href=' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:100px;" src="' + image + '" /></a>';
+				}
             }
             // container for data
             result += '<div class="result-data">'

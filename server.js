@@ -533,7 +533,14 @@ function add_library_metadata(dataobj, callback){
 		if (typeof temp.url_description_en=='string' && temp.url_description_en=="") delete temp.url_description_en;
 	}
 
-	if (lib.image_url=="") delete lib.image_url;
+	if (typeof lib.default_attachment != 'undefined') {
+		var index = lib.default_attachment;
+		var base = lib.attachments[index].file;
+		var image = "http://kirkanta.kirjastot.fi/media/image_content/medium/"+base;
+		lib.image_url = image;
+	} else {
+		delete lib.image_url;
+	}
 
     if (typeof lib.accessibility != "undefined") {
 	    if (lib.accessibility.accessible_entry ||
