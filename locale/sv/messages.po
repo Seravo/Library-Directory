@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-08 08:34+0200\n"
-"PO-Revision-Date: 2013-02-08 08:35+0200\n"
+"POT-Creation-Date: 2013-02-21 13:07+0200\n"
+"PO-Revision-Date: 2013-02-21 13:08+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -32,10 +32,10 @@ msgid "Name"
 msgstr "Namn"
 
 #: server.js:215
-#: views/widget2.mustache:70
+#: views/widget2.mustache:71
 #: views/contact.mustache:14
-#: views/widget3.mustache:231
-#: views/library_details.mustache:233
+#: views/widget3.mustache:232
+#: views/library_details.mustache:234
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -79,12 +79,12 @@ msgstr "Feedback skickat"
 
 #: server.js:408
 #: server.js:429
-#: server.js:553
-#: server.js:554
-#: server.js:555
-#: server.js:574
-#: server.js:575
-#: server.js:589
+#: server.js:560
+#: server.js:561
+#: server.js:562
+#: server.js:581
+#: server.js:582
+#: server.js:596
 #: js/libs/jquery.facetview.js:91
 #: js/libs/jquery.facetview.js:94
 #: js/libs/jquery.facetview.js:108
@@ -93,8 +93,8 @@ msgstr "Feedback skickat"
 #: js/libs/jquery.facetview.js:669
 #: js/libs/jquery.facetview.js:670
 #: js/libs/jquery.facetview.js:671
-#: js/libs/jquery.facetview.js:967
-#: js/libs/jquery.facetview.js:975
+#: js/libs/jquery.facetview.js:973
+#: js/libs/jquery.facetview.js:981
 #: locale/templates/LC_MESSAGES/gettext.tmpl:1
 msgid "locale"
 msgstr "sv"
@@ -105,76 +105,76 @@ msgid "contact details, open hours, services"
 msgstr "kontaktinformation, öppettider, tjänster"
 
 #: server.js:493
-#: server.js:599
+#: server.js:606
 msgid "branchlibrary"
 msgstr "filial"
 
 #: server.js:494
-#: server.js:600
+#: server.js:607
 msgid "department"
 msgstr "avdelning"
 
 #: server.js:495
-#: server.js:601
+#: server.js:608
 msgid "library"
 msgstr "huvudbibliotek"
 
 #: server.js:496
-#: server.js:602
+#: server.js:609
 msgid "mobile_stop"
 msgstr "bilbioteksbusshållplats"
 
 #: server.js:497
-#: server.js:603
+#: server.js:610
 msgid "organisation"
 msgstr "Organisation"
 
 #: server.js:498
-#: server.js:604
+#: server.js:611
 msgid "unit"
 msgstr "Enhet"
 
-#: server.js:637
+#: server.js:644
 msgid "service type device"
 msgstr "maskin"
 
-#: server.js:638
+#: server.js:645
 msgid "service type room"
 msgstr "rum"
 
-#: server.js:639
+#: server.js:646
 msgid "service type service"
 msgstr "tjänst"
 
-#: server.js:965
+#: server.js:971
 msgid "Monday"
 msgstr "Måndag"
 
-#: server.js:966
+#: server.js:972
 msgid "Tuesday"
 msgstr "Tisdag"
 
-#: server.js:967
+#: server.js:973
 msgid "Wednesday"
 msgstr "Onsdag"
 
-#: server.js:968
+#: server.js:974
 msgid "Thursday"
 msgstr "Torsdag"
 
-#: server.js:969
+#: server.js:975
 msgid "Friday"
 msgstr "Fredag"
 
-#: server.js:970
+#: server.js:976
 msgid "Saturday"
 msgstr "Lördag"
 
-#: server.js:971
+#: server.js:977
 msgid "Sunday"
 msgstr "Söndag"
 
-#: server.js:1060
+#: server.js:1066
 msgid "closed"
 msgstr "stängt"
 
@@ -190,7 +190,7 @@ msgid "Error"
 msgstr "Fel"
 
 #: js/libs/jquery.facetview.js:73
-#: views/widget2.mustache:88
+#: views/widget2.mustache:89
 #: views/widget3.mustache:147
 #: views/library_details.mustache:147
 #: views/json_widget_5.mustache:12
@@ -202,7 +202,7 @@ msgid "today"
 msgstr "idag"
 
 #: js/libs/jquery.facetview.js:75
-#: views/widget2.mustache:93
+#: views/widget2.mustache:94
 #: views/widget3.mustache:152
 #: views/library_details.mustache:152
 #: views/json_widget_5.mustache:17
@@ -236,10 +236,10 @@ msgid "Services"
 msgstr "Tjänster"
 
 #: js/libs/jquery.facetview.js:109
-#: js/libs/jquery.facetview.js:1031
-#: js/libs/jquery.facetview.js:1184
-#: views/widget3.mustache:269
-#: views/library_details.mustache:271
+#: js/libs/jquery.facetview.js:1037
+#: js/libs/jquery.facetview.js:1190
+#: views/widget3.mustache:270
+#: views/library_details.mustache:272
 msgid "Accessibility"
 msgstr "Tillgänglighet"
 
@@ -303,21 +303,21 @@ msgstr "Sök med endast 3-5 första bokstäverna av sökordet så att det kommer
 msgid "Remove all search words and drill down to your wanted results using only the search filters."
 msgstr "Ta bort alla sökord och borra dig fram till önskade resultat endast genom att följa passliga filter."
 
-#: js/libs/jquery.facetview.js:850
+#: js/libs/jquery.facetview.js:856
 msgid "One search result"
 msgstr "Ett resultat hittat"
 
-#: js/libs/jquery.facetview.js:851
+#: js/libs/jquery.facetview.js:857
 #, python-format
 msgid "%d search results"
 msgstr "%d resultat hittats"
 
-#: js/libs/jquery.facetview.js:1010
+#: js/libs/jquery.facetview.js:1016
 msgid "Could not connect to database. Please try again later."
 msgstr "Kan inte nå databasen. Försök pånytt senare."
 
-#: js/libs/jquery.facetview.js:1105
-#: js/libs/jquery.facetview.js:1131
+#: js/libs/jquery.facetview.js:1111
+#: js/libs/jquery.facetview.js:1137
 msgid "search starts automatically after 3 letters"
 msgstr "sökandet börjar automatiskt efter 3 bokstäver"
 
@@ -399,24 +399,30 @@ msgstr "Telefonnummer"
 msgid "Mail address"
 msgstr "Postaddress"
 
-#: views/widget2.mustache:75
+#: views/widget2.mustache:64
+#: views/widget3.mustache:225
+#: views/library_details.mustache:227
+msgid "P.O. Box"
+msgstr "PB"
+
+#: views/widget2.mustache:76
 msgid "Last modified"
 msgstr "Sist uppdaterat"
 
-#: views/widget2.mustache:82
+#: views/widget2.mustache:83
 #: views/json_widget_5.mustache:6
 msgid "No open times, since this is a {{organisation_type}}."
 msgstr "Inga öppettider, eftersom detta är en {{organisation_type}}."
 
-#: views/widget2.mustache:86
+#: views/widget2.mustache:87
 #: views/widget3.mustache:145
 #: views/library_details.mustache:145
 #: views/json_widget_5.mustache:10
 msgid "The library is now"
 msgstr "Biblioteket är nu"
 
-#: views/widget2.mustache:89
-#: views/widget2.mustache:95
+#: views/widget2.mustache:90
+#: views/widget2.mustache:96
 #: views/widget3.mustache:148
 #: views/widget3.mustache:154
 #: views/library_details.mustache:148
@@ -426,7 +432,7 @@ msgstr "Biblioteket är nu"
 msgid "Opening hours today"
 msgstr "Öppettider idag"
 
-#: views/widget2.mustache:100
+#: views/widget2.mustache:101
 #: views/widget3.mustache:159
 #: views/library_details.mustache:159
 #: views/json_widget_5.mustache:24
@@ -538,58 +544,58 @@ msgstr "Denna enhet har inte öppettider."
 msgid "Personnel"
 msgstr "Personalen"
 
-#: views/widget3.mustache:237
-#: views/library_details.mustache:239
+#: views/widget3.mustache:238
+#: views/library_details.mustache:240
 msgid "Homepage"
 msgstr "Hemsida"
 
-#: views/widget3.mustache:256
-#: views/library_details.mustache:258
+#: views/widget3.mustache:257
+#: views/library_details.mustache:259
 msgid "Building"
 msgstr "Byggnad"
 
-#: views/widget3.mustache:260
-#: views/library_details.mustache:262
+#: views/widget3.mustache:261
+#: views/library_details.mustache:263
 msgid "Built"
 msgstr "Bygt"
 
-#: views/widget3.mustache:263
-#: views/library_details.mustache:265
+#: views/widget3.mustache:264
+#: views/library_details.mustache:266
 msgid "Architect"
 msgstr "Arkitekt"
 
-#: views/widget3.mustache:272
-#: views/library_details.mustache:274
+#: views/widget3.mustache:273
+#: views/library_details.mustache:275
 msgid "Accessible entry"
 msgstr "Tillgänglig ingång"
 
-#: views/widget3.mustache:276
-#: views/library_details.mustache:278
+#: views/widget3.mustache:277
+#: views/library_details.mustache:279
 msgid "Accessible parking"
 msgstr "Tillgänglig parkering"
 
-#: views/widget3.mustache:280
-#: views/library_details.mustache:282
+#: views/widget3.mustache:281
+#: views/library_details.mustache:283
 msgid "Accessible toilet"
 msgstr "Tillgänglig toalett"
 
-#: views/widget3.mustache:288
-#: views/library_details.mustache:290
+#: views/widget3.mustache:289
+#: views/library_details.mustache:291
 msgid "Induction loop"
 msgstr "Induktionsslinga"
 
-#: views/widget3.mustache:292
-#: views/library_details.mustache:294
+#: views/widget3.mustache:293
+#: views/library_details.mustache:295
 msgid "Large typeface collection"
 msgstr "Stor typsnitts samling"
 
-#: views/widget3.mustache:296
-#: views/library_details.mustache:298
+#: views/widget3.mustache:297
+#: views/library_details.mustache:299
 msgid "Lift"
 msgstr "Hiss"
 
-#: views/widget3.mustache:304
-#: views/library_details.mustache:306
+#: views/widget3.mustache:305
+#: views/library_details.mustache:307
 msgid "Parking"
 msgstr "Parkering"
 
@@ -688,6 +694,9 @@ msgstr "Totalt {{count}} bibliotek."
 #: views/browse.mustache:27
 msgid "nice URL slug missing"
 msgstr "snyggt URL-namn fattas"
+
+#~ msgid "PL"
+#~ msgstr "PB"
 
 #~ msgid "PB"
 #~ msgstr "PB"
