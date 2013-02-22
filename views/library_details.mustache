@@ -234,7 +234,23 @@
 		{{#contact.mail_address.post_box}}
 	    <dt>_("Mail address")</dt>
 	    <dd>
+	        _("P.O. Box")
 	        {{contact.mail_address.post_box}}<br>
+	        {{contact.mail_address.post_code}} {{contact.mail_address.post_office__("locale")}}
+	    </dd>
+	    {{/contact.mail_address.post_box}}
+
+		{{^contact.mail_address.post_box}}
+	    <dt>_("Mail address")</dt>
+	    <dd>
+			{{#contact.mail_address.post_address__("locale")}}
+	        {{contact.mail_address.post_address__("locale")}}<br>
+			{{/contact.mail_address.post_address__("locale")}}
+
+			{{^contact.mail_address.post_address__("locale")}}
+	        {{contact.mail_address.post_address_fi}}<br>
+			{{/contact.mail_address.post_address__("locale")}}
+
 	        {{contact.mail_address.post_code}} {{contact.mail_address.post_office__("locale")}}
 	    </dd>
 	    {{/contact.mail_address.post_box}}

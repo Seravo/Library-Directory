@@ -560,6 +560,11 @@ function add_library_metadata(dataobj, callback){
 		"<strong>" + lib["name_" + _("locale")] + "</strong>" + "<br>" +
 		lib.contact.street_address["street_"+_("locale")] + "<br>" +
 		lib.contact.street_address.post_code + " " + lib.contact.street_address["municipality_" + _("locale")];
+	
+	// if post box is empty, delete it
+	if (typeof lib.contact.mail_address.post_box != "undefined") {
+		if (lib.contact.mail_address.post_box == "") delete lib.contact.mail_address.post_box;
+	}
 
     // delete empty object so that they will not be displayed in Mustache templates
     if (typeof lib.additional_info != "undefined") {
