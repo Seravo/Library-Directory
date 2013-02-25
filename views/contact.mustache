@@ -16,6 +16,8 @@
                 <div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>_("Error"):</strong> {{.}}</div>
             {{/errors.femail}}
 
+          <input class="validation" type="text" name="femail_confirm" value="{{femail_confirm}}">
+
           <label>_("Message"): <textarea name="fmessage">{{fmessage}}</textarea></label>
             {{#errors.fmessage}}
                 <div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>_("Error"):</strong> {{.}}</div>

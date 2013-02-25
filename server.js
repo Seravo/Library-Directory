@@ -213,6 +213,7 @@ app.post("/contact", // Route
     validate("fname", _("Name")).required().notEmpty(),
     filter("femail").trim(),
     validate("femail", _("E-mail")).required(_("Please provide your e-mail so we can respond to your feedback.")).isEmail(),
+    validate("femail_confirm", _("E-mail")).trim().is(/^$/i),
     validate("fmessage", _("Feedback")).required().notEmpty()
   ),
 
