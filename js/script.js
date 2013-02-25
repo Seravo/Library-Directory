@@ -261,7 +261,7 @@ function ld_open_now(timerange) {
     end_time = ld_get_minutes(stop);
 
     /* 15 minute buffer for closing-time */
-    if (current_time>=start_time && (current_time+15)<=end_time) return true;
+    if (current_time>=start_time && current_time<=end_time) return true;
     else return false;
 }
 
@@ -281,7 +281,7 @@ function ld_format_time(time) {
 
 function ld_widget_wizard() {
 	// url for widgets/data
-	var url = "http://localhost:8080/";
+	var url = "http://192.168.1.8:9000/";
 
 	function load_widget_css(type) {
 		var css_link = $("<link>", {
@@ -432,7 +432,7 @@ function ld_widget_wizard() {
 	});
 
 	$(document).bind('search', function(event, data) {
-		var url = "http://localhost:8888/testink/organisation/_search";
+		var url = "http://192.168.1.8:8888/testink/organisation/_search";
 		var query2 =
 			{
 			  "size": 10,
