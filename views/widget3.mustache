@@ -41,9 +41,17 @@
 	    <dd>
 	         {{#services}}
 	            <div itemscope itemtype="http://schema.org/Product">
-                    <span title="Model: {{model}}" itemprop="name">{{name__("locale")}}</span>
+					{{#contact.url__("locale")}}
+                    <a href='{{contact.url__("locale")}}'>
+					<span title="Model: {{model}}" itemprop="name">{{name__("locale")}}</span></a>
                     <span class="hidden" itemprop="model">{{model}}</span>
-                    <span class="label {{label}}" title="Priority: {{service_priority}} / Type:{{servicetype_priority}}">{{type}}</span> 
+                    <span class="label {{label}}" title="Priority: {{service_priority}} / Type:{{servicetype_priority}}">{{type}}</span>
+					{{/contact.url__("locale")}}
+					{{^contact.url__("locale")}}
+                    <span title="Model: {{model}}" itemprop="name">{{name__("locale")}}</span>{{contact.url_fi}}
+                    <span class="hidden" itemprop="model">{{model}}</span>
+                    <span class="label {{label}}" title="Priority: {{service_priority}} / Type:{{servicetype_priority}}">{{type}}</span>
+					{{/contact.url__("locale")}}
                     <ul>
                     {{#description_short__("locale")}}
                         <li itemprop="description">{{description_short__("locale")}}
