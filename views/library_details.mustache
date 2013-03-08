@@ -178,7 +178,7 @@
 	        <time itemprop="openingHours">
 	        <table>
 			    {{#opening_hours.open_hours_week}}
-				    <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
+				    <tr><td>{{day}}<td>&nbsp;<td>{{time}} {{desc}}<span class="hidden">, </span></tr>
 			    {{/opening_hours.open_hours_week}}
 	        </table>
 	        </time>
@@ -234,7 +234,7 @@
 				{{name__("locale")}}</a>
             {{/contact.internet}}
 		</dd>
-	    {{/contact.homepage__("locale")}\}
+	    {{/contact.homepage__("locale")}}
 
 		{{#contact.telephones.0.telephone_number}}
 	    <dt>_("Telephone numbers")</dt>
