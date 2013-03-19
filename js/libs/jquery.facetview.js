@@ -769,27 +769,22 @@
         // given a result record, build how it should look on the page
         var buildrecord = function(index) {
             var record = options.data['records'][index]
-            var result = '<tr><td>';
-            // add first image where available
-            if (options.display_images) {
-                var recstr = JSON.stringify(record)
-                if (typeof record.additional_info.slug != 'undefined') { 
-                    if (record.additional_info.slug.trim() == '') { 
-                        delete record.additional_info.slug;
-                    }
-                }
-				if (typeof record.default_attachment != 'undefined' && record.default_attachment != null) {
-					var index = record.default_attachment;
-					var base = record.attachments[index].file;
-					var image = "http://kirkanta.kirjastot.fi/media/image_content/small/"+base;
 
-					result += '<a href="' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:100px;" src="' + image + '" /></a>';
-				}
-				else {
-					var image = "/img/missing.jpg";
-					result += '<a href="' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:100px;" src="' + image + '" /></a>';
-				}
-            }
+			// clean up missing or malformed slug
+			if (record.additional_info.slug == undefined || record.additional_info.slug == '') record.additional_info.slug=record.id;
+
+            var result = '<tr><td>';
+			if (typeof record.default_attachment != 'undefined' && record.default_attachment != null) {
+				var index = record.default_attachment;
+				var base = record.attachments[index].file;
+				var image = "http://kirkanta.kirjastot.fi/media/image_content/small/"+base;
+
+				result += '<a href="' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:100px;" src="' + image + '" /></a>';
+			}
+			else {
+				var image = "/img/missing.jpg";
+				result += '<a href="' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:100px;" src="' + image + '" /></a>';
+			}
             // container for data
             result += '<div class="result-data">'
             // add the record based on display template if available
