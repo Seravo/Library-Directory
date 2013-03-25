@@ -105,7 +105,7 @@
 		{'field': 'consortium', 'size': 100, 'order':'term', 'display': _('Library consortium')},
 		{'field': 'organisation_type', 'display': _('Type')},
 		{'field': 'branch_type', 'display': _('Branch type')},
-		{'field': 'services.name_'+_("locale"), 'order':'term', 'display': _('Services'), "size":40 },
+		{'field': 'services.name_'+_("locale"), 'order':'term', 'display': _('Services'), "size":200 },
 		{'field': 'accessibility.accessible_entry', 'display': _('Accessibility')},
 		{'field': 'contact.street_address.municipality_'+_("locale"), 'order':'term', 'display': _('City'), "size":400 }
 		],
