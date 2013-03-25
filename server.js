@@ -752,7 +752,8 @@ function get_library_children(id, library_data, callback) {
                 "filter" : { 
                     "and" : [
                         {"term": { "parent_organisation" : id } },
-			            {"term": { "organisation_type": [ "branchlibrary", "library" ] } },
+			            {"term": { "organisation_type": "branchlibrary" } },
+			            // {"term": { "organisation_type": [ "branchlibrary", "library"] } },
 			            {"term": { "meta.document_state" : "published" } }
 			        ]
 			    }
@@ -795,7 +796,7 @@ function get_library_children(id, library_data, callback) {
 				}
 			}
 			library.children = children;
-			rlog(children);
+			//rlog(children);
 			library.has_children = true;
 		} else {
 			library.has_children = false;
