@@ -281,7 +281,7 @@ function ld_format_time(time) {
 
 function ld_widget_wizard() {
 	// url for widgets/data
-	var url = "http://192.168.1.8:9000/";
+	var url = "http://localhost:8080/";
 
 	function load_widget_css(type) {
 		var css_link = $("<link>", {
@@ -432,7 +432,7 @@ function ld_widget_wizard() {
 	});
 
 	$(document).bind('search', function(event, data) {
-		var url = "http://192.168.1.8:8888/testink/organisation/_search";
+		var url = "http://localhost:8888/testink/organisation/_search";
 		var query2 =
 			{
 			  "size": 10,
