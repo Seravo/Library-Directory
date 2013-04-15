@@ -214,9 +214,12 @@
 				<tr>
 					<td>
 					{{_source.first_name}} {{_source.last_name}}
-						{{#_source.job_title_fi}}
+						{{#_source.job_title__("locale")}}
+							/ {{_source.job_title__("locale")}}
+						{{/_source.job_title__("locale")}}
+						{{^_source.job_title__("locale")}}
 							/ {{_source.job_title_fi}}
-						{{/_source.job_title_fi}}
+						{{/_source.job_title__("locale")}}
 					</td>
 					{{#_source.contact.telephone}}
 					<td>
