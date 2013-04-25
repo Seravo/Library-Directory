@@ -124,8 +124,10 @@
 	    {{/established_year}}
 
 		{{#parent_organisation}}
+			{{#consortium}}
 		    <dt>_("Library consortium")</dt>
 		    <dd><a href="{{parent_organisation}}" itemprop="branchOf">{{consortium}} &rarr;</a></dd>
+			{{/consortium}}
 		{{/parent_organisation}}
 
 		{{#has_children}}
@@ -183,7 +185,9 @@
 	        </table>
 	        </time>
             <br>
+			{{#consortium}}
             <p>_("To borrow from this library you need a <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a> card.")</p>
+			{{/consortium}}
 			{{/opening_hours.has_opening_hours}}
 			{{^opening_hours.has_opening_hours}}
             _("This organization type does not have opening times.")

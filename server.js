@@ -578,6 +578,9 @@ function add_library_metadata(dataobj, callback){
 	if (lib.parent_organisation == '') {
 		delete lib.parent_organisation;
 	}
+	if (lib.consortium == '') {
+		delete lib.consortium;
+	}
     if (lib.contact.telephones[0].telephone_number == '') {
         delete lib.contact.telephones;
     }
