@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-25 11:20+0300\n"
-"PO-Revision-Date: 2013-04-25 11:22+0200\n"
+"POT-Creation-Date: 2013-04-29 19:07+0300\n"
+"PO-Revision-Date: 2013-04-29 19:08+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -36,7 +36,7 @@ msgstr "Namn"
 #: views/widget2.mustache:86
 #: views/contact.mustache:14
 #: views/widget3.mustache:255
-#: views/library_details.mustache:284
+#: views/library_details.mustache:288
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -83,9 +83,9 @@ msgstr "Feedback skickat"
 #: server.js:561
 #: server.js:562
 #: server.js:563
-#: server.js:587
-#: server.js:588
-#: server.js:602
+#: server.js:590
+#: server.js:591
+#: server.js:605
 #: js/libs/jquery.facetview.js:91
 #: js/libs/jquery.facetview.js:94
 #: js/libs/jquery.facetview.js:108
@@ -106,76 +106,76 @@ msgid "contact details, open hours, services"
 msgstr "kontaktinformation, öppettider, tjänster"
 
 #: server.js:494
-#: server.js:612
+#: server.js:615
 msgid "branchlibrary"
 msgstr "filial"
 
 #: server.js:495
-#: server.js:613
+#: server.js:616
 msgid "department"
 msgstr "avdelning"
 
 #: server.js:496
-#: server.js:614
+#: server.js:617
 msgid "library"
 msgstr "huvudbibliotek"
 
 #: server.js:497
-#: server.js:615
+#: server.js:618
 msgid "mobile_stop"
 msgstr "bilbioteksbusshållplats"
 
 #: server.js:498
-#: server.js:616
+#: server.js:619
 msgid "organisation"
 msgstr "Organisation"
 
 #: server.js:499
-#: server.js:617
+#: server.js:620
 msgid "unit"
 msgstr "Enhet"
 
-#: server.js:650
+#: server.js:653
 msgid "service type device"
 msgstr "maskin"
 
-#: server.js:651
+#: server.js:654
 msgid "service type room"
 msgstr "rum"
 
-#: server.js:652
+#: server.js:655
 msgid "service type service"
 msgstr "tjänst"
 
-#: server.js:978
+#: server.js:981
 msgid "Monday"
 msgstr "Måndag"
 
-#: server.js:979
+#: server.js:982
 msgid "Tuesday"
 msgstr "Tisdag"
 
-#: server.js:980
+#: server.js:983
 msgid "Wednesday"
 msgstr "Onsdag"
 
-#: server.js:981
+#: server.js:984
 msgid "Thursday"
 msgstr "Torsdag"
 
-#: server.js:982
+#: server.js:985
 msgid "Friday"
 msgstr "Fredag"
 
-#: server.js:983
+#: server.js:986
 msgid "Saturday"
 msgstr "Lördag"
 
-#: server.js:984
+#: server.js:987
 msgid "Sunday"
 msgstr "Söndag"
 
-#: server.js:1073
+#: server.js:1076
 msgid "closed"
 msgstr "stängt"
 
@@ -193,7 +193,7 @@ msgstr "Fel"
 #: js/libs/jquery.facetview.js:73
 #: views/widget2.mustache:104
 #: views/widget3.mustache:155
-#: views/library_details.mustache:165
+#: views/library_details.mustache:167
 #: views/json_widget_5.mustache:12
 msgid "Open"
 msgstr "Öppet"
@@ -205,7 +205,7 @@ msgstr "idag"
 #: js/libs/jquery.facetview.js:75
 #: views/widget2.mustache:109
 #: views/widget3.mustache:160
-#: views/library_details.mustache:170
+#: views/library_details.mustache:172
 #: views/json_widget_5.mustache:17
 msgid "Closed"
 msgstr "Stängt"
@@ -216,7 +216,7 @@ msgstr "öppet idag"
 
 #: js/libs/jquery.facetview.js:105
 #: views/widget3.mustache:117
-#: views/library_details.mustache:127
+#: views/library_details.mustache:128
 #: views/widget_wizard.mustache:44
 msgid "Library consortium"
 msgstr "Biblioteksgrupp"
@@ -240,7 +240,7 @@ msgstr "Tjänster"
 #: js/libs/jquery.facetview.js:1032
 #: js/libs/jquery.facetview.js:1185
 #: views/widget3.mustache:293
-#: views/library_details.mustache:308
+#: views/library_details.mustache:312
 msgid "Accessibility"
 msgstr "Tillgänglighet"
 
@@ -272,7 +272,7 @@ msgstr "Biblioteken närä mig"
 
 #: js/libs/jquery.facetview.js:415
 #: js/libs/jquery.facetview.js:437
-#: locale/templates/LC_MESSAGES/gettext.tmpl:10
+#: locale/templates/LC_MESSAGES/gettext.tmpl:11
 msgid "yes"
 msgstr "ja"
 
@@ -349,22 +349,26 @@ msgid "university_library"
 msgstr "universitetsbibliotek"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:8
+msgid "music_library"
+msgstr "musikbibliotek"
+
+#: locale/templates/LC_MESSAGES/gettext.tmpl:9
 msgid "mobile"
 msgstr "biblioteksbuss"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:9
+#: locale/templates/LC_MESSAGES/gettext.tmpl:10
 msgid "home_service"
 msgstr "hembibliotek"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:11
+#: locale/templates/LC_MESSAGES/gettext.tmpl:12
 msgid "The Finnish Library Directory"
 msgstr "Finlands bibliotekskatalog"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:12
+#: locale/templates/LC_MESSAGES/gettext.tmpl:13
 msgid "My Location"
 msgstr "Egen position"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:13
+#: locale/templates/LC_MESSAGES/gettext.tmpl:14
 msgid "routefinder locale"
 msgstr "se"
 
@@ -394,7 +398,7 @@ msgstr "Hur anlända"
 
 #: views/widget2.mustache:45
 #: views/widget3.mustache:214
-#: views/library_details.mustache:243
+#: views/library_details.mustache:247
 msgid "Telephone numbers"
 msgstr "Telefonnummer"
 
@@ -402,14 +406,14 @@ msgstr "Telefonnummer"
 #: views/widget2.mustache:71
 #: views/widget3.mustache:231
 #: views/widget3.mustache:240
-#: views/library_details.mustache:260
-#: views/library_details.mustache:269
+#: views/library_details.mustache:264
+#: views/library_details.mustache:273
 msgid "Mail address"
 msgstr "Postaddress"
 
 #: views/widget2.mustache:64
 #: views/widget3.mustache:233
-#: views/library_details.mustache:262
+#: views/library_details.mustache:266
 msgid "P.O. Box"
 msgstr "PB"
 
@@ -424,7 +428,7 @@ msgstr "Inga öppettider, eftersom detta är en {{organisation_type}}."
 
 #: views/widget2.mustache:102
 #: views/widget3.mustache:153
-#: views/library_details.mustache:163
+#: views/library_details.mustache:165
 #: views/json_widget_5.mustache:10
 msgid "The library is now"
 msgstr "Biblioteket är nu"
@@ -433,8 +437,8 @@ msgstr "Biblioteket är nu"
 #: views/widget2.mustache:111
 #: views/widget3.mustache:156
 #: views/widget3.mustache:162
-#: views/library_details.mustache:166
-#: views/library_details.mustache:172
+#: views/library_details.mustache:168
+#: views/library_details.mustache:174
 #: views/json_widget_5.mustache:13
 #: views/json_widget_5.mustache:19
 msgid "Opening hours today"
@@ -442,7 +446,7 @@ msgstr "Öppettider idag"
 
 #: views/widget2.mustache:116
 #: views/widget3.mustache:167
-#: views/library_details.mustache:177
+#: views/library_details.mustache:179
 #: views/json_widget_5.mustache:24
 msgid "Opening hours this week"
 msgstr "Öppettider denna vecka"
@@ -526,84 +530,84 @@ msgid "Established year"
 msgstr "Grundat år"
 
 #: views/widget3.mustache:122
-#: views/library_details.mustache:132
+#: views/library_details.mustache:134
 msgid "Departments"
 msgstr "Avdelningar"
 
 #: views/widget3.mustache:131
-#: views/library_details.mustache:141
+#: views/library_details.mustache:143
 msgid "Centralized services"
 msgstr "Centraliserade tjänster"
 
 #: views/widget3.mustache:140
-#: views/library_details.mustache:150
+#: views/library_details.mustache:152
 msgid "last modified"
 msgstr "sist uppdaterat"
 
 #: views/widget3.mustache:148
 #: views/widget3.mustache:177
-#: views/library_details.mustache:158
-#: views/library_details.mustache:189
+#: views/library_details.mustache:160
+#: views/library_details.mustache:193
 msgid "This organization type does not have opening times."
 msgstr "Denna enhet har inte öppettider."
 
 #: views/widget3.mustache:184
-#: views/library_details.mustache:210
+#: views/library_details.mustache:214
 msgid "Personnel"
 msgstr "Personalen"
 
 #: views/widget3.mustache:261
-#: views/library_details.mustache:197
+#: views/library_details.mustache:201
 msgid "Homepage"
 msgstr "Hemsida"
 
 #: views/widget3.mustache:280
-#: views/library_details.mustache:295
+#: views/library_details.mustache:299
 msgid "Building"
 msgstr "Byggnad"
 
 #: views/widget3.mustache:284
-#: views/library_details.mustache:299
+#: views/library_details.mustache:303
 msgid "Built"
 msgstr "Bygt"
 
 #: views/widget3.mustache:287
-#: views/library_details.mustache:302
+#: views/library_details.mustache:306
 msgid "Architect"
 msgstr "Arkitekt"
 
 #: views/widget3.mustache:296
-#: views/library_details.mustache:311
+#: views/library_details.mustache:315
 msgid "Accessible entry"
 msgstr "Tillgänglig ingång"
 
 #: views/widget3.mustache:300
-#: views/library_details.mustache:315
+#: views/library_details.mustache:319
 msgid "Accessible parking"
 msgstr "Tillgänglig parkering"
 
 #: views/widget3.mustache:304
-#: views/library_details.mustache:319
+#: views/library_details.mustache:323
 msgid "Accessible toilet"
 msgstr "Tillgänglig toalett"
 
 #: views/widget3.mustache:312
-#: views/library_details.mustache:327
+#: views/library_details.mustache:331
 msgid "Induction loop"
 msgstr "Induktionsslinga"
 
 #: views/widget3.mustache:316
-#: views/library_details.mustache:331
+#: views/library_details.mustache:335
 msgid "Large typeface collection"
 msgstr "Stor typsnitts samling"
 
 #: views/widget3.mustache:320
-#: views/library_details.mustache:335
+#: views/library_details.mustache:339
 msgid "Lift"
 msgstr "Hiss"
 
 #: views/widget3.mustache:328
-#: views/library_details.mustache:343
+#: views/library_details.mustache:347
 msgid "Parking"
 msgstr "Parkering"
 
@@ -623,7 +627,7 @@ msgstr "felskriven address"
 msgid "an out-of-date link"
 msgstr "föråldrad link"
 
-#: views/library_details.mustache:186
+#: views/library_details.mustache:189
 msgid "To borrow from this library you need a <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a> card."
 msgstr "För att låna från detta bibliotek behöver man ett <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a>-kort."
 
