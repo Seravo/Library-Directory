@@ -651,14 +651,20 @@
 									e_month = parseInt(e_month)-1;
 								}
 
-								start_time = unixtime >= new Date(s_year, s_month, s_day);
-								end_time = unixtime <= new Date(e_year, e_month, e_day);
+								start_time = unixtime >= new Date(s_year, s_month, s_day, 0, 0, 0, 0);
+								end_time = unixtime <= new Date(e_year, e_month, e_day, 23, 59, 59, 0);
 							}
 
 							if ( start_time && end_time ) {
+								// if period has open status for current day
 								if ( (start!=0 && end!=0) && (start!= null && end!= null) && j==daynum ) {
 									library_data.open_now = ld_open_now( { start: start, end: end } );
 									library_data.opening_hours = ld_format_time(start) + " - " + ld_format_time(end);
+								}
+								// if period has closed status for current day
+								if ( (start==0 && end==0) && j==daynum ) {
+									library_data.open_now = false;
+									library_data.opening_hours = false;
 								}
 							}
 						}
