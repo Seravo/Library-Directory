@@ -1,6 +1,25 @@
 {{{header}}}
 
 {{#data}}
+
+{{#preview_mode}}
+    <style type="text/css">
+        #preview-mode-warning {
+            background-color: #FFE1D9;
+            border: 1px solid red;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        #preview-mode-warning h1 {
+            color: red;
+        }
+    </style>
+    <div id="preview-mode-warning">
+        <h1>_("This is preview mode")</h1>
+    </div>
+{{/preview_mode}}
+
 <div class="row-fluid" itemscope itemtype="http://schema.org/Library">
   <div class="span6">
 
@@ -194,7 +213,7 @@
 			{{/opening_hours.has_opening_hours}}
         {{/neveropen}}
     </div>
-    
+
     <div class="contactdetails">
 		{{#contact.homepage__("locale")}}
 		<dd>
@@ -289,7 +308,7 @@
 	    <dd><i class="icon-envelope"></i> <a href="mailto:{{contact.email}}" itemprop="email">{{contact.email}}</a></dd>
 	    {{/contact.email}}
     </div>
-    
+
     <div class="buildinginfo">
         {{#image_url}}
         <img src="{{image_url}}" alt="{{name__("locale")}}" itemprop="image photo">
@@ -304,7 +323,7 @@
         {{/contact.building_year}}
         {{#contact.building_architect}}
             <tr><th>_("Architect"):</th><td>{{contact.building_architect}}</td></tr>
-        {{/contact.building_architect}} 
+        {{/contact.building_architect}}
         <td><th colspan="2">&nbsp;</td></tr>
 
 		{{#accessibility_available}}
