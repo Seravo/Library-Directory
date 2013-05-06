@@ -707,6 +707,9 @@ msgstr "Totalt {{count}} bibliotek."
 msgid "nice URL slug missing"
 msgstr "snyggt URL-namn fattas"
 
+msgid "This is preview mode"
+msgstr "Detta är förgranskningsläge"
+
 #~ msgid "PL"
 #~ msgstr "PB"
 

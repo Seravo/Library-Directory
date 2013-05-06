@@ -707,6 +707,9 @@ msgstr "Hakemistossa yhteensä {{count}} kirjastoa."
 msgid "nice URL slug missing"
 msgstr "kaunis URL-tunniste puuttuu"
 
+msgid "This is preview mode"
+msgstr "Tämä on esikatselutila"
+
 #~ msgid "PL"
 #~ msgstr "PL"
 

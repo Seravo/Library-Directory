@@ -53,7 +53,7 @@ function switch_locale(req) {
 	if (!locale.match(/^(fi|en|sv)$/)) locale = conf.default_lang;
 
 	gettext.setlocale("LC_ALL", locale);
-	
+
 	if (locale == conf.default_lang) {
     	req.locale_url_prefix = "/";
 	} else {
@@ -90,7 +90,7 @@ app.configure('dev', function(){
 	app.set('view engine','mustache');
 	app.set('view options',{layout:false});
 	app.set('views',__dirname + '/views');
-	app.register('mustache',adapter.init(hogan));    
+	app.register('mustache',adapter.init(hogan));
     app.use(connect.compress()); // works for static files, but not for res.render?
     app.use(express.static(__dirname, { maxAge: 0 }));
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
@@ -143,6 +143,26 @@ app.get("/:lang(" + conf.default_lang + ")/:resource(*)",function(req,res,next) 
     return; // nothing more to do here!
 });
 
+// Preview data submitted from admin interface [or such]
+app.post("/preview", function(req, res) {
+    rlog("Render library preview");
+
+    var library = JSON.parse(req.body.library);
+    var fake_query = {
+        _id: library.doc_id,
+        _source: library
+    };
+
+    add_library_metadata(fake_query, function() {
+        res.local('preview_mode', true);
+        res.local("data", library);
+        res.local("header", header.render(req, {
+            title: eval("library.name_" + _("locale")) + ": " + _("contact details, open hours, services")
+        }));
+        res.render("library_details", res.locals());
+    });
+});
+
 // route handler for all dynamic data without language path
 // as this has the most generic matcher it should be last
 app.get("/:resource(*)",function(req,res,next) {
@@ -151,7 +171,7 @@ app.get("/:resource(*)",function(req,res,next) {
 });
 
 function route_parser(req,res,next) {
-    
+
     // cache view output
     if (view_cache_time != 0) {
         res.setHeader('Cache-Control', 'public, max-age=' + view_cache_time);
@@ -170,7 +190,7 @@ function route_parser(req,res,next) {
 
     // only one lang switcher and it is here now
 	switch_locale(req);
-	
+
 	var page = req.params.resource;
 	//rlog("request: " + page);
 
@@ -386,7 +406,7 @@ function render_library_by_id(page, req, res) {
     rlog("Requested id: "+page);
     get_library_by_id(page, function(data){
 		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
-    
+
         // return 404 if no library was returned
         // TODO: is this the most elegant place to check for results and render 404?
         if (typeof data == "undefined"){
@@ -448,7 +468,7 @@ function get_libraries(callback) {
 		"query" : {
 		    "filtered" : {
                 "query" : {"match_all":{}},
-                "filter" : { 
+                "filter" : {
                     "and" : [
                         {"terms": { "organisation_type" : [ "branchlibrary", "library" ] } },
 			            {"term": { "meta.document_state" : "published" } }
@@ -474,7 +494,7 @@ function get_libraries(callback) {
       //rlog('HEADERS: ' + JSON.stringify(res.headers));
       res.setEncoding('utf8');
       data = '';
-      res.on('data', function(chunk){ 
+      res.on('data', function(chunk){
         data += chunk;
       });
       res.on('end', function() {
@@ -550,8 +570,8 @@ function add_library_metadata(dataobj, callback){
 		    lib.accessibility.induction_loop ||
 		    lib.accessibility.large_typeface_collection ||
 		    lib.accessibility.lift ||
-		    lib.extraaccessibilityinfo ) { 
-                lib.accessibility_available = true 
+		    lib.extraaccessibilityinfo ) {
+                lib.accessibility_available = true
 	    }
 	} else {
 	    rlog("Error: lib.accessibility undefined for id " + dataobj._id );
@@ -561,7 +581,7 @@ function add_library_metadata(dataobj, callback){
 		"<strong>" + lib["name_" + _("locale")] + "</strong>" + "<br>" +
 		lib.contact.street_address["street_"+_("locale")] + "<br>" +
 		lib.contact.street_address.post_code + " " + lib.contact.street_address["municipality_" + _("locale")];
-	
+
 	// if post box is empty, delete it
 	if (typeof lib.contact.mail_address.post_box != "undefined") {
 		if (lib.contact.mail_address.post_box == "") delete lib.contact.mail_address.post_box;
@@ -655,7 +675,7 @@ function add_library_metadata(dataobj, callback){
             if (s.type == 'palvelu') { s.type = _("service type service"); }
         });
     }
-   
+
     if (lib.contact.coordinates != undefined && lib.contact.coordinates != '') {
         latlon = lib.contact.coordinates.split(",");
         lib.contact.coordinnates_lat = latlon[0];
@@ -721,7 +741,7 @@ function get_library_by_name(name, browser_req, callback) {
       path: '/testink/organisation/_search?source='+query,
       method: 'GET'
     };
-   
+
     var req = http.get(options, function(res) {
       res.setEncoding('utf8');
       data = '';
@@ -752,7 +772,7 @@ function get_library_children(id, library_data, callback) {
 		"query" : {
 		    "filtered" : {
                 "query" : {"match_all":{}},
-                "filter" : { 
+                "filter" : {
                     "and" : [
                         {"term": { "parent_organisation" : id } },
 			            {"term": { "organisation_type": "branchlibrary" } },
