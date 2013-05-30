@@ -1088,6 +1088,12 @@ function get_library_opening_times(id, dataobj, callback) {
 		for (var idx in ot) {
 			var day = ot[idx];
 
+      // try to handle missing or corrupt opening times data gracefully, assume closed status if so
+      if (day.date==undefined || day.opens==undefined || day.closes==undefined) {
+        opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: _('closed') };
+        continue;
+      }
+
 			if (idx == daynum && day.closed == true) {
 				opening_hours.open_now = false;
 			}
