@@ -600,7 +600,10 @@ function add_library_metadata(dataobj, callback){
 	}
 	if (lib.consortium == '') {
 		delete lib.consortium;
-	}
+	} else {
+    if (lib.consortium.length >0) lib.consortium = lib.consortium.charAt(0).toUpperCase() + lib.consortium.substring(1).toLowerCase();
+  }
+
     if (lib.contact.telephones[0].telephone_number == '') {
         delete lib.contact.telephones;
     }
