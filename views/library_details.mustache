@@ -23,7 +23,7 @@
 <div class="row-fluid" itemscope itemtype="http://schema.org/Library">
   <div class="span6">
 
-	<h1 itemprop="name" id="{{id}}">{{name__("locale")}}</h1>
+	<h1 class="lib_details_name" itemprop="name" id="{{id}}">{{name__("locale")}}</h1>
 	{{#contact.coordinates}}
         <p><strong class="address" itemprop="address"><i class="icon-map-marker"></i>
 	    <a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q" itemprop="map">
@@ -254,13 +254,6 @@
 				<dd>{{established_year}}</dd>
 			{{/established_year}}
 
-			{{#parent_organisation}}
-				{{#consortium}}
-					<dt>_("Library consortium")</dt>
-					<dd><a href="{{parent_organisation}}" itemprop="branchOf">{{consortium}} &rarr;</a></dd>
-				{{/consortium}}
-			{{/parent_organisation}}
-
 			{{#additional_info}}
 				<dt>_("Additional info")</dt>
 				<dd>
@@ -314,6 +307,15 @@
 			{{/opening_hours.has_opening_hours}}
         {{/neveropen}}
     </div>
+
+	<div class="opentimes">
+	{{#parent_organisation}}
+		{{#consortium}}
+			<dt>_("Library consortium")</dt>
+			<dd><a href="{{parent_organisation}}" itemprop="branchOf">{{consortium}} &rarr;</a></dd>
+		{{/consortium}}
+	{{/parent_organisation}}
+	</div>
 
     <div class="contactdetails">
 		{{#contact.homepage__("locale")}}
