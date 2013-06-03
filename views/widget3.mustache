@@ -11,7 +11,8 @@
 	    {{contact.street_address.street__("locale")}},
 	    {{contact.street_address.area__("locale")}}
 	    {{contact.street_address.post_code}}
-	    {{contact.street_address.municipality__("locale")}}</a></strong></p>
+	    {{contact.street_address.municipality__("locale")}}</a></strong>
+		(_("View larger map"))</p>
 	{{/contact.coordinates}}
 
 	<p><strong><i class="icon-move"></i>
@@ -19,7 +20,7 @@
 	{{contact.street_address.street__("locale")}},
 	{{contact.street_address.municipality__("locale")}}'>
 	_("Directions")</a>
-	</strong></p>
+	</strong>(Matka.fi)</p>
 
     {{#contact.directions__("locale")}}
         <p>_("Directions"):
