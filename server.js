@@ -819,10 +819,16 @@ function get_library_children(id, library_data, callback) {
 			var children = [];
 			for (item in dataobj.hits.hits) {
 				var child = dataobj.hits.hits[item]._source;
-				if (typeof child.additional_info != "undefined" && typeof child.additional_info.slug != "undefined" && child.additional_info.slug != '') {
-					children.push( { link: child.additional_info.slug, name: child.name_fi });
-				}
-			}
+        // get children database id for data retrieval/linking if pretty-url slug is missing
+        child.id = dataobj.hits.hits[item]._id;
+        if (typeof child.additional_info != "undefined" && typeof child.additional_info.slug != "undefined") {
+          if (child.additional_info.slug == '') {
+            children.push( { link: child.id, name: child.name_fi });
+          } else {
+            children.push( { link: child.additional_info.slug, name: child.name_fi });
+          }
+        }
+      }
 			library.children = children;
 			//rlog(children);
 			library.has_children = true;
