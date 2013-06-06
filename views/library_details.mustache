@@ -294,11 +294,12 @@
 	        <time itemprop="openingHours">
 	        <table>
 			    {{#opening_hours.open_hours_week}}
-				    <tr><td>{{day}}<td>&nbsp;<td>{{time}} {{desc}}<span class="hidden">, </span></tr>
+				    <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
 			    {{/opening_hours.open_hours_week}}
 	        </table>
 	        </time>
             <br>
+			<p>{{opening_hours.period_description}}
 			{{#consortium}}
             <p>_("To borrow from this library you need a <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a> card.")</p>
 			{{/consortium}}

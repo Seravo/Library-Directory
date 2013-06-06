@@ -1101,6 +1101,12 @@ function get_library_opening_times(id, dataobj, callback) {
 				opening_hours.open_now = false;
 			}
 
+      // take copy of period description for lib details view template
+      var desc = day["period_description_" +_ ('locale')];
+      if (desc != undefined && desc != '') {
+        opening_hours.period_description = day["period_description_" +_ ('locale')];
+      }
+
 			if (day.closed==true) {
 				opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: _('closed') };
 				continue;
