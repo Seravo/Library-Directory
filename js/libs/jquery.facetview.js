@@ -68,13 +68,15 @@
     $.fn.facetview = function(options) {
 
 	var opening_hours_format =
+    "{{#neveropen}}" +
 		"{{#d2}}" +
 		"<i class='icon-time'></i> "+
 		"{{#d0}}<span style='color: green;'>" + _("Open") +
 		 "</span> " + _("today") + " {{d1}} {{/d0}}" +
 		"{{^d0}}<span style='color: red; font-style: italic;'>" + _("Closed") +	"</span> " +
 		"{{#d1}}(" + _("open today") + " {{d1}}){{/d1}} {{/d0}}" +
-		"{{/d2}}";
+		"{{/d2}}"+
+    "{{/neveropen}}";
 
 	var coordinate_format = "\
 		{{#d2}} \
