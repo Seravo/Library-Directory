@@ -318,20 +318,18 @@
 	</div>
 
     <div class="contactdetails">
-		{{#contact.homepage__("locale")}}
-		<dd>
         <dt>_("Homepage")</dt>
         <dd>
+		{{#contact.homepage__("locale")}}
             <i class="icon-home"></i> <a href="{{contact.homepage__("locale")}}">
-			{{contact.homepage__("locale")}}</a>
-            {{#contact.internet}}
-                <br><a href="{{url__("locale")}}"
-                    title="{{url_description__("locale")}}" class="iconless-link">
-				{{name__("locale")}}</a>
-            {{/contact.internet}}
-		</dd>
+			{{contact.homepage__("locale")}}</a><br>
 	    {{/contact.homepage__("locale")}}
-
+        {{#contact.internet}}
+            <a href="{{url__("locale")}}"
+                title="{{url_description__("locale")}}" class="iconless-link">
+			{{name__("locale")}}</a><br>
+        {{/contact.internet}}
+		</dd>
 
 		{{#contact.telephones.0.telephone_number}}
 	    <dt>_("Telephone numbers")</dt>
