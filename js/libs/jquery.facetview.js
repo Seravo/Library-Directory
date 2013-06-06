@@ -68,15 +68,13 @@
     $.fn.facetview = function(options) {
 
 	var opening_hours_format =
-    "{{#neveropen}}" +
 		"{{#d2}}" +
 		"<i class='icon-time'></i> "+
 		"{{#d0}}<span style='color: green;'>" + _("Open") +
 		 "</span> " + _("today") + " {{d1}} {{/d0}}" +
 		"{{^d0}}<span style='color: red; font-style: italic;'>" + _("Closed") +	"</span> " +
 		"{{#d1}}(" + _("open today") + " {{d1}}){{/d1}} {{/d0}}" +
-		"{{/d2}}"+
-    "{{/neveropen}}";
+		"{{/d2}}";
 
 	var coordinate_format = "\
 		{{#d2}} \
@@ -603,8 +601,9 @@
 					daynum = daynum-1;
 
 					/* show opening times on front page only if organisation type is branch */
+          // also if branch_type != mobile
 					library_data.show_opening_hours = true;
-					if (library_data.organisation_type == 'library') library_data.show_opening_hours = false;
+					if (library_data.organisation_type == 'library' || library_data.branch_type == 'mobile') library_data.show_opening_hours = false;
 
 					/* show address entry only if it is present */
 					library_data.show_address_entry = true;

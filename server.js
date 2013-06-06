@@ -538,8 +538,6 @@ function add_library_metadata(dataobj, callback){
 
 	var lib = dataobj._source;
 
-  if (lib.branch_type == "mobile") lib.neveropen = true;
-
     switch(lib.organisation_type) {
         case "library":
         case "unit":
