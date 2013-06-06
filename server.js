@@ -1099,9 +1099,13 @@ function get_library_opening_times(id, dataobj, callback) {
 		for (var idx in ot) {
 			var day = ot[idx];
 
+      // include info about "current day" in opening hours data for week
+      var today_status = false;
+      if (idx == daynum) today_status = true;
+
       // try to handle missing or corrupt opening times data gracefully, assume closed status if so
       if (day.date==undefined || day.opens==undefined || day.closes==undefined) {
-        opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: _('closed') };
+        opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: _('closed'), today: today_status };
         continue;
       }
 
@@ -1116,13 +1120,13 @@ function get_library_opening_times(id, dataobj, callback) {
       }
 
 			if (day.closed==true) {
-				opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: _('closed') };
+				opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: _('closed'), today: today_status };
 				continue;
 			}
 			else {
 				var opens = format_time(day.opens);
 				var closes = format_time(day.closes);
-				opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: opens + " - " + closes };
+				opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: opens + " - " + closes, today: today_status };
 			}
 
 			if (idx == daynum && day.closed == false) {
