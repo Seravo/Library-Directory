@@ -255,12 +255,15 @@
 
 			{{#additional_info}}
 				<dt>_("Additional info")</dt>
-				<dd>
-					{{#extrainfo}}
-						{{property_label__("locale")}}:
-						{{property_value__("locale")}}<br>
-					{{/extrainfo}}
-				</dd>
+				<ul>
+				{{#extrainfo}}
+					<li>
+						{{property_label__("locale")}}<br>
+						<cite>{{property_value__("locale")}}</cite>
+					</li>
+					<br>
+				{{/extrainfo}}
+				</ul>
 			{{/additional_info}}
 		</div>
 	</div>
