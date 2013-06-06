@@ -225,10 +225,6 @@
 					_("Accessible toilet")<br>
 				{{/accessibility.accessible_toilet}}
 
-				{{#extraaccessibilityinfo}}
-					{{extra_accessibility_property_label__("locale")}}: {{extra_accessibility_property_value__("locale")}}<br>
-				{{/extraaccessibilityinfo}}
-
 				{{#accessibility.induction_loop}}
 					 _("Induction loop")<br>
 				{{/accessibility.induction_loop}}
@@ -240,6 +236,12 @@
 				{{#accessibility.lift}}
 					_("Lift")<br>
 				{{/accessibility.lift}}
+
+				{{#accessibility.extraaccessibilityinfo}}
+					{{extra_accessibility_property_label__("locale")}}:
+					{{extra_accessibility_property_value__("locale")}}<br>
+				{{/accessibility.extraaccessibilityinfo}}
+
 			</dd>
 			</td>
 			</tr>
