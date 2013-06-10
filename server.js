@@ -546,6 +546,11 @@ function add_library_metadata(dataobj, callback){
             break;
     }
 
+  // if localized street address is unavailable, use fi-locale
+  if (lib.contact.street_address["street_" + _("locale")] == '') lib.contact.street_address["street_" + _("locale")] = lib.contact.street_address.street_fi;
+  if (lib.contact.street_address["area_" + _("locale")] == '') lib.contact.street_address["area_" + _("locale")] = lib.contact.street_address.area_fi;
+  if (lib.contact.street_address["municipality_" + _("locale")] == '') lib.contact.street_address["municipality_" + _("locale")] = lib.contact.street_address.municipality_fi;
+
 	for (var item in lib.contact.internet) {
 		var temp = lib.contact.internet[item];
 		// TODO: Could these be more universally expressed to support any language?
