@@ -613,7 +613,11 @@
 					library_data.open_now = false;
 					library_data.opening_hours = false;
 
+					// store matching opening times period length
+					library_data.period_length=Infinity;
+
 					var periods = library_data.period;
+
 					for (var i in periods) {
 						var p = periods[i]
 						for (var j=0; j<7; j++) {
@@ -624,6 +628,8 @@
 							/* workaround for IE8 Date.parse issues */
 							var start_time = false;
 							var end_time = false;
+							var diff_time = 0;
+
 							if (p.start != null) {
 								var s_date = p.start.split("T")[0];
 								var s_year = s_date.split("-")[0];
@@ -652,13 +658,18 @@
 
 								start_time = unixtime >= new Date(s_year, s_month, s_day, 0, 0, 0, 0);
 								end_time = unixtime <= new Date(e_year, e_month, e_day, 23, 59, 59, 0);
+								diff_time = new Date(e_year, e_month, e_day, 23, 59, 59, 0) - new Date(s_year, s_month, s_day, 0, 0, 0, 0);
 							}
 
 							if ( start_time && end_time ) {
 								// if period has open status for current day
 								if ( (start!=0 && end!=0) && (start!= null && end!= null) && j==daynum ) {
-									library_data.open_now = ld_open_now( { start: start, end: end } );
-									library_data.opening_hours = ld_format_time(start) + " - " + ld_format_time(end);
+									// if everything else matches, apply only if period length is smaller than previus match
+									if (diff_time <= library_data.period_length) {
+									  library_data.period_length = diff_time;
+									  library_data.open_now = ld_open_now( { start: start, end: end } );
+									  library_data.opening_hours = ld_format_time(start) + " - " + ld_format_time(end);
+								  }
 								}
 								// if period has closed status for current day
 								if ( (start==0 && end==0) && j==daynum ) {
