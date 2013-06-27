@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-06-27 17:41+0300\n"
-"PO-Revision-Date: 2013-06-27 17:44+0200\n"
+"PO-Revision-Date: 2013-06-27 17:53+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -396,7 +396,7 @@ msgstr "Skriv namnet på biblioteket eller tjänsten du behöver. Skriv en stads
 #: views/index.mustache:9
 #: views/widget1.mustache:9
 msgid "The library index does not yet contain the contact and service information to all Finnish libraries. The updating of the information about public libraries is going on. Links to university and other libraries can be found on page <a href='http://www.libraries.fi/libraries'>http://www.libraries.fi/libraries</a>"
-msgstr "Biblioteksregistret innehåller inte än kontakt- och serviceuppgifter till alla bibliotek. Registret uppdateras under våren 2013.Tillsvidare finns alla uppgifter under Bibliotek på Biblioteken.fi <a href='http://www.biblioteken.fi/bibliotek'>http://www.biblioteken.fi/bibliotek</a>"
+msgstr "Bibliotekskatalogen innehåller ännu inte alla uppgifter, katalogen uppdateras under sommaren. Information om andra än allmänna bibliotek kan hittas på sidan <a href='http://www.biblioteken.fi/bibliotek'>http://www.biblioteken.fi/bibliotek</a>"
 
 #: views/widget2.mustache:15
 #: views/widget3.mustache:34
