@@ -605,9 +605,20 @@
 					library_data.show_opening_hours = true;
 					if (library_data.organisation_type == 'library' || library_data.branch_type == 'mobile') library_data.show_opening_hours = false;
 
+          /* if locale address is not present, copy over fi-locale data */
+          var locale = _("locale");
+          var contact = library_data.contact;
+          var name = library_data["name_" + locale];
+          var address = contact.street_address["street_" + locale];
+          var city = contact.street_address["municipality_" + locale];
+
+          if (name === undefined || name === '') { library_data["name_" + locale] = library_data.name_fi; }
+          if (address === undefined || address === '') { library_data.contact.street_address["street_" + locale ] = contact.street_address.street_fi; }
+          if (city === undefined || city === '') { library_data.contact.street_address["municipality_" + locale ] = contact.street_address.municipality_fi; }
+
 					/* show address entry only if it is present */
 					library_data.show_address_entry = true;
-					if (library_data.contact.street_address["street_"+_("locale")]=="") library_data.show_address_entry = false;
+					//if (library_data.contact.street_address["street_"+_("locale")]=="") library_data.show_address_entry = false;
 
 					/* library is not open until proven otherwise */
 					library_data.open_now = false;
