@@ -682,6 +682,14 @@
 									  library_data.opening_hours = ld_format_time(start) + " - " + ld_format_time(end);
 								  }
 								}
+
+                // if period is closed completely
+                if (p.closed_completely==true) {
+                  library_data.open_now = false;
+                  library_data.opening_hours = false;
+                  break;
+                }
+
 								// if period has closed status for current day
 								if ( (start==0 && end==0) && j==daynum ) {
 									library_data.open_now = false;
