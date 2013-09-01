@@ -250,7 +250,7 @@ msgstr "Esteettömyys"
 #: views/library_details.mustache:318
 #: views/widget_wizard.mustache:44
 msgid "Library consortium"
-msgstr "Kirjastoyhtymä"
+msgstr "Seutuyhteistyö"
 
 #: js/libs/jquery.facetview.js:109
 msgid "Type"
