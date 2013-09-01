@@ -46,19 +46,54 @@
 			{{contact.directions__("locale")}}</p>
     {{/contact.directions__("locale")}}
 
-	{{#contact.coordinates}}
-		<p itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
-            <meta itemprop="latitude" content="{{contact.coordinnates_lat}}">
-            <meta itemprop="longitude" content="{{contact.coordinnates_lon}}">
-			<div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div></div>
-			<script type="text/javascript">
-			<!--
-			function library_details_map() { ld_mapcontrol_init("{{contact.coordinates}}", ""); }
-			-->
-			</script>
-			<!-- {{contact.coordinates}} {{contact.map_url__("locale")}} -->
-		</p>
-	{{/contact.coordinates}}
+	<ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" href="#lib_map" data-toggle="tab">_("Map")</a></li>
+		<li><a data-toggle="tab" href="#lib_images" data-toggle="tab">_("Images")</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div class="tab-pane active" id="lib_map">
+			{{#contact.coordinates}}
+				<p itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+					<meta itemprop="latitude" content="{{contact.coordinnates_lat}}">
+					<meta itemprop="longitude" content="{{contact.coordinnates_lon}}">
+					<div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div></div>
+					<script type="text/javascript">
+					<!--
+					function library_details_map() { ld_mapcontrol_init("{{contact.coordinates}}", ""); }
+					-->
+					</script>
+					<!-- {{contact.coordinates}} {{contact.map_url__("locale")}} -->
+				</p>
+			{{/contact.coordinates}}
+		</div>
+
+		<div class="tab-pane" id="lib_images">
+			<div class="buildinginfo">
+				{{#image_url}}
+				<img src="{{image_url}}" alt="{{name__("locale")}}" itemprop="image photo">
+				{{/image_url}}
+				<table>
+				{{#contact.building__("locale")}}
+					<tr><th>_("Building"):</th>
+						<td>{{contact.building__("locale")}}</td></tr>
+				{{/contact.building__("locale")}}
+				{{#contact.building_year}}
+					<tr><th>_("Built"):</th><td>{{contact.building_year}}</td></tr>
+				{{/contact.building_year}}
+				{{#contact.building_architect}}
+					<tr><th>_("Architect"):</th><td>{{contact.building_architect}}</td></tr>
+				{{/contact.building_architect}}
+				<td><th colspan="2">&nbsp;</td></tr>
+
+				{{#contact.parking__("locale")}}
+					<tr><th>_("Parking"):</th>
+						<td>{{contact.parking__("locale")}}</td></tr>
+				{{/contact.parking__("locale")}}
+				</table>
+			</div>
+		</div>
+	</div>
 
 	{{#description__("locale")}}
 		<p class="libdescription" itemprop="description">{{description__("locale")}}</p>
@@ -385,29 +420,6 @@
 	    {{/contact.email}}
     </div>
 
-    <div class="buildinginfo">
-        {{#image_url}}
-        <img src="{{image_url}}" alt="{{name__("locale")}}" itemprop="image photo">
-        {{/image_url}}
-        <table>
-        {{#contact.building__("locale")}}
-            <tr><th>_("Building"):</th>
-				<td>{{contact.building__("locale")}}</td></tr>
-        {{/contact.building__("locale")}}
-        {{#contact.building_year}}
-            <tr><th>_("Built"):</th><td>{{contact.building_year}}</td></tr>
-        {{/contact.building_year}}
-        {{#contact.building_architect}}
-            <tr><th>_("Architect"):</th><td>{{contact.building_architect}}</td></tr>
-        {{/contact.building_architect}}
-        <td><th colspan="2">&nbsp;</td></tr>
-
-        {{#contact.parking__("locale")}}
-            <tr><th>_("Parking"):</th>
-				<td>{{contact.parking__("locale")}}</td></tr>
-        {{/contact.parking__("locale")}}
-        </table>
-    </div>
 	<p><small><a href="{{slug}}" itemprop="url">hakemisto.kirjastot.fi/{{slug}}</a> _("last modified"): {{meta.modified}}</small></p>
 
   </div>
