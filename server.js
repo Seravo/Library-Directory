@@ -952,7 +952,7 @@ function get_library_personnel(id, dataobj, callback) {
 
 				// delete person's empty fields
 				if (typeof person.contact.email != "undefined" && person.contact.email == "") { delete person.contact.email; }
-				if (typeof person.contact.phone != "undefined" && person.contact.phone == "") { delete person.contact.phone; }
+				if (typeof person.contact.telephone != "undefined" && person.contact.telephone == "") { delete person.contact.telephone; }
 				if (typeof person.job_title_fi != "undefined" && person.job_title_fi == "") { delete person.job_title_fi; }
 
 			});
