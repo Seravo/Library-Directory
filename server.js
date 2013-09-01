@@ -353,7 +353,7 @@ function render_static_page(page, req, res) {
 		case "":
 			var cityfilter = req.query.city || "";
 			res.local("header", header.render(req, {search_active: true}))
-			res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({cityfilter: '" + cityfilter + "'}); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+			res.local("footer", footer.render({consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({cityfilter: '" + cityfilter + "'}); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 			res.render("index", res.locals());
 			break;
 
@@ -367,7 +367,7 @@ function render_static_page(page, req, res) {
 		// widget creation wizard
 		case "widget":
 			res.local("header", header.render(req, {title: "Widget wizard", widget_active: true}))
-			res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { ld_widget_wizard(); });"}));
+			res.local("footer", footer.render({consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { ld_widget_wizard(); });"}));
 			res.render("widget_wizard", res.locals());
 			break;
 
@@ -382,7 +382,7 @@ function render_static_page(page, req, res) {
 			else js_code = "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({widget: true}); });";
 
 			res.local("header", header.render(req, { nobanners: true }));
-			res.local("footer", footer.render({ nobanners: true, js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+			res.local("footer", footer.render({ nobanners: true, consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 			res.render("widget1", { lang: gettext.lang });
 			break;
 
@@ -394,7 +394,7 @@ function render_static_page(page, req, res) {
 				// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
 				res.local("header", header.render(req, { nobanners: true }));
-				res.local("footer", footer.render({ nobanners: true, js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+				res.local("footer", footer.render({ nobanners: true, consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 				res.render("widget2", { data: data._source });
 			});
 			break;
@@ -407,7 +407,7 @@ function render_static_page(page, req, res) {
 				// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
 				res.local("header", header.render(req, { nobanners: true }));
-				res.local("footer", footer.render({ nobanners: true, js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+				res.local("footer", footer.render({ nobanners: true, consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 				res.render("widget3", { data: data._source } );
 			});
 			break;
@@ -464,7 +464,7 @@ function render_library_by_id(page, req, res) {
 
 		res.local("data", library);
         res.local("header", header.render(req, {title: eval("library.name_" + _("locale")) + ": " + _("contact details, open hours, services")}))
-        res.local("footer", footer.render({js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+        res.local("footer", footer.render({consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 		res.render("library_details", res.locals());
 	});
 }
@@ -485,11 +485,11 @@ function render_library_by_slug(slug, req, res) {
     		var library = data.hits.hits[0]._source;
 		    res.local("data", library);
             res.local("header", header.render(req, {nobanners: nobanners, title: eval("library.name_" + _("locale")) + ": " + _("contact details, open hours, services")}))
-            res.local("footer", footer.render({nobanners: nobanners, js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+            res.local("footer", footer.render({nobanners: nobanners, consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 		    res.render("library_details", res.locals());
 		} else {
 			res.local("header", header.render(req, {nobanners: nobanners, title: _("Not found") }));
-			res.local("footer", footer.render({nobanners: nobanners}));
+			res.local("footer", footer.render({nobanners: nobanners, consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";"}));
 			res.render("404", res.locals());
 		}
 	});

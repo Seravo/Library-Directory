@@ -433,6 +433,11 @@
 						var displayItem = "";
 						if (facetType=='branch_type' || facetType=='organisation_type') displayItem = _(item);
 						else if (facetType=='accessibility.accessible_entry' && item == 'T') displayItem = _("yes");
+            else if (facetType=='consortium') {
+              if (CONSORTIUMS[item] != undefined) displayItem = CONSORTIUMS[item].name;
+              // avoid error with dash in facet field (analyzer splits it)
+              else continue;
+            }
 						else displayItem = item;
 
 						append = '<li><a class="facetview_filterchoice' +
