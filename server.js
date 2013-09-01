@@ -783,8 +783,8 @@ function get_library_children(id, library_data, callback) {
                 "filter" : {
                     "and" : [
                         {"term": { "parent_organisation" : id } },
-			            {"term": { "organisation_type": "branchlibrary" } },
-			            // {"term": { "organisation_type": [ "branchlibrary", "library"] } },
+			            //{"term": { "organisation_type": "branchlibrary" } },
+			            {"term": { "organisation_type": [ "branchlibrary", "library", "department"] } },
 			            {"term": { "meta.document_state" : "published" } }
 			        ]
 			    }
