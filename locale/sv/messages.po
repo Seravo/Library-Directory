@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-27 17:41+0300\n"
-"PO-Revision-Date: 2013-06-27 19:00+0200\n"
+"POT-Creation-Date: 2013-09-01 13:22+0300\n"
+"PO-Revision-Date: 2013-09-01 13:27+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -18,54 +18,55 @@ msgstr ""
 "X-Poedit-Language: Swedish\n"
 "X-Poedit-Country: Finland\n"
 
-#: server.js:127
-#: server.js:395
-#: server.js:413
-#: server.js:454
+#: server.js:164
+#: server.js:432
+#: server.js:450
+#: server.js:491
 #: views/404.mustache:4
 msgid "Not found"
 msgstr "Hittas inte"
 
-#: server.js:160
-#: server.js:429
-#: server.js:450
-#: server.js:550
-#: server.js:551
-#: server.js:552
-#: server.js:586
+#: server.js:197
+#: server.js:466
+#: server.js:487
 #: server.js:587
 #: server.js:588
-#: server.js:618
-#: server.js:619
-#: server.js:633
-#: server.js:1110
+#: server.js:589
+#: server.js:623
+#: server.js:624
+#: server.js:625
+#: server.js:659
+#: server.js:660
+#: server.js:674
+#: server.js:1151
 #: js/libs/jquery.facetview.js:91
 #: js/libs/jquery.facetview.js:94
 #: js/libs/jquery.facetview.js:105
 #: js/libs/jquery.facetview.js:106
-#: js/libs/jquery.facetview.js:611
-#: js/libs/jquery.facetview.js:686
-#: js/libs/jquery.facetview.js:687
-#: js/libs/jquery.facetview.js:688
-#: js/libs/jquery.facetview.js:985
-#: js/libs/jquery.facetview.js:993
+#: js/libs/jquery.facetview.js:616
+#: js/libs/jquery.facetview.js:628
+#: js/libs/jquery.facetview.js:711
+#: js/libs/jquery.facetview.js:712
+#: js/libs/jquery.facetview.js:713
+#: js/libs/jquery.facetview.js:1010
+#: js/libs/jquery.facetview.js:1018
 #: locale/templates/LC_MESSAGES/gettext.tmpl:1
 msgid "locale"
 msgstr "sv"
 
-#: server.js:160
-#: server.js:429
-#: server.js:450
+#: server.js:197
+#: server.js:466
+#: server.js:487
 msgid "contact details, open hours, services"
 msgstr "kontaktinformation, öppettider, tjänster"
 
-#: server.js:233
+#: server.js:270
 #: views/contact.mustache:9
 msgid "Name"
 msgstr "Namn"
 
-#: server.js:235
-#: server.js:236
+#: server.js:272
+#: server.js:273
 #: views/widget2.mustache:87
 #: views/contact.mustache:14
 #: views/widget3.mustache:380
@@ -73,116 +74,116 @@ msgstr "Namn"
 msgid "E-mail"
 msgstr "E-mail"
 
-#: server.js:235
+#: server.js:272
 msgid "Please provide your e-mail so we can respond to your feedback."
 msgstr "Vänligen ge en e-mail address så att vi kan svara på din feedback."
 
-#: server.js:237
+#: server.js:274
 msgid "Feedback"
 msgstr "Feedback"
 
-#: server.js:245
-#: server.js:310
+#: server.js:282
+#: server.js:347
 #: views/contact.mustache:5
 #: views/widget3.mustache:126
 #: views/library_details.mustache:126
 msgid "Contact"
 msgstr "Feedback"
 
-#: server.js:252
+#: server.js:289
 msgid "Feedback from: "
 msgstr "Feedback från: "
 
-#: server.js:264
+#: server.js:301
 msgid "Feedback from library directory"
 msgstr "Feedback från bibliotekskatalogen"
 
-#: server.js:289
+#: server.js:326
 #: views/about.mustache:5
 msgid "About"
 msgstr "Om tjänsten"
 
-#: server.js:295
+#: server.js:332
 msgid "Browse all"
 msgstr "Bläddra alla"
 
-#: server.js:325
+#: server.js:362
 #: views/feedback-sent.mustache:5
 msgid "Feedback sent"
 msgstr "Feedback skickat"
 
-#: server.js:514
-#: server.js:643
+#: server.js:551
+#: server.js:684
 msgid "branchlibrary"
 msgstr "filial"
 
-#: server.js:515
-#: server.js:644
+#: server.js:552
+#: server.js:685
 msgid "department"
 msgstr "avdelning"
 
-#: server.js:516
-#: server.js:645
+#: server.js:553
+#: server.js:686
 msgid "library"
 msgstr "huvudbibliotek"
 
-#: server.js:517
-#: server.js:646
+#: server.js:554
+#: server.js:687
 msgid "mobile_stop"
 msgstr "bilbioteksbusshållplats"
 
-#: server.js:518
-#: server.js:647
+#: server.js:555
+#: server.js:688
 msgid "organisation"
 msgstr "Organisation"
 
-#: server.js:519
-#: server.js:648
+#: server.js:556
+#: server.js:689
 msgid "unit"
 msgstr "Enhet"
 
-#: server.js:681
+#: server.js:722
 msgid "service type device"
 msgstr "maskin"
 
-#: server.js:682
+#: server.js:723
 msgid "service type room"
 msgstr "rum"
 
-#: server.js:683
+#: server.js:724
 msgid "service type service"
 msgstr "tjänst"
 
-#: server.js:1015
+#: server.js:1056
 msgid "Monday"
 msgstr "Måndag"
 
-#: server.js:1016
+#: server.js:1057
 msgid "Tuesday"
 msgstr "Tisdag"
 
-#: server.js:1017
+#: server.js:1058
 msgid "Wednesday"
 msgstr "Onsdag"
 
-#: server.js:1018
+#: server.js:1059
 msgid "Thursday"
 msgstr "Torsdag"
 
-#: server.js:1019
+#: server.js:1060
 msgid "Friday"
 msgstr "Fredag"
 
-#: server.js:1020
+#: server.js:1061
 msgid "Saturday"
 msgstr "Lördag"
 
-#: server.js:1021
+#: server.js:1062
 msgid "Sunday"
 msgstr "Söndag"
 
-#: server.js:1117
-#: server.js:1126
+#: server.js:1158
+#: server.js:1167
 msgid "closed"
 msgstr "stängt"
 
@@ -236,8 +237,8 @@ msgid "Services"
 msgstr "Tjänster"
 
 #: js/libs/jquery.facetview.js:107
-#: js/libs/jquery.facetview.js:1049
-#: js/libs/jquery.facetview.js:1202
+#: js/libs/jquery.facetview.js:1074
+#: js/libs/jquery.facetview.js:1227
 #: views/widget3.mustache:79
 #: views/widget3.mustache:211
 #: views/library_details.mustache:79
@@ -253,83 +254,87 @@ msgid "Library consortium"
 msgstr "Biblioteksgrupp"
 
 #: js/libs/jquery.facetview.js:109
+msgid "Provincial area"
+msgstr "Landskap"
+
+#: js/libs/jquery.facetview.js:110
 msgid "Type"
 msgstr "Typ"
 
-#: js/libs/jquery.facetview.js:110
+#: js/libs/jquery.facetview.js:111
 msgid "Branch type"
 msgstr "Fililaltyp"
 
-#: js/libs/jquery.facetview.js:291
+#: js/libs/jquery.facetview.js:292
 msgid "Filter results"
 msgstr "Filtrera resultaten"
 
-#: js/libs/jquery.facetview.js:325
+#: js/libs/jquery.facetview.js:326
 msgid "Clear all filters"
 msgstr "Töm filtren"
 
-#: js/libs/jquery.facetview.js:326
+#: js/libs/jquery.facetview.js:327
 msgid "The number in parenthesis shows the number of results available."
 msgstr "Resultat fanns ej"
 
-#: js/libs/jquery.facetview.js:355
+#: js/libs/jquery.facetview.js:356
 msgid "Show libraries near my location"
 msgstr "Visa biblioteken närä mig"
 
-#: js/libs/jquery.facetview.js:361
-#: js/libs/jquery.facetview.js:369
+#: js/libs/jquery.facetview.js:362
+#: js/libs/jquery.facetview.js:370
 msgid "Libraries near my location"
 msgstr "Biblioteken närä mig"
 
-#: js/libs/jquery.facetview.js:413
-#: js/libs/jquery.facetview.js:435
+#: js/libs/jquery.facetview.js:414
+#: js/libs/jquery.facetview.js:436
 #: locale/templates/LC_MESSAGES/gettext.tmpl:11
 msgid "yes"
 msgstr "ja"
 
-#: js/libs/jquery.facetview.js:754
+#: js/libs/jquery.facetview.js:779
 msgid "back"
 msgstr "tillbaka"
 
-#: js/libs/jquery.facetview.js:755
+#: js/libs/jquery.facetview.js:780
 msgid "of"
 msgstr "av"
 
-#: js/libs/jquery.facetview.js:756
+#: js/libs/jquery.facetview.js:781
 msgid "next"
 msgstr "nästa"
 
-#: js/libs/jquery.facetview.js:760
+#: js/libs/jquery.facetview.js:785
 msgid "No results found"
 msgstr "Inga resultat fanns"
 
-#: js/libs/jquery.facetview.js:761
+#: js/libs/jquery.facetview.js:786
 msgid "Please try"
 msgstr "Vänligen pröva med att"
 
-#: js/libs/jquery.facetview.js:762
+#: js/libs/jquery.facetview.js:787
 msgid "Search with only the first 3-5 letters of your search word to get more matches."
 msgstr "Sök med endast 3-5 första bokstäverna av sökordet så att det kommer mera resultat."
 
-#: js/libs/jquery.facetview.js:763
+#: js/libs/jquery.facetview.js:788
 msgid "Remove all search words and drill down to your wanted results using only the search filters."
 msgstr "Ta bort alla sökord och borra dig fram till önskade resultat endast genom att följa passliga filter."
 
-#: js/libs/jquery.facetview.js:868
+#: js/libs/jquery.facetview.js:893
 msgid "One search result"
 msgstr "Ett resultat hittat"
 
-#: js/libs/jquery.facetview.js:869
+#: js/libs/jquery.facetview.js:894
 #, python-format
 msgid "%d search results"
 msgstr "%d resultat hittats"
 
-#: js/libs/jquery.facetview.js:1028
+#: js/libs/jquery.facetview.js:1053
 msgid "Could not connect to database. Please try again later."
 msgstr "Kan inte nå databasen. Försök pånytt senare."
 
-#: js/libs/jquery.facetview.js:1123
-#: js/libs/jquery.facetview.js:1149
+#: js/libs/jquery.facetview.js:1148
+#: js/libs/jquery.facetview.js:1174
 msgid "search starts automatically after 3 letters"
 msgstr "sökandet börjar automatiskt efter 3 bokstäver"
 
