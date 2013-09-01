@@ -340,12 +340,12 @@
 	    <dd>
 	        {{#contact.telephones}}
                 <img src="/img/glyphicons_139_phone.png" alt='_("Phone icon")'>
-				<a href="tel:{{telephone_number}}" itemprop="telephone">{{telephone_number}}</a> /
+				<a href="tel:{{telephone_number}}" itemprop="telephone">{{telephone_number}}</a>
 				{{#telephone_name__("locale")}}
-					{{telephone_name__("locale")}}
+					/ {{telephone_name__("locale")}}
 				{{/telephone_name__("locale")}}
 				{{^telephone_name__("locale")}}
-					{{telephone_name_fi}}
+					/ {{telephone_name_fi}}
 				{{/telephone_name__("locale")}}
 				<br>
             {{/contact.telephones}}
