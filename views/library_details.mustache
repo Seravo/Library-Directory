@@ -164,7 +164,7 @@
 				<table>
 				{{#personnel}}
 					<tr>
-						<td>
+						<td colspan=2 class="personnel-spacer">
 						{{_source.first_name}} {{_source.last_name}}
 							{{#_source.job_title__("locale")}}
 								/ {{_source.job_title__("locale")}}
@@ -173,18 +173,21 @@
 								/ {{_source.job_title_fi}}
 							{{/_source.job_title__("locale")}}
 						</td>
+					</tr>
+					<tr>
+						{{#_source.contact.email}}
+						<td >
+							&nbsp;<i class="icon-envelope"></i> <a href="mailto:{{{_source.contact.email}}}" itemprop="email">{{{_source.contact.email}}}</a>
+						</td>
+						{{/_source.contact.email}}
 						{{#_source.contact.telephone}}
 						<td>
 							&nbsp;
 							<img src="/img/glyphicons_139_phone.png" alt='_("Phone icon")'>
-							<a href="tel:{{_source.contact.telephone}}" itemprop="telephone">{{_source.contact.telephone}}</a>
+							<!--a href="tel:{{_source.contact.telephone}}" itemprop="telephone">{{_source.contact.telephone}}</a-->
+							{{_source.contact.telephone}}
 						</td>
 						{{/_source.contact.telephone}}
-						{{#_source.contact.email}}
-						<td>
-							&nbsp;<i class="icon-envelope"></i> <a href="mailto:{{{_source.contact.email}}}" itemprop="email">{{{_source.contact.email}}}</a>
-						</td>
-						{{/_source.contact.email}}
 					</tr>
 				{{/personnel}}
 				</table>
