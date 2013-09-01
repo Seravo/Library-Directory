@@ -453,7 +453,7 @@ msgstr "Aukioloajat tällä viikolla"
 #: views/library_details.mustache:307
 #: views/json_widget_5.mustache:35
 msgid "To borrow from this library you need a <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a> card."
-msgstr "Tästä kirjastosta lainaamiseksi tarvitaan <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a>-kortti."
+msgstr "Tästä kirjastosta lainaamiseen tarvitaan <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a>-kortti."
 
 #: views/widget2.mustache:137
 msgid "Last modified"
