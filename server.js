@@ -34,6 +34,43 @@ gettext.loadLocaleDirectory("locale", function(){
 
 function rlog(str) { console.log(str); }
 
+// global to hold consortium data for libraries
+consortiumData = {}
+
+function get_consortium_data () {
+  var options = {
+    host: conf.proxy_config.host,
+    port: conf.proxy_config.port,
+    path: '/testink/consortium/_search?size=200',
+    method: 'GET'
+  };
+
+  var req = http.get(options, function(res) {
+    rlog('Requested consortium data');
+    res.setEncoding('utf8');
+    data = '';
+    res.on('data', function(chunk) {
+      data += chunk;
+    });
+
+    res.on('end', function() {
+      dataobj = JSON.parse(data);
+      // check if we got valid data and store it into global object
+      if (dataobj.hits.hits != undefined && dataobj.hits.hits.length>0) {
+        rlog('Got ' + dataobj.hits.hits.length + ' consortium items');
+
+        for (item in dataobj.hits.hits) {
+          var consId = dataobj.hits.hits[item]._id;
+          var consItem = dataobj.hits.hits[item]._source;
+          consortiumData[consId] = { name: consItem.name, url: consItem.url };
+        }
+      }
+    });
+  }).on('error', function(e) {
+    rlog('Error getting consortium data: ' + e.message);
+  });
+}
+
 function switch_locale(req) {
 // turn of language headers sniffing, since / should always return
 // the Finnish version, both to end users, Varnish cache and crawlers
@@ -606,7 +643,11 @@ function add_library_metadata(dataobj, callback){
 	if (lib.consortium == '') {
 		delete lib.consortium;
 	} else {
-    if (lib.consortium.length >0) lib.consortium = lib.consortium.charAt(0).toUpperCase() + lib.consortium.substring(1).toLowerCase();
+    if (lib.consortium.length >0) {
+      var consId = lib.consortium;
+      lib.consortium = consortiumData[consId].name;
+      lib.consortium_url = consortiumData[consId].url;
+    }
   }
 
     if (lib.contact.telephones[0].telephone_number == '') {
@@ -1218,5 +1259,7 @@ widget = new function() {
 
 
 app.listen(conf.server_port);
+get_consortium_data();
+
 rlog("Server started at port " + conf.server_port);
 
