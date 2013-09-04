@@ -360,6 +360,14 @@
 	</div>
 
     <div class="contactdetails">
+		{{#contact.web_library_url}}
+		<dt>_("Library catalogue")</dt>
+		<dd>
+			<i class="icon-search"></i> 
+			<a href="{{contact.web_library_url}}">
+				{{contact.web_library_url}}</a>
+		</dd>
+		{{/contact.web_library_url}}
         <dt>_("Homepage")</dt>
         <dd>
 		{{#contact.homepage__("locale")}}

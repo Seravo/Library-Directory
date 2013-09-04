@@ -583,6 +583,9 @@ function add_library_metadata(dataobj, callback){
             break;
     }
 
+  // remove web library url if empty
+  if (lib.contact.web_library_url != "undefined" && lib.contact.web_library_url == "") delete lib.contact.web_library_url;
+
   // if localized street address is unavailable, use fi-locale
   if (lib.contact.street_address["street_" + _("locale")] == '') lib.contact.street_address["street_" + _("locale")] = lib.contact.street_address.street_fi;
   if (lib.contact.street_address["area_" + _("locale")] == '') lib.contact.street_address["area_" + _("locale")] = lib.contact.street_address.area_fi;

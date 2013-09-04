@@ -87,12 +87,19 @@
 		"{{d0}}, {{d1}} {{d2}}</a>" +
 		"{{/d3}}";
 
+  var web_library_format = "\
+    {{#d0}} \
+    <i class='icon-search'></i> \
+    <a href=\"{{d0}}\">" + _('Library catalogue') + "</a>\
+    {{/d0}}";
+
 	var search_results = [
 		[ { "fields": "id, additional_info.slug,  name_" + _("locale"), "format": "<h3><a href='{{#d1}}{{d1}}{{/d1}}{{^d1}}{{d0}}{{/d1}}'>{{d2}}</a></h3>" } ],
 		[ { "fields": "contact.coordinates, map_popup_html, show_address_entry",
 		    "format": coordinate_format },
 		  { "fields": "contact.street_address.street_" + _("locale")+", contact.street_address.post_code, contact.street_address.municipality_"+ _("locale") + ", show_address_entry", "format": address_format } ],
 		[ { "fields": "open_now, opening_hours, show_opening_hours", "format": opening_hours_format } ],
+		[ { "fields": "contact.web_library_url", "format": web_library_format } ]
 	]
 /*		[ { "field": "services" } ], */
 /* optimal would be not to show list of services, but rather just icons for the most important services */
