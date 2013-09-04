@@ -226,7 +226,7 @@ msgstr "avoinna tänään"
 #: views/widget3.mustache:361
 #: views/library_details.mustache:364
 msgid "Library catalogue"
-msgstr "Aineistohaku, varaukset, omat lainat"
+msgstr "Aineistohaku, varaukset, omat lainat, uusiminen"
 
 #: js/libs/jquery.facetview.js:112
 #: views/widget_wizard.mustache:45
