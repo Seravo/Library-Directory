@@ -66,6 +66,11 @@
 					<!-- {{contact.coordinates}} {{contact.map_url__("locale")}} -->
 				</p>
 			{{/contact.coordinates}}
+
+			{{#contact.parking__("locale")}}
+				<tr><th>_("Parking"):</th>
+					<td>{{contact.parking__("locale")}}</td></tr>
+			{{/contact.parking__("locale")}}
 		</div>
 
 		<div class="tab-pane" id="lib_images">
@@ -85,11 +90,6 @@
 					<tr><th>_("Architect"):</th><td>{{contact.building_architect}}</td></tr>
 				{{/contact.building_architect}}
 				<td><th colspan="2">&nbsp;</td></tr>
-
-				{{#contact.parking__("locale")}}
-					<tr><th>_("Parking"):</th>
-						<td>{{contact.parking__("locale")}}</td></tr>
-				{{/contact.parking__("locale")}}
 				</table>
 			</div>
 		</div>
