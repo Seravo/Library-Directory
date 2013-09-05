@@ -341,23 +341,11 @@
 	        </time>
             <br>
 			<p>{{opening_hours.period_description}}
-			{{#consortium}}
-            <p>_("To borrow from this library you need a <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a> card.")</p>
-			{{/consortium}}
 			{{/opening_hours.has_opening_hours}}
 			{{^opening_hours.has_opening_hours}}
 			{{/opening_hours.has_opening_hours}}
         {{/neveropen}}
     </div>
-
-	<div class="opentimes">
-	{{#parent_organisation}}
-		{{#consortium}}
-			<dt>_("Library consortium")</dt>
-			<dd><a href="{{consortium_url}}" itemprop="branchOf">{{consortium}}</a></dd>
-		{{/consortium}}
-	{{/parent_organisation}}
-	</div>
 
     <div class="contactdetails">
 		{{#contact.web_library_url}}
@@ -427,6 +415,15 @@
 	    <dd><i class="icon-envelope"></i> <a href="mailto:{{contact.email}}" itemprop="email">{{contact.email}}</a></dd>
 	    {{/contact.email}}
     </div>
+
+	<div class="opentimes">
+	{{#parent_organisation}}
+		{{#consortium}}
+			<dt>_("Library consortium")</dt>
+			<dd><a href="{{consortium_url}}" itemprop="branchOf">{{consortium}}</a></dd>
+		{{/consortium}}
+	{{/parent_organisation}}
+	</div>
 
 	<p><small><a href="{{slug}}" itemprop="url">hakemisto.kirjastot.fi/{{slug}}</a> _("last modified"): {{meta.modified}}</small></p>
 
