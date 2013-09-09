@@ -34,8 +34,9 @@ gettext.loadLocaleDirectory("locale", function(){
 
 function rlog(str) { console.log(str); }
 
-// global to hold consortium data for libraries
-consortiumData = {}
+// globals to hold consortium/region data for libraries
+consortiumData = {};
+regionData = {};
 
 function get_consortium_data () {
   var options = {
@@ -68,6 +69,40 @@ function get_consortium_data () {
     });
   }).on('error', function(e) {
     rlog('Error getting consortium data: ' + e.message);
+  });
+}
+
+function get_region_data () {
+  var options = {
+    host: conf.proxy_config.host,
+    port: conf.proxy_config.port,
+    path: '/testink/region/_search?size=200',
+    method: 'GET'
+  };
+
+  var req = http.get(options, function(res) {
+    rlog('Requested region data');
+    res.setEncoding('utf8');
+    data = '';
+    res.on('data', function(chunk) {
+      data += chunk;
+    });
+
+    res.on('end', function() {
+      dataobj = JSON.parse(data);
+      // check if we got valid data and store it into global object
+      if (dataobj.hits.hits != undefined && dataobj.hits.hits.length>0) {
+        rlog('Got ' + dataobj.hits.hits.length + ' region items');
+
+        for (item in dataobj.hits.hits) {
+          var regionId = dataobj.hits.hits[item]._id;
+          var regionItem = dataobj.hits.hits[item]._source;
+          regionData[regionId] = regionItem;
+        }
+      }
+    });
+  }).on('error', function(e) {
+    rlog('Error getting region data: ' + e.message);
   });
 }
 
@@ -353,7 +388,7 @@ function render_static_page(page, req, res) {
 		case "":
 			var cityfilter = req.query.city || "";
 			res.local("header", header.render(req, {search_active: true}))
-			res.local("footer", footer.render({consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({cityfilter: '" + cityfilter + "'}); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+			res.local("footer", footer.render({regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({cityfilter: '" + cityfilter + "'}); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 			res.render("index", res.locals());
 			break;
 
@@ -367,7 +402,7 @@ function render_static_page(page, req, res) {
 		// widget creation wizard
 		case "widget":
 			res.local("header", header.render(req, {title: "Widget wizard", widget_active: true}))
-			res.local("footer", footer.render({consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { ld_widget_wizard(); });"}));
+			res.local("footer", footer.render({regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { ld_widget_wizard(); });"}));
 			res.render("widget_wizard", res.locals());
 			break;
 
@@ -382,7 +417,7 @@ function render_static_page(page, req, res) {
 			else js_code = "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({widget: true}); });";
 
 			res.local("header", header.render(req, { nobanners: true }));
-			res.local("footer", footer.render({ nobanners: true, consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+			res.local("footer", footer.render({ nobanners: true, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 			res.render("widget1", { lang: gettext.lang });
 			break;
 
@@ -394,7 +429,7 @@ function render_static_page(page, req, res) {
 				// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
 				res.local("header", header.render(req, { nobanners: true }));
-				res.local("footer", footer.render({ nobanners: true, consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+				res.local("footer", footer.render({ nobanners: true, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 				res.render("widget2", { data: data._source });
 			});
 			break;
@@ -407,7 +442,7 @@ function render_static_page(page, req, res) {
 				// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
 				res.local("header", header.render(req, { nobanners: true }));
-				res.local("footer", footer.render({ nobanners: true, consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+				res.local("footer", footer.render({ nobanners: true, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 				res.render("widget3", { data: data._source } );
 			});
 			break;
@@ -464,7 +499,7 @@ function render_library_by_id(page, req, res) {
 
 		res.local("data", library);
         res.local("header", header.render(req, {title: eval("library.name_" + _("locale")) + ": " + _("contact details, open hours, services")}))
-        res.local("footer", footer.render({consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+        res.local("footer", footer.render({regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 		res.render("library_details", res.locals());
 	});
 }
@@ -485,11 +520,11 @@ function render_library_by_slug(slug, req, res) {
     		var library = data.hits.hits[0]._source;
 		    res.local("data", library);
             res.local("header", header.render(req, {nobanners: nobanners, title: eval("library.name_" + _("locale")) + ": " + _("contact details, open hours, services")}))
-            res.local("footer", footer.render({nobanners: nobanners, consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+            res.local("footer", footer.render({nobanners: nobanners, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 		    res.render("library_details", res.locals());
 		} else {
 			res.local("header", header.render(req, {nobanners: nobanners, title: _("Not found") }));
-			res.local("footer", footer.render({nobanners: nobanners, consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";"}));
+			res.local("footer", footer.render({nobanners: nobanners, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";"}));
 			res.render("404", res.locals());
 		}
 	});
@@ -1263,6 +1298,7 @@ widget = new function() {
 
 app.listen(conf.server_port);
 get_consortium_data();
+get_region_data();
 
 rlog("Server started at port " + conf.server_port);
 

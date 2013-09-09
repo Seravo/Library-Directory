@@ -446,6 +446,11 @@
               // avoid error with dash in facet field (analyzer splits it)
               else continue;
             }
+            else if (facetType=='provincial_area') {
+              if (REGIONS[item] != undefined) displayItem = REGIONS[item]['name_'+_('locale')];
+              // avoid error with dash in facet field (analyzer splits it)
+              else continue;
+            }
 						else displayItem = item;
 
 						append = '<li><a class="facetview_filterchoice' +
