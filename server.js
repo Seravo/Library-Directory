@@ -853,23 +853,27 @@ function get_library_by_name(name, browser_req, callback) {
 
 // get library's children organisations
 function get_library_children(id, library_data, callback) {
-	var query = {
-		"size": 999,
-		"sort": [ { "name_fi" : {} } ],
-		"query" : {
-		    "filtered" : {
-                "query" : {"match_all":{}},
-                "filter" : {
-                    "and" : [
-                        {"term": { "parent_organisation" : id } },
-			            //{"term": { "organisation_type": "branchlibrary" } },
-			            {"term": { "organisation_type": [ "branchlibrary", "library", "department"] } },
-			            {"term": { "meta.document_state" : "published" } }
-			        ]
-			    }
-		    }
+  var query = {
+    "size": 999,
+    "sort": [ { "name_fi" : {} } ],
+    "query" : {
+      "filtered" : {
+        "query" : {"match_all":{}},
+        "filter" : {
+          "and" : [
+          {"term": { "parent_organisation" : id } },
+          {"term": { "meta.document_state" : "published" } },
+          { "or": [
+            {"term": { "organisation_type": "branchlibrary" } },
+            {"term": { "organisation_type": "library" } },
+            {"term": { "organisation_type": "department" } }
+            ]
+          }
+          ]
         }
-	};
+      }
+    }
+  };
 
     query = JSON.stringify(query);
 	query = encodeURIComponent(query);
