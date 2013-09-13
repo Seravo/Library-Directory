@@ -122,7 +122,8 @@
             "display_images": true,
             "visualise_filters": false,
             "description":"",
-            "search_url":"http://localhost:8888/testink/organisation/_search?",
+            // omit protocol for ssl support
+            "search_url":"://localhost:8888/testink/organisation/_search?",
             // TODO: if localhost unreachable, use public server
             // "search_url":"http://libdir.seravo.fi:8888/testink/_search?",
             "search_index":"elasticsearch",

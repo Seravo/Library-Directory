@@ -2,7 +2,8 @@ libdir_widgets_loaded = false;
 
 (function() {
 // url for client-side widgets
-var url = "http://localhost:8080/";
+// omit protocol for ssl support
+var url = "://localhost:8080/";
 
 var jQuery;
 
@@ -10,7 +11,8 @@ var jQuery;
 if (window.jQuery === undefined || window.jQuery.fn.jquery !== '1.7.2') {
     var script_tag = document.createElement('script');
     script_tag.setAttribute("type","text/javascript");
-    script_tag.setAttribute("src","http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js");
+    // omit protocol for ssl support
+    script_tag.setAttribute("src","://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js");
     if (script_tag.readyState) {
       script_tag.onreadystatechange = function () { // for old ie
           if (this.readyState == 'complete' || this.readyState == 'loaded') {
