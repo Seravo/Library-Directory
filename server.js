@@ -197,7 +197,7 @@ app.configure(function(){
     // 404 page, really last if not any route matched
     app.use(function(req, res, next){
 		res.local("header", header.render(req, {title: _("Not found"), about_active: true}));
-		res.local("footer", footer.render());
+		res.local("footer", footer.render(req));
 		res.render("404", res.locals());
     });
 });
@@ -263,6 +263,13 @@ function route_parser(req,res,next) {
     // only one lang switcher and it is here now
 	switch_locale(req);
 
+  // handle ssl-proxy same origin policy
+  if (req.header('X-nginx-ssl-proxy')) {
+    res.local('proto', 'https');
+  } else {
+    res.local('proto', 'http');
+  }
+
 	var page = req.params.resource;
 	//rlog("request: " + page);
 
@@ -315,7 +322,7 @@ app.post("/contact", // Route
       // Handle errors
       res.local("errors", req.form.getErrors());
       res.local("header", header.render(req, {title: _("Contact"), contact_active: true}));
-      res.local("footer", footer.render());
+      res.local("footer", footer.render(req));
       res.render("contact", res.locals());
 
     } else {
@@ -359,13 +366,13 @@ function render_static_page(page, req, res) {
 	switch(page) {
 		case "about":
 			res.local("header", header.render(req, {title: _("About"), about_active: true}));
-			res.local("footer", footer.render());
+			res.local("footer", footer.render(req));
 			res.render("about", res.locals());
 			break;
 
 		case "browse":
 			res.local("header", header.render(req, {title: _("Browse all"), browse_active: true}))
-			res.local("footer", footer.render());
+			res.local("footer", footer.render(req));
 			get_libraries(function(data){
 				// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 				res.local("count", data.hits.total);
@@ -380,7 +387,7 @@ function render_static_page(page, req, res) {
 
 		case "contact":
 			res.local("header", header.render(req, {title: _("Contact"), contact_active: true}));
-			res.local("footer", footer.render());
+			res.local("footer", footer.render(req));
 			res.render("contact", res.locals());
 			break;
 
@@ -388,21 +395,21 @@ function render_static_page(page, req, res) {
 		case "":
 			var cityfilter = req.query.city || "";
 			res.local("header", header.render(req, {search_active: true}))
-			res.local("footer", footer.render({regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({cityfilter: '" + cityfilter + "'}); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+			res.local("footer", footer.render(req, {regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({cityfilter: '" + cityfilter + "'}); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 			res.render("index", res.locals());
 			break;
 
 		case "feedback-sent":
 			//rlog(JSON.stringify(res.locals()));
 			res.local("header", header.render(req, {title: _("Feedback sent"), contact_active: true}))
-			res.local("footer", footer.render());
+			res.local("footer", footer.render(req));
 			res.render("feedback-sent", res.locals());
 			break;
 
 		// widget creation wizard
 		case "widget":
 			res.local("header", header.render(req, {title: "Widget wizard", widget_active: true}))
-			res.local("footer", footer.render({regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { ld_widget_wizard(); });"}));
+			res.local("footer", footer.render(req, {regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { ld_widget_wizard(); });"}));
 			res.render("widget_wizard", res.locals());
 			break;
 
@@ -417,7 +424,7 @@ function render_static_page(page, req, res) {
 			else js_code = "jQuery(document).ready(function($) { $('.facet-view-simple').facetview({widget: true}); });";
 
 			res.local("header", header.render(req, { nobanners: true }));
-			res.local("footer", footer.render({ nobanners: true, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+			res.local("footer", footer.render(req, { nobanners: true, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 			res.render("widget1", { lang: gettext.lang });
 			break;
 
@@ -429,7 +436,7 @@ function render_static_page(page, req, res) {
 				// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
 				res.local("header", header.render(req, { nobanners: true }));
-				res.local("footer", footer.render({ nobanners: true, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+				res.local("footer", footer.render(req, { nobanners: true, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 				res.render("widget2", { data: data._source });
 			});
 			break;
@@ -442,7 +449,7 @@ function render_static_page(page, req, res) {
 				// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
 				res.local("header", header.render(req, { nobanners: true }));
-				res.local("footer", footer.render({ nobanners: true, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+				res.local("footer", footer.render(req, { nobanners: true, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 				res.render("widget3", { data: data._source } );
 			});
 			break;
@@ -465,7 +472,7 @@ function render_static_page(page, req, res) {
 
 		default:
 			res.local("header", header.render(req, {title: _("Not found") }));
-			res.local("footer", footer.render());
+			res.local("footer", footer.render(req));
 			res.render("404", res.locals());
 			break;
 	}
@@ -483,7 +490,7 @@ function render_library_by_id(page, req, res) {
         // TODO: is this the most elegant place to check for results and render 404?
         if (typeof data == "undefined"){
 			res.local("header", header.render(req, {title: _("Not found") }));
-			res.local("footer", footer.render());
+			res.local("footer", footer.render(req));
 			res.render("404", res.locals());
 			return false;
 		}
@@ -499,7 +506,7 @@ function render_library_by_id(page, req, res) {
 
 		res.local("data", library);
         res.local("header", header.render(req, {title: eval("library.name_" + _("locale")) + ": " + _("contact details, open hours, services")}))
-        res.local("footer", footer.render({regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+        res.local("footer", footer.render(req, {regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 		res.render("library_details", res.locals());
 	});
 }
@@ -520,11 +527,11 @@ function render_library_by_slug(slug, req, res) {
     		var library = data.hits.hits[0]._source;
 		    res.local("data", library);
             res.local("header", header.render(req, {nobanners: nobanners, title: eval("library.name_" + _("locale")) + ": " + _("contact details, open hours, services")}))
-            res.local("footer", footer.render({nobanners: nobanners, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+            res.local("footer", footer.render(req, {nobanners: nobanners, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";", js_code: "jQuery(document).ready(function($) { library_details_map(); });", js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
 		    res.render("library_details", res.locals());
 		} else {
 			res.local("header", header.render(req, {nobanners: nobanners, title: _("Not found") }));
-			res.local("footer", footer.render({nobanners: nobanners, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";"}));
+			res.local("footer", footer.render(req, {nobanners: nobanners, regions: "var REGIONS = " + JSON.stringify(regionData) + ";", consortiums: "var CONSORTIUMS = " + JSON.stringify(consortiumData) + ";"}));
 			res.render("404", res.locals());
 		}
 	});
@@ -1277,16 +1284,28 @@ header = new function () {
         options[gettext.lang+"_active"] = true;
         options.header_banner = header_banner;
         options.header_banner_css = header_banner_css;
+        // handle ssl-proxy same origin policy
+        if (req.header('X-nginx-ssl-proxy')) {
+          options.proto = 'https';
+        } else {
+          options.proto = 'http';
+        }
         return adapter.init(hogan).compile(headerfilecontents)(options);
     }
 }
 
 footer = new function () {
-    this.render = function (options) {
+    this.render = function (req, options) {
         if (typeof options == "undefined") {
            options = {};
         }
         options.footer_banner = footer_banner;
+        // handle ssl-proxy same origin policy
+        if (req.header('X-nginx-ssl-proxy')) {
+          options.proto = 'https';
+        } else {
+          options.proto = 'http';
+        }
         return adapter.init(hogan).compile(footerfilecontents)(options);
     }
 }
