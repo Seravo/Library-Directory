@@ -2,8 +2,12 @@ libdir_widgets_loaded = false;
 
 (function() {
 // url for client-side widgets
-// omit protocol for ssl support
-var url = "://localhost:8080/";
+// handle ssl-proxy
+var proto = 'http';
+if (window.location.protocol == 'https:') {
+  proto = 'https';
+}
+var url = proto + "://localhost:8080/";
 
 var jQuery;
 

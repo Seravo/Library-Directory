@@ -105,6 +105,12 @@
 /* optimal would be not to show list of services, but rather just icons for the most important services */
 /* the result entry should be a link to a page with more details */
 
+  // handle ssl-proxy
+  var proto = 'http';
+  if (window.location.protocol == 'https:') {
+    proto = 'https';
+  }
+
 	// library-directory default settings
 	var settings = {
             "config_file": false,
@@ -122,8 +128,7 @@
             "display_images": true,
             "visualise_filters": false,
             "description":"",
-            // omit protocol for ssl support
-            "search_url":"://localhost:8888/testink/organisation/_search?",
+            "search_url": proto + "://localhost:8888/testink/organisation/_search?",
             // TODO: if localhost unreachable, use public server
             // "search_url":"http://libdir.seravo.fi:8888/testink/_search?",
             "search_index":"elasticsearch",

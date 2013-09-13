@@ -281,8 +281,12 @@ function ld_format_time(time) {
 
 function ld_widget_wizard() {
 	// url for widgets/data
-  // omit protocol for ssl support
-	var url = "://localhost:8080/";
+  // handle ssl-proxy
+  var proto = 'http';
+  if (window.location.protocol == 'https:') {
+    proto = 'https';
+  }
+	var url = proto + "://localhost:8080/";
 
 	function load_widget_css(type) {
 		var css_link = $("<link>", {
@@ -433,8 +437,12 @@ function ld_widget_wizard() {
 	});
 
 	$(document).bind('search', function(event, data) {
-    // omit protocol for ssl support
-		var url = "://localhost:8888/testink/organisation/_search";
+    // handle ssl-proxy
+    var proto = 'http';
+    if (window.location.protocol == 'https:') {
+      proto = 'https';
+    }
+		var url = proto + "://localhost:8888/testink/organisation/_search";
 		var query2 =
 			{
 			  "size": 10,
