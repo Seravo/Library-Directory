@@ -1286,9 +1286,9 @@ header = new function () {
         options.header_banner_css = header_banner_css;
         // handle ssl-proxy same origin policy
         if (req.header('X-nginx-ssl-proxy')) {
-          options.proto = 'https';
+          headerfilecontents = headerfilecontents.replace(/{{proto}}/g, 'https');
         } else {
-          options.proto = 'http';
+          headerfilecontents = headerfilecontents.replace(/{{proto}}/g, 'http');
         }
         return adapter.init(hogan).compile(headerfilecontents)(options);
     }
@@ -1299,13 +1299,15 @@ footer = new function () {
         if (typeof options == "undefined") {
            options = {};
         }
-        options.footer_banner = footer_banner;
         // handle ssl-proxy same origin policy
         if (req.header('X-nginx-ssl-proxy')) {
-          options.proto = 'https';
+          footerfilecontents = footerfilecontents.replace(/{{proto}}/g, 'https');
+          footer_banner = footer_banner.replace(/{{proto}}/g, 'https');
         } else {
-          options.proto = 'http';
+          footerfilecontents = footerfilecontents.replace(/{{proto}}/g, 'http');
+          footer_banner = footer_banner.replace(/{{proto}}/g, 'http');
         }
+        options.footer_banner = footer_banner;
         return adapter.init(hogan).compile(footerfilecontents)(options);
     }
 }
