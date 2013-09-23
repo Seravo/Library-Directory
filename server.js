@@ -690,7 +690,7 @@ function add_library_metadata(dataobj, callback){
 	} else {
     if (lib.consortium.length >0) {
       var consId = lib.consortium;
-      if (consortiumData[consId].name != "undefined") {
+      if (consortiumData[consId] != "undefined") {
         lib.consortium = consortiumData[consId].name;
         lib.consortium_url = consortiumData[consId].url;
       } else {
