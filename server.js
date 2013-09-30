@@ -264,7 +264,7 @@ function route_parser(req,res,next) {
 	switch_locale(req);
 
   // handle ssl-proxy same origin policy
-  if (req.header('X-nginx-ssl-proxy')) {
+  if (req.headers['x-forwarded-proto']=='https') {
     res.local('proto', 'https');
   } else {
     res.local('proto', 'http');
@@ -1289,10 +1289,10 @@ header = new function () {
         options.header_banner = header_banner;
         options.header_banner_css = header_banner_css;
         // handle ssl-proxy same origin policy
-        if (req.header('X-nginx-ssl-proxy')) {
-          headerfilecontents = headerfilecontents.replace(/{{proto}}/g, 'https');
+        if (req.headers['x-forwarded-proto']=='https') {
+          headerfilecontents = headerfilecontents.replace(/(http\:|https\:)/g, 'https:');
         } else {
-          headerfilecontents = headerfilecontents.replace(/{{proto}}/g, 'http');
+          headerfilecontents = headerfilecontents.replace(/(http\:|https\:)/g, 'https:');
         }
         return adapter.init(hogan).compile(headerfilecontents)(options);
     }
@@ -1304,12 +1304,12 @@ footer = new function () {
            options = {};
         }
         // handle ssl-proxy same origin policy
-        if (req.header('X-nginx-ssl-proxy')) {
-          footerfilecontents = footerfilecontents.replace(/{{proto}}/g, 'https');
-          footer_banner = footer_banner.replace(/{{proto}}/g, 'https');
+        if (req.headers['x-forwarded-proto']=='https') {
+          footerfilecontents = footerfilecontents.replace(/(http\:|https\:)/g, 'https:');
+          footer_banner = footer_banner.replace(/(http\:|https\:)/g, 'https:');
         } else {
-          footerfilecontents = footerfilecontents.replace(/{{proto}}/g, 'http');
-          footer_banner = footer_banner.replace(/{{proto}}/g, 'http');
+          footerfilecontents = footerfilecontents.replace(/(http\:|https\:)/g, 'https:');
+          footer_banner = footer_banner.replace(/(http\:|https\:)/g, 'https:');
         }
         options.footer_banner = footer_banner;
         return adapter.init(hogan).compile(footerfilecontents)(options);
