@@ -1292,7 +1292,7 @@ header = new function () {
         if (req.headers['x-forwarded-proto']=='https') {
           headerfilecontents = headerfilecontents.replace(/(http\:|https\:)/g, 'https:');
         } else {
-          headerfilecontents = headerfilecontents.replace(/(http\:|https\:)/g, 'https:');
+          headerfilecontents = headerfilecontents.replace(/(http\:|https\:)/g, 'http:');
         }
         return adapter.init(hogan).compile(headerfilecontents)(options);
     }
@@ -1308,8 +1308,8 @@ footer = new function () {
           footerfilecontents = footerfilecontents.replace(/(http\:|https\:)/g, 'https:');
           footer_banner = footer_banner.replace(/(http\:|https\:)/g, 'https:');
         } else {
-          footerfilecontents = footerfilecontents.replace(/(http\:|https\:)/g, 'https:');
-          footer_banner = footer_banner.replace(/(http\:|https\:)/g, 'https:');
+          footerfilecontents = footerfilecontents.replace(/(http\:|https\:)/g, 'http:');
+          footer_banner = footer_banner.replace(/(http\:|https\:)/g, 'http:');
         }
         options.footer_banner = footer_banner;
         return adapter.init(hogan).compile(footerfilecontents)(options);
