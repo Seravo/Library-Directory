@@ -461,11 +461,16 @@ function render_static_page(page, req, res) {
 				get_library_by_id(req.query.id, function(data) {
 					// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
-					data._source["id"] = data._id;
+          if (data == undefined || data._source == undefined) {
+            jsondata = { data: { html: 'Id does not exist: ' + req.query.id } };
+            res.send(req.query.callback + '(' + JSON.stringify(jsondata) + ')');
+          } else {
+					  data._source["id"] = data._id;
 
-					var jsondata = {};
-					jsondata.html = widget.render(req, { data: data._source });
-					res.send(req.query.callback + '(' + JSON.stringify(jsondata) + ')');
+					  var jsondata = {};
+					  jsondata.html = widget.render(req, { data: data._source });
+					  res.send(req.query.callback + '(' + JSON.stringify(jsondata) + ')');
+          }
 				});
 			}
 			break;
