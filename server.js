@@ -462,7 +462,7 @@ function render_static_page(page, req, res) {
 					// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
           if (data == undefined || data._source == undefined) {
-            jsondata = { data: { html: 'Id does not exist: ' + req.query.id } };
+            jsondata = { html: 'Id does not exist: ' + req.query.id };
             res.send(req.query.callback + '(' + JSON.stringify(jsondata) + ')');
           } else {
 					  data._source["id"] = data._id;
