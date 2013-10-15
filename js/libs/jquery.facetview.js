@@ -116,7 +116,7 @@
             "config_file": false,
             "facets":[
 		{'field': 'contact.street_address.municipality_'+_("locale"), 'order':'term', 'display': _('City'), "size":400 },
-		{'field': 'services.name_'+_("locale"), 'order':'term', 'display': _('Services'), "size":200 },
+		{'field': 'services.name_'+_("locale"), 'order':'term', 'display': _('Services'), "size":500 },
 		{'field': 'accessibility.accessible_entry', 'display': _('Accessibility')},
 		{'field': 'consortium', 'size': 100, 'order':'term', 'display': _('Library consortium')},
 		{'field': 'provincial_area', 'size': 100, 'order':'term', 'display': _('Provincial area')},
