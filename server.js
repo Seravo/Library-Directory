@@ -777,6 +777,20 @@ function add_library_metadata(dataobj, callback){
             if (s.type == 'tila') { s.type = _("service type room"); s.label = "label-info"; }
             if (s.type == 'palvelu') { s.type = _("service type service"); }
         });
+
+      // sort services by type, name
+      function sortByKeys(array, key1, key2) {
+        return array.sort(function(a, b) {
+          var x1 = a[key1]; var y1 = b[key1];
+          var x2 = a[key2]; var y2 = b[key2];
+          if (x1==y1) {
+            return ((x2 < y2) ? -1 : ((x2 > y2) ? 1 : 0)); // sort by key2
+          } else {
+            return ((x1 < y1) ? -1 : ((x1 > y1) ? 1 : 0)); // sort by key1
+          }
+        });
+      }
+      lib.services = sortByKeys(lib.services, 'type', 'name_'+_('locale'));
     }
 
     if (lib.contact.coordinates != undefined && lib.contact.coordinates != '') {
