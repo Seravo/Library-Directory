@@ -274,7 +274,7 @@ function route_parser(req,res,next) {
 	//rlog("request: " + page);
 
 	// static page
-	if (page == '' || page.match(/^(about|browse|contact|feedback-sent|search|widget|loadwidget|widget[0-9])$/)) {
+	if (page == '' || page.match(/^(about|browse|personnel|personnel-search|contact|feedback-sent|search|widget|loadwidget|widget[0-9])$/)) {
 		//rlog("match page");
 		render_static_page(page, req, res);
 	}
@@ -390,6 +390,29 @@ function render_static_page(page, req, res) {
 			res.local("footer", footer.render(req));
 			res.render("contact", res.locals());
 			break;
+
+    case "personnel":
+      res.local("header", header.render(req, {title: _("Personnel"), personnel_active: true}));
+      res.local("footer", footer.render(req));
+      res.render("personnel", res.locals());
+      break;
+
+    case "personnel-search":
+      var sstr = req.query.sstr;
+      get_personnel(sstr,function(data) {
+
+        if (data.hits.total >0) {
+          res.local("personnel_status", true);
+          res.local("people", []);
+          for (var item in data.hits.hits) {
+            res.local("people").push(data.hits.hits[item]._source);
+          }
+        } else {
+          res.local("personnel_status", false);
+        }
+        res.render("personnel-search-results", res.locals());
+      });
+      break;
 
 		case "search":
 		case "":
@@ -829,6 +852,50 @@ function get_library_by_id(id, callback) {
             rlog("Library with id " + id + " does not exist.");
             callback(); // no parameter, return will notice empty value
           }
+      });
+    }).on('error', function(e) {
+      rlog('Problem with request: ' + e.message);
+    });
+}
+
+// get personnel by search via ajax get
+function get_personnel(sstr, callback) {
+  rlog("Personnel search request: " + sstr);
+  var query_fields = [ "contact.email", "first_name", "last_name", "job_title_*", "responsibility_*" ]
+	var query = {
+    "size": 999,
+    "sort": [ { "last_name" : {} } ],
+    "query" : {
+      "filtered" : {
+        "query" : { 'query_string': { 'fields': query_fields, 'query': "*" + sstr + "*", 'default_operator': "OR" } },
+        "filter" : {
+          "and" : [
+            {"term": { "meta.document_state" : "published" } }
+          ]
+        }
+      }
+    }
+  };
+
+	query = JSON.stringify(query);
+	query = encodeURIComponent(query);
+
+    var options = {
+      host: conf.proxy_config.host,
+      port: conf.proxy_config.port,
+      path: '/testink/person/_search?source='+query,
+      method: 'GET'
+    };
+
+    var req = http.get(options, function(res) {
+      res.setEncoding('utf8');
+      data = '';
+      res.on('data', function(chunk){
+        data += chunk;
+      });
+      res.on('end', function() {
+		  dataobj = JSON.parse(data);
+		  callback(dataobj);
       });
     }).on('error', function(e) {
       rlog('Problem with request: ' + e.message);

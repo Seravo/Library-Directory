@@ -579,3 +579,26 @@ if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) 
         }, false);
     }
 }
+
+/* personnel search as ajax get */
+function ld_personnel_search() {
+  $.ajax({
+    url: "/personnel-search",
+    cache: false,
+    data: "sstr=" + $('#personnel-sstr').val(),
+    success: function(html) {
+      $("#personnel-search-results").html(html);
+    }
+  });
+}
+
+$('#personnel-search-go').bind('click', function(e) {
+  ld_personnel_search();
+});
+
+$('#personnel-sstr').bind('keypress', function(e) {
+  if (e.which == 13) {
+    e.preventDefault();
+    ld_personnel_search();
+  }
+});
