@@ -235,6 +235,23 @@ app.post("/preview", function(req, res) {
     });
 });
 
+app.post("/personnel-search", function(req, res) {
+  var sstr = req.body.sstr;
+  get_personnel(sstr,function(data) {
+
+    if (data.hits.total >0) {
+      res.local("personnel_status", true);
+      res.local("people", []);
+      for (var item in data.hits.hits) {
+        res.local("people").push(data.hits.hits[item]._source);
+      }
+    } else {
+      res.local("personnel_status", false);
+    }
+    res.render("personnel-search-results", res.locals());
+  });
+});
+
 // route handler for all dynamic data without language path
 // as this has the most generic matcher it should be last
 app.get("/:resource(*)",function(req,res,next) {
@@ -274,7 +291,7 @@ function route_parser(req,res,next) {
 	//rlog("request: " + page);
 
 	// static page
-	if (page == '' || page.match(/^(about|browse|personnel|personnel-search|contact|feedback-sent|search|widget|loadwidget|widget[0-9])$/)) {
+	if (page == '' || page.match(/^(about|browse|personnel|contact|feedback-sent|search|widget|loadwidget|widget[0-9])$/)) {
 		//rlog("match page");
 		render_static_page(page, req, res);
 	}
@@ -395,23 +412,6 @@ function render_static_page(page, req, res) {
       res.local("header", header.render(req, {title: _("Personnel"), personnel_active: true}));
       res.local("footer", footer.render(req));
       res.render("personnel", res.locals());
-      break;
-
-    case "personnel-search":
-      var sstr = req.query.sstr;
-      get_personnel(sstr,function(data) {
-
-        if (data.hits.total >0) {
-          res.local("personnel_status", true);
-          res.local("people", []);
-          for (var item in data.hits.hits) {
-            res.local("people").push(data.hits.hits[item]._source);
-          }
-        } else {
-          res.local("personnel_status", false);
-        }
-        res.render("personnel-search-results", res.locals());
-      });
       break;
 
 		case "search":

@@ -585,7 +585,8 @@ function ld_personnel_search() {
   $.ajax({
     url: "/personnel-search",
     cache: false,
-    data: "sstr=" + $('#personnel-sstr').val(),
+    type: 'POST',
+    data: { sstr: $('#personnel-sstr').val() },
     success: function(html) {
       $("#personnel-search-results").html(html);
     }
