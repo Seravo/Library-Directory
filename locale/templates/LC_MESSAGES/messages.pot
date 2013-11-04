@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-07 09:06+0300\n"
+"POT-Creation-Date: 2013-11-04 04:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,25 +17,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: server.js:199 server.js:479 server.js:497 server.js:538
+#: server.js:199 server.js:502 server.js:520 server.js:561
 #: views/404.mustache:4
 msgid "Not found"
 msgstr ""
 
-#: server.js:232 server.js:513 server.js:534 server.js:637 server.js:638
-#: server.js:639 server.js:673 server.js:674 server.js:675 server.js:713
-#: server.js:714 server.js:728 server.js:1209 js/libs/jquery.facetview.js:97
-#: js/libs/jquery.facetview.js:100 js/libs/jquery.facetview.js:118
-#: js/libs/jquery.facetview.js:119 js/libs/jquery.facetview.js:456
-#: js/libs/jquery.facetview.js:633 js/libs/jquery.facetview.js:645
-#: js/libs/jquery.facetview.js:728 js/libs/jquery.facetview.js:729
-#: js/libs/jquery.facetview.js:730 js/libs/jquery.facetview.js:1027
-#: js/libs/jquery.facetview.js:1035
+#: server.js:232 server.js:536 server.js:557 server.js:660 server.js:661
+#: server.js:662 server.js:696 server.js:697 server.js:698 server.js:736
+#: server.js:737 server.js:751 server.js:816 server.js:1290
+#: js/libs/jquery.facetview.js:97 js/libs/jquery.facetview.js:100
+#: js/libs/jquery.facetview.js:118 js/libs/jquery.facetview.js:119
+#: js/libs/jquery.facetview.js:456 js/libs/jquery.facetview.js:633
+#: js/libs/jquery.facetview.js:645 js/libs/jquery.facetview.js:728
+#: js/libs/jquery.facetview.js:729 js/libs/jquery.facetview.js:730
+#: js/libs/jquery.facetview.js:1027 js/libs/jquery.facetview.js:1035
 #: locale/templates/LC_MESSAGES/gettext.tmpl:1
 msgid "locale"
 msgstr ""
 
-#: server.js:232 server.js:513 server.js:534
+#: server.js:232 server.js:536 server.js:557
 msgid "contact details, open hours, services"
 msgstr ""
 
@@ -78,75 +78,80 @@ msgstr ""
 msgid "Browse all"
 msgstr ""
 
-#: server.js:404 views/feedback-sent.mustache:5
+#: server.js:395 views/widget3.mustache:106 views/widget3.mustache:197
+#: views/library_details.mustache:106 views/library_details.mustache:197
+msgid "Personnel"
+msgstr ""
+
+#: server.js:427 views/feedback-sent.mustache:5
 msgid "Feedback sent"
 msgstr ""
 
-#: server.js:598 server.js:738
+#: server.js:621 server.js:761
 msgid "branchlibrary"
 msgstr ""
 
-#: server.js:599 server.js:739
+#: server.js:622 server.js:762
 msgid "department"
 msgstr ""
 
-#: server.js:600 server.js:740
+#: server.js:623 server.js:763
 msgid "library"
 msgstr ""
 
-#: server.js:601 server.js:741
+#: server.js:624 server.js:764
 msgid "mobile_stop"
 msgstr ""
 
-#: server.js:602 server.js:742
+#: server.js:625 server.js:765
 msgid "organisation"
 msgstr ""
 
-#: server.js:603 server.js:743
+#: server.js:626 server.js:766
 msgid "unit"
 msgstr ""
 
-#: server.js:776
+#: server.js:799
 msgid "service type device"
 msgstr ""
 
-#: server.js:777
+#: server.js:800
 msgid "service type room"
 msgstr ""
 
-#: server.js:778
+#: server.js:801
 msgid "service type service"
 msgstr ""
 
-#: server.js:1114
+#: server.js:1195
 msgid "Monday"
 msgstr ""
 
-#: server.js:1115
+#: server.js:1196
 msgid "Tuesday"
 msgstr ""
 
-#: server.js:1116
+#: server.js:1197
 msgid "Wednesday"
 msgstr ""
 
-#: server.js:1117
+#: server.js:1198
 msgid "Thursday"
 msgstr ""
 
-#: server.js:1118
+#: server.js:1199
 msgid "Friday"
 msgstr ""
 
-#: server.js:1119
+#: server.js:1200
 msgid "Saturday"
 msgstr ""
 
-#: server.js:1120
+#: server.js:1201
 msgid "Sunday"
 msgstr ""
 
-#: server.js:1216 server.js:1225
+#: server.js:1297 server.js:1306
 msgid "closed"
 msgstr ""
 
@@ -408,24 +413,24 @@ msgstr ""
 msgid "Library Directory"
 msgstr ""
 
-#: views/header-dev.mustache:67 views/contact.mustache:7
-#: views/header.mustache:65
+#: views/header-dev.mustache:68 views/contact.mustache:7
+#: views/header.mustache:66
 msgid "Send us feedback!"
 msgstr ""
 
-#: views/header-dev.mustache:74 views/header.mustache:72
+#: views/header-dev.mustache:75 views/header.mustache:73
 msgid "Warning"
 msgstr ""
 
-#: views/header-dev.mustache:75 views/header.mustache:73
+#: views/header-dev.mustache:76 views/header.mustache:74
 msgid "Your browser version is too old"
 msgstr ""
 
-#: views/header-dev.mustache:76 views/header.mustache:74
+#: views/header-dev.mustache:77 views/header.mustache:75
 msgid "please upgrade"
 msgstr ""
 
-#: views/header-dev.mustache:77 views/header.mustache:75
+#: views/header-dev.mustache:78 views/header.mustache:76
 msgid "for best experience"
 msgstr ""
 
@@ -468,11 +473,6 @@ msgstr ""
 
 #: views/widget3.mustache:90 views/library_details.mustache:90
 msgid "Architect"
-msgstr ""
-
-#: views/widget3.mustache:106 views/widget3.mustache:197
-#: views/library_details.mustache:106 views/library_details.mustache:197
-msgid "Personnel"
 msgstr ""
 
 #: views/widget3.mustache:110 views/widget3.mustache:233
@@ -569,6 +569,10 @@ msgstr ""
 
 #: views/feedback-sent.mustache:7
 msgid "<strong>Feedback sent.</strong> Thank you!"
+msgstr ""
+
+#: views/personnel.mustache:5
+msgid "Search personnel"
 msgstr ""
 
 #: views/about.mustache:6
