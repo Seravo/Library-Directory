@@ -37,6 +37,7 @@ function rlog(str) { console.log(str); }
 // globals to hold consortium/region data for libraries
 consortiumData = {};
 regionData = {};
+personQualityData = {};
 
 function get_consortium_data () {
   var options = {
@@ -103,6 +104,40 @@ function get_region_data () {
     });
   }).on('error', function(e) {
     rlog('Error getting region data: ' + e.message);
+  });
+}
+
+function get_person_qualities_data () {
+  var options = {
+    host: conf.proxy_config.host,
+    port: conf.proxy_config.port,
+    path: '/testink/person_quality/_search?size=200',
+    method: 'GET'
+  };
+
+  var req = http.get(options, function(res) {
+    rlog('Requested person qualities data');
+    res.setEncoding('utf8');
+    data = '';
+    res.on('data', function(chunk) {
+      data += chunk;
+    });
+
+    res.on('end', function() {
+      dataobj = JSON.parse(data);
+      // check if we got valid data and store it into global object
+      if (dataobj.hits.hits != undefined && dataobj.hits.hits.length>0) {
+        rlog('Got ' + dataobj.hits.hits.length + ' person quality items');
+
+        for (item in dataobj.hits.hits) {
+          var qualityId = dataobj.hits.hits[item]._id;
+          var qualityItem = dataobj.hits.hits[item]._source;
+          personQualityData[qualityId] = qualityItem;
+        }
+      }
+    });
+  }).on('error', function(e) {
+    rlog('Error getting person qualities data: ' + e.message);
   });
 }
 
@@ -410,7 +445,7 @@ function render_static_page(page, req, res) {
 
     case "personnel":
       res.local("header", header.render(req, {title: _("Personnel"), personnel_active: true}));
-      res.local("footer", footer.render(req));
+      res.local("footer", footer.render(req, {js_code: "", qualities: "var QUALITIES = " + JSON.stringify(personQualityData) + ";" } ));
       res.render("personnel", res.locals());
       break;
 
@@ -1414,6 +1449,7 @@ widget = new function() {
 app.listen(conf.server_port);
 get_consortium_data();
 get_region_data();
+get_person_qualities_data();
 
 rlog("Server started at port " + conf.server_port);
 
