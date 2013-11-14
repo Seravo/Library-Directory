@@ -925,7 +925,7 @@ function get_personnel(sstr, callback) {
   var query_fields_1 = [ "contact.email" ];
   var query_fields_2 = [ "first_name*", "last_name*", "job_title_*", "responsibility_*" ];
 	var query = {
-    "size": 999,
+    "size": 9999,
     "sort": [ { "first_name" : {} }, { "last_name": {} } ],
     "query" : {
       "filtered" : {
