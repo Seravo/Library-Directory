@@ -905,14 +905,40 @@ function get_library_by_id(id, callback) {
 
 // get personnel by search via ajax get
 function get_personnel(sstr, callback) {
+  // reformat the search string to match better
+  var stemp = sstr.split(/ /);
+  for (var item in stemp) {
+    stemp[item] = '*' + stemp[item] + '*';
+  }
+  var wild = stemp.join(" ");
+
+  // try to handle special case of first+lastname search
+  var firstName = 'foobar';
+  var lastName = 'xyzzy';
+  if (sstr.split(/ /).length==2) {
+    var stemp = sstr.split(/ /);
+    firstName = stemp[0];
+    lastName = stemp[1];
+  }
+
   rlog("Personnel search request: " + sstr);
-  var query_fields = [ "contact.email", "first_name", "last_name", "job_title_*", "responsibility_*" ]
+  var query_fields_1 = [ "contact.email" ];
+  var query_fields_2 = [ "first_name*", "last_name*", "job_title_*", "responsibility_*" ];
 	var query = {
     "size": 999,
-    "sort": [ { "last_name" : {} } ],
+    "sort": [ { "first_name" : {} }, { "last_name": {} } ],
     "query" : {
       "filtered" : {
-        "query" : { 'query_string': { 'fields': query_fields, 'query': "*" + sstr + "*", 'default_operator': "OR" } },
+        "query" : {
+          "bool": {
+            "should": [
+              { "bool": { "should": [ { 'field': { 'first_name*': firstName } }, { 'field': { 'last_name*': lastName } } ] } },
+              { 'query_string': { 'fields': query_fields_1, 'query': wild } },
+              { 'query_string': { 'fields': query_fields_2, 'query': wild } },
+            ],
+            "minimum_should_match" : 1
+        }
+        },
         "filter" : {
           "and" : [
             {"term": { "meta.document_state" : "published" } }
