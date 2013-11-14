@@ -278,7 +278,17 @@ app.post("/personnel-search", function(req, res) {
       res.local("personnel_status", true);
       res.local("people", []);
       for (var item in data.hits.hits) {
+
+        var person = data.hits.hits[item]._source;
+        // honour public email status in personnel data
+        if (person.contact.public_email != true) {
+          delete person.contact.email;
+        }
+
+        data.hits.hits[item]._source.id = data.hits.hits[item]._id;
         res.local("people").push(data.hits.hits[item]._source);
+
+
       }
     } else {
       res.local("personnel_status", false);
