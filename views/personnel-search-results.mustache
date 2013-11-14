@@ -4,7 +4,7 @@
   <table class="table table-striped table-condensed">
     <tr><th>Nimi<th>Sähköposti<th>Puhelin<th>Titteli<th>Vastuualueet
     {{#people}}
-      <tr><td>{{last_name}}, {{first_name}}<td>{{contact.email}}<td>{{contact.telephone}}<td>{{job_title_fi}}<td>{{responsibility_fi}}
+      <tr class="{{qualities}}"><td>{{first_name}} {{last_name}}<td>{{contact.email}}<td>{{contact.telephone}}<td>{{job_title_fi}}<td>{{responsibility_fi}}
     {{/people}}
   </table>
 {{/personnel_status}}
