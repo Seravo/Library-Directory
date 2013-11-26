@@ -1412,7 +1412,7 @@ try {
     rlog("No header banner in use. OK");
 }
 try {
-    header_banner_css = fs.readFileSync("./css/header-banner.css",'utf8');
+    header_banner_css = fs.readFileSync("./views/header-banner.css",'utf8');
 } catch(err) {
     rlog("No header banner css in use. OK");
 }
