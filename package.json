@@ -30,5 +30,11 @@
     "gettext" : ">=0.0.1",
     "locale" : ">=0.0.12"
   },
+  "devDependencies": {
+    "mocha" : ">=1.12.0",
+    "chai" : ">=1.7.2",
+    "chai-http" : ">=0.4.0",
+    "supertest" : ">=0.8.1"
+  },
   "keywords": []
 }
