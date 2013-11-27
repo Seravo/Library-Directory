@@ -1,0 +1,21 @@
+{
+  "indent": 2,
+  "undef": true,
+  "quotmark": "single",
+  // 80 is line length recommendation, but hard limit is really 100 for us or even 120
+  "maxlen": 120,
+  "trailing": true,
+  "curly": true,
+  // Global functions used our app or by Mocha
+  "predef": [
+    "conf",
+    "models",
+    "tasks",
+    "describe",
+    "it",
+    "before",
+    "beforeEach",
+    "after",
+    "afterEach"
+  ]
+}
