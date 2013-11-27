@@ -26,8 +26,9 @@
     "grunt" : "0.3.x",
     "hogan.js" : "1.0.x",
     "nodemailer" : "0.3.x",
-    "hogan-express" : ">=0.5.1",
-    "nodewatch" : ">=0.3.1"
+    "nodewatch" : ">=0.3.1",
+    "gettext" : ">=0.0.1",
+    "locale" : ">=0.0.12"
   },
   "keywords": []
 }
