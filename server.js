@@ -211,7 +211,6 @@ var app = express.createServer(locale(supported_locales)),
 // don't use flash() since it requires sessions and cookies
 // and we don't want to pollute our site and bust cache with cookies
 form.configure({flashErrors: false});
-
 // var headerfile = '/views/header-dev.mustache';
 // var footerfile = '/output/views/footer.mustache';
 // var view_cache_time;
@@ -305,12 +304,26 @@ app.post('/personnel-search', function(req, res) {
     if (data.hits.total >0) {
       res.local('personnel_status', true);
       res.local('people', []);
+
       for (var item in data.hits.hits) {
 
         var person = data.hits.hits[item]._source;
         // honour public email status in personnel data
         if (person.contact.public_email !== true) {
           delete person.contact.email;
+        }
+
+        if(person.qualities && person.qualities.length > 0){
+          for(var q in person.qualities){
+            if(q === '0'){
+              person.qualities[q] = person.qualities[q]
+                .charAt(0).toUpperCase() + person.qualities[q].slice(1); 
+            }
+            person.qualities[q] = person.qualities[q].replace('_', ' ');
+          }
+          // Keep it as an array in case of future changes,
+          // So dont do line below
+          // person.qualities = person.qualities.join(', ');
         }
 
         data.hits.hits[item]._source.id = data.hits.hits[item]._id;
@@ -321,6 +334,7 @@ app.post('/personnel-search', function(req, res) {
     } else {
       res.local('personnel_status', false);
     }
+    console.dir(res.locals())
     res.render('personnel-search-results', res.locals());
   });
 });

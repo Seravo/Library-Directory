@@ -2,9 +2,30 @@
 
 {{#personnel_status}}
   <table class="table table-striped table-condensed">
-    <tr><th>Nimi<th>Sähköposti<th>Puhelin<th>Titteli<th>Vastuualueet
+    <tr>
+      <th>Nimi</th>
+      <th>Sähköposti</th>
+      <th>Kunta/Toimipiste</th>
+      <th>Puhelin</th>
+      <th>Titteli</th>
+      <th>Osaamisalue</th>
+      <th>Vastuualueet</th>
+    </tr>
     {{#people}}
-      <tr class="{{qualities}}"><td>{{first_name}} {{last_name}}<td>{{contact.email}}<td>{{contact.telephone}}<td>{{job_title_fi}}<td>{{responsibility_fi}}
+      <tr class="{{qualities}}">
+        <td>{{first_name}} {{last_name}}</td>
+        <td>{{contact.email}}</td>
+        <td>{{municipality}}</td>
+        <td>{{contact.telephone}}</td>
+        <td>{{job_title_fi}}</td>
+        <td>
+          {{#qualities}}
+            {{.}},
+          {{/qualities}}
+          
+        </td>
+        <td>{{responsibility_fi}}</td>
+      </tr>
     {{/people}}
   </table>
 {{/personnel_status}}
