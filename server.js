@@ -5,6 +5,8 @@
 var util = require('util');
 var fs = require('fs');
 
+var async = require('async');
+
 try {
     var content = fs.readFileSync('./config.json','utf8').replace('\n', '');
   } catch(err) {
@@ -300,41 +302,25 @@ app.post('/preview', function(req, res) {
 app.post('/personnel-search', function(req, res) {
   var sstr = req.body.sstr;
   get_personnel(sstr,function(data) {
-
-    if (data.hits.total >0) {
+    if (data.length >0) {
       res.local('personnel_status', true);
       res.local('people', []);
 
-      for (var item in data.hits.hits) {
+      for (var item in data) {
 
-        var person = data.hits.hits[item]._source;
+        var person = data[item]._source;
         // honour public email status in personnel data
         if (person.contact.public_email !== true) {
           delete person.contact.email;
         }
 
-        if(person.qualities && person.qualities.length > 0){
-          for(var q in person.qualities){
-            if(q === '0'){
-              person.qualities[q] = person.qualities[q]
-                .charAt(0).toUpperCase() + person.qualities[q].slice(1); 
-            }
-            person.qualities[q] = person.qualities[q].replace('_', ' ');
-          }
-          // Keep it as an array in case of future changes,
-          // So dont do line below
-          // person.qualities = person.qualities.join(', ');
-        }
-
-        data.hits.hits[item]._source.id = data.hits.hits[item]._id;
-        res.local('people').push(data.hits.hits[item]._source);
-
+        data[item]._source.id = data[item]._id;
+        res.local('people').push(data[item]._source);
 
       }
     } else {
       res.local('personnel_status', false);
     }
-    console.dir(res.locals())
     res.render('personnel-search-results', res.locals());
   });
 });
@@ -1035,7 +1021,7 @@ function get_personnel(sstr, callback) {
 
   rlog('Personnel search request: ' + sstr);
   var query_fields_1 = [ 'contact.email' ];
-  var query_fields_2 = [ 'first_name*', 'last_name*', 'job_title_*', 'responsibility_*' ];
+  var query_fields_2 = [ 'first_name*', 'last_name*', 'job_title_*', 'responsibility_*', 'qualities.choices' ];
 	var query = {
     'size': 9999,
     'sort': [ { 'first_name' : {} }, { 'last_name': {} } ],
@@ -1059,7 +1045,33 @@ function get_personnel(sstr, callback) {
         }
       }
     }
+    // 'filter': {
+    //   "query" : {
+    //     "match" : {
+    //         "organisation" : {
+    //             "query" : "_JF9H57LRMSbsx-g-rBUww"
+    //         }
+    //     }
+    //   }
+    // }
   };
+
+  // var query = {
+  //   'size': 9999,
+  //   'sort': [ { 'first_name' : {} }, { 'last_name': {} } ],
+  //   'query': {
+  //     "multi_match" : {
+  //       "query" : sstr,
+  //       "fields" : [ "first_name", "last_name^2" ]
+  //     }
+  //   },
+  //   'filter' : {
+  //     'and' : [
+  //       {'term': { 'meta.document_state' : 'published' } }
+  //     ]
+  //   }
+  // }
+
 
 	query = JSON.stringify(query);
 	query = encodeURIComponent(query);
@@ -1079,11 +1091,60 @@ function get_personnel(sstr, callback) {
     });
     res.on('end', function() {
       dataobj = JSON.parse(data);
-      callback(dataobj);
+      console.dir(dataobj.hits.hits[0])
+      async.mapSeries(dataobj.hits.hits, getOrganizationById, function(err, persons){
+        if(err){
+          rlog(err);
+        } else {
+          callback(persons)
+        }
+      })
     });
   }).on('error', function(e) {
     rlog('Problem with request: ' + e.message);
   });
+}
+
+function getOrganizationById(person, callback) {
+  var id = person._source.organisation;
+  if(id){
+
+    // TODO limit result, only one possible
+    var query = {
+      'size': 9999,
+      'query' : {
+        "ids" : { 'values' : [id] }
+      }
+    };
+
+    query = JSON.stringify(query);
+    query = encodeURIComponent(query);
+
+    var options = {
+      host: conf.proxy_config.host,
+      port: conf.proxy_config.port,
+      path: '/testink/organisation/_search?source='+query,
+      method: 'GET'
+    };
+
+    var req = http.get(options, function(res) {
+          res.setEncoding('utf8');
+          data = '';
+        res.on('data', function(chunk){
+          data += chunk;
+        });
+        res.on('end', function() {
+          data = JSON.parse(data);
+          person._source.organisation = data.hits.hits[0]._source;
+          callback(null, person);
+        });
+      }).on('error', function(e) {
+        callback(e);
+      });
+
+  } else {
+    callback('No organisation id');
+  }
 }
 
 // get library by slug
