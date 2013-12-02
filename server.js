@@ -1021,7 +1021,7 @@ function get_personnel(sstr, callback) {
 
   rlog('Personnel search request: ' + sstr);
   var query_fields_1 = [ 'contact.email' ];
-  var query_fields_2 = [ 'first_name*', 'last_name*', 'job_title_*', 'responsibility_*', 'qualities.choices' ];
+  var query_fields_2 = [ 'first_name*', 'last_name*', 'job_title_*', 'responsibility_*' ];
 	var query = {
     'size': 9999,
     'sort': [ { 'first_name' : {} }, { 'last_name': {} } ],
