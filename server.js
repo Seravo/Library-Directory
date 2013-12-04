@@ -325,6 +325,23 @@ app.post('/personnel-search', function(req, res) {
   });
 });
 
+app.post('/openTimeChangeWeek', function(req,res){
+  var mondayDate = new Date(req.body.mondayDate);
+
+  if(req.body.value === 'next'){
+    mondayDate.setDate(mondayDate.getDate() + 7);
+  } else {
+    mondayDate.setDate(mondayDate.getDate() - 7);
+  }
+  
+  get_library_opening_times(req.body.id,
+    {_source:{}},
+    mondayDate,
+    function(openingTimes) {
+    res.send(openingTimes)
+  });
+});
+
 // route handler for all dynamic data without language path
 // as this has the most generic matcher it should be last
 app.get('/:resource(*)',function(req,res,next) {
@@ -362,7 +379,6 @@ function route_parser(req,res,next) {
 
     var page = req.params.resource;
     //rlog('request: ' + page);
-
     // static page
     if (page === '' || page.match(/^(about|browse|personnel|contact|feedback-sent|search|widget|loadwidget|widget[0-9])$/)) {
       //rlog('match page');
@@ -1039,7 +1055,6 @@ function get_personnel(sstr, callback) {
     });
     res.on('end', function() {
       dataobj = JSON.parse(data);
-      console.dir(dataobj.hits.hits[0])
       async.mapSeries(dataobj.hits.hits, getOrganizationById, function(err, persons){
         if(err){
           rlog(err);
@@ -1392,7 +1407,7 @@ function get_centralized_services(id, library_data, callback) {
 
         rlog('Services size: ' + results.length);
       }
-      get_library_opening_times(id, library_data, callback);
+      get_library_opening_times(id, library_data, null, callback);
     });
   }).on('error', function(e) {
     rlog('Problem with request: ' + e.message);
@@ -1400,7 +1415,7 @@ function get_centralized_services(id, library_data, callback) {
 }
 
 // get library's opening times by library id
-function get_library_opening_times(id, dataobj, callback) {
+function get_library_opening_times(id, dataobj, fromDate, callback) {
 
 	var days_translated = [ _('Monday'),
 							_('Tuesday'),
@@ -1415,7 +1430,13 @@ function get_library_opening_times(id, dataobj, callback) {
 	opening_hours.has_opening_hours = false;
 	opening_hours.open_now = false;
 
+
 	var curtime = new Date();
+  
+  if(fromDate){
+    curtime = new Date(fromDate);
+  }
+
 	var unixtime = curtime.getTime();
 	var daynum = curtime.getDay();
 
@@ -1544,6 +1565,7 @@ function get_library_opening_times(id, dataobj, callback) {
         }
       }
       dataobj._source.opening_hours = opening_hours;
+      dataobj._source.opening_hours.mondaydate = mondaydate;
       callback(dataobj);
     });
   }).on('error', function(e) {

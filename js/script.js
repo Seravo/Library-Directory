@@ -603,3 +603,24 @@ $('#personnel-sstr').bind('keypress', function(e) {
     ld_personnel_search();
   }
 });
+
+// Change calendar week on /{library-name}/
+$(document).on("click", "button.change-week", function(){
+    var id = $('h1.lib_details_name').attr('id');
+    var mondayDate = $(this).attr('monday');
+
+    $.ajax({
+      type: 'POST',
+      url: '/openTimeChangeWeek',
+      data: {
+        id: id,
+        value: this.value,
+        mondayDate : mondayDate
+      }
+    }).fail(function (jqXHR, textStatus) {
+
+    }).done(function (data) {
+      console.dir(data);
+    });
+
+});

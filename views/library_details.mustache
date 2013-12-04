@@ -19,7 +19,6 @@
         <h1>_("This is preview mode")</h1>
     </div>
 {{/preview_mode}}
-
 <div class="row-fluid" itemscope itemtype="http://schema.org/Library">
   <div class="span6">
 
@@ -315,6 +314,7 @@
         {{/neveropen}}
 
         {{^neveropen}}
+
 			{{#opening_hours.has_opening_hours}}
             <h3>_("The library is now")
 		    {{#opening_hours.open_now}}
@@ -338,6 +338,9 @@
 					{{/today}}
 			    {{/opening_hours.open_hours_week}}
 	        </table>
+	        <button class="btn btn-link change-week" monday="{{opening_hours.mondaydate}}" value="prev">Previous week</button>
+	        <button class="btn btn-link change-week" monday="{{opening_hours.mondaydate}}" value="next">Next week</button>
+
 	        </time>
             <br>
 			<p>{{opening_hours.period_description}}
