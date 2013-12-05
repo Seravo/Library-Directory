@@ -326,20 +326,20 @@
 	        {{/opening_hours.open_now}}
 		    </h3>
 		    <br>
-	        <h3>_("Opening hours this week")</h3>
+	        <h3 class="week-label">_("Opening hours this week")</h3>
 	        <time itemprop="openingHours">
-	        <table>
-			    {{#opening_hours.open_hours_week}}
+					<table>
+					{{#opening_hours.open_hours_week}}
 					{{#today}}
 						<tr class="opentimes_strong"><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
 					{{/today}}
 					{{^today}}
 					    <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
 					{{/today}}
-			    {{/opening_hours.open_hours_week}}
-	        </table>
-	        <button class="btn btn-link change-week" monday="{{opening_hours.mondaydate}}" value="prev">Previous week</button>
-	        <button class="btn btn-link change-week" monday="{{opening_hours.mondaydate}}" value="next">Next week</button>
+					{{/opening_hours.open_hours_week}}
+					</table>
+					<button class="btn btn-link change-week" monday="{{opening_hours.mondaydate}}" value="prev">Previous week</button>
+					<button class="btn btn-link change-week" monday="{{opening_hours.mondaydate}}" value="next">Next week</button>
 
 	        </time>
             <br>

@@ -618,9 +618,39 @@ $(document).on("click", "button.change-week", function(){
         mondayDate : mondayDate
       }
     }).fail(function (jqXHR, textStatus) {
+    	
+    }).done(function (data) {     
 
-    }).done(function (data) {
-      console.dir(data);
-    });
+      var html;
+      var calendarTitle;
+    
+      if(!data._source.opening_hours.has_opening_hours){
+      	html = "<p>No information</p>"
+      	calendarTitle = "Opening hours for " + mondayDate;
+      } else {
+      	var days = data._source.opening_hours.open_hours_week;
+      	html = '<table>';
+				for(var x in days){
+					html += '<tr><td>'+days[x].day+'<td>&nbsp;<td>'+days[x].time+
+						'<span class="hidden">, </span></tr>'
+				}
+
+	       html += '</table><button class="btn btn-link change-week"' +
+	       	'monday="'+data._source.opening_hours.mondaydate+'"' +
+	       	'value="prev">Previous week</button>' +
+					'<button class="btn btn-link change-week"' +
+					'monday="'+data._source.opening_hours.mondaydate+'"' +
+					'value="next">Next week</button>';
+
+				calendarTitle = 'Opening hours from ' +
+    			data._source.opening_hours.mondaydate
+				
+      }   
+
+   		$('h3.week-label').text(calendarTitle);
+      $('time[itemprop="openingHours"]').children().remove();
+      $('time[itemprop="openingHours"]').append(html);
+
+   });
 
 });
