@@ -654,3 +654,9 @@ $(document).on("click", "button.change-week", function(){
    });
 
 });
+
+// Show certain tab by url
+var hash = document.location.hash;
+if (hash) {
+    $('.nav-tabs a[href='+hash+']').tab('show');
+}
