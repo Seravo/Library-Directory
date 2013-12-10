@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-04 04:19+0200\n"
-"PO-Revision-Date: 2013-11-04 04:20+0200\n"
+"PO-Revision-Date: 2013-12-10 11:36+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -78,7 +78,7 @@ msgstr "E-mail"
 
 #: server.js:314
 msgid "Please provide your e-mail so we can respond to your feedback."
-msgstr "Vänligen ge en e-mail address så att vi kan svara på din feedback."
+msgstr "Vänligen ge en e-mail adress så att vi kan svara på din feedback."
 
 #: server.js:316
 msgid "Feedback"
@@ -115,7 +115,7 @@ msgstr "Bläddra alla"
 #: views/library_details.mustache:106
 #: views/library_details.mustache:197
 msgid "Personnel"
-msgstr "Personalen"
+msgstr "Personal"
 
 #: server.js:427
 #: views/feedback-sent.mustache:5
@@ -125,7 +125,7 @@ msgstr "Feedback skickat"
 #: server.js:621
 #: server.js:761
 msgid "branchlibrary"
-msgstr "filial"
+msgstr "bibliotek"
 
 #: server.js:622
 #: server.js:762
@@ -135,7 +135,7 @@ msgstr "avdelning"
 #: server.js:623
 #: server.js:763
 msgid "library"
-msgstr "huvudbibliotek"
+msgstr "organisation"
 
 #: server.js:624
 #: server.js:764
@@ -154,7 +154,7 @@ msgstr "Enhet"
 
 #: server.js:799
 msgid "service type device"
-msgstr "maskin"
+msgstr "apparat"
 
 #: server.js:800
 msgid "service type room"
@@ -241,7 +241,7 @@ msgstr "Sök material"
 #: js/libs/jquery.facetview.js:118
 #: views/widget_wizard.mustache:45
 msgid "City"
-msgstr "Stad"
+msgstr "Kommun"
 
 #: js/libs/jquery.facetview.js:119
 #: views/widget3.mustache:103
@@ -279,7 +279,7 @@ msgstr "Typ"
 
 #: js/libs/jquery.facetview.js:124
 msgid "Branch type"
-msgstr "Fililaltyp"
+msgstr "Bibliotekstyp"
 
 #: js/libs/jquery.facetview.js:305
 msgid "Filter results"
@@ -291,11 +291,11 @@ msgstr "Töm filtren"
 
 #: js/libs/jquery.facetview.js:340
 msgid "The number in parenthesis shows the number of results available."
-msgstr "Resultat fanns ej"
+msgstr "Talet inom parentesen anger antal träffar"
 
 #: js/libs/jquery.facetview.js:369
 msgid "Show libraries near my location"
-msgstr "Visa biblioteken närä mig"
+msgstr "Visa biblioteken nära mig"
 
 #: js/libs/jquery.facetview.js:375
 #: js/libs/jquery.facetview.js:383
@@ -306,7 +306,7 @@ msgstr "Biblioteken närä mig"
 #: js/libs/jquery.facetview.js:449
 #: locale/templates/LC_MESSAGES/gettext.tmpl:11
 msgid "yes"
-msgstr "ja"
+msgstr "beaktad"
 
 #: js/libs/jquery.facetview.js:796
 msgid "back"
@@ -366,11 +366,11 @@ msgstr "Widgets"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:4
 msgid "institution_library"
-msgstr "anstaltbibliotek"
+msgstr "anstaltsbibliotek"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:5
 msgid "regional"
-msgstr "regionalt bibliotek"
+msgstr "regionbibliotek"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:6
 msgid "childrens_library"
@@ -390,7 +390,7 @@ msgstr "biblioteksbuss"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:10
 msgid "home_service"
-msgstr "hembibliotek"
+msgstr "boken kommer"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:12
 msgid "The Finnish Library Directory"
@@ -412,12 +412,12 @@ msgstr "Hitta ditt bibliotek!"
 #: views/index.mustache:8
 #: views/widget1.mustache:8
 msgid "Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries."
-msgstr "Skriv namnet på biblioteket eller tjänsten du behöver. Skriv en stads namn eller postkod för att hitta närmaste biblioteken."
+msgstr "Skriv namnet på biblioteket eller tjänsten du behöver. Skriv en stads namn eller postnummer för att hitta närmaste biblioteken."
 
 #: views/index.mustache:9
 #: views/widget1.mustache:9
 msgid "The library index does not yet contain the contact and service information to all Finnish libraries. The updating of the information about public libraries is going on. Links to university and other libraries can be found on page <a href='http://www.libraries.fi/libraries'>http://www.libraries.fi/libraries</a>"
-msgstr "Bibliotekskatalogen innehåller ännu inte alla uppgifter, katalogen uppdateras under sommaren. Information om andra än allmänna bibliotek kan hittas på sidan <a href='http://www.biblioteken.fi/bibliotek'>http://www.biblioteken.fi/bibliotek</a>"
+msgstr "Bibliotekskatalogen innehåller ännu inte alla uppgifter, katalogen uppdateras kontinuerligt. Information om andra än allmänna bibliotek kan hittas på sidan <a href='http://www.biblioteken.fi/bibliotek'>http://www.biblioteken.fi/bibliotek</a>"
 
 #: views/widget2.mustache:15
 #: views/widget3.mustache:34
@@ -447,7 +447,7 @@ msgstr "Telefonnummer"
 #: views/library_details.mustache:390
 #: views/library_details.mustache:399
 msgid "Mail address"
-msgstr "Postaddress"
+msgstr "Postadress"
 
 #: views/widget2.mustache:65
 #: views/widget3.mustache:389
@@ -480,7 +480,7 @@ msgstr "Sist uppdaterat"
 #: views/header-dev.mustache:39
 #: views/header.mustache:37
 msgid "Library Directory"
-msgstr "Bibliotekskatalogen"
+msgstr "Biblioteksregistret"
 
 #: views/header-dev.mustache:68
 #: views/contact.mustache:7
@@ -510,7 +510,7 @@ msgstr "for best experience"
 
 #: views/contact.mustache:6
 msgid "This site is the product of <a href='http://kirjastot.fi/'>Kirjastot.fi</a>."
-msgstr "Denna sida är en produkt av <a href='http://kirjastot.fi/'>Kirjastot.fi</a>."
+msgstr "Denna sida är producerad av <a href='http://kirjastot.fi/'>Kirjastot.fi</a>."
 
 #: views/contact.mustache:21
 msgid "Message"
@@ -560,7 +560,7 @@ msgstr "Arkitekt"
 #: views/library_details.mustache:110
 #: views/library_details.mustache:236
 msgid "Departments"
-msgstr "Avdelningar"
+msgstr "Enheter"
 
 #: views/widget3.mustache:117
 #: views/widget3.mustache:292
@@ -607,7 +607,7 @@ msgstr "Tillgänglig ingång"
 #: views/widget3.mustache:253
 #: views/library_details.mustache:256
 msgid "Accessible parking"
-msgstr "Tillgänglig parkering"
+msgstr "Parkering för rörelsehindrade"
 
 #: views/widget3.mustache:257
 #: views/library_details.mustache:260
@@ -622,7 +622,7 @@ msgstr "Induktionsslinga"
 #: views/widget3.mustache:265
 #: views/library_details.mustache:268
 msgid "Large typeface collection"
-msgstr "Stor typsnitts samling"
+msgstr "Böcker med stor stil"
 
 #: views/widget3.mustache:269
 #: views/library_details.mustache:272
@@ -654,7 +654,7 @@ msgstr "Det ser ut som ett fall av"
 
 #: views/404.mustache:9
 msgid "a mistyped address"
-msgstr "felskriven address"
+msgstr "felskriven adress"
 
 #: views/404.mustache:10
 msgid "an out-of-date link"
@@ -682,15 +682,15 @@ msgstr "Bygg en widget"
 
 #: views/widget_wizard.mustache:16
 msgid "This feature is intended for web developers who want to integrate the library search in their own website."
-msgstr "Denna egenskap är menad för web-utvecklare som vill integrera bibliotekskatalogen på deras egen sida."
+msgstr "Denna egenskap är menad för web-utvecklare som vill integrera bibliotekskatalogen på den egna sidan."
 
 #: views/widget_wizard.mustache:18
 msgid "Search library by name or street address, select one result"
-msgstr "Sök bibliotek enligt namn eller address. Välj ett av resultaten."
+msgstr "Sök bibliotek enligt namn eller adress. Välj ett av resultaten."
 
 #: views/widget_wizard.mustache:27
 msgid "Select widget type"
-msgstr "Välj type"
+msgstr "Välj typ"
 
 #: views/widget_wizard.mustache:31
 msgid "Opening times"
@@ -722,11 +722,11 @@ msgstr "Automatiskt"
 
 #: views/widget_wizard.mustache:60
 msgid "Customize widget CSS-styling"
-msgstr "Kustomera CSS-stilerna"
+msgstr "Anpassa CSS-stilarna"
 
 #: views/widget_wizard.mustache:64
 msgid "Copy embed code"
-msgstr "Kopiera koden för inbäddning"
+msgstr "Kopiera inbäddningskoden"
 
 #: views/widget_wizard.mustache:68
 msgid "Widget preview"
@@ -734,7 +734,7 @@ msgstr "Förhandsvisning"
 
 #: views/browse.mustache:5
 msgid "Browse all libraries"
-msgstr "Bläddra alla biblioteken"
+msgstr "Bläddra alla bibliotek"
 
 #: views/browse.mustache:6
 msgid "Listing total of {{count}} libraries."
