@@ -1,15 +1,15 @@
-<h2>Hakutulokset</h2>
+<h2>_("Search results")</h2>
 
 {{#personnel_status}}
   <table class="table table-striped table-condensed">
     <tr>
-      <th>Nimi</th>
-      <th>Sähköposti</th>
-      <th>Kunta/Toimipiste</th>
-      <th>Puhelin</th>
-      <th>Titteli</th>
-      <th>Osaamisalue</th>
-      <th>Vastuualueet</th>
+      <th>_("Name") Nimi</th>
+      <th>_("E-mail") Sähköposti</th>
+      <th>_("Municipality") Kunta/Toimipiste</th>
+      <th>_("Phone") Puhelin</th>
+      <th>_("Title") Titteli</th>
+      <th>_("Qualities") Osaamisalue</th>
+      <th>_("Responsibilities") Vastuualueet</th>
     </tr>
     {{#people}}
       <tr class="{{qualities}}">
@@ -31,5 +31,5 @@
 {{/personnel_status}}
 
 {{^personnel_status}}
-  <div class="alert alert-error span2"><strong>Ei hakutuloksia</strong></div>
+  <div class="alert alert-error span2"><strong>_("No results found")</strong></div>
 {{/personnel_status}}
