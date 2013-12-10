@@ -978,14 +978,16 @@ function add_library_metadata(dataobj, callback){
       lib.contact.coordinnates_lon = latlon[1];
     }
 
-    //rlog("personnel slug: " + lib.slug);
-    //rlog("personnel id: " + lib.id);
+    rlog("personnel slug: " + lib.slug);
+    rlog("personnel id: " + lib.id);
 
     if(typeof lib.id === 'undefined'){
       callback(dataobj);
     }
     else {
-      get_library_personnel(lib.id, dataobj, callback);
+      get_library_personnel(lib.id, dataobj, function(id, dataobj){
+        get_library_children(id, dataobj, callback);
+      });
     }
   }
 // get a specific library
@@ -1217,15 +1219,16 @@ function get_library_children(id, library_data, callback) {
           child.id = dataobj.hits.hits[item]._id;
           if (typeof child.additional_info !== 'undefined' && typeof child.additional_info.slug !== 'undefined') {
             if (child.additional_info.slug === '') {
-              children.push( { link: child.id, name: child.name_fi });
+              children.push( { link: child.id, name: child.name_fi, id: child.id });
             } else {
-              children.push( { link: child.additional_info.slug, name: child.name_fi });
+              children.push( { link: child.additional_info.slug, name: child.name_fi, id: child.id });
             }
           }
         }
-        library.children = children;
-        //rlog(children);
-        library.has_children = true;
+        async.mapSeries(children, get_library_personnel.bind(null, children), function(id, children){
+          library.children = children;
+          library.has_children = true;
+        })
       } else {
         library.has_children = false;
       }
@@ -1236,8 +1239,16 @@ function get_library_children(id, library_data, callback) {
   });
 }
 
+
 // get library's personnel by library id
 function get_library_personnel(id, dataobj, callback) {
+  // Small hack to reuse this function when getting children personnel
+  if (typeof id === 'object'){
+    id = dataobj.id;
+  }
+
+  // console.dir(dataobj)
+
 	var query = {
 		'size': 999,
 		'sort': [ { 'last_name' : {} } ],
@@ -1246,8 +1257,10 @@ function get_library_personnel(id, dataobj, callback) {
           'query': { 'match_all': {} },
           'filter': {
               'and': [
-                  {'term': { 'organisation' : id } },
-                  {'term': { 'meta.document_state' : 'published' } }
+                  {
+                    'term': { 'organisation' : id },
+                    'term': { 'meta.document_state' : 'published' }
+                  }
                 ]
               }
             }
@@ -1275,70 +1288,37 @@ function get_library_personnel(id, dataobj, callback) {
     });
     res.on('end', function() {
 
-    // obfuscate displayed email-addresses a bit to avoid harvester bots
-      function obfuscate_email(email) {
-        parts = email.split('@');
-        head = parts[0];
-        tail = parts[1].split('');
-        tail.unshift('@');
-
-        obfuscated = [];
-        tail.forEach(function(char) {
-          obfuscated.push('&#' + char.charCodeAt() + ';');
-        });
-
-        return head + obfuscated.join('');
-      }
-
-      function obfuscate_email_addresses(data) {
-        data.forEach(function(person) {
-          person = person._source;
-          // obfuscate if person's email is defined and valid-ish
-          if (typeof person.contact.email !== 'undefined' &&
-            person.contact.email.length>0 && person.contact.email.indexOf('@') !== -1) {
-            if (typeof person.contact.public_email !== 'undefined' && person.contact.public_email === true){
-              person.contact.email = obfuscate_email(person.contact.email);
-            } else{
-              delete person.contact.email;
-            }
-          //rlog('email: ' + person.contact.email);
-          }
-
-        // delete person's empty fields
-          if (typeof person.contact.email !== 'undefined' &&
-            person.contact.email === '') { delete person.contact.email; }
-          if (typeof person.contact.telephone !== 'undefined' &&
-            person.contact.telephone === '') {
-            delete person.contact.telephone;
-          }
-          if (typeof person.job_title_fi !== 'undefined' &&
-            person.job_title_fi === '') { delete person.job_title_fi; }
-
-        });
-        return data;
-      }
-
-
       dataobj2 = JSON.parse(data);
       // if personnel exists, inject it into library data
       if (typeof dataobj2.hits !== 'undefined' && typeof dataobj2.hits.hits !== 'undefined') {
         personnel = dataobj2.hits.hits;
 
-        // by default, library has no personnel defined (for library details view rendering)
-        dataobj._source.has_personnel = false;
+        // Awful solution but no other choice, since merge two object in javascript takes even 
+        // more lines of code
+        if(dataobj.hasOwnProperty('_source')){
 
-        if (personnel.length>0) {
-          personnel = obfuscate_email_addresses(personnel);
+          dataobj._source.has_personnel = false;
 
-          dataobj._source.personnel = personnel;
-          dataobj._source.has_personnel = true;
+          if (personnel.length>0) {
+            personnel = obfuscate_email_addresses(personnel);
+            dataobj._source.personnel = personnel;
+            dataobj._source.has_personnel = true;
+          }
+
+
+        } else {
+            dataobj.has_personnel = false;
+            if (personnel.length>0) {
+              personnel = obfuscate_email_addresses(personnel);
+              dataobj.personnel = personnel;
+              dataobj.has_personnel = true;
+            }
         }
-
+        
         //rlog(personnel);
         rlog('Personnel size: ' + personnel.length);
       }
-		
-      get_library_children(id, dataobj, callback);
+		  callback(id, dataobj);
     });
   }).on('error', function(e) {
     rlog('Problem with request: ' + e.message);
@@ -1566,12 +1546,26 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
       }
       dataobj._source.opening_hours = opening_hours;
       dataobj._source.opening_hours.mondaydate = mondaydate;
+
+      // if(!dataobj._source.parent_organisation){
+      //   callback(dataobj);
+      // } else {
+      //   rlog('Getting parent personnel')
+      //   getLibraryPersonnel(dataobj,
+      //     dataobj._source.parent_organisation
+      //     ,function(lib){
+      //     console.dir(lib)
+      //     callback(lib);
+      //   })
+      // }
+
       callback(dataobj);
     });
   }).on('error', function(e) {
     rlog('Problem with request: ' + e.message);
   });
 }
+
 
 var headerfilecontents = fs.readFileSync(__dirname + headerfile, 'utf-8');
 var footerfilecontents = fs.readFileSync(__dirname + footerfile, 'utf-8');
@@ -1649,6 +1643,49 @@ var widget = new function() {
 		var widgetdata = fs.readFileSync(__dirname + '/views/json_widget_' + widget_id + '.mustache', 'utf-8');
 		return adapter.init(hogan).compile(widgetdata)(options);
 	}
+}
+
+// obfuscate displayed email-addresses a bit to avoid harvester bots
+function obfuscate_email(email) {
+  parts = email.split('@');
+  head = parts[0];
+  tail = parts[1].split('');
+  tail.unshift('@');
+
+  obfuscated = [];
+  tail.forEach(function(char) {
+    obfuscated.push('&#' + char.charCodeAt() + ';');
+  });
+
+  return head + obfuscated.join('');
+}
+
+function obfuscate_email_addresses(data) {
+  data.forEach(function(person) {
+    person = person._source;
+    // obfuscate if person's email is defined and valid-ish
+    if (typeof person.contact.email !== 'undefined' &&
+      person.contact.email.length>0 && person.contact.email.indexOf('@') !== -1) {
+      if (typeof person.contact.public_email !== 'undefined' && person.contact.public_email === true){
+        person.contact.email = obfuscate_email(person.contact.email);
+      } else{
+        delete person.contact.email;
+      }
+    //rlog('email: ' + person.contact.email);
+    }
+
+  // delete person's empty fields
+    if (typeof person.contact.email !== 'undefined' &&
+      person.contact.email === '') { delete person.contact.email; }
+    if (typeof person.contact.telephone !== 'undefined' &&
+      person.contact.telephone === '') {
+      delete person.contact.telephone;
+    }
+    if (typeof person.job_title_fi !== 'undefined' &&
+      person.job_title_fi === '') { delete person.job_title_fi; }
+
+  });
+  return data;
 }
 
 
