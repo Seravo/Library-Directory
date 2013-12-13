@@ -625,24 +625,24 @@ $(document).on("click", "button.change-week", function(){
       var calendarTitle;
     
       if(!data._source.opening_hours.has_opening_hours){
-      	html = "<p>No information</p>"
-      	calendarTitle = "Opening hours for " + mondayDate;
+        html = "<p>" + _("No results found") + "</p>";
+        calendarTitle = _("Opening hours") + " " + mondayDate;
       } else {
       	var days = data._source.opening_hours.open_hours_week;
       	html = '<table>';
 				for(var x in days){
-					html += '<tr><td>'+days[x].day+'<td>&nbsp;<td>'+days[x].time+
-						'<span class="hidden">, </span></tr>'
+          html += '<tr><td>'+days[x].day+'<td>&nbsp;<td>'+days[x].time+
+            '<span class="hidden">, </span></tr>'
 				}
 
 	       html += '</table><button class="btn btn-link change-week"' +
 	       	'monday="'+data._source.opening_hours.mondaydate+'"' +
-	       	'value="prev">Previous week</button>' +
+          'value="prev">' + _("Previous week") + '</button> ' +
 					'<button class="btn btn-link change-week"' +
 					'monday="'+data._source.opening_hours.mondaydate+'"' +
-					'value="next">Next week</button>';
+          'value="next">' + _("Next week") + '</button>';
 
-				calendarTitle = 'Opening hours from ' +
+        calendarTitle = _("Opening hours") + " " +
     			data._source.opening_hours.mondaydate
 				
       }   

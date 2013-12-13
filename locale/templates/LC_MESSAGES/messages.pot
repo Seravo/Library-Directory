@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-10 14:11+0200\n"
+"POT-Creation-Date: 2013-12-13 13:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: server.js:263 server.js:608 server.js:626 server.js:668
+#: server.js:263 server.js:608 server.js:625 server.js:668
 #: views/404.mustache:4
 msgid "Not found"
 msgstr ""
 
-#: server.js:296 server.js:642 server.js:664 server.js:788 server.js:789
+#: server.js:296 server.js:641 server.js:664 server.js:788 server.js:789
 #: server.js:791 server.js:792 server.js:794 server.js:795 server.js:836
 #: server.js:837 server.js:838 server.js:878 server.js:880 server.js:895
-#: server.js:972 server.js:1525 js/libs/jquery.facetview.js:97
+#: server.js:972 server.js:1507 js/libs/jquery.facetview.js:97
 #: js/libs/jquery.facetview.js:100 js/libs/jquery.facetview.js:118
 #: js/libs/jquery.facetview.js:119 js/libs/jquery.facetview.js:456
 #: js/libs/jquery.facetview.js:633 js/libs/jquery.facetview.js:645
@@ -36,7 +36,7 @@ msgstr ""
 msgid "locale"
 msgstr ""
 
-#: server.js:296 server.js:642 server.js:664
+#: server.js:296 server.js:641 server.js:664
 msgid "contact details, open hours, services"
 msgstr ""
 
@@ -47,7 +47,7 @@ msgstr ""
 
 #: server.js:420 server.js:422 views/widget2.mustache:87
 #: views/contact.mustache:14 views/widget3.mustache:411
-#: views/library_details.mustache:417
+#: views/library_details.mustache:425
 #: views/personnel-search-results.mustache:7
 msgid "E-mail"
 msgstr ""
@@ -126,35 +126,35 @@ msgstr ""
 msgid "service type service"
 msgstr ""
 
-#: server.js:1420
+#: server.js:1402
 msgid "Monday"
 msgstr ""
 
-#: server.js:1421
+#: server.js:1403
 msgid "Tuesday"
 msgstr ""
 
-#: server.js:1422
+#: server.js:1404
 msgid "Wednesday"
 msgstr ""
 
-#: server.js:1423
+#: server.js:1405
 msgid "Thursday"
 msgstr ""
 
-#: server.js:1424
+#: server.js:1406
 msgid "Friday"
 msgstr ""
 
-#: server.js:1425
+#: server.js:1407
 msgid "Saturday"
 msgstr ""
 
-#: server.js:1426
+#: server.js:1408
 msgid "Sunday"
 msgstr ""
 
-#: server.js:1532 server.js:1541
+#: server.js:1514 server.js:1523
 msgid "closed"
 msgstr ""
 
@@ -168,7 +168,7 @@ msgid "Error"
 msgstr ""
 
 #: js/libs/jquery.facetview.js:73 views/widget2.mustache:103
-#: views/widget3.mustache:318 views/library_details.mustache:321
+#: views/widget3.mustache:318 views/library_details.mustache:329
 #: views/json_widget_5.mustache:11
 msgid "Open"
 msgstr ""
@@ -178,7 +178,7 @@ msgid "today"
 msgstr ""
 
 #: js/libs/jquery.facetview.js:75 views/widget2.mustache:107
-#: views/widget3.mustache:322 views/library_details.mustache:325
+#: views/widget3.mustache:322 views/library_details.mustache:333
 #: views/json_widget_5.mustache:15
 msgid "Closed"
 msgstr ""
@@ -188,7 +188,7 @@ msgid "open today"
 msgstr ""
 
 #: js/libs/jquery.facetview.js:93 views/widget3.mustache:349
-#: views/library_details.mustache:355
+#: views/library_details.mustache:363
 msgid "Library catalogue"
 msgstr ""
 
@@ -205,12 +205,12 @@ msgstr ""
 #: js/libs/jquery.facetview.js:120 js/libs/jquery.facetview.js:1091
 #: js/libs/jquery.facetview.js:1244 views/widget3.mustache:114
 #: views/widget3.mustache:246 views/library_details.mustache:113
-#: views/library_details.mustache:248
+#: views/library_details.mustache:256
 msgid "Accessibility"
 msgstr ""
 
 #: js/libs/jquery.facetview.js:121 views/widget3.mustache:419
-#: views/library_details.mustache:425 views/widget_wizard.mustache:44
+#: views/library_details.mustache:433 views/widget_wizard.mustache:44
 msgid "Library consortium"
 msgstr ""
 
@@ -353,6 +353,10 @@ msgstr ""
 msgid "Name, email, title, qualities ..."
 msgstr ""
 
+#: locale/templates/LC_MESSAGES/gettext.tmpl:16
+msgid "Opening hours"
+msgstr ""
+
 #: views/index.mustache:7 views/widget1.mustache:7
 msgid "Find your library!"
 msgstr ""
@@ -384,28 +388,28 @@ msgid "Directions"
 msgstr ""
 
 #: views/widget2.mustache:46 views/widget3.mustache:370
-#: views/library_details.mustache:376
+#: views/library_details.mustache:384
 msgid "Telephone numbers"
 msgstr ""
 
 #: views/widget2.mustache:63 views/widget2.mustache:72
 #: views/widget3.mustache:387 views/widget3.mustache:396
-#: views/library_details.mustache:393 views/library_details.mustache:402
+#: views/library_details.mustache:401 views/library_details.mustache:410
 msgid "Mail address"
 msgstr ""
 
 #: views/widget2.mustache:65 views/widget3.mustache:389
-#: views/library_details.mustache:395
+#: views/library_details.mustache:403
 msgid "P.O. Box"
 msgstr ""
 
 #: views/widget2.mustache:101 views/widget3.mustache:316
-#: views/library_details.mustache:319 views/json_widget_5.mustache:9
+#: views/library_details.mustache:327 views/json_widget_5.mustache:9
 msgid "The library is now"
 msgstr ""
 
 #: views/widget2.mustache:111 views/widget3.mustache:326
-#: views/library_details.mustache:329 views/json_widget_5.mustache:19
+#: views/library_details.mustache:337 views/json_widget_5.mustache:19
 msgid "Opening hours this week"
 msgstr ""
 
@@ -484,12 +488,12 @@ msgid "Architect"
 msgstr ""
 
 #: views/widget3.mustache:110 views/widget3.mustache:233
-#: views/library_details.mustache:109 views/library_details.mustache:235
+#: views/library_details.mustache:109 views/library_details.mustache:243
 msgid "Departments"
 msgstr ""
 
 #: views/widget3.mustache:117 views/widget3.mustache:292
-#: views/library_details.mustache:116 views/library_details.mustache:294
+#: views/library_details.mustache:116 views/library_details.mustache:302
 msgid "Additional info"
 msgstr ""
 
@@ -517,39 +521,39 @@ msgstr ""
 msgid "Centralized services"
 msgstr ""
 
-#: views/widget3.mustache:249 views/library_details.mustache:251
+#: views/widget3.mustache:249 views/library_details.mustache:259
 msgid "Accessible entry"
 msgstr ""
 
-#: views/widget3.mustache:253 views/library_details.mustache:255
+#: views/widget3.mustache:253 views/library_details.mustache:263
 msgid "Accessible parking"
 msgstr ""
 
-#: views/widget3.mustache:257 views/library_details.mustache:259
+#: views/widget3.mustache:257 views/library_details.mustache:267
 msgid "Accessible toilet"
 msgstr ""
 
-#: views/widget3.mustache:261 views/library_details.mustache:263
+#: views/widget3.mustache:261 views/library_details.mustache:271
 msgid "Induction loop"
 msgstr ""
 
-#: views/widget3.mustache:265 views/library_details.mustache:267
+#: views/widget3.mustache:265 views/library_details.mustache:275
 msgid "Large typeface collection"
 msgstr ""
 
-#: views/widget3.mustache:269 views/library_details.mustache:271
+#: views/widget3.mustache:269 views/library_details.mustache:279
 msgid "Lift"
 msgstr ""
 
-#: views/widget3.mustache:287 views/library_details.mustache:289
+#: views/widget3.mustache:287 views/library_details.mustache:297
 msgid "Established year"
 msgstr ""
 
-#: views/widget3.mustache:356 views/library_details.mustache:362
+#: views/widget3.mustache:356 views/library_details.mustache:370
 msgid "Homepage"
 msgstr ""
 
-#: views/widget3.mustache:425 views/library_details.mustache:431
+#: views/widget3.mustache:425 views/library_details.mustache:439
 msgid "last modified"
 msgstr ""
 
@@ -567,6 +571,14 @@ msgstr ""
 
 #: views/404.mustache:10
 msgid "an out-of-date link"
+msgstr ""
+
+#: views/library_details.mustache:349
+msgid "Previous week"
+msgstr ""
+
+#: views/library_details.mustache:350
+msgid "Next week"
 msgstr ""
 
 #: views/personnel-search-results.mustache:1
