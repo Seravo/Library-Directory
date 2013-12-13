@@ -659,7 +659,6 @@ function render_library_by_slug(slug, req, res) {
       if (data.hits.total > 0) {
         data.hits.hits[0]._source.id = data.hits.hits[0]._id;
         var library = data.hits.hits[0]._source;
-        console.dir(library.children)
         res.local('data', library);
         res.local('header', header.render(req, {nobanners: nobanners, title: eval('library.name_' + _('locale')) + ': ' + _('contact details, open hours, services')}));
         res.local('footer', footer.render(req, {nobanners: nobanners, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: 'jQuery(document).ready(function($) { library_details_map(); });', js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
@@ -1213,7 +1212,7 @@ function get_library_children(id, library_data, callback) {
         for (var item in dataobj.hits.hits) {
           var child = dataobj.hits.hits[item]._source;
           // get children database id for data retrieval/linking if pretty-url slug is missing
-          child.id = dataobj.hits.hits[item]._id;
+          child.id = dataobj.hits.hits[item]._id
           if (typeof child.additional_info !== 'undefined' && typeof child.additional_info.slug !== 'undefined') {
             if (child.additional_info.slug === '') {
               // TODO Put more data for view
@@ -1499,7 +1498,7 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
 
         // include info about "current day" in opening hours data for week
         var today_status = false;
-        if (idx == daynum){
+        if (parseInt(idx) == daynum){
           today_status = true;
         }
 
@@ -1515,7 +1514,7 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
           continue;
         }
 
-        if (idx === daynum && day.closed === true) {
+        if (parseInt(idx) === daynum && day.closed === true) {
           opening_hours.open_now = false;
         }
 
@@ -1533,7 +1532,7 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
           };
         }
 
-        if (idx === daynum && day.closed === false) {
+        if (parseInt(idx) === daynum && day.closed === false) {
           var opens = format_time(day.opens);
           var closes = format_time(day.closes);
           var tzoffset = curtime.getTimezoneOffset();
@@ -1560,7 +1559,6 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
       //     callback(lib);
       //   })
       // }
-
       callback(dataobj);
     });
   }).on('error', function(e) {
