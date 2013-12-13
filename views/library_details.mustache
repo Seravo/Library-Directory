@@ -227,6 +227,14 @@
 				</table>
 			</dd>
 			{{/has_personnel}}
+			{{#children}}
+				<strong>{{name}}</strong>
+				{{#has_personnel}}
+					{{#personnel}}
+						{{_source.first_name}} {{_source.last_name}}
+					{{/personnel}}
+				{{/has_personnel}}
+			{{/children}}
 		</div>
 
 		<!-- departments tab -->

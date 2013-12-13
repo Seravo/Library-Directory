@@ -1,5 +1,5 @@
 // export NODE_PATH='/usr/lib/node_modules/'
-/*jshint node:true */
+/* jshint node:true */
 // 'use strict';
 
 var util = require('util');
@@ -394,7 +394,7 @@ function route_parser(req,res,next) {
 
     // get library by id
     else if (page.match(/(^[a-zA-Z0-9_-]{22}$)|(^[bm][0-9]+$)/)) {
-      //	rlog('Route id: ' + page);
+      	rlog('Route id: ' + page);
       render_library_by_id(page, req, res);
     }
 
@@ -615,7 +615,6 @@ function render_static_page(page, req, res) {
 
 function render_library_by_id(page, req, res) {
 	// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
-
     rlog('Requested id: '+page);
     get_library_by_id(page, function(data){
 		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
@@ -660,6 +659,7 @@ function render_library_by_slug(slug, req, res) {
       if (data.hits.total > 0) {
         data.hits.hits[0]._source.id = data.hits.hits[0]._id;
         var library = data.hits.hits[0]._source;
+        console.dir(library.children)
         res.local('data', library);
         res.local('header', header.render(req, {nobanners: nobanners, title: eval('library.name_' + _('locale')) + ': ' + _('contact details, open hours, services')}));
         res.local('footer', footer.render(req, {nobanners: nobanners, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: 'jQuery(document).ready(function($) { library_details_map(); });', js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
@@ -985,8 +985,8 @@ function add_library_metadata(dataobj, callback){
       callback(dataobj);
     }
     else {
-      get_library_personnel(lib.id, dataobj, function(id, dataobj){
-        get_library_children(id, dataobj, callback);
+      get_library_personnel(lib.id, dataobj, function(err, data){
+        get_library_children(data.id, data.dataobj, callback);
       });
     }
   }
@@ -1114,18 +1114,16 @@ function getOrganizationById(person, callback) {
 
 // get library by slug
 function get_library_by_name(name, browser_req, callback) {
-    query =
+    var query =
     {
-      'size': 1,
-      'sort': [ { 'name_fi' : {} } ],
-      'query':
-     { 'query_string':
-       {
-        'fields': ['additional_info.slug'],
-        'query': name
+      "size": 1,
+      "sort": [ "_score" ],
+      "query": { 
+        "match": {
+          "additional_info.slug" : name
+        }
       }
-     }
-    };
+     };
     
     query = JSON.stringify(query);
     query = encodeURIComponent(query);
@@ -1193,7 +1191,6 @@ function get_library_children(id, library_data, callback) {
     path: '/testink/organisation/_search?source='+query,
     method: 'GET'
   };
-
   var req = http.get(options, function(res) {
     rlog('Requested children of: ' + id);
     res.setEncoding('utf8');
@@ -1207,11 +1204,11 @@ function get_library_children(id, library_data, callback) {
       dataobj = JSON.parse(data);
       library = library_data._source;
       var results = dataobj.hits.hits;
-
       rlog('Children size: ' + results.length);
       //rlog(results);
       if (dataobj.hits.hits.length>0)
       {
+        children = dataobj.hits.hits;
         var children = [];
         for (var item in dataobj.hits.hits) {
           var child = dataobj.hits.hits[item]._source;
@@ -1219,26 +1216,34 @@ function get_library_children(id, library_data, callback) {
           child.id = dataobj.hits.hits[item]._id;
           if (typeof child.additional_info !== 'undefined' && typeof child.additional_info.slug !== 'undefined') {
             if (child.additional_info.slug === '') {
-              children.push( { link: child.id, name: child.name_fi, id: child.id });
+              // TODO Put more data for view
+              children.push( { link: child.id, name: child.name_fi, id:child.id });
             } else {
               children.push( { link: child.additional_info.slug, name: child.name_fi, id: child.id });
             }
           }
         }
-        async.mapSeries(children, get_library_personnel.bind(null, children), function(id, children){
-          library.children = children;
-          library.has_children = true;
-        })
+        async.mapSeries(children,
+          get_library_personnel.bind(null, children),
+          function(err, data){
+            library.children = data.dataobj;
+            library.has_children = true;    
+          })
+
+        library.children = children;
+        library.has_children = true; 
+        
       } else {
-        library.has_children = false;
+        library.has_children = false;     
       }
+
       get_centralized_services(id, library_data, callback);
+      
     });
   }).on('error', function(e) {
     rlog('Problem with request: ' + e.message);
   });
 }
-
 
 // get library's personnel by library id
 function get_library_personnel(id, dataobj, callback) {
@@ -1247,19 +1252,16 @@ function get_library_personnel(id, dataobj, callback) {
     id = dataobj.id;
   }
 
-  // console.dir(dataobj)
-
 	var query = {
-		'size': 999,
-		'sort': [ { 'last_name' : {} } ],
-		'query': {
-      'filtered': {
-          'query': { 'match_all': {} },
-          'filter': {
-              'and': [
+		"size": 999,
+		"sort": [ { "last_name" : {} } ],
+		"query": {
+      "filtered": {
+          "query": { "match": {"organisation" : id} },
+          "filter": {
+              "and": [
                   {
-                    'term': { 'organisation' : id },
-                    'term': { 'meta.document_state' : 'published' }
+                    "term": { "meta.document_state" : "published" }
                   }
                 ]
               }
@@ -1318,7 +1320,7 @@ function get_library_personnel(id, dataobj, callback) {
         //rlog(personnel);
         rlog('Personnel size: ' + personnel.length);
       }
-		  callback(id, dataobj);
+		  callback(null, {id: id, dataobj :dataobj});
     });
   }).on('error', function(e) {
     rlog('Problem with request: ' + e.message);
