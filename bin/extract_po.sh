@@ -15,7 +15,7 @@ server.js js/libs/jquery.facetview.js locale/templates/LC_MESSAGES/gettext.tmpl
 sed -e 's/charset=CHARSET/charset=UTF-8/g' < locale/templates/LC_MESSAGES/messages.pot > messages.pot.tmp
 mv messages.pot.tmp locale/templates/LC_MESSAGES/messages.pot
 
-xgettext -j --keyword=_ -L Python --output-dir=locale/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot `find . -name '*.mustache'`
+xgettext -j --keyword=_ -L Python --output-dir=locale/templates/LC_MESSAGES --from-code=utf-8 --output=messages.pot `find views -name '*.mustache'`
 
 # i18n-abide supports client-side gettext too. Usually you won't need this, unless your doing some
 # fancy new fangled webapp.
