@@ -1022,7 +1022,7 @@ function get_library_by_id(id, callback) {
 function get_personnel(sstr, callback) {
   var query = {
     'size': 9999,
-    'sort': [ { 'first_name' : {} }, { 'last_name': {} } ],
+    'sort': [ "_score", { 'first_name' : {} }, { 'last_name': {} } ],
     'query': {
       "fuzzy_like_this" : {
         "fields" : [ "first_name", "last_name", "qualities" ],
