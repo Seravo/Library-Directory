@@ -1140,7 +1140,7 @@ function getOrganizationById(person, callback) {
       });
 
   } else {
-    callback('No organisation id');
+    callback(null, null);
   }
 }
 
@@ -1578,6 +1578,9 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
           opening_hours.open_hours_today = opens + ' - ' + closes;
         }
       }
+
+      console.dir(mondaydate)
+
       dataobj._source.opening_hours = opening_hours;
       dataobj._source.opening_hours.mondaydate = mondaydate;
 
@@ -1592,6 +1595,7 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
       //     callback(lib);
       //   })
       // }
+
       callback(dataobj);
     });
   }).on('error', function(e) {
