@@ -1042,7 +1042,7 @@ function get_personnel(sstr, callback) {
   var query_fields_3 = ['qualities'];
         var query = {
     'size': 9999,
-    'sort': [ { 'first_name' : {} }, { 'last_name': {} } ],
+    'sort': [ "_score", 'first_name','last_name' ],
     'query' : {
       'filtered' : {
         'query' : {
@@ -1578,9 +1578,6 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
           opening_hours.open_hours_today = opens + ' - ' + closes;
         }
       }
-
-      console.dir(mondaydate)
-
       dataobj._source.opening_hours = opening_hours;
       dataobj._source.opening_hours.mondaydate = mondaydate;
 
