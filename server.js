@@ -302,21 +302,21 @@ app.post('/preview', function(req, res) {
 app.post('/personnel-search', function(req, res) {
   var sstr = req.body.sstr;
   get_personnel(sstr,function(data) {
-    if (data.length >0) {
+    if (data.length > 0) {
       res.local('personnel_status', true);
       res.local('people', []);
 
       for (var item in data) {
+        if(data[item]){
+          var person = data[item]._source;
+          // honour public email status in personnel data
+          if (person.contact.public_email !== true) {
+            delete person.contact.email;
+          }
 
-        var person = data[item]._source;
-        // honour public email status in personnel data
-        if (person.contact.public_email !== true) {
-          delete person.contact.email;
+          data[item]._source.id = data[item]._id;
+          res.local('people').push(data[item]._source);
         }
-
-        data[item]._source.id = data[item]._id;
-        res.local('people').push(data[item]._source);
-
       }
     } else {
       res.local('personnel_status', false);
@@ -1020,20 +1020,49 @@ function get_library_by_id(id, callback) {
 
 // get personnel by search via ajax get
 function get_personnel(sstr, callback) {
-  var query = {
+   // reformat the search string to match better
+  var stemp = sstr.split(/ /);
+  for (var item in stemp) {
+    stemp[item] = '*' + stemp[item] + '*';
+  }
+  var wild = stemp.join(' ');
+
+  // try to handle special case of first+lastname search
+  var firstName = 'foobar';
+  var lastName = 'xyzzy';
+  if (sstr.split(/ /).length==2) {
+    var stemp = sstr.split(/ /);
+    firstName = stemp[0];
+    lastName = stemp[1];
+  }
+
+  rlog('Personnel search request: ' + sstr);
+  var query_fields_1 = [ 'contact.email' ];
+  var query_fields_2 = [ 'first_name*', 'last_name*', 'job_title_*', 'responsibility_*' ];
+  var query_fields_3 = ['qualities'];
+        var query = {
     'size': 9999,
-    'sort': [ "_score", { 'first_name' : {} }, { 'last_name': {} } ],
-    'query': {
-      "fuzzy_like_this" : {
-        "fields" : [ "first_name", "last_name", "qualities" ],
-        "like_text" : sstr,
-        "min_similarity" : 0.5  // Less strict search 
+    'sort': [ { 'first_name' : {} }, { 'last_name': {} } ],
+    'query' : {
+      'filtered' : {
+        'query' : {
+          'bool': {
+            'should': [
+              { 'bool': { 'should': [ { 'field': { 'first_name*': firstName } },
+                { 'field': { 'last_name*': lastName } } ] } },
+              { 'query_string': { 'fields': query_fields_1, 'query': wild } },
+              { 'query_string': { 'fields': query_fields_2, 'query': wild } },
+              { 'query_string': { 'fields': query_fields_3, 'query': wild } }
+            ],
+            'minimum_should_match' : 1
+          }
+        },
+        'filter' : {
+          'and' : [
+            {'term': { 'meta.document_state' : 'published' } }
+          ]
+        }
       }
-    },
-    'filter' : {
-      'and' : [
-        {'term': { 'meta.document_state' : 'published' } }
-      ]
     }
   }
 
@@ -1099,8 +1128,12 @@ function getOrganizationById(person, callback) {
         });
         res.on('end', function() {
           data = JSON.parse(data);
-          person._source.organisation = data.hits.hits[0]._source;
-          callback(null, person);
+          if(data.hits.hits[0]){
+            person._source.organisation = data.hits.hits[0]._source;
+            callback(null, person);
+          } else {
+            callback(null, null);
+          }        
         });
       }).on('error', function(e) {
         callback(e);
