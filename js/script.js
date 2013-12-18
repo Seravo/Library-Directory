@@ -631,7 +631,13 @@ $(document).on("click", "button.change-week", function(){
       	var days = data._source.opening_hours.open_hours_week;
       	html = '<table>';
 				for(var x in days){
-          html += '<tr><td>'+days[x].day+'<td>&nbsp;<td>'+days[x].time+
+					if(days[x].today){
+						html += '<tr class="opentimes_strong">';
+					} else {
+						html += '<tr>';
+					}
+
+          html += '<td>'+days[x].day+'<td>&nbsp;<td>'+days[x].time+
             '<span class="hidden">, </span></tr>'
 				}
 

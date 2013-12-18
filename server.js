@@ -1428,6 +1428,30 @@ function get_centralized_services(id, library_data, callback) {
   });
 }
 
+
+// number formatting for zeropadded dates
+function zpad(num) {
+  return ('0' + num).slice(-2);
+}
+
+function get_monday(date){
+  var unixtime = date.getTime();
+  var daynum = date.getDay();
+
+  /* js daynum is 0-6 starting from sunday, libdir daynum is 0-6 starting from monday, fix it */
+  if (daynum===0){
+    daynum = 7;
+  }
+  daynum = daynum-1;
+
+  /* get time for current week's monday */
+  var mtime = new Date(unixtime-24*60*60*1000*daynum);
+
+  /* get YYYY-MM-DD for current week's monday */
+  return mtime.getFullYear() + '-' + zpad(mtime.getMonth()+1) + '-' + zpad(mtime.getDate());
+
+}
+
 // get library's opening times by library id
 function get_library_opening_times(id, dataobj, fromDate, callback) {
 
@@ -1446,30 +1470,49 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
 
 
 	var curtime = new Date();
-  
+
   if(fromDate){
-    curtime = new Date(fromDate);
+    if(get_monday(fromDate) !== get_monday(curtime)){
+      curtime = new Date(fromDate);
+    }
   }
 
-	var unixtime = curtime.getTime();
+  var mondaydate = get_monday(curtime);
+
+	// var unixtime = curtime.getTime();
 	var daynum = curtime.getDay();
 
-	/* js daynum is 0-6 starting from sunday, libdir daynum is 0-6 starting from monday, fix it */
-	if (daynum===0){
+  if (daynum===0){
     daynum = 7;
   }
-	daynum = daynum-1;
 
-	/* get time for current week's monday */
-	var mtime = new Date(unixtime-24*60*60*1000*daynum);
+  daynum = daynum-1;
+  // console.dir(mondaydate)
 
-	// number formatting for zeropadded dates
-	function zpad(num) {
-		return ('0' + num).slice(-2);
-	}
+	// /* js daynum is 0-6 starting from sunday, libdir daynum is 0-6 starting from monday, fix it */
+	// if (daynum===0){
+ //    daynum = 7;
+ //  }
+	// daynum = daynum-1;
 
-	/* get YYYY-MM-DD for current week's monday */
-	var mondaydate = mtime.getFullYear() + '-' + zpad(mtime.getMonth()+1) + '-' + zpad(mtime.getDate());
+	// /* get time for current week's monday */
+	// var mtime = new Date(unixtime-24*60*60*1000*daynum);
+
+	// // number formatting for zeropadded dates
+	// // function zpad(num) {
+	// // 	return ('0' + num).slice(-2);
+	// // }
+
+	// /* get YYYY-MM-DD for current week's monday */
+	// var mondaydate = mtime.getFullYear() + '-' + zpad(mtime.getMonth()+1) + '-' + zpad(mtime.getDate());
+
+ //  if(fromDate && fromDate === mtime){
+ //    daynum = new Date();
+ //    if (daynum===0){
+ //      daynum = 7;
+ //    }
+ //    daynum = daynum-1;
+ //  }
 
 	var query = {
 		'size': 999,
@@ -1498,7 +1541,7 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
   };
 
   var req = http.get(options, function(res) {
-    rlog('Requested opening times for: ' + id);
+    rlog('Requested opening times for: ' + id + ' from monday ' + mondaydate);
 
     res.setEncoding('utf8');
     data = '';
@@ -1575,9 +1618,14 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
           if (curtime >= opentime && curtime <= closetime){
             opening_hours.open_now = true;
           }
-          opening_hours.open_hours_today = opens + ' - ' + closes;
+
+          // If fromDate isn't null, then open_hours_today is irrelevant
+          if (!fromDate){
+            opening_hours.open_hours_today = opens + ' - ' + closes;
+          }
         }
       }
+
       dataobj._source.opening_hours = opening_hours;
       dataobj._source.opening_hours.mondaydate = mondaydate;
 
