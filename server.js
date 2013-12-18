@@ -219,6 +219,7 @@ form.configure({flashErrors: false});
 
 // default settings assume development environment
 app.configure('dev', function(){
+    rlog(new Date);
     rlog('Using development settings.');
     app.use(express.logger('dev'));
     app.use(express.methodOverride());
@@ -237,6 +238,7 @@ app.configure('dev', function(){
 
 // specific settings if started with $ NODE_ENV=prod node server.js
 app.configure('prod', function(){
+    rlog(new Date);
     rlog('Using production settings.');
     //app.use(express.logger('dev'))
     app.use(express.methodOverride());
