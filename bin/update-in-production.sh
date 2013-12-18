@@ -8,6 +8,7 @@ set -e
 set -x
 
 git checkout js/libs/jquery.facetview.js js/script.js js/widget.js # move away old changes, they would otherwise stop the pull
+git checkout master
 git pull
 
 sed -i "s/localhost:8080/hakemisto.kirjastot.fi/" js/libs/jquery.facetview.js

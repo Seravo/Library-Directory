@@ -219,6 +219,7 @@ form.configure({flashErrors: false});
 
 // default settings assume development environment
 app.configure('dev', function(){
+    rlog(new Date);
     rlog('Using development settings.');
     app.use(express.logger('dev'));
     app.use(express.methodOverride());
@@ -237,6 +238,7 @@ app.configure('dev', function(){
 
 // specific settings if started with $ NODE_ENV=prod node server.js
 app.configure('prod', function(){
+    rlog(new Date);
     rlog('Using production settings.');
     //app.use(express.logger('dev'))
     app.use(express.methodOverride());
@@ -1725,27 +1727,27 @@ function obfuscate_email(email) {
 function obfuscate_email_addresses(data) {
   data.forEach(function(person) {
     person = person._source;
-    // obfuscate if person's email is defined and valid-ish
-    if (typeof person.contact.email !== 'undefined' &&
-      person.contact.email.length>0 && person.contact.email.indexOf('@') !== -1) {
-      if (typeof person.contact.public_email !== 'undefined' && person.contact.public_email === true){
-        person.contact.email = obfuscate_email(person.contact.email);
-      } else{
-        delete person.contact.email;
+    if (typeof person !== 'undefined' && typeof person.contact !== 'undefined') {
+      // obfuscate if person's email is defined and valid-ish
+      if (typeof person.contact.email !== 'undefined' &&
+        person.contact.email.length>0 && person.contact.email.indexOf('@') !== -1) {
+        if (typeof person.contact.public_email !== 'undefined' && person.contact.public_email === true){
+          person.contact.email = obfuscate_email(person.contact.email);
+        } else{
+          delete person.contact.email;
+        }
       }
-    //rlog('email: ' + person.contact.email);
-    }
 
-  // delete person's empty fields
-    if (typeof person.contact.email !== 'undefined' &&
-      person.contact.email === '') { delete person.contact.email; }
-    if (typeof person.contact.telephone !== 'undefined' &&
-      person.contact.telephone === '') {
-      delete person.contact.telephone;
+    // delete person's empty fields
+      if (typeof person.contact.email !== 'undefined' &&
+        person.contact.email === '') { delete person.contact.email; }
+      if (typeof person.contact.telephone !== 'undefined' &&
+        person.contact.telephone === '') {
+        delete person.contact.telephone;
+      }
+      if (typeof person.job_title_fi !== 'undefined' &&
+        person.job_title_fi === '') { delete person.job_title_fi; }
     }
-    if (typeof person.job_title_fi !== 'undefined' &&
-      person.job_title_fi === '') { delete person.job_title_fi; }
-
   });
   return data;
 }
