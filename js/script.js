@@ -631,7 +631,7 @@ $(document).on("click", "button.change-week", function(){
       	var days = data._source.opening_hours.open_hours_week;
       	html = '<table>';
 				for(var x in days){
-					if(days[x].today){
+					if(days[x].today && data._source.opening_hours.this_week){
 						html += '<tr class="opentimes_strong">';
 					} else {
 						html += '<tr>';
@@ -641,15 +641,22 @@ $(document).on("click", "button.change-week", function(){
             '<span class="hidden">, </span></tr>'
 				}
 
-	       html += '</table><button class="btn btn-link change-week"' +
-	       	'monday="'+data._source.opening_hours.mondaydate+'"' +
-          'value="prev">' + _("Previous week") + '</button> ' +
-					'<button class="btn btn-link change-week"' +
-					'monday="'+data._source.opening_hours.mondaydate+'"' +
-          'value="next">' + _("Next week") + '</button>';
+	      html += '</table><button class="btn btn-link change-week"' +
+	       'monday="'+data._source.opening_hours.mondaydate+'"' +
+         'value="prev">' + _("Previous week") + '</button> ' +
+				 '<button class="btn btn-link change-week"' +
+				 'monday="'+data._source.opening_hours.mondaydate+'"' +
+         'value="next">' + _("Next week") + '</button>';
 
-        calendarTitle = _("Opening hours") + " " +
-    			data._source.opening_hours.mondaydate
+
+        var date = 'this week'
+        
+        if(!data._source.opening_hours.this_week){
+        	date = data._source.opening_hours.mondaydate
+        }
+
+        calendarTitle = _("Opening hours") + " " + date;
+    			
 				
       }   
 

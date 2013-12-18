@@ -1474,12 +1474,13 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
   if(fromDate){
     if(get_monday(fromDate) !== get_monday(curtime)){
       curtime = new Date(fromDate);
+    } else {
+      opening_hours.this_week = true;
     }
   }
 
   var mondaydate = get_monday(curtime);
 
-	// var unixtime = curtime.getTime();
 	var daynum = curtime.getDay();
 
   if (daynum===0){
@@ -1487,32 +1488,6 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
   }
 
   daynum = daynum-1;
-  // console.dir(mondaydate)
-
-	// /* js daynum is 0-6 starting from sunday, libdir daynum is 0-6 starting from monday, fix it */
-	// if (daynum===0){
- //    daynum = 7;
- //  }
-	// daynum = daynum-1;
-
-	// /* get time for current week's monday */
-	// var mtime = new Date(unixtime-24*60*60*1000*daynum);
-
-	// // number formatting for zeropadded dates
-	// // function zpad(num) {
-	// // 	return ('0' + num).slice(-2);
-	// // }
-
-	// /* get YYYY-MM-DD for current week's monday */
-	// var mondaydate = mtime.getFullYear() + '-' + zpad(mtime.getMonth()+1) + '-' + zpad(mtime.getDate());
-
- //  if(fromDate && fromDate === mtime){
- //    daynum = new Date();
- //    if (daynum===0){
- //      daynum = 7;
- //    }
- //    daynum = daynum-1;
- //  }
 
 	var query = {
 		'size': 999,
@@ -1633,11 +1608,16 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
       //   callback(dataobj);
       // } else {
       //   rlog('Getting parent personnel')
-      //   getLibraryPersonnel(dataobj,
-      //     dataobj._source.parent_organisation
-      //     ,function(lib){
-      //     console.dir(lib)
-      //     callback(lib);
+      //   get_library_personnel(dataobj._source.parent_organisation,
+      //     dataobj,
+      //     function(err, data){
+      //     if(err){
+      //       // rlog(err);
+      //       callback(null)
+      //     } else {
+      //       dataobj.parent_organisation_personnel = data.dataobj;
+      //       callback(dataobj);
+      //     }
       //   })
       // }
 
