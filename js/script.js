@@ -648,15 +648,12 @@ $(document).on("click", "button.change-week", function(){
 				 'monday="'+data._source.opening_hours.mondaydate+'"' +
          'value="next">' + _("Next week") + '</button>';
 
-
-        var date = 'this week'
-        
         if(!data._source.opening_hours.this_week){
         	date = data._source.opening_hours.mondaydate
+          calendarTitle = _("Opening hours") + " " + date;
+        } else {
+          calendarTitle = _("Opening hours this week");
         }
-
-        calendarTitle = _("Opening hours") + " " + date;
-    			
 				
       }   
 
