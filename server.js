@@ -6,6 +6,7 @@ var util = require('util');
 var fs = require('fs');
 
 var async = require('async');
+var underscore = require('underscore');
 
 try {
     var content = fs.readFileSync('./config.json','utf8').replace('\n', '');
@@ -986,8 +987,10 @@ function add_library_metadata(dataobj, callback){
       callback(dataobj);
     }
     else {
-      get_library_personnel(lib.id, dataobj, function(err, data){
-        get_library_children(data.id, data.dataobj, callback);
+      get_library_personnel(lib.id, function(err, personnel){
+        lib.personnel = personnel;
+        lib.has_personnel = true;
+        get_library_children(lib.id, dataobj, callback);
       });
     }
   }
@@ -1042,7 +1045,7 @@ function get_personnel(sstr, callback) {
   var query_fields_1 = [ 'contact.email' ];
   var query_fields_2 = [ 'first_name*', 'last_name*', 'job_title_*', 'responsibility_*' ];
   var query_fields_3 = ['qualities'];
-        var query = {
+  var query = {
     'size': 9999,
     'sort': [ "_score", 'first_name','last_name' ],
     'query' : {
@@ -1251,18 +1254,12 @@ function get_library_children(id, library_data, callback) {
           if (typeof child.additional_info !== 'undefined' && typeof child.additional_info.slug !== 'undefined') {
             if (child.additional_info.slug === '') {
               // TODO Put more data for view
-              children.push( { link: child.id, name: child.name_fi, id:child.id });
+              children.push( { link: child.id, name: child.name_fi });
             } else {
-              children.push( { link: child.additional_info.slug, name: child.name_fi, id: child.id });
+              children.push( { link: child.additional_info.slug, name: child.name_fi });
             }
           }
         }
-        async.mapSeries(children,
-          get_library_personnel.bind(null, children),
-          function(err, data){
-            library.children = data.dataobj;
-            library.has_children = true;    
-          })
 
         library.children = children;
         library.has_children = true; 
@@ -1280,10 +1277,11 @@ function get_library_children(id, library_data, callback) {
 }
 
 // get library's personnel by library id
-function get_library_personnel(id, dataobj, callback) {
-  // Small hack to reuse this function when getting children personnel
-  if (typeof id === 'object'){
-    id = dataobj.id;
+function get_library_personnel(id, callback) {
+  // Small hack to reuse this function in case of if object from 
+  // elastic search result has been passed as parameter
+  if(typeof id === 'object' && id.hasOwnProperty('_id')){
+    id = id._id;
   }
 
 	var query = {
@@ -1329,32 +1327,16 @@ function get_library_personnel(id, dataobj, callback) {
       if (typeof dataobj2.hits !== 'undefined' && typeof dataobj2.hits.hits !== 'undefined') {
         personnel = dataobj2.hits.hits;
 
-        // Awful solution but no other choice, since merge two object in javascript takes even 
-        // more lines of code
-        if(dataobj.hasOwnProperty('_source')){
-
-          dataobj._source.has_personnel = false;
-
-          if (personnel.length>0) {
-            personnel = obfuscate_email_addresses(personnel);
-            dataobj._source.personnel = personnel;
-            dataobj._source.has_personnel = true;
-          }
-
-
-        } else {
-            dataobj.has_personnel = false;
-            if (personnel.length>0) {
-              personnel = obfuscate_email_addresses(personnel);
-              dataobj.personnel = personnel;
-              dataobj.has_personnel = true;
-            }
+        if (personnel.length>0) {
+          rlog('Personnel size: ' + personnel.length);
+          personnel = obfuscate_email_addresses(personnel);
+          return callback(null, personnel)
         }
         
-        //rlog(personnel);
-        rlog('Personnel size: ' + personnel.length);
-      }
-		  callback(null, {id: id, dataobj :dataobj});
+      } 
+
+      callback(null, null);
+
     });
   }).on('error', function(e) {
     rlog('Problem with request: ' + e.message);
@@ -1606,30 +1588,100 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
       dataobj._source.opening_hours = opening_hours;
       dataobj._source.opening_hours.mondaydate = mondaydate;
 
-      // if(!dataobj._source.parent_organisation){
-      //   callback(dataobj);
-      // } else {
-      //   rlog('Getting parent personnel')
-      //   get_library_personnel(dataobj._source.parent_organisation,
-      //     dataobj,
-      //     function(err, data){
-      //     if(err){
-      //       // rlog(err);
-      //       callback(null)
-      //     } else {
-      //       dataobj.parent_organisation_personnel = data.dataobj;
-      //       callback(dataobj);
-      //     }
-      //   })
-      // }
+      getPersonnelOfUnitByLibrary(dataobj, callback);
+      // callback(dataobj)
 
-      callback(dataobj);
+      // getParentPersonnel(dataobj, callback);
     });
   }).on('error', function(e) {
     rlog('Problem with request: ' + e.message);
   });
 }
 
+function getPersonnelOfUnitByLibrary (lib, callback) {
+  
+  if(!lib._source.parent_organisation){
+    return callback(lib);
+  }
+
+  var query = {
+    'size': 9999,
+    'sort': [ "_score" ],
+    'query' : {
+      'term': { 'parent_organisation': lib._source.parent_organisation }
+    }
+  }
+
+  query = JSON.stringify(query);
+  query = encodeURIComponent(query);
+
+  var options = {
+    host: conf.proxy_config.host,
+    port: conf.proxy_config.port,
+    path: '/testink/organisation/_search?source='+query,
+    method: 'GET'
+  };
+
+  var req = http.get(options, function(res) {
+    res.setEncoding('utf8');
+    data = '';
+    res.on('data', function(chunk){
+      data += chunk;
+    });
+    res.on('end', function() {
+      dataobj = JSON.parse(data);
+      if(dataobj.hits.hits.length > 0){
+        async.mapSeries(dataobj.hits.hits,
+          get_library_personnel,
+          function(err, personnels){
+
+            personnels = underscore.flatten(underscore.map(personnels,
+              function(personnel){
+                return personnel
+              }));
+
+            personnels = underscore.sortBy(personnels, function(personnel){
+              if(personnel){
+                return personnel._source.last_name
+              }
+              return null;
+            })
+
+            lib._source.unit_personnels = {
+              personnel: personnels
+            }
+
+            callback(lib)
+        })
+      } else {
+        callback(lib);
+      }
+      
+    });
+  }).on('error', function(e) {
+    rlog('Problem with request: ' + e.message);
+  });
+}
+
+// 
+// function getParentPersonnel(dataobj, callback){
+//   if(!dataobj._source.parent_organisation){
+//         callback(dataobj);
+//       } else {
+//     rlog('Getting parent personnel ' + dataobj._source.parent_organisation)
+//     get_library_personnel(dataobj._source.parent_organisation,
+//       { parentId: dataobj._source.parent_organisation },
+//       function(err, data){
+//       if(err){
+//         rlog(err);
+//         callback(dataobj)
+//       } else {
+//         dataobj._source.parent_organisation_personnel = data.dataobj;
+//         callback(dataobj);
+//       }
+//     })
+//   }
+// }
 
 var headerfilecontents = fs.readFileSync(__dirname + headerfile, 'utf-8');
 var footerfilecontents = fs.readFileSync(__dirname + footerfile, 'utf-8');
