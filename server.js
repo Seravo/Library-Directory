@@ -1629,8 +1629,27 @@ function getPersonnelOfUnitByLibrary (lib, callback) {
       data += chunk;
     });
     res.on('end', function() {
-      dataobj = JSON.parse(data);
+      var dataobj = JSON.parse(data);
       if(dataobj.hits.hits.length > 0){
+
+        units = dataobj.hits.hits;
+        var units = [];
+        for (var item in dataobj.hits.hits) {
+          var unit = dataobj.hits.hits[item]._source;
+          unit.id = dataobj.hits.hits[item]._id
+          if (typeof unit.additional_info !== 'undefined' && typeof unit.additional_info.slug !== 'undefined') {
+            if (unit.additional_info.slug === '') {
+              // TODO Put more data for view
+              units.push( { link: unit.id, name: unit.name_fi });
+            } else {
+              units.push( { link: unit.additional_info.slug, name: unit.name_fi });
+            }
+          }
+        }
+
+        lib._source.same_org_level_units = units
+        lib._source.has_org_level_units = true;
+
         async.mapSeries(dataobj.hits.hits,
           get_library_personnel,
           function(err, personnels){

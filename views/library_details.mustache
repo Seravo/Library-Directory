@@ -109,6 +109,10 @@
 			<li><a data-toggle="tab" href="#lib_departments">_("Departments")</a></li>
 		{{/has_children}}
 
+		{{#has_org_level_units}}
+			<li><a data-toggle="tab" href="#lib_units">_("Units")</a></li>
+		{{/has_org_level_units}}
+
 		{{#accessibility_available}}
 			<li><a data-toggle="tab" href="#lib_accessibility">_("Accessibility")</a></li>
 		{{/accessibility_available}}
@@ -278,6 +282,18 @@
 				{{/children}}
 				</dd>
 			{{/has_children}}
+		</div>
+
+		{{! units tab }}
+		<div class="tab-pane" id="lib_units">
+			{{#has_org_level_units}}
+			<dt>_("Units")</dt>
+				<dd>
+				{{#same_org_level_units}}
+						<a href="{{link}}" itemprop="member">{{name}}</a><br>
+				{{/same_org_level_units}}
+				</dd>
+			{{/has_org_level_units}}
 		</div>
 
 		<!-- accessibility tab -->
