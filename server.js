@@ -1588,8 +1588,9 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
       dataobj._source.opening_hours = opening_hours;
       dataobj._source.opening_hours.mondaydate = mondaydate;
 
-      getPersonnelOfUnitByLibrary(dataobj, callback);
-      // callback(dataobj)
+      // getPersonnelOfUnitByLibrary(dataobj, callback);
+      callback(dataobj);
+
 
       // getParentPersonnel(dataobj, callback);
     });
