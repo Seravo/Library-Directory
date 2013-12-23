@@ -1603,11 +1603,8 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
       dataobj._source.opening_hours = opening_hours;
       dataobj._source.opening_hours.mondaydate = mondaydate;
 
-      // getPersonnelOfUnitByLibrary(dataobj, callback);
-      callback(dataobj);
+      getPersonnelOfUnitByLibrary(dataobj, callback);
 
-
-      // getParentPersonnel(dataobj, callback);
     });
   }).on('error', function(e) {
     rlog('Problem with request: ' + e.message);
@@ -1615,7 +1612,7 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
 }
 
 function getPersonnelOfUnitByLibrary (lib, callback) {
-  
+
   if(!lib._source.parent_organisation){
     return callback(lib);
   }
@@ -1645,7 +1642,16 @@ function getPersonnelOfUnitByLibrary (lib, callback) {
       data += chunk;
     });
     res.on('end', function() {
-      var dataobj = JSON.parse(data);
+      try
+       {
+          var dataobj = JSON.parse(data);
+       }
+       catch(err)
+       {
+          console.dir(err)
+          return callback(lib);
+       }    
+      
       if(dataobj.hits.hits.length > 0){
 
         units = dataobj.hits.hits;

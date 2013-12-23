@@ -383,7 +383,6 @@ function ld_widget_wizard() {
 			var jsonp_url = "";
 			if (lang != "") jsonp_url = url + lang + "/loadwidget?id="+id+"&type="+type+"&callback=?";
 			else jsonp_url = url + "loadwidget?id="+id+"&type="+type+"&callback=?";
-
 			$.getJSON(jsonp_url, function(data) { $('#libdir_widget-' + uuid).html(data.html); });
 		}
 		// update preview for iframe-widgets
@@ -482,7 +481,6 @@ function ld_widget_wizard() {
 					index++;
 				}
 				results.hits = data.hits.total;
-
 				var template =
 					'{{#records}}' +
 					  '<div style="width: 35%;" class="alert alert-info searchresults" data-id="{{id}}" data-consortium="{{consortium}}" '+
@@ -522,6 +520,7 @@ function ld_widget_wizard() {
 						$(this).siblings().remove();
 						$(this).removeClass("alert-info");
 						$(this).addClass("alert-success");
+						$(this).unbind('click');
 
 						$('#widget_library').val($(this).attr("data-id"));
 						$('#widget_consortium').val($(this).attr("data-consortium"));
@@ -534,6 +533,7 @@ function ld_widget_wizard() {
 						$(".langselector").removeProp('disabled');
 						$(".typeselector").removeProp('disabled');
 						$("#widget_style").removeProp('disabled');
+
 						});
 				} else {
 					$('.search_results').html("");
