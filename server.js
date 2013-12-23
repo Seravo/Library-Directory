@@ -316,8 +316,23 @@ app.post('/personnel-search', function(req, res) {
           if (person.contact.public_email !== true) {
             delete person.contact.email;
           }
-
           data[item]._source.id = data[item]._id;
+
+          // localize person qualities
+          var qualities = data[item]._source.qualities;
+          if (typeof qualities != 'undefined' && qualities instanceof Array && qualities.length >0)
+          {
+            for (var prop in qualities) {
+              qualities[prop] = _(qualities[prop]);
+            }
+            qualities = qualities.join(", ");
+          } else if (typeof qualities != 'undefined' && !(qualities === '') ) {
+            qualities = _(qualities);
+          } else {
+            qualities = '';
+          }
+          data[item]._source.qualities = qualities;
+
           res.local('people').push(data[item]._source);
         }
       }
