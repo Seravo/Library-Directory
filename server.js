@@ -1648,7 +1648,6 @@ function getPersonnelOfUnitByLibrary (lib, callback) {
        }
        catch(err)
        {
-          console.dir(err)
           return callback(lib);
        }    
       

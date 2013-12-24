@@ -305,61 +305,79 @@
 			var filterheader = "<h3 id='filter-by'>" + _("Filter results") + "</h3>";
 			var thefilters = "";
 
+            var _filterTmpl = '<div class="control-group">' + 
+                  '<label for="select-repeated-options">Options:</label>' +
+                  '<select id="select-repeated-options" class="demo-default" multiple>' + 
+                  '<option value="">Select...</option>';
+
             for ( var idx in filters ) {
-                var _filterTmpl = ' \
-                    <div id="facetview_filterbuttons" class="btn-group"> \
-                    <a style="text-align:left; min-width:70%;" class="facetview_filtershow btn" \
-                      rel="{{FILTER_NAME}}" href=""> \
-                      <span>▸</span> \
-                      {{FILTER_DISPLAY}}</a> \
-                      </div> \
-                  <ul id="facetview_{{FILTER_NAME}}" \
-                    class="facetview_filters"></ul> \
-                    ';
-                if (options.visualise_filters) {
-                    var vis = '<li class="divider"></li><li><a class="facetview_visualise" rel="{{FACET_IDX}}" href="{{FILTER_DISPLAY}}">visualise this filter</a></li>'
-                    thefilters += _filterTmpl.replace(/{{FACET_VIS}}/g, vis)
-                } else {
-                    thefilters += _filterTmpl.replace(/{{FACET_VIS}}/g, '')
-                }
+                // var _filterTmpl = ' \
+                //     <div id="facetview_filterbuttons" class="btn-group"> \
+                //     <a style="text-align:left; min-width:70%;" class="facetview_filtershow btn" \
+                //       rel="{{FILTER_NAME}}" href=""> \
+                //       <span>▸</span> \
+                //       {{FILTER_DISPLAY}}</a> \
+                //       </div> \
+                //   <ul id="facetview_{{FILTER_NAME}}" \
+                //     class="facetview_filters"></ul> \
+                //     ';
+
+                thefilters += '<optgroup id="facetview_{{FILTER_NAME}}" label="{{FILTER_DISPLAY}}"></optgroup>';
+                  
+                // if (options.visualise_filters) {
+                //    // Never get here , why ?
+                //     var vis = '<li class="divider"></li><li><a class="facetview_visualise" rel="{{FACET_IDX}}" href="{{FILTER_DISPLAY}}">visualise this filter</a></li>'
+                //     thefilters += thefilters.replace(/{{FACET_VIS}}/g, vis)
+                // } else {
+                //     thefilters += thefilters.replace(/{{FACET_VIS}}/g, '')
+                // }
+
                 thefilters = thefilters.replace(/{{FILTER_NAME}}/g, filters[idx]['field'].replace(/\./gi,'_')).replace(/{{FILTER_EXACT}}/g, filters[idx]['field']);
+                
                 if ('size' in filters[idx] ) {
                     thefilters = thefilters.replace(/{{FILTER_HOWMANY}}/gi, filters[idx]['size'])
                 } else {
                     thefilters = thefilters.replace(/{{FILTER_HOWMANY}}/gi, 10)
                 }
+
                 thefilters = thefilters.replace(/{{FACET_IDX}}/gi,idx)
+                
                 if ('display' in filters[idx]) {
                     thefilters = thefilters.replace(/{{FILTER_DISPLAY}}/g, filters[idx]['display'])
                 } else {
                     thefilters = thefilters.replace(/{{FILTER_DISPLAY}}/g, filters[idx]['field'])
                 }
+
             }
-            $('#facetview_filters').html("").append(filterheader+thefilters)
-			$('#facetview_filters').after('<div id=clearbutton style="display: none;"><button style="min-width: 78%;" class="btn btn-success" id="clear_facetfilters">' + _("Clear all filters") + '</button></div>');
-			$('#facetview_filters').after("<p id='facetview_filter_helptext'>" + _("The number in parenthesis shows the number of results available.") + "</p>");
 
-			$('#clear_facetfilters').bind('click', function(event) {
-				event.preventDefault();
-				$('#facetview_selectedfilters').children().each(function(){
-					var index = $.inArray($(this).attr("href"), facetfilters);
-					facetfilters.splice(index,1);
-					$(this).remove();
-				});
+            _filterTmpl += thefilters + '</select></div>';
 
-				$('#facetview_selectedextrafilters').children().each(function(){
-					$(this).remove();
-					$("#facetview_location").show();
-					ld_position = null;
-				});
+            $('#facetview_filters').html("").append(filterheader+_filterTmpl)
 
-				if (facetfilters.length==0 && ld_position == null) $('#clearbutton').hide();
+			// $('#facetview_filters').after('<div id=clearbutton style="display: none;"><button style="min-width: 78%;" class="btn btn-success" id="clear_facetfilters">' + _("Clear all filters") + '</button></div>');
+			// $('#facetview_filters').after("<p id='facetview_filter_helptext'>" + _("The number in parenthesis shows the number of results available.") + "</p>");
 
-				// clear facet memory
-				facethash = {};
-				ld_append_url_hash("f=");
-				dosearch();
-			});
+			// $('#clear_facetfilters').bind('click', function(event) {
+			// 	event.preventDefault();
+			// 	$('#facetview_selectedfilters').children().each(function(){
+			// 		var index = $.inArray($(this).attr("href"), facetfilters);
+			// 		facetfilters.splice(index,1);
+			// 		$(this).remove();
+			// 	});
+
+			// 	$('#facetview_selectedextrafilters').children().each(function(){
+			// 		$(this).remove();
+			// 		$("#facetview_location").show();
+			// 		ld_position = null;
+			// 	});
+
+			// 	if (facetfilters.length==0 && ld_position == null) $('#clearbutton').hide();
+
+			// 	// clear facet memory
+			// 	facethash = {};
+			// 	ld_append_url_hash("f=");
+			// 	dosearch();
+			// });
 
 	// get geolocation and show location-filter, if applicable
 	if (navigator.geolocation) {
@@ -415,38 +433,97 @@
         }
 
         // set the available filter values based on results
-        var putvalsinfilters = function(data) {
+     //    var putvalsinfilters = function(data) {
+     //        // for each filter setup, find the results for it and append them to the relevant filter
+     //        for ( var each in options.facets ) {
+     //            $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).children().remove();
+     //            var records = data["facets"][ options.facets[each]['field'] ];
+     //            for ( var item in records ) {
+					// var append = "";
+					// if (facetfilters.length>0 && $.inArray(item, facetfilters) != -1 ) {
+					// 	var displayItem = "";
+					// 	if (item=='T') displayItem = _('yes');
+					// 	else displayItem = item;
+					// 	append = "<li class='selectedfilter'>" + _(displayItem) + ' (' + records[item] + ')</li>';
+					// }
+					// else {
+					// 	var facetType = options.facets[each]['field'];
+
+					// 	// do not display empty selectors
+					// 	if (item=='') continue;
+
+					// 	// do not display some branch types at all
+					// 	if (facetType=='branch_type' && (item == 'default' || item == 'novalue' || item == 'main_library')) continue;
+
+					// 	// do not display some branch types if geolocation is active
+					// 	if (facetType=='branch_type' && ld_position && (item == 'mobile' || item == 'home_service')) continue;
+
+					// 	// do not display false accessibility data
+					// 	if (facetType=='accessibility.accessible_entry' && item == 'F') continue;
+
+					// 	// localize facet selectors
+					// 	var displayItem = "";
+					// 	if (facetType=='branch_type' || facetType=='organisation_type') displayItem = _(item);
+					// 	else if (facetType=='accessibility.accessible_entry' && item == 'T') displayItem = _("yes");
+     //        else if (facetType=='consortium') {
+     //          if (CONSORTIUMS[item] != undefined) displayItem = CONSORTIUMS[item].name;
+     //          // avoid error with dash in facet field (analyzer splits it)
+     //          else continue;
+     //        }
+     //        else if (facetType=='provincial_area') {
+     //          if (REGIONS[item] != undefined) displayItem = REGIONS[item]['name_'+_('locale')];
+     //          // avoid error with dash in facet field (analyzer splits it)
+     //          else continue;
+     //        }
+					// 	else displayItem = item;
+
+					// 	append = '<li><a class="facetview_filterchoice' +
+					// 	'" rel="' + options.facets[each]['field'] + '" href="' + item + '">' + displayItem +
+					// 	' (' + records[item] + ')</a></li>';
+					// }
+
+     //                $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).append(append);
+     //            }
+     //            if ( !$('.facetview_filtershow[rel="' + options.facets[each]['field'].replace(/\./gi,'_') + '"]').hasClass('facetview_open') ) {
+     //                $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_') ).children().hide();
+     //            }
+     //        }
+     //        $('.facetview_filterchoice').bind('click',clickfilterchoice);
+     //    }
+
+         var putvalsinfilters = function(data) {
             // for each filter setup, find the results for it and append them to the relevant filter
             for ( var each in options.facets ) {
                 $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).children().remove();
                 var records = data["facets"][ options.facets[each]['field'] ];
                 for ( var item in records ) {
-					var append = "";
-					if (facetfilters.length>0 && $.inArray(item, facetfilters) != -1 ) {
-						var displayItem = "";
-						if (item=='T') displayItem = _('yes');
-						else displayItem = item;
-						append = "<li class='selectedfilter'>" + _(displayItem) + ' (' + records[item] + ')</li>';
-					}
-					else {
-						var facetType = options.facets[each]['field'];
+                    var append = "";
+                    if (facetfilters.length>0 && $.inArray(item, facetfilters) != -1 ) {
+                        var displayItem = "";
+                        if (item=='T') displayItem = _('yes');
+                        else displayItem = item;
+                        // append = "<li class='selectedfilter'>" + _(displayItem) + ' (' + records[item] + ')</li>';
+                        append = '<option value="'+ _(displayItem) +'">' + _(displayItem) + ' (' + records[item] + ')</option>'
+                    }
+                    else {
+                        var facetType = options.facets[each]['field'];
 
-						// do not display empty selectors
-						if (item=='') continue;
+                        // do not display empty selectors
+                        if (item=='') continue;
 
-						// do not display some branch types at all
-						if (facetType=='branch_type' && (item == 'default' || item == 'novalue' || item == 'main_library')) continue;
+                        // do not display some branch types at all
+                        if (facetType=='branch_type' && (item == 'default' || item == 'novalue' || item == 'main_library')) continue;
 
-						// do not display some branch types if geolocation is active
-						if (facetType=='branch_type' && ld_position && (item == 'mobile' || item == 'home_service')) continue;
+                        // do not display some branch types if geolocation is active
+                        if (facetType=='branch_type' && ld_position && (item == 'mobile' || item == 'home_service')) continue;
 
-						// do not display false accessibility data
-						if (facetType=='accessibility.accessible_entry' && item == 'F') continue;
+                        // do not display false accessibility data
+                        if (facetType=='accessibility.accessible_entry' && item == 'F') continue;
 
-						// localize facet selectors
-						var displayItem = "";
-						if (facetType=='branch_type' || facetType=='organisation_type') displayItem = _(item);
-						else if (facetType=='accessibility.accessible_entry' && item == 'T') displayItem = _("yes");
+                        // localize facet selectors
+                        var displayItem = "";
+                        if (facetType=='branch_type' || facetType=='organisation_type') displayItem = _(item);
+                        else if (facetType=='accessibility.accessible_entry' && item == 'T') displayItem = _("yes");
             else if (facetType=='consortium') {
               if (CONSORTIUMS[item] != undefined) displayItem = CONSORTIUMS[item].name;
               // avoid error with dash in facet field (analyzer splits it)
@@ -457,12 +534,12 @@
               // avoid error with dash in facet field (analyzer splits it)
               else continue;
             }
-						else displayItem = item;
+                        else displayItem = item;
 
-						append = '<li><a class="facetview_filterchoice' +
-						'" rel="' + options.facets[each]['field'] + '" href="' + item + '">' + displayItem +
-						' (' + records[item] + ')</a></li>';
-					}
+                        append = '<option><a class="facetview_filterchoice' +
+                        '" rel="' + options.facets[each]['field'] + '" href="' + item + '">' + displayItem +
+                        ' (' + records[item] + ')</a></option>';
+                    }
 
                     $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).append(append);
                 }
@@ -897,6 +974,11 @@
             options.data = data
             // change filter options
             putvalsinfilters(data);
+
+            $('#select-repeated-options').selectize({
+                sortField: 'text',
+                plugins: ['remove_button']
+            });
             // put result metadata on the page
             putmetadata(data);
             // put the filtered results on the page
