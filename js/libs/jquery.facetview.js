@@ -303,81 +303,53 @@
         var buildfilters = function() {
             var filters = options.facets;
 			var filterheader = "<h3 id='filter-by'>" + _("Filter results") + "</h3>";
-			var thefilters = "";
+			// var thefilters = "";
+
+            var thefilters = [];
 
             var _filterTmpl = '<div class="control-group">' + 
-                  '<label for="select-repeated-options">Options:</label>' +
-                  '<select id="select-repeated-options" class="demo-default" multiple>' + 
+                  '<label for="facet-filters">Options:</label>' +
+                  '<select id="facet-filters" multiple>' + 
                   '<option value="">Select...</option>';
 
             for ( var idx in filters ) {
-                // var _filterTmpl = ' \
-                //     <div id="facetview_filterbuttons" class="btn-group"> \
-                //     <a style="text-align:left; min-width:70%;" class="facetview_filtershow btn" \
-                //       rel="{{FILTER_NAME}}" href=""> \
-                //       <span>▸</span> \
-                //       {{FILTER_DISPLAY}}</a> \
-                //       </div> \
-                //   <ul id="facetview_{{FILTER_NAME}}" \
-                //     class="facetview_filters"></ul> \
-                //     ';
+          
+                var filter = {
+                    name: '{{FILTER_NAME}}',
+                    display: '{{FILTER_DISPLAY}}',
+                    size: '{{FILTER_HOWMANY}}',
+                    idx: '{{FACET_IDX}}'
+                };
 
-                thefilters += '<optgroup id="facetview_{{FILTER_NAME}}" label="{{FILTER_DISPLAY}}"></optgroup>';
-                  
-                // if (options.visualise_filters) {
-                //    // Never get here , why ?
-                //     var vis = '<li class="divider"></li><li><a class="facetview_visualise" rel="{{FACET_IDX}}" href="{{FILTER_DISPLAY}}">visualise this filter</a></li>'
-                //     thefilters += thefilters.replace(/{{FACET_VIS}}/g, vis)
-                // } else {
-                //     thefilters += thefilters.replace(/{{FACET_VIS}}/g, '')
-                // }
+                filter.name = filter.name.replace(/{{FILTER_NAME}}/g, filters[idx]['field']).replace(/{{FILTER_EXACT}}/g, filters[idx]['field']);
 
-                thefilters = thefilters.replace(/{{FILTER_NAME}}/g, filters[idx]['field'].replace(/\./gi,'_')).replace(/{{FILTER_EXACT}}/g, filters[idx]['field']);
-                
                 if ('size' in filters[idx] ) {
-                    thefilters = thefilters.replace(/{{FILTER_HOWMANY}}/gi, filters[idx]['size'])
+                    // thefilters = thefilters.replace(/{{FILTER_HOWMANY}}/gi, filters[idx]['size'])
+                    filter.size = filter.size.replace(/{{FILTER_HOWMANY}}/gi, filters[idx]['size'])
                 } else {
-                    thefilters = thefilters.replace(/{{FILTER_HOWMANY}}/gi, 10)
+                    // thefilters = thefilters.replace(/{{FILTER_HOWMANY}}/gi, 10)
+                    filter.size = filter.size.replace(/{{FILTER_HOWMANY}}/gi, 10);
                 }
 
-                thefilters = thefilters.replace(/{{FACET_IDX}}/gi,idx)
+                // thefilters = thefilters.replace(/{{FACET_IDX}}/gi,idx)
+
+                filter.idx = filter.idx.replace(/{{FACET_IDX}}/gi,idx);
                 
                 if ('display' in filters[idx]) {
-                    thefilters = thefilters.replace(/{{FILTER_DISPLAY}}/g, filters[idx]['display'])
+                    filter.display = filter.display.replace(/{{FILTER_DISPLAY}}/g, filters[idx]['display']);
                 } else {
-                    thefilters = thefilters.replace(/{{FILTER_DISPLAY}}/g, filters[idx]['field'])
+                    filter.display = filter.display.replace(/{{FILTER_DISPLAY}}/g, filters[idx]['field']);
                 }
+
+                thefilters.push(filter);
+
+                options.thefilters = thefilters;
 
             }
 
-            _filterTmpl += thefilters + '</select></div>';
+            _filterTmpl += '</select></div>';
 
             $('#facetview_filters').html("").append(filterheader+_filterTmpl)
-
-			// $('#facetview_filters').after('<div id=clearbutton style="display: none;"><button style="min-width: 78%;" class="btn btn-success" id="clear_facetfilters">' + _("Clear all filters") + '</button></div>');
-			// $('#facetview_filters').after("<p id='facetview_filter_helptext'>" + _("The number in parenthesis shows the number of results available.") + "</p>");
-
-			// $('#clear_facetfilters').bind('click', function(event) {
-			// 	event.preventDefault();
-			// 	$('#facetview_selectedfilters').children().each(function(){
-			// 		var index = $.inArray($(this).attr("href"), facetfilters);
-			// 		facetfilters.splice(index,1);
-			// 		$(this).remove();
-			// 	});
-
-			// 	$('#facetview_selectedextrafilters').children().each(function(){
-			// 		$(this).remove();
-			// 		$("#facetview_location").show();
-			// 		ld_position = null;
-			// 	});
-
-			// 	if (facetfilters.length==0 && ld_position == null) $('#clearbutton').hide();
-
-			// 	// clear facet memory
-			// 	facethash = {};
-			// 	ld_append_url_hash("f=");
-			// 	dosearch();
-			// });
 
 	// get geolocation and show location-filter, if applicable
 	if (navigator.geolocation) {
@@ -432,67 +404,9 @@
             }
         }
 
-        // set the available filter values based on results
-     //    var putvalsinfilters = function(data) {
-     //        // for each filter setup, find the results for it and append them to the relevant filter
-     //        for ( var each in options.facets ) {
-     //            $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).children().remove();
-     //            var records = data["facets"][ options.facets[each]['field'] ];
-     //            for ( var item in records ) {
-					// var append = "";
-					// if (facetfilters.length>0 && $.inArray(item, facetfilters) != -1 ) {
-					// 	var displayItem = "";
-					// 	if (item=='T') displayItem = _('yes');
-					// 	else displayItem = item;
-					// 	append = "<li class='selectedfilter'>" + _(displayItem) + ' (' + records[item] + ')</li>';
-					// }
-					// else {
-					// 	var facetType = options.facets[each]['field'];
-
-					// 	// do not display empty selectors
-					// 	if (item=='') continue;
-
-					// 	// do not display some branch types at all
-					// 	if (facetType=='branch_type' && (item == 'default' || item == 'novalue' || item == 'main_library')) continue;
-
-					// 	// do not display some branch types if geolocation is active
-					// 	if (facetType=='branch_type' && ld_position && (item == 'mobile' || item == 'home_service')) continue;
-
-					// 	// do not display false accessibility data
-					// 	if (facetType=='accessibility.accessible_entry' && item == 'F') continue;
-
-					// 	// localize facet selectors
-					// 	var displayItem = "";
-					// 	if (facetType=='branch_type' || facetType=='organisation_type') displayItem = _(item);
-					// 	else if (facetType=='accessibility.accessible_entry' && item == 'T') displayItem = _("yes");
-     //        else if (facetType=='consortium') {
-     //          if (CONSORTIUMS[item] != undefined) displayItem = CONSORTIUMS[item].name;
-     //          // avoid error with dash in facet field (analyzer splits it)
-     //          else continue;
-     //        }
-     //        else if (facetType=='provincial_area') {
-     //          if (REGIONS[item] != undefined) displayItem = REGIONS[item]['name_'+_('locale')];
-     //          // avoid error with dash in facet field (analyzer splits it)
-     //          else continue;
-     //        }
-					// 	else displayItem = item;
-
-					// 	append = '<li><a class="facetview_filterchoice' +
-					// 	'" rel="' + options.facets[each]['field'] + '" href="' + item + '">' + displayItem +
-					// 	' (' + records[item] + ')</a></li>';
-					// }
-
-     //                $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).append(append);
-     //            }
-     //            if ( !$('.facetview_filtershow[rel="' + options.facets[each]['field'].replace(/\./gi,'_') + '"]').hasClass('facetview_open') ) {
-     //                $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_') ).children().hide();
-     //            }
-     //        }
-     //        $('.facetview_filterchoice').bind('click',clickfilterchoice);
-     //    }
-
          var putvalsinfilters = function(data) {
             // for each filter setup, find the results for it and append them to the relevant filter
+            var filterOpts = [];
             for ( var each in options.facets ) {
                 $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).children().remove();
                 var records = data["facets"][ options.facets[each]['field'] ];
@@ -503,7 +417,9 @@
                         if (item=='T') displayItem = _('yes');
                         else displayItem = item;
                         // append = "<li class='selectedfilter'>" + _(displayItem) + ' (' + records[item] + ')</li>';
-                        append = '<option value="'+ _(displayItem) +'">' + _(displayItem) + ' (' + records[item] + ')</option>'
+                        // append = '<option value="'+ _(displayItem) +'">' + _(displayItem) + ' (' + records[item] + ')</option>'
+                        // append = '<option value="'+ _(displayItem) +'">' + _(displayItem) + ' (' + records[item] + ')</option>'
+                        filterOpts.push({value:_(displayItem), rel:_(displayItem), display:  _(displayItem) + ' (' + records[item] + ')'});
                     }
                     else {
                         var facetType = options.facets[each]['field'];
@@ -524,30 +440,59 @@
                         var displayItem = "";
                         if (facetType=='branch_type' || facetType=='organisation_type') displayItem = _(item);
                         else if (facetType=='accessibility.accessible_entry' && item == 'T') displayItem = _("yes");
-            else if (facetType=='consortium') {
-              if (CONSORTIUMS[item] != undefined) displayItem = CONSORTIUMS[item].name;
-              // avoid error with dash in facet field (analyzer splits it)
-              else continue;
-            }
-            else if (facetType=='provincial_area') {
-              if (REGIONS[item] != undefined) displayItem = REGIONS[item]['name_'+_('locale')];
-              // avoid error with dash in facet field (analyzer splits it)
-              else continue;
-            }
-                        else displayItem = item;
-
-                        append = '<option><a class="facetview_filterchoice' +
-                        '" rel="' + options.facets[each]['field'] + '" href="' + item + '">' + displayItem +
-                        ' (' + records[item] + ')</a></option>';
+                            else if (facetType=='consortium') {
+                              if (CONSORTIUMS[item] != undefined) displayItem = CONSORTIUMS[item].name;
+                              // avoid error with dash in facet field (analyzer splits it)
+                              else continue;
+                            }
+                            else if (facetType=='provincial_area') {
+                              if (REGIONS[item] != undefined) displayItem = REGIONS[item]['name_'+_('locale')];
+                              // avoid error with dash in facet field (analyzer splits it)
+                              else continue;
+                            }
+                            
+                            else displayItem = item;
+                   
+                            filterOpts.push({value:displayItem, rel:options.facets[each]['field'], display: displayItem + ' ('+ records[item] +')' });
                     }
 
-                    $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).append(append);
+                    // $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).append(append);
                 }
                 if ( !$('.facetview_filtershow[rel="' + options.facets[each]['field'].replace(/\./gi,'_') + '"]').hasClass('facetview_open') ) {
                     $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_') ).children().hide();
                 }
             }
-            $('.facetview_filterchoice').bind('click',clickfilterchoice);
+            
+            var arr = [];
+            for (var k in options.thefilters){
+                arr.push(options.thefilters[k])
+            }
+
+            $('#facet-filters').selectize({
+                plugins: ['remove_button'],
+                options: filterOpts,
+                searchField: ['value'],
+                onChange: clickfilterchoice,
+                optgroups: arr,
+                optgroupField: 'rel',
+                optgroupLabelField: 'display',
+                optgroupValueField: 'name',
+                // optgroupOrder: ['chevrolet', 'dodge', 'audi'],
+                render: {
+                    item: function(item, escape) {
+                        return '<div>' +
+                            (item.value ? '<span value="' + escape(item.value) + '">' + escape(item.value) + '</span>' : '') +
+                        '</div>';
+                    },
+                    option: function(item, escape) {
+                        var label = item.display || item.value;
+                        return '<div>' +
+                            '<span>' + escape(label) + '</span>' + 
+                        '</div>';
+                    }
+                }
+            }); 
+            
         }
 
         // show the add/remove filters options
@@ -975,10 +920,11 @@
             // change filter options
             putvalsinfilters(data);
 
-            $('#select-repeated-options').selectize({
-                sortField: 'text',
-                plugins: ['remove_button']
-            });
+            // $('#facet-filters').selectize({
+            //     sortField: 'text',
+            //     plugins: ['remove_button']
+            // });
+
             // put result metadata on the page
             putmetadata(data);
             // put the filtered results on the page
@@ -1164,32 +1110,42 @@
         }
 
         // trigger a search when a filter choice is clicked
-        var clickfilterchoice = function(event) {
-            event.preventDefault();
-			facetfilters.push($(this).attr("href"));
+        var clickfilterchoice = function(pickedFiltersOpts) {
+            console.dir(pickedFiltersOpts)
+            // event.preventDefault();
+			// facetfilters.push(this.value);
 
-			// handle special case for accessibility facet filter
-			var buttontext = $(this).html().replace(/\(.*\)/,'');
-			if ($(this).attr("href") == 'T') buttontext = _("Accessibility");
+   //          console.dir(this.value)
 
-            var newobj = '<a class="facetview_filterselected facetview_clear ' + 
-                'btn btn-info" rel="' + $(this).attr("rel") + 
-                '" alt="remove" title="remove"' +
-                ' href="' + $(this).attr("href") + '">' +
-                buttontext + ' <i class="icon-remove"></i></a>';
-            $('#facetview_selectedfilters').append(newobj);
+			// // handle special case for accessibility facet filter
+			// // var buttontext = $(this).html().replace(/\(.*\)/,'');
+			// // if (this.value === 'T') buttontext = _("Accessibility");
 
-			// store active filter into facet memory
-			var name = $(this).attr("rel");
-			var value = $(this).attr("href");
+   //          // var newobj = '<a class="facetview_filterselected facetview_clear ' + 
+   //          //  'btn btn-info" rel="' + $(this).attr("rel") + 
+   //          //  '" alt="remove" title="remove"' +
+   //          //  ' href="' + this.value + '">' +
+   //          //  buttontext + ' <i class="icon-remove"></i></a>';
+   //          // $('#facetview_selectedfilters').append(newobj);
+
+			// // store active filter into facet memory
+			// // var name = $(this).attr("rel");
+
+   //          // services.name_en
+
+            var name = $('option[value="' + this.value + '"]').attr('rel');
+
+			value = pickedFiltersOpts[pickedFiltersOpts.length - 1];
+
 			if (facethash[name] == undefined) facethash[name] = [];
 			facethash[name].push(value);
+            
 			ld_append_url_hash("f=" + JSON.stringify(facethash));
 
-            $('.facetview_filterselected').unbind('click',clearfilter);
-            $('.facetview_filterselected').bind('click',clearfilter);
-			if (facetfilters.length>0) $('#clearbutton').show();
-            options.paging.from = 0
+   //          $('.facetview_filterselected').unbind('click',clearfilter);
+   //          $('.facetview_filterselected').bind('click',clearfilter);
+			// if (facetfilters.length>0) $('#clearbutton').show();
+   //          options.paging.from = 0
             dosearch();
         }
 
