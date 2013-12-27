@@ -419,7 +419,11 @@
                         // append = "<li class='selectedfilter'>" + _(displayItem) + ' (' + records[item] + ')</li>';
                         // append = '<option value="'+ _(displayItem) +'">' + _(displayItem) + ' (' + records[item] + ')</option>'
                         // append = '<option value="'+ _(displayItem) +'">' + _(displayItem) + ' (' + records[item] + ')</option>'
-                        filterOpts.push({value:_(displayItem), rel:_(displayItem), display:  _(displayItem) + ' (' + records[item] + ')'});
+                        filterOpts.push({
+                            value:_(displayItem),
+                            rel:options.facets[each]['field'],
+                            count: records[item] 
+                        });
                     }
                     else {
                         var facetType = options.facets[each]['field'];
@@ -452,8 +456,13 @@
                             }
                             
                             else displayItem = item;
-                   
-                            filterOpts.push({value:displayItem, rel:options.facets[each]['field'], display: displayItem + ' ('+ records[item] +')' });
+                            filterOpts.push({
+                                value:displayItem,
+                                rel:options.facets[each]['field'],
+                                count: records[item],
+                                // small hack
+                                concatString: displayItem + "|concat|" + options.facets[each]['field']
+                            });
                     }
 
                     // $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).append(append);
@@ -472,28 +481,39 @@
                 plugins: ['remove_button'],
                 options: filterOpts,
                 searchField: ['value'],
-                onChange: clickfilterchoice,
+                onItemAdd: clickfilterchoice,
+                onItemRemove: clearfilter,
+                valueField: 'concatString',
+                preload: true,
                 optgroups: arr,
                 optgroupField: 'rel',
                 optgroupLabelField: 'display',
                 optgroupValueField: 'name',
-                // optgroupOrder: ['chevrolet', 'dodge', 'audi'],
                 render: {
                     item: function(item, escape) {
-                        return '<div>' +
-                            (item.value ? '<span value="' + escape(item.value) + '">' + escape(item.value) + '</span>' : '') +
+                        return '<div data-rel="'+escape(item.rel)+'" data-value="'+escape(item.value)+'" data-type="item">' +
+                            (item.value ? '<span>' + escape(item.value) + '</span>' : '') + 
                         '</div>';
                     },
                     option: function(item, escape) {
-                        var label = item.display || item.value;
-                        return '<div>' +
-                            '<span>' + escape(label) + '</span>' + 
-                        '</div>';
+                        var label = item.value;
+                        return '<div data-rel="'+escape(item.rel)+'" data-value="'+escape(item.value)+'" data-type="option">' +
+                            '<span>' + escape(label) + " (" + escape(item.count) + ')</span>' +
+                            '</div>'
                     }
                 }
             }); 
             
         }
+
+        // var saveSelectedValues = function(value){
+        //    var selectedValues= [];
+        //    for(var x in value){
+        //     var option = value[x].split(',');
+        //     selectedValues.push({value: option[0], name: option[1]});
+        //    }
+        //    options.selectedValues = selectedValues;
+        // }
 
         // show the add/remove filters options
         var addremovefacet = function(event) {
@@ -999,22 +1019,40 @@
 			var qs = {}
 			var query_filters = []
 			var query_string = ""
-            $('.facetview_filterselected',obj).each(function() {
-                if ( $(this).hasClass('facetview_facetrange') ) {
-                    var rel = options.facets[ $(this).attr('rel') ]['field']
-                    var rngs = {
-                        'from': $('.facetview_lowrangeval', this).html(),
-                        'to': $('.facetview_highrangeval', this).html()
-                    }
-                    var obj = {'range': {}}
-                    obj['range'][ rel ] = rngs
-					query_filters.push(obj);
-                } else {
-                    var obj = {'term':{}}
-                    obj['term'][ $(this).attr('rel') ] = $(this).attr('href')
-					query_filters.push(obj);
-                }
-            });
+     //        $('.facetview_filterselected',obj).each(function() {
+     //            if ( $(this).hasClass('facetview_facetrange') ) {
+     //                var rel = options.facets[ $(this).attr('rel') ]['field']
+     //                var rngs = {
+     //                    'from': $('.facetview_lowrangeval', this).html(),
+     //                    'to': $('.facetview_highrangeval', this).html()
+     //                }
+     //                var obj = {'range': {}}
+     //                obj['range'][ rel ] = rngs
+					// query_filters.push(obj);
+     //            } else {
+     //                var obj = {'term':{}}
+     //                obj['term'][ $(this).attr('rel') ] = $(this).attr('href')
+					// query_filters.push(obj);
+     //            }
+     //        });
+
+            // $('#facet-filter',obj).each(function() {
+            //     console.dir(this)
+            //     if ( $(this).hasClass('facetview_facetrange') ) {
+            //         var rel = options.facets[ $(this).attr('rel') ]['field']
+            //         var rngs = {
+            //             'from': $('.facetview_lowrangeval', this).html(),
+            //             'to': $('.facetview_highrangeval', this).html()
+            //         }
+            //         var obj = {'range': {}}
+            //         obj['range'][ rel ] = rngs
+            //         query_filters.push(obj);
+            //     } else {
+            //         var obj = {'term':{}}
+            //         obj['term'][ $(this).attr('rel') ] = $(this).attr('href')
+            //         query_filters.push(obj);
+            //     }
+            // });
 
 			// set default search result ordering
 			qs.sort = [ { "name_fi" : {} } ];
@@ -1110,62 +1148,44 @@
         }
 
         // trigger a search when a filter choice is clicked
-        var clickfilterchoice = function(pickedFiltersOpts) {
-            console.dir(pickedFiltersOpts)
-            // event.preventDefault();
-			// facetfilters.push(this.value);
+        var clickfilterchoice = function(data, item) {
 
-   //          console.dir(this.value)
-
-			// // handle special case for accessibility facet filter
-			// // var buttontext = $(this).html().replace(/\(.*\)/,'');
-			// // if (this.value === 'T') buttontext = _("Accessibility");
-
-   //          // var newobj = '<a class="facetview_filterselected facetview_clear ' + 
-   //          //  'btn btn-info" rel="' + $(this).attr("rel") + 
-   //          //  '" alt="remove" title="remove"' +
-   //          //  ' href="' + this.value + '">' +
-   //          //  buttontext + ' <i class="icon-remove"></i></a>';
-   //          // $('#facetview_selectedfilters').append(newobj);
-
-			// // store active filter into facet memory
-			// // var name = $(this).attr("rel");
-
-   //          // services.name_en
-
-            var name = $('option[value="' + this.value + '"]').attr('rel');
-
-			value = pickedFiltersOpts[pickedFiltersOpts.length - 1];
-
-			if (facethash[name] == undefined) facethash[name] = [];
-			facethash[name].push(value);
+            var option = data.split('|concat|');
+            var name = option[1];
+            var value = option[0];
             
-			ld_append_url_hash("f=" + JSON.stringify(facethash));
+            // Selectize doesn't want to pass object,
+            // and concat array elements, that is not reliable solution
+            // This is best what I come up with, would be even better to select
+            // selected by id, but I couldn't find how to insert id into
+            // object --> function putvalsinfilters
+            // var name = $('div[data-value="'+data+'"][data-type="item"]').attr('data-rel');
 
-   //          $('.facetview_filterselected').unbind('click',clearfilter);
-   //          $('.facetview_filterselected').bind('click',clearfilter);
-			// if (facetfilters.length>0) $('#clearbutton').show();
-   //          options.paging.from = 0
+            if (facethash[name] == undefined) facethash[name] = [];
+            facethash[name].push(value);
+
+            ld_append_url_hash("f=" + JSON.stringify(facethash));
+            options.paging.from = 0
+
             dosearch();
         }
 
         // clear a filter when clear button is pressed, and re-do the search
-        var clearfilter = function(event) {
-            event.preventDefault();
-			var index = $.inArray($(this).attr("href"), facetfilters);
-			facetfilters.splice(index,1);
-			if (facetfilters.length==0 && ld_position == null) $('#clearbutton').hide();
+        var clearfilter = function(data) {
 
-			var key = $(this).attr("rel");
-			var val = $(this).attr("href");
-			var cacheindex = $.inArray(val, facethash[key]);
-			facethash[key].splice(cacheindex,1);
-			if (facethash[key].length==0) delete facethash[key];
+            var option = data.split('|concat|');
+			var name = option[1];
+			var value = option[0];
+
+            // var name = $('div[data-value="'+data+'"][data-type="option"]').attr('data-rel');
+
+			var cacheindex = $.inArray(value, facethash[name]);
+			facethash[name].splice(cacheindex,1);
+			if (facethash[name].length==0) delete facethash[name];
 
 			if ($.isEmptyObject(facethash)) ld_append_url_hash("f=");
 			else ld_append_url_hash("f=" + JSON.stringify(facethash));
 
-            $(this).remove();
             dosearch();
         }
 
