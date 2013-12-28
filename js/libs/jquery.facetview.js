@@ -14,6 +14,9 @@
 
 // first define the bind with delay function from (saves loading it separately) 
 // https://github.com/bgrins/bindWithDelay/blob/master/bindWithDelay.js
+
+var concat = "|concat|";
+
 (function($) {
     $.fn.bindWithDelay = function( type, data, fn, timeout, throttle ) {
     var wait = null;
@@ -461,7 +464,7 @@
                                 rel:options.facets[each]['field'],
                                 count: records[item],
                                 // small hack
-                                concatString: displayItem + "|concat|" + options.facets[each]['field']
+                                concatString: displayItem + concat + options.facets[each]['field']
                             });
                     }
 
@@ -483,6 +486,7 @@
                 searchField: ['value'],
                 onItemAdd: clickfilterchoice,
                 onItemRemove: clearfilter,
+                onChange: dosearch,
                 valueField: 'concatString',
                 preload: true,
                 optgroups: arr,
@@ -1015,44 +1019,20 @@
         }
 
         // build the search query URL based on current params
-        var elasticsearchquery = function() {
-			var qs = {}
-			var query_filters = []
-			var query_string = ""
-     //        $('.facetview_filterselected',obj).each(function() {
-     //            if ( $(this).hasClass('facetview_facetrange') ) {
-     //                var rel = options.facets[ $(this).attr('rel') ]['field']
-     //                var rngs = {
-     //                    'from': $('.facetview_lowrangeval', this).html(),
-     //                    'to': $('.facetview_highrangeval', this).html()
-     //                }
-     //                var obj = {'range': {}}
-     //                obj['range'][ rel ] = rngs
-					// query_filters.push(obj);
-     //            } else {
-     //                var obj = {'term':{}}
-     //                obj['term'][ $(this).attr('rel') ] = $(this).attr('href')
-					// query_filters.push(obj);
-     //            }
-     //        });
+        var elasticsearchquery = function(selectedOpts) {
+			var qs = {};
+			var query_filters = [];
+			var query_string = "";
 
-            // $('#facet-filter',obj).each(function() {
-            //     console.dir(this)
-            //     if ( $(this).hasClass('facetview_facetrange') ) {
-            //         var rel = options.facets[ $(this).attr('rel') ]['field']
-            //         var rngs = {
-            //             'from': $('.facetview_lowrangeval', this).html(),
-            //             'to': $('.facetview_highrangeval', this).html()
-            //         }
-            //         var obj = {'range': {}}
-            //         obj['range'][ rel ] = rngs
-            //         query_filters.push(obj);
-            //     } else {
-            //         var obj = {'term':{}}
-            //         obj['term'][ $(this).attr('rel') ] = $(this).attr('href')
-            //         query_filters.push(obj);
-            //     }
-            // });
+            for(var x in selectedOpts){
+                var option = selectedOpts[x].split(concat);
+                var value = option[0];
+                var name = option[1];
+                console.dir({name:name, value:value});
+                var obj = {'term':{}};
+                obj['term'][name] = value;
+                query_filters.push(obj);
+            }
 
 			// set default search result ordering
 			qs.sort = [ { "name_fi" : {} } ];
@@ -1130,14 +1110,14 @@
         }
 
         // execute a search
-        var dosearch = function() {
+        var dosearch = function(selectedOpts) {         
             if ( options.search_index == "elasticsearch" ) {
 				// jsonp-request does not call the error function (by design) so use timeout instead
 				var searchTimer = window.setTimeout(function() { showerror(_("Could not connect to database. Please try again later.")) }, 7000);
 				$.ajax({
 					type: "get",
 					url: options.search_url,
-					data: { source: elasticsearchquery() },
+					data: { source: elasticsearchquery(selectedOpts) },
 					dataType: "jsonp",
 					beforeSend: showspinner,
 					success: [ function() { window.clearTimeout(searchTimer) }, clearerror, hidespinner, showresults ]
@@ -1150,7 +1130,7 @@
         // trigger a search when a filter choice is clicked
         var clickfilterchoice = function(data, item) {
 
-            var option = data.split('|concat|');
+            var option = data.split(concat);
             var name = option[1];
             var value = option[0];
             
@@ -1167,13 +1147,13 @@
             ld_append_url_hash("f=" + JSON.stringify(facethash));
             options.paging.from = 0
 
-            dosearch();
+            // dosearch({name: name, value: value});
         }
 
         // clear a filter when clear button is pressed, and re-do the search
         var clearfilter = function(data) {
 
-            var option = data.split('|concat|');
+            var option = data.split(concat);
 			var name = option[1];
 			var value = option[0];
 
@@ -1186,7 +1166,9 @@
 			if ($.isEmptyObject(facethash)) ld_append_url_hash("f=");
 			else ld_append_url_hash("f=" + JSON.stringify(facethash));
 
-            dosearch();
+            // dosearch({name: name, value: value});
+
+            // dosearch();
         }
 
 	// clear the location filter when clicked, and re-do the search
