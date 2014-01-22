@@ -15,7 +15,7 @@
 // first define the bind with delay function from (saves loading it separately) 
 // https://github.com/bgrins/bindWithDelay/blob/master/bindWithDelay.js
 
-var concat = "|concat|";
+var selectedOpts = [];
 
 (function($) {
     $.fn.bindWithDelay = function( type, data, fn, timeout, throttle ) {
@@ -311,9 +311,20 @@ var concat = "|concat|";
             var thefilters = [];
 
             var _filterTmpl = '<div class="control-group">' + 
-                  '<label for="facet-filters">Options:</label>' +
-                  '<select id="facet-filters" multiple>' + 
-                  '<option value="">Select...</option>';
+                  '<label for="facet-filters-cities">City:</label>' +
+                  '<select id="facet-filters-cities" placeholder="Select..." multiple></select>' +
+                  '<label for="facet-filters-services">Services:</label>' +
+                  '<select id="facet-filters-services" placeholder="Select..." multiple></select>' +             
+                  '<label for="facet-filters-accessibility">Accessibility:</label>' +
+                  '<select id="facet-filters-accessibility" placeholder="Select..." multiple></select>' +
+                  '<label for="facet-filters-library-consortium">Library consortium:</label>' +
+                  '<select id="facet-filters-library-consortium" placeholder="Select..." multiple></select>' +
+                  '<label for="facet-filters-provincial-area">Provincial area:</label>' +
+                  '<select id="facet-filters-provincial-area" placeholder="Select..." multiple></select>' +
+                  '<label for="facet-filters-types">Type:</label>' +
+                  '<select id="facet-filters-types" placeholder="Select..." multiple></select>' +
+                  '<label for="facet-filters-branchtypes">Branch type:</label>' +
+                  '<select id="facet-filters-branchtypes" placeholder="Select..." multiple></select>';
 
             for ( var idx in filters ) {
           
@@ -350,7 +361,7 @@ var concat = "|concat|";
 
             }
 
-            _filterTmpl += '</select></div>';
+            _filterTmpl += '</div>';
 
             $('#facetview_filters').html("").append(filterheader+_filterTmpl)
 
@@ -411,8 +422,8 @@ var concat = "|concat|";
             // for each filter setup, find the results for it and append them to the relevant filter
             var filterOpts = [];
             for ( var each in options.facets ) {
-                $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).children().remove();
-                var records = data["facets"][ options.facets[each]['field'] ];
+                $('#facetview_' + options.facets[each].field.replace(/\./gi,'_')).children().remove();
+                var records = data["facets"][ options.facets[each].field ];
                 for ( var item in records ) {
                     var append = "";
                     if (facetfilters.length>0 && $.inArray(item, facetfilters) != -1 ) {
@@ -424,13 +435,12 @@ var concat = "|concat|";
                         // append = '<option value="'+ _(displayItem) +'">' + _(displayItem) + ' (' + records[item] + ')</option>'
                         filterOpts.push({
                             value:_(displayItem),
-                            rel:options.facets[each]['field'],
+                            rel:options.facets[each].field,
                             count: records[item] 
                         });
                     }
                     else {
-                        var facetType = options.facets[each]['field'];
-
+                        var facetType = options.facets[each].field;
                         // do not display empty selectors
                         if (item=='') continue;
 
@@ -459,65 +469,69 @@ var concat = "|concat|";
                             }
                             
                             else displayItem = item;
-                            filterOpts.push({
+
+                            if(!filterOpts[options.facets[each].field]){
+                                filterOpts[options.facets[each].field] = [];
+                            }
+
+                            filterOpts[options.facets[each].field].push({
                                 value:displayItem,
-                                rel:options.facets[each]['field'],
+                                rel:options.facets[each].field,
                                 count: records[item],
                                 // small hack
-                                concatString: displayItem + concat + options.facets[each]['field']
-                            });
+                                // concatString: displayItem + concat + options.facets[each].field
+                            }); 
                     }
 
-                    // $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_')).append(append);
+                    // $('#facetview_' + options.facets[each].field.replace(/\./gi,'_')).append(append);
                 }
-                if ( !$('.facetview_filtershow[rel="' + options.facets[each]['field'].replace(/\./gi,'_') + '"]').hasClass('facetview_open') ) {
-                    $('#facetview_' + options.facets[each]['field'].replace(/\./gi,'_') ).children().hide();
+                if ( !$('.facetview_filtershow[rel="' + options.facets[each].field.replace(/\./gi,'_') + '"]').hasClass('facetview_open') ) {
+                    $('#facetview_' + options.facets[each].field.replace(/\./gi,'_') ).children().hide();
                 }
             }
-            
-            var arr = [];
+
             for (var k in options.thefilters){
-                arr.push(options.thefilters[k])
-            }
+                
+                var css;
+                var arr = [];
 
-            $('#facet-filters').selectize({
-                plugins: ['remove_button'],
-                options: filterOpts,
-                searchField: ['value'],
-                onItemAdd: clickfilterchoice,
-                onItemRemove: clearfilter,
-                onChange: dosearch,
-                valueField: 'concatString',
-                preload: true,
-                optgroups: arr,
-                optgroupField: 'rel',
-                optgroupLabelField: 'display',
-                optgroupValueField: 'name',
-                render: {
-                    item: function(item, escape) {
-                        return '<div data-rel="'+escape(item.rel)+'" data-value="'+escape(item.value)+'" data-type="item">' +
-                            (item.value ? '<span>' + escape(item.value) + '</span>' : '') + 
-                        '</div>';
-                    },
-                    option: function(item, escape) {
-                        var label = item.value;
-                        return '<div data-rel="'+escape(item.rel)+'" data-value="'+escape(item.value)+'" data-type="option">' +
-                            '<span>' + escape(label) + " (" + escape(item.count) + ')</span>' +
-                            '</div>'
-                    }
+                for(var x in filterOpts[options.thefilters[k].name]){
+                    arr.push(filterOpts[options.thefilters[k].name][x])
                 }
-            }); 
-            
-        }
 
-        // var saveSelectedValues = function(value){
-        //    var selectedValues= [];
-        //    for(var x in value){
-        //     var option = value[x].split(',');
-        //     selectedValues.push({value: option[0], name: option[1]});
-        //    }
-        //    options.selectedValues = selectedValues;
-        // }
+                // define right selector
+                if (options.thefilters[k].idx === '0') css = 'cities';
+                if (options.thefilters[k].idx === '1') css = 'services';
+                if (options.thefilters[k].idx === '2') css = 'accessibility';
+                if (options.thefilters[k].idx === '3') css = 'library-consortium';
+                if (options.thefilters[k].idx === '4') css = 'provincial-area';
+                if (options.thefilters[k].idx === '5') css = 'types';
+                if (options.thefilters[k].idx === '6') css = 'branchtypes';
+
+                $('#facet-filters-' + css).selectize({
+                    plugins: ['remove_button'],
+                    options: arr,
+                    searchField: 'rel',
+                    onItemAdd: clickfilterchoice.bind(null, options.thefilters[k].name),
+                    onItemRemove: clearfilter.bind(null, options.thefilters[k].name),
+                    // onChange: dosearch,
+                    preload: true,
+                    render: {
+                        item: function(item, escape) {
+                            return '<div data-rel="'+escape(item.rel)+'" data-value="'+escape(item.value)+'" data-type="item">' +
+                                (item.value ? '<span>' + escape(item.value) + '</span>' : '') + 
+                                '</div>';
+                        },
+                        option: function(item, escape) {
+                            var label = item.value;
+                            return '<div data-rel="'+escape(item.rel)+'" data-value="'+escape(item.value)+'" data-type="option">' +
+                                '<span>' + escape(label) + " (" + escape(item.count) + ')</span>' +
+                                '</div>'
+                        }
+                    }
+                }); 
+            }            
+        }
 
         // show the add/remove filters options
         var addremovefacet = function(event) {
@@ -944,11 +958,6 @@ var concat = "|concat|";
             // change filter options
             putvalsinfilters(data);
 
-            // $('#facet-filters').selectize({
-            //     sortField: 'text',
-            //     plugins: ['remove_button']
-            // });
-
             // put result metadata on the page
             putmetadata(data);
             // put the filtered results on the page
@@ -1019,19 +1028,19 @@ var concat = "|concat|";
         }
 
         // build the search query URL based on current params
-        var elasticsearchquery = function(selectedOpts) {
+        var elasticsearchquery = function() {
+
 			var qs = {};
 			var query_filters = [];
 			var query_string = "";
 
             for(var x in selectedOpts){
-                var option = selectedOpts[x].split(concat);
-                var value = option[0];
-                var name = option[1];
-                console.dir({name:name, value:value});
-                var obj = {'term':{}};
-                obj['term'][name] = value;
-                query_filters.push(obj);
+                for(var value in selectedOpts[x]){
+                  var obj = {'term':{}};
+                  var value = selectedOpts[x][value];
+                  obj['term'][x] = value;
+                  query_filters.push(obj);
+                }
             }
 
 			// set default search result ordering
@@ -1110,14 +1119,14 @@ var concat = "|concat|";
         }
 
         // execute a search
-        var dosearch = function(selectedOpts) {         
+        var dosearch = function(value) {
             if ( options.search_index == "elasticsearch" ) {
 				// jsonp-request does not call the error function (by design) so use timeout instead
 				var searchTimer = window.setTimeout(function() { showerror(_("Could not connect to database. Please try again later.")) }, 7000);
 				$.ajax({
 					type: "get",
 					url: options.search_url,
-					data: { source: elasticsearchquery(selectedOpts) },
+					data: { source: elasticsearchquery() },
 					dataType: "jsonp",
 					beforeSend: showspinner,
 					success: [ function() { window.clearTimeout(searchTimer) }, clearerror, hidespinner, showresults ]
@@ -1128,34 +1137,35 @@ var concat = "|concat|";
         }
 
         // trigger a search when a filter choice is clicked
-        var clickfilterchoice = function(data, item) {
+        var clickfilterchoice = function(term, data, item) {
 
-            var option = data.split(concat);
-            var name = option[1];
-            var value = option[0];
+            var name = term;
+            var value = data;
             
-            // Selectize doesn't want to pass object,
-            // and concat array elements, that is not reliable solution
-            // This is best what I come up with, would be even better to select
-            // selected by id, but I couldn't find how to insert id into
-            // object --> function putvalsinfilters
-            // var name = $('div[data-value="'+data+'"][data-type="item"]').attr('data-rel');
-
             if (facethash[name] == undefined) facethash[name] = [];
             facethash[name].push(value);
 
             ld_append_url_hash("f=" + JSON.stringify(facethash));
             options.paging.from = 0
 
-            // dosearch({name: name, value: value});
+            if(!selectedOpts[name]){
+                selectedOpts[name] = [];
+            }
+
+            selectedOpts[name].push(value);
+            dosearch();
         }
 
         // clear a filter when clear button is pressed, and re-do the search
-        var clearfilter = function(data) {
+        var clearfilter = function(term, data) {
 
-            var option = data.split(concat);
-			var name = option[1];
-			var value = option[0];
+            var name = term;
+            var value = data;
+
+            if(selectedOpts[name]){
+              var index = $.inArray(value, selectedOpts[name]);
+              selectedOpts[name].splice(index, 1);
+            }
 
             // var name = $('div[data-value="'+data+'"][data-type="option"]').attr('data-rel');
 
@@ -1166,9 +1176,7 @@ var concat = "|concat|";
 			if ($.isEmptyObject(facethash)) ld_append_url_hash("f=");
 			else ld_append_url_hash("f=" + JSON.stringify(facethash));
 
-            // dosearch({name: name, value: value});
-
-            // dosearch();
+            dosearch();
         }
 
 	// clear the location filter when clicked, and re-do the search
