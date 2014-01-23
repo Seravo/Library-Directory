@@ -511,9 +511,10 @@ var selectedOpts = [];
                 $('#facet-filters-' + css).selectize({
                     plugins: ['remove_button'],
                     options: arr,
-                    searchField: 'rel',
+                    searchField: 'value',
                     onItemAdd: clickfilterchoice.bind(null, options.thefilters[k].name),
                     onItemRemove: clearfilter.bind(null, options.thefilters[k].name),
+                    sortField: 'value',
                     // onChange: dosearch,
                     preload: true,
                     render: {
@@ -525,7 +526,8 @@ var selectedOpts = [];
                         option: function(item, escape) {
                             var label = item.value;
                             return '<div data-rel="'+escape(item.rel)+'" data-value="'+escape(item.value)+'" data-type="option">' +
-                                '<span>' + escape(label) + " (" + escape(item.count) + ')</span>' +
+                                // '<span>' + escape(label) + " (" + escape(item.count) + ')</span>' +
+                                '<span>' + escape(label) + '</span>' +
                                 '</div>'
                         }
                     }
@@ -1070,34 +1072,34 @@ var selectedOpts = [];
 				}
 
 			// consortium pre-selection from widget #1
-			if (options.areafilter != undefined && options.areafilter != "") {
-				var obj = {'term':{}}
-				obj['term']['consortium'] = options.areafilter;
-				query_filters.push(obj);
-			}
+			// if (options.areafilter != undefined && options.areafilter != "") {
+			// 	var obj = {'term':{}}
+			// 	obj['term']['consortium'] = options.areafilter;
+			// 	query_filters.push(obj);
+			// }
 
-			// optional city filter from get-parameter
-			if (options.cityfilter != undefined && options.cityfilter != "") {
-				var obj = {'term':{}}
-				obj['term']['contact.street_address.municipality_'+_("locale")] = options.cityfilter;
-				query_filters.push(obj);
-			}
+			// // optional city filter from get-parameter
+			// if (options.cityfilter != undefined && options.cityfilter != "") {
+			// 	var obj = {'term':{}}
+			// 	obj['term']['contact.street_address.municipality_'+_("locale")] = options.cityfilter;
+			// 	query_filters.push(obj);
+			// }
 
-			// city pre-selection from url hash
-			var hash = ld_parse_url_hash();
-			if (hash.city != undefined) {
-				var obj = {'term':{}}
-				obj['term']['contact.street_address.municipality_'+_("locale")] = hash.city;
-				query_filters.push(obj);
-			}
+			// // city pre-selection from url hash
+			// var hash = ld_parse_url_hash();
+			// if (hash.city != undefined) {
+			// 	var obj = {'term':{}}
+			// 	obj['term']['contact.street_address.municipality_'+_("locale")] = hash.city;
+			// 	query_filters.push(obj);
+			// }
 
-			// consortium pre-selection from url hash
-			var hash = ld_parse_url_hash();
-			if (hash.area != undefined) {
-				var obj = {'term':{}}
-				obj['term']['consortium'] = hash.area;
-				query_filters.push(obj);
-			}
+			// // consortium pre-selection from url hash
+			// var hash = ld_parse_url_hash();
+			// if (hash.area != undefined) {
+			// 	var obj = {'term':{}}
+			// 	obj['term']['consortium'] = hash.area;
+			// 	query_filters.push(obj);
+			// }
 
 			// build the final query object
 			qs.query = {}
@@ -1115,6 +1117,7 @@ var selectedOpts = [];
                 delete obj['display']
                 qs['facets'][obj['field']] = {"terms":obj}
             }
+
             return JSON.stringify(qs)
         }
 
@@ -1186,7 +1189,8 @@ var selectedOpts = [];
 		$("#facetview_location").show();
 		ld_position = null;
 		if (facetfilters.length==0) $('#clearbutton').hide();
-		dosearch(); }
+		dosearch(); 
+    }
 
         // adjust how many results are shown
         var howmany = function(event) {
@@ -1291,15 +1295,15 @@ var selectedOpts = [];
 						// handle special case for accessibility facet filter
 						if (buttontext=='T') buttontext = _("Accessibility");
 
-						var newobj = '<a class="facetview_filterselected facetview_clear ' +
-							'btn btn-info" rel="' + key +
-							'" alt="remove" title="remove"' +
-							' href="' + val + '">' +
-							buttontext + ' <i class="icon-remove"></i></a>';
-						$('#facetview_selectedfilters').append(newobj);
-						$('.facetview_filterselected').unbind('click',clearfilter);
-						$('.facetview_filterselected').bind('click',clearfilter);
-						if (facetfilters.length>0) $('#clearbutton').show();
+						// var newobj = '<a class="facetview_filterselected facetview_clear ' +
+						// 	'btn btn-info" rel="' + key +
+						// 	'" alt="remove" title="remove"' +
+						// 	' href="' + val + '">' +
+						// 	buttontext + ' <i class="icon-remove"></i></a>';
+						// $('#facetview_selectedfilters').append(newobj);
+						// $('.facetview_filterselected').unbind('click',clearfilter);
+						// $('.facetview_filterselected').bind('click',clearfilter);
+						// if (facetfilters.length>0) $('#clearbutton').show();
 						options.paging.from = 0
 					}
 				}
