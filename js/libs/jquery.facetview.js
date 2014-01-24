@@ -369,22 +369,10 @@ var selectedOpts = [];
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(
 			function (position) {
-			    // bind event for later manual geoloc sorting
-			    $('#facetview_filters h3').after('<button style="min-width: 78%;" class="btn btn-primary" id="facetview_location">' + _("Show libraries near my location") + '</button>');
-			    $('#facetview_location').bind('click',function(event){ 
-					$('#facetview_location').hide();
-					$('#clearbutton').show();
-					ld_position=true;
-					ld_position_coords=position.coords;
-					clickextrabubble("ld_location",_("Libraries near my location"));
-				});
-
 				// activate automatic geolocation, if available
-				$('#facetview_location').hide();
-				$('#clearbutton').show();
 				ld_position=true;
 				ld_position_coords=position.coords;
-				clickextrabubble("ld_location",_("Libraries near my location"));
+        dosearch();
 			},
 		// the error callback that never gets called (in firefox?)
 		function (error) {
@@ -634,14 +622,6 @@ var selectedOpts = [];
         };
 
 	var clickextrabubble = function(facetkey,facetvalue) {
-		var newobj = '<a class="facetview_extrafilterselected facetview_clear ' +
-		'btn btn-info" rel="' + facetkey +
-		'" alt="remove" title="remove"' +
-		' href="' + facetvalue + '">' +
-		facetvalue + ' <i class="icon-remove"></i></a>'
-		$('#facetview_selectedextrafilters').append(newobj)
-		$('.facetview_extrafilterselected').unbind('click',clearlocationfilter)
-		$('.facetview_extrafilterselected').bind('click',clearlocationfilter)
 		options.paging.from = 0
 		dosearch()
 		$('#facetview_visualisation').remove() }
@@ -1181,16 +1161,6 @@ var selectedOpts = [];
 
             dosearch();
         }
-
-	// clear the location filter when clicked, and re-do the search
-	var clearlocationfilter = function(event) {
-		event.preventDefault();
-		$(this).remove();
-		$("#facetview_location").show();
-		ld_position = null;
-		if (facetfilters.length==0) $('#clearbutton').hide();
-		dosearch(); 
-    }
 
         // adjust how many results are shown
         var howmany = function(event) {
