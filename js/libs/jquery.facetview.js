@@ -311,20 +311,20 @@ var selectedOpts = [];
             var thefilters = [];
 
             var _filterTmpl = '<div class="control-group">' + 
-                  '<label for="facet-filters-cities">City:</label>' +
-                  '<select id="facet-filters-cities" placeholder="Select..." multiple></select>' +
-                  '<label for="facet-filters-services">Services:</label>' +
-                  '<select id="facet-filters-services" placeholder="Select..." multiple></select>' +             
-                  '<label for="facet-filters-accessibility">Accessibility:</label>' +
-                  '<select id="facet-filters-accessibility" placeholder="Select..." multiple></select>' +
-                  '<label for="facet-filters-library-consortium">Library consortium:</label>' +
-                  '<select id="facet-filters-library-consortium" placeholder="Select..." multiple></select>' +
-                  '<label for="facet-filters-provincial-area">Provincial area:</label>' +
-                  '<select id="facet-filters-provincial-area" placeholder="Select..." multiple></select>' +
-                  '<label for="facet-filters-types">Type:</label>' +
-                  '<select id="facet-filters-types" placeholder="Select..." multiple></select>' +
-                  '<label for="facet-filters-branchtypes">Branch type:</label>' +
-                  '<select id="facet-filters-branchtypes" placeholder="Select..." multiple></select>';
+                  '<label for="facet-filters-cities">' + _("City") + ':</label>' +
+                  '<select id="facet-filters-cities" placeholder="' + ("Select...") + '" multiple></select>' +
+                  '<label for="facet-filters-services">' + _("Services") + ':</label>' +
+                  '<select id="facet-filters-services" placeholder="' + _("Select...") + '" multiple></select>' +
+                  '<label for="facet-filters-accessibility">' + _("Accessibility") + ':</label>' +
+                  '<select id="facet-filters-accessibility" placeholder="' + _("Select...") + '" multiple></select>' +
+                  '<label for="facet-filters-library-consortium">' + _("Library consortium") + ':</label>' +
+                  '<select id="facet-filters-library-consortium" placeholder="' + _("Select...") + '" multiple></select>' +
+                  '<label for="facet-filters-provincial-area">' + _("Provincial area") + ':</label>' +
+                  '<select id="facet-filters-provincial-area" placeholder="' + _("Select...") + '" multiple></select>' +
+                  '<label for="facet-filters-types">' + _("Type") + ':</label>' +
+                  '<select id="facet-filters-types" placeholder="' + _("Select...") + '" multiple></select>' +
+                  '<label for="facet-filters-branchtypes">' + _("Branch type") + ':</label>' +
+                  '<select id="facet-filters-branchtypes" placeholder="' + _("Select...") + '" multiple></select>';
 
             for ( var idx in filters ) {
           
