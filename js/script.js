@@ -142,6 +142,10 @@ function ld_mapcontrol_init_geoloc(data) {
 
 			var markersymbol = 'js/libs/openlayers/markers/marker-red-small.png';
 			if (rec.open_now==true) markersymbol = 'js/libs/openlayers/markers/marker-green-small.png';
+      if (rec.organisation_type == 'institution_library' || rec.organisation_type == 'home_service')
+        {
+          markersymbol = 'js/libs/openlayers/markers/marker-black-small.png';
+        }
 
 			var marker = new OpenLayers.Feature.Vector(
 				new OpenLayers.Geometry.Point(lon, lat).transform(fromProjection,toProjection),
