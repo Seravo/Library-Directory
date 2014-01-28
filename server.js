@@ -812,6 +812,28 @@ function add_library_metadata(dataobj, callback){
       lib.contact.street_address['municipality_' + _('locale')] = lib.contact.street_address.municipality_fi;
     }
 
+	var rf_street = lib.contact.street_address['street_' + _('locale')];
+	var rf_municipality = lib.contact.street_address['municipality_' + _('locale')];
+
+	rf_street = encodeURI(rf_street);
+	rf_street = rf_street.replace(/%C3%85/g,"%C5"); // Å
+	rf_street = rf_street.replace(/%C3%84/g,"%C4"); // Ä
+	rf_street = rf_street.replace(/%C3%96/g,"%D6"); // Ö
+	rf_street = rf_street.replace(/%C3%A5/g,"%E5"); // å
+	rf_street = rf_street.replace(/%C3%A4/g,"%E4"); // ä
+	rf_street = rf_street.replace(/%C3%B6/g,"%F6"); // ö
+
+	rf_municipality = encodeURI(rf_municipality);
+	rf_municipality = rf_municipality.replace(/%C3%85/g,"%C5"); // Å
+	rf_municipality = rf_municipality.replace(/%C3%84/g,"%C4"); // Ä
+	rf_municipality = rf_municipality.replace(/%C3%96/g,"%D6"); // Ö
+	rf_municipality = rf_municipality.replace(/%C3%A5/g,"%E5"); // å
+	rf_municipality = rf_municipality.replace(/%C3%A4/g,"%E4"); // ä
+	rf_municipality = rf_municipality.replace(/%C3%B6/g,"%F6"); // ö
+
+	lib.contact.routefinder_street = rf_street;
+	lib.contact.routefinder_municipality = rf_municipality;
+
     for (var item in lib.contact.internet) {
       var temp = lib.contact.internet[item];
       // TODO: Could these be more universally expressed to support any language?
