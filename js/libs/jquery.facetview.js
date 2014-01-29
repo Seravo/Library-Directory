@@ -306,7 +306,6 @@ var selectedOpts = {};
         var buildfilters = function() {
             var filters = options.facets;
 			var filterheader = "<h3 id='filter-by'>" + _("Filter results") + "</h3>";
-			// var thefilters = "";
 
             var thefilters = [];
 
@@ -338,14 +337,10 @@ var selectedOpts = {};
                 filter.name = filter.name.replace(/{{FILTER_NAME}}/g, filters[idx]['field']).replace(/{{FILTER_EXACT}}/g, filters[idx]['field']);
 
                 if ('size' in filters[idx] ) {
-                    // thefilters = thefilters.replace(/{{FILTER_HOWMANY}}/gi, filters[idx]['size'])
                     filter.size = filter.size.replace(/{{FILTER_HOWMANY}}/gi, filters[idx]['size'])
                 } else {
-                    // thefilters = thefilters.replace(/{{FILTER_HOWMANY}}/gi, 10)
                     filter.size = filter.size.replace(/{{FILTER_HOWMANY}}/gi, 10);
                 }
-
-                // thefilters = thefilters.replace(/{{FACET_IDX}}/gi,idx)
 
                 filter.idx = filter.idx.replace(/{{FACET_IDX}}/gi,idx);
                 
@@ -418,9 +413,6 @@ var selectedOpts = {};
                         var displayItem = "";
                         if (item=='T') displayItem = _('yes');
                         else displayItem = item;
-                        // append = "<li class='selectedfilter'>" + _(displayItem) + ' (' + records[item] + ')</li>';
-                        // append = '<option value="'+ _(displayItem) +'">' + _(displayItem) + ' (' + records[item] + ')</option>'
-                        // append = '<option value="'+ _(displayItem) +'">' + _(displayItem) + ' (' + records[item] + ')</option>'
                         filterOpts.push({
                             display:_(displayItem),
                             rel:options.facets[each].field,
@@ -471,7 +463,6 @@ var selectedOpts = {};
                             }); 
                     }
 
-                    // $('#facetview_' + options.facets[each].field.replace(/\./gi,'_')).append(append);
                 }
                 if ( !$('.facetview_filtershow[rel="' + options.facets[each].field.replace(/\./gi,'_') + '"]').hasClass('facetview_open') ) {
                     $('#facetview_' + options.facets[each].field.replace(/\./gi,'_') ).children().hide();
@@ -495,7 +486,6 @@ var selectedOpts = {};
                 if (options.thefilters[k].name === 'provincial_area') css = 'provincial-area';
                 if (options.thefilters[k].name === 'organisation_type') css = 'types';
                 if (options.thefilters[k].name === 'branch_type') css = 'branchtypes';
-                // console.dir(arr)
 
                 // Check if selectized has been initialized
                 if($('#facet-filters-' + css).hasClass('selectized')){
@@ -508,14 +498,7 @@ var selectedOpts = {};
 
                     if(arr.length > 0){
                         selectize.enable();
-                        // console.dir(css)
-                        // console.dir(arr)
                         selectize.addOption(arr);
-                        // console.dir(css)
-                        // for(var x in arr){
-                        //     console.dir(arr[x])
-                        //     selectize.updateOption(arr[x].value, arr[x].count);
-                        // }
                     } else {
                         selectize.disable();
                     }
@@ -528,7 +511,6 @@ var selectedOpts = {};
                     
                     selectize.on('item_add', clickfilterchoice.bind(null, options.thefilters[k].name));
 
-                    // selectize.close();
                     selectize.refreshOptions(false);
                     selectize.refreshItems();
                 } else {
@@ -567,34 +549,6 @@ var selectedOpts = {};
                 }
             }            
         }
-
-        // show the add/remove filters options
-        // var addremovefacet = function(event) {
-        //     event.preventDefault()
-        //     if ( $(this).hasClass('facetview_filterselected') ) {
-        //         $(this).removeClass('facetview_filterselected')
-        //         // and remove from options.facets
-        //     } else {
-        //         $(this).addClass('facetview_filterselected')
-        //         options.facets.push({'field':$(this).attr('href')})
-        //     }
-        //     buildfilters()
-        //     dosearch()
-        // }
-        // var showarf = function(event) {
-        //     event.preventDefault()
-        //     $('#facetview_addremovefilters').toggle()
-        // }
-        // var addremovefacets = function() {
-        //     $('#facetview_filters').append('<a id="facetview_showarf" href="">' + 
-        //         'add more filters</a><div id="facetview_addremovefilters"></div>')
-        //     for (var facet in options.addremovefacets) {
-        //         $('#facetview_addremovefilters').append()
-        //     }
-        //     $('#facetview_addremovefilters').hide()
-        //     $('#facetview_showarf').bind('click',showarf)
-        //     $('.facetview_filterchoose').bind('click',addremovefacet)
-        // }
 
         // ===============================================
         // functions to do with filter visualisations
@@ -1179,10 +1133,10 @@ var selectedOpts = {};
 
         // trigger a search when a filter choice is clicked
         var clickfilterchoice = function(term, data, item) {
-
+            
             var name = term;
             var value = data;
-            console.dir()
+
             if (!facethash[name]) facethash[name] = [];
             facethash[name].push(value);
             ld_append_url_hash("f=" + JSON.stringify(facethash));
@@ -1309,41 +1263,9 @@ var selectedOpts = {};
 
 			// facet parameters
 			if (url_data.f != undefined) {
-                console.dir('foo')
 				facethash = JSON.parse(url_data.f);
                 selectedOpts = facethash;
                 options.paging.from = 0;
-                // for (var key in facethash) {
-                //                 console.dir(facethash)
-                // 	var values = facethash[key];
-
-                // 	for (var temp in values) {
-                // 		var val = values[temp];
-                // 		// facetfilters.push(val);
-                //                     if(!selectedOpts[temp]){
-                //                         selectedOpts[temp] = [];
-                //                     }
-                //                     console.dir(temp);
-                //                     console.dir(values[temp])
-                //                     selectedOpts[temp].push(val);
-
-                // 		// var buttontext = val;
-                // 		// handle special case for accessibility facet filter
-                // 		// if (buttontext=='T') buttontext = _("Accessibility");
-
-                // 		// var newobj = '<a class="facetview_filterselected facetview_clear ' +
-                // 		// 	'btn btn-info" rel="' + key +
-                // 		// 	'" alt="remove" title="remove"' +
-                // 		// 	' href="' + val + '">' +
-                // 		// 	buttontext + ' <i class="icon-remove"></i></a>';
-                // 		// $('#facetview_selectedfilters').append(newobj);
-                // 		// $('.facetview_filterselected').unbind('click',clearfilter);
-                // 		// $('.facetview_filterselected').bind('click',clearfilter);
-                // 		// if (facetfilters.length>0) $('#clearbutton').show();
-
-                // 	}
-                // }
-
 			}
 
 			// freetext query param
@@ -1360,11 +1282,6 @@ var selectedOpts = {};
             // trigger the search once on load, to get all results
             dosearch();
 
-			// if predefined facet filters, open up the facet tree completely
-			// if (url_data.f != undefined) {
-			// 	$('.facetview_filtershow').trigger('click');
-			// 	$('#clearbutton').show();
-			// }
         }
 
         // ===============================================
