@@ -16,7 +16,6 @@
 // https://github.com/bgrins/bindWithDelay/blob/master/bindWithDelay.js
 
 var selectedOpts = {};
-var hashOpts = [];
 
 (function($) {
     $.fn.bindWithDelay = function( type, data, fn, timeout, throttle ) {
@@ -1161,6 +1160,7 @@ var hashOpts = [];
 
         // execute a search
         var dosearch = function() {
+            console.dir(selectedOpts)
             if ( options.search_index == "elasticsearch" ) {
 				// jsonp-request does not call the error function (by design) so use timeout instead
 				var searchTimer = window.setTimeout(function() { showerror(_("Could not connect to database. Please try again later.")) }, 7000);
@@ -1182,17 +1182,14 @@ var hashOpts = [];
 
             var name = term;
             var value = data;
-            
-            if (facethash[name] == undefined) facethash[name] = [];
+            console.dir()
+            if (!facethash[name]) facethash[name] = [];
             facethash[name].push(value);
             ld_append_url_hash("f=" + JSON.stringify(facethash));
             options.paging.from = 0
+            
+            facethash = selectedOpts;
 
-            if(!selectedOpts[name]){
-                selectedOpts[name] = [];
-            }
-
-            selectedOpts[name].push(value);
             dosearch();
         }
 
@@ -1209,14 +1206,8 @@ var hashOpts = [];
                 delete selectedOpts[name];
               }
             }
-
+            
             facethash = selectedOpts;
-
-   //          if(cacheindex === -1) cacheindex = 0;
-
-   //          if(facethash[name]) facethash[name].splice(cacheindex, 1);
-
-			// if (facethash[name] && facethash[name].length===0) delete facethash[name];
 
 			if ($.isEmptyObject(facethash)){
                 ld_append_url_hash("f=");
@@ -1318,6 +1309,7 @@ var hashOpts = [];
 
 			// facet parameters
 			if (url_data.f != undefined) {
+                console.dir('foo')
 				facethash = JSON.parse(url_data.f);
                 selectedOpts = facethash;
                 options.paging.from = 0;
