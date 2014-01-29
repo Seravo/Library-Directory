@@ -1006,6 +1006,8 @@ function add_library_metadata(dataobj, callback){
           if (s.type == 'laite') { s.type = _('service type device'); s.label = 'label-inverse'; }
           if (s.type == 'tila') { s.type = _('service type room'); s.label = 'label-info'; }
           if (s.type == 'palvelu') { s.type = _('service type service'); }
+          if (s.type == 'kokoelma') { s.type = _('service type collection'); }
+          if (s.type == 'verkkopalvelu') { s.type = _('service type network'); }
         });
 
       lib.services = sortByKeys(lib.services, 'type', 'name_'+_('locale'));
