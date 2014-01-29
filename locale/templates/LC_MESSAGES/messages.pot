@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-24 13:25+0200\n"
+"POT-Creation-Date: 2014-01-29 18:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,15 +23,16 @@ msgid "Not found"
 msgstr ""
 
 #: server.js:299 server.js:659 server.js:681 server.js:805 server.js:806
-#: server.js:808 server.js:809 server.js:811 server.js:812 server.js:853
-#: server.js:854 server.js:855 server.js:895 server.js:897 server.js:912
-#: server.js:989 server.js:1556 js/libs/jquery.facetview.js:100
-#: js/libs/jquery.facetview.js:103 js/libs/jquery.facetview.js:121
-#: js/libs/jquery.facetview.js:122 js/libs/jquery.facetview.js:466
-#: js/libs/jquery.facetview.js:695 js/libs/jquery.facetview.js:707
-#: js/libs/jquery.facetview.js:790 js/libs/jquery.facetview.js:791
-#: js/libs/jquery.facetview.js:792 js/libs/jquery.facetview.js:1084
-#: js/libs/jquery.facetview.js:1092
+#: server.js:808 server.js:809 server.js:811 server.js:812 server.js:815
+#: server.js:816 server.js:875 server.js:876 server.js:877 server.js:917
+#: server.js:919 server.js:934 server.js:1013 server.js:1580
+#: js/libs/jquery.facetview.js:100 js/libs/jquery.facetview.js:103
+#: js/libs/jquery.facetview.js:121 js/libs/jquery.facetview.js:122
+#: js/libs/jquery.facetview.js:455 js/libs/jquery.facetview.js:491
+#: js/libs/jquery.facetview.js:492 js/libs/jquery.facetview.js:699
+#: js/libs/jquery.facetview.js:711 js/libs/jquery.facetview.js:794
+#: js/libs/jquery.facetview.js:795 js/libs/jquery.facetview.js:796
+#: js/libs/jquery.facetview.js:1100 js/libs/jquery.facetview.js:1108
 #: locale/templates/LC_MESSAGES/gettext.tmpl:1
 msgid "locale"
 msgstr ""
@@ -90,71 +91,79 @@ msgstr ""
 msgid "Feedback sent"
 msgstr ""
 
-#: server.js:750 server.js:925
+#: server.js:750 server.js:947
 msgid "branchlibrary"
 msgstr ""
 
-#: server.js:753 server.js:928
+#: server.js:753 server.js:950
 msgid "department"
 msgstr ""
 
-#: server.js:756 server.js:931
+#: server.js:756 server.js:953
 msgid "library"
 msgstr ""
 
-#: server.js:759 server.js:934
+#: server.js:759 server.js:956
 msgid "mobile_stop"
 msgstr ""
 
-#: server.js:762 server.js:937
+#: server.js:762 server.js:959
 msgid "organisation"
 msgstr ""
 
-#: server.js:765 server.js:940
+#: server.js:765 server.js:962
 msgid "unit"
 msgstr ""
 
-#: server.js:984
+#: server.js:1006
 msgid "service type device"
 msgstr ""
 
-#: server.js:985
+#: server.js:1007
 msgid "service type room"
 msgstr ""
 
-#: server.js:986
+#: server.js:1008
 msgid "service type service"
 msgstr ""
 
-#: server.js:1457
+#: server.js:1009
+msgid "service type collection"
+msgstr ""
+
+#: server.js:1010
+msgid "service type network"
+msgstr ""
+
+#: server.js:1481
 msgid "Monday"
 msgstr ""
 
-#: server.js:1458
+#: server.js:1482
 msgid "Tuesday"
 msgstr ""
 
-#: server.js:1459
+#: server.js:1483
 msgid "Wednesday"
 msgstr ""
 
-#: server.js:1460
+#: server.js:1484
 msgid "Thursday"
 msgstr ""
 
-#: server.js:1461
+#: server.js:1485
 msgid "Friday"
 msgstr ""
 
-#: server.js:1462
+#: server.js:1486
 msgid "Saturday"
 msgstr ""
 
-#: server.js:1463
+#: server.js:1487
 msgid "Sunday"
 msgstr ""
 
-#: server.js:1563 server.js:1572
+#: server.js:1587 server.js:1596
 msgid "closed"
 msgstr ""
 
@@ -205,7 +214,7 @@ msgid "Services"
 msgstr ""
 
 #: js/libs/jquery.facetview.js:123 js/libs/jquery.facetview.js:318
-#: js/libs/jquery.facetview.js:1296 views/widget3.mustache:114
+#: js/libs/jquery.facetview.js:1314 views/widget3.mustache:114
 #: views/widget3.mustache:246 views/library_details.mustache:117
 #: views/library_details.mustache:303
 msgid "Accessibility"
@@ -233,71 +242,64 @@ msgstr ""
 msgid "Filter results"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:317 js/libs/jquery.facetview.js:319
-#: js/libs/jquery.facetview.js:321 js/libs/jquery.facetview.js:323
-#: js/libs/jquery.facetview.js:325 js/libs/jquery.facetview.js:327
+#: js/libs/jquery.facetview.js:315 js/libs/jquery.facetview.js:317
+#: js/libs/jquery.facetview.js:319 js/libs/jquery.facetview.js:321
+#: js/libs/jquery.facetview.js:323 js/libs/jquery.facetview.js:325
+#: js/libs/jquery.facetview.js:327
 msgid "Select..."
 msgstr ""
 
-#: js/libs/jquery.facetview.js:373
-msgid "Show libraries near my location"
-msgstr ""
-
-#: js/libs/jquery.facetview.js:379 js/libs/jquery.facetview.js:387
-msgid "Libraries near my location"
-msgstr ""
-
-#: js/libs/jquery.facetview.js:431 js/libs/jquery.facetview.js:459
+#: js/libs/jquery.facetview.js:419 js/libs/jquery.facetview.js:448
 #: locale/templates/LC_MESSAGES/gettext.tmpl:11
 msgid "yes"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:858
+#: js/libs/jquery.facetview.js:862
 msgid "back"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:859
+#: js/libs/jquery.facetview.js:863
 msgid "of"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:860
+#: js/libs/jquery.facetview.js:864
 msgid "next"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:864 views/personnel-search-results.mustache:29
+#: js/libs/jquery.facetview.js:868 views/personnel-search-results.mustache:29
 msgid "No results found"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:865
+#: js/libs/jquery.facetview.js:869
 msgid "Please try"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:866
+#: js/libs/jquery.facetview.js:870
 msgid ""
 "Search with only the first 3-5 letters of your search word to get more "
 "matches."
 msgstr ""
 
-#: js/libs/jquery.facetview.js:867
+#: js/libs/jquery.facetview.js:871
 msgid ""
 "Remove all search words and drill down to your wanted results using only the "
 "search filters."
 msgstr ""
 
-#: js/libs/jquery.facetview.js:973
+#: js/libs/jquery.facetview.js:989
 msgid "One search result"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:974
+#: js/libs/jquery.facetview.js:990
 #, python-format
 msgid "%d search results"
 msgstr ""
 
-#: js/libs/jquery.facetview.js:1128
+#: js/libs/jquery.facetview.js:1144
 msgid "Could not connect to database. Please try again later."
 msgstr ""
 
-#: js/libs/jquery.facetview.js:1217 js/libs/jquery.facetview.js:1243
+#: js/libs/jquery.facetview.js:1226 js/libs/jquery.facetview.js:1252
 msgid "search starts automatically after 3 letters"
 msgstr ""
 
