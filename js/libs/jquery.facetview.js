@@ -1114,7 +1114,6 @@ var selectedOpts = {};
 
         // execute a search
         var dosearch = function() {
-            console.dir(selectedOpts)
             if ( options.search_index == "elasticsearch" ) {
 				// jsonp-request does not call the error function (by design) so use timeout instead
 				var searchTimer = window.setTimeout(function() { showerror(_("Could not connect to database. Please try again later.")) }, 7000);
@@ -1142,7 +1141,7 @@ var selectedOpts = {};
             ld_append_url_hash("f=" + JSON.stringify(facethash));
             options.paging.from = 0
             
-            facethash = selectedOpts;
+            selectedOpts = facethash;
 
             dosearch();
         }
