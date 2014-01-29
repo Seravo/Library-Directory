@@ -489,10 +489,11 @@ var selectedOpts = {};
 
                 // Check if selectized has been initialized
                 if($('#facet-filters-' + css).hasClass('selectized')){
+
                     var select = $('#facet-filters-' + css).selectize();
                     var selectize = select[0].selectize;
 
-                    var values = selectize.getValue();
+                    var values = facethash[options.thefilters[k].name];
 
                     selectize.clearOptions();
 
@@ -504,7 +505,7 @@ var selectedOpts = {};
                     }
 
                     selectize.off('item_add');
-                    
+
                     for(var x in values){
                         selectize.addItem(values[x]);
                     }            
@@ -532,8 +533,8 @@ var selectedOpts = {};
                             option: function(item, escape) {
                                 var label = item.display;
                                 return '<div data-rel="'+escape(item.rel)+'" data-value="'+escape(item.display)+'" data-type="option">' +
-                                    // '<span>' + escape(label) + " (" + escape(item.count) + ')</span>' +
-                                    '<span>' + escape(label) + '</span>' +
+                                    '<span>' + escape(label) + " (" + escape(item.count) + ')</span>' +
+                                    // '<span>' + escape(label) + '</span>' +
                                     '</div>'
                             }
                         }
@@ -946,17 +947,13 @@ var selectedOpts = {};
             $('#facetview_results').html("");
             var infofiltervals = new Array();
 
-			// display libraries in map only if there's any user input or geolocation is active
-            var hasInput = false;
-            for(var x in selectedOpts){
-                if(selectedOpts[x] && selectedOpts[x].length > 0){
-                    hasInput = true;
-                    break;
-                }
-            }
+			if (!$.isEmptyObject(selectedOpts) ||
+                    $('#facetview_freetext').val() != "" ||
+                    ld_position==true ||
+                    $('svg').length){
 
-			if (hasInput || $('#facetview_freetext').val() != "" || ld_position==true ){
                 ld_mapcontrol_init_geoloc(data.records);
+
             }
             // TODO Hide map if all false
 
@@ -1152,15 +1149,15 @@ var selectedOpts = {};
             var name = term;
             var value = data;
 
-            if(selectedOpts[name]){
-              var index = $.inArray(value, selectedOpts[name]);
-              selectedOpts[name].splice(index, 1);
-              if(selectedOpts[name].length === 0){
-                delete selectedOpts[name];
+            if(facethash[name]){
+              var index = $.inArray(value, facethash[name]);
+              facethash[name].splice(index, 1);
+              if(facethash[name].length === 0){
+                delete facethash[name];
               }
             }
             
-            facethash = selectedOpts;
+            selectedOpts = facethash;
 
 			if ($.isEmptyObject(facethash)){
                 ld_append_url_hash("f=");
