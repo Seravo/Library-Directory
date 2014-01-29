@@ -15,7 +15,8 @@
 // first define the bind with delay function from (saves loading it separately) 
 // https://github.com/bgrins/bindWithDelay/blob/master/bindWithDelay.js
 
-var selectedOpts = [];
+var selectedOpts = {};
+var hashOpts = [];
 
 (function($) {
     $.fn.bindWithDelay = function( type, data, fn, timeout, throttle ) {
@@ -505,28 +506,41 @@ var selectedOpts = [];
                     var values = selectize.getValue();
 
                     selectize.clearOptions();
-                    selectize.addOption(arr);
+
+                    if(arr.length > 0){
+                        selectize.enable();
+                        // console.dir(css)
+                        // console.dir(arr)
+                        selectize.addOption(arr);
+                        // console.dir(css)
+                        // for(var x in arr){
+                        //     console.dir(arr[x])
+                        //     selectize.updateOption(arr[x].value, arr[x].count);
+                        // }
+                    } else {
+                        selectize.disable();
+                    }
 
                     selectize.off('item_add');
                     
                     for(var x in values){
-                        selectize.addItem(values[x]); 
+                        selectize.addItem(values[x]);
                     }            
                     
                     selectize.on('item_add', clickfilterchoice.bind(null, options.thefilters[k].name));
 
-                    selectize.refreshOptions(false);
                     // selectize.close();
-                    // selectize.refreshItems();
+                    selectize.refreshOptions(false);
+                    selectize.refreshItems();
                 } else {
-                    $('#facet-filters-' + css).selectize({
+                    var select = $('#facet-filters-' + css).selectize({
                         plugins: ['remove_button'],
                         options: arr,
                         searchField: 'display',
                         onItemAdd: clickfilterchoice.bind(null, options.thefilters[k].name),
                         onItemRemove: clearfilter.bind(null, options.thefilters[k].name),
                         sortField: 'display',
-                        preload: true,
+                        openOnFocus: true,
                         render: {
                             item: function(item, escape) {
                                 return '<div data-rel="'+escape(item.rel)+'" data-value="'+escape(item.display)+'" data-type="item">' +
@@ -543,37 +557,45 @@ var selectedOpts = [];
                             }
                         }
                     });
+                     if(selectedOpts[options.thefilters[k].name]){
+                        var selectize = select[0].selectize;
+                        selectize.off('item_add');
+                        for(var x in selectedOpts[options.thefilters[k].name]){
+                            selectize.addItem(selectedOpts[options.thefilters[k].name][x]);
+                        }
+                        selectize.on('item_add', clickfilterchoice.bind(null, options.thefilters[k].name));
+                    }
                 }
             }            
         }
 
         // show the add/remove filters options
-        var addremovefacet = function(event) {
-            event.preventDefault()
-            if ( $(this).hasClass('facetview_filterselected') ) {
-                $(this).removeClass('facetview_filterselected')
-                // and remove from options.facets
-            } else {
-                $(this).addClass('facetview_filterselected')
-                options.facets.push({'field':$(this).attr('href')})
-            }
-            buildfilters()
-            dosearch()
-        }
-        var showarf = function(event) {
-            event.preventDefault()
-            $('#facetview_addremovefilters').toggle()
-        }
-        var addremovefacets = function() {
-            $('#facetview_filters').append('<a id="facetview_showarf" href="">' + 
-                'add more filters</a><div id="facetview_addremovefilters"></div>')
-            for (var facet in options.addremovefacets) {
-                $('#facetview_addremovefilters').append()
-            }
-            $('#facetview_addremovefilters').hide()
-            $('#facetview_showarf').bind('click',showarf)
-            $('.facetview_filterchoose').bind('click',addremovefacet)
-        }
+        // var addremovefacet = function(event) {
+        //     event.preventDefault()
+        //     if ( $(this).hasClass('facetview_filterselected') ) {
+        //         $(this).removeClass('facetview_filterselected')
+        //         // and remove from options.facets
+        //     } else {
+        //         $(this).addClass('facetview_filterselected')
+        //         options.facets.push({'field':$(this).attr('href')})
+        //     }
+        //     buildfilters()
+        //     dosearch()
+        // }
+        // var showarf = function(event) {
+        //     event.preventDefault()
+        //     $('#facetview_addremovefilters').toggle()
+        // }
+        // var addremovefacets = function() {
+        //     $('#facetview_filters').append('<a id="facetview_showarf" href="">' + 
+        //         'add more filters</a><div id="facetview_addremovefilters"></div>')
+        //     for (var facet in options.addremovefacets) {
+        //         $('#facetview_addremovefilters').append()
+        //     }
+        //     $('#facetview_addremovefilters').hide()
+        //     $('#facetview_showarf').bind('click',showarf)
+        //     $('.facetview_filterchoose').bind('click',addremovefacet)
+        // }
 
         // ===============================================
         // functions to do with filter visualisations
@@ -1163,7 +1185,6 @@ var selectedOpts = [];
             
             if (facethash[name] == undefined) facethash[name] = [];
             facethash[name].push(value);
-
             ld_append_url_hash("f=" + JSON.stringify(facethash));
             options.paging.from = 0
 
@@ -1189,14 +1210,20 @@ var selectedOpts = [];
               }
             }
 
-            // var name = $('div[data-value="'+data+'"][data-type="option"]').attr('data-rel');
+            facethash = selectedOpts;
 
-			var cacheindex = $.inArray(value, facethash[name]);
-			facethash[name].splice(cacheindex,1);
-			if (facethash[name].length==0) delete facethash[name];
+   //          if(cacheindex === -1) cacheindex = 0;
 
-			if ($.isEmptyObject(facethash)) ld_append_url_hash("f=");
-			else ld_append_url_hash("f=" + JSON.stringify(facethash));
+   //          if(facethash[name]) facethash[name].splice(cacheindex, 1);
+
+			// if (facethash[name] && facethash[name].length===0) delete facethash[name];
+
+			if ($.isEmptyObject(facethash)){
+                ld_append_url_hash("f=");
+            }
+			else {
+                ld_append_url_hash("f=" + JSON.stringify(facethash));
+            }
 
             dosearch();
         }
@@ -1293,8 +1320,7 @@ var selectedOpts = [];
 			if (url_data.f != undefined) {
 				facethash = JSON.parse(url_data.f);
                 selectedOpts = facethash;
-                options.paging.from = 0
-
+                options.paging.from = 0;
                 // for (var key in facethash) {
                 //                 console.dir(facethash)
                 // 	var values = facethash[key];
