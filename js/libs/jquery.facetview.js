@@ -308,14 +308,12 @@ var selectedOpts = {};
 			var filterheader = "<h3 id='filter-by'>" + _("Filter results") + "</h3>";
 
             var thefilters = [];
-
             var _filterTmpl = '<div class="control-group">' + 
                   '<label for="facet-filters-cities">' + _("City") + ':</label>' +
                   '<select id="facet-filters-cities" placeholder="' + _("Select...") + '" multiple></select>' +
                   '<label for="facet-filters-services">' + _("Services") + ':</label>' +
                   '<select id="facet-filters-services" placeholder="' + _("Select...") + '" multiple></select>' +
-                  '<label for="facet-filters-accessibility">' + _("Accessibility") + ':</label>' +
-                  '<select id="facet-filters-accessibility" placeholder="' + _("Select...") + '" multiple></select>' +
+                  // '<select id="facet-filters-accessibility" placeholder="' + _("Select...") + '" multiple></select>' +
                   '<label for="facet-filters-library-consortium">' + _("Library consortium") + ':</label>' +
                   '<select id="facet-filters-library-consortium" placeholder="' + _("Select...") + '" multiple></select>' +
                   '<label for="facet-filters-provincial-area">' + _("Provincial area") + ':</label>' +
@@ -323,8 +321,11 @@ var selectedOpts = {};
                   '<label for="facet-filters-types">' + _("Type") + ':</label>' +
                   '<select id="facet-filters-types" placeholder="' + _("Select...") + '" multiple></select>' +
                   '<label for="facet-filters-branchtypes">' + _("Branch type") + ':</label>' +
-                  '<select id="facet-filters-branchtypes" placeholder="' + _("Select...") + '" multiple></select>';
-
+                  '<select id="facet-filters-branchtypes" placeholder="' + _("Select...") + '" multiple></select>' + 
+                  '<div class="checkbox"><label>' + 
+                  '<input id="facet-check-accessibility" type="checkbox" name="accessibility.accessible_entry" value="T">' + _("Accessibility") +
+                  '<span class="accessibility-count"></span></label></div>';
+   
             for ( var idx in filters ) {
           
                 var filter = {
@@ -358,6 +359,14 @@ var selectedOpts = {};
             _filterTmpl += '</div>';
 
             $('#facetview_filters').html("").append(filterheader+_filterTmpl)
+
+            $('#facet-check-accessibility').click(function(){
+                if(this.checked){
+                    clickfilterchoice(this.name, this.value);
+                } else {
+                    clearfilter(this.name, this.value);
+                }
+            })
 
 	// get geolocation and show location-filter, if applicable
 	if (navigator.geolocation) {
@@ -437,7 +446,7 @@ var selectedOpts = {};
                         // localize facet selectors
                         var displayItem = "";
                         if (facetType=='branch_type' || facetType=='organisation_type') displayItem = _(item);
-                        else if (facetType=='accessibility.accessible_entry' && item == 'T') displayItem = _("yes");
+                        // else if (facetType=='accessibility.accessible_entry' && item == 'T') dissplayItem = _("yes");
                             else if (facetType=='consortium') {
                               if (CONSORTIUMS[item] != undefined) displayItem = CONSORTIUMS[item].name;
                               // avoid error with dash in facet field (analyzer splits it)
@@ -481,7 +490,10 @@ var selectedOpts = {};
                 // define right selector
                 if(options.thefilters[k].name === 'contact.street_address.municipality_' + _('locale')) css = 'cities';
                 if(options.thefilters[k].name === 'services.name_' + _('locale')) css = 'services';
-                if (options.thefilters[k].name === 'accessibility.accessible_entry') css = 'accessibility';
+                if (options.thefilters[k].name === 'accessibility.accessible_entry') {
+                    $('.accessibility-count').text(' (' + arr[0].count + ')');
+                    continue;
+                };
                 if (options.thefilters[k].name === 'consortium') css = 'library-consortium';
                 if (options.thefilters[k].name === 'provincial_area') css = 'provincial-area';
                 if (options.thefilters[k].name === 'organisation_type') css = 'types';
@@ -1323,5 +1335,4 @@ var selectedOpts = {};
 
     };
 })(jQuery);
-
 
