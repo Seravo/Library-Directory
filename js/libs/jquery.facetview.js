@@ -500,7 +500,7 @@ var selectedOpts = {};
                     if(arr.length > 0){
                         selectize.enable();
                         for(var x in arr){
-                            selectize.addOption(x);
+                            selectize.addOption(arr[x]);
                         }
                     } else {
                         selectize.disable();
