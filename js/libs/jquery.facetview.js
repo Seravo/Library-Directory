@@ -477,9 +477,8 @@ var selectedOpts = {};
                     $('#facetview_' + options.facets[each].field.replace(/\./gi,'_') ).children().hide();
                 }
             }
-
+  
             for (var k in options.thefilters){
-                
                 var css;
                 var arr = [];
 
@@ -491,7 +490,17 @@ var selectedOpts = {};
                 if(options.thefilters[k].name === 'contact.street_address.municipality_' + _('locale')) css = 'cities';
                 if(options.thefilters[k].name === 'services.name_' + _('locale')) css = 'services';
                 if (options.thefilters[k].name === 'accessibility.accessible_entry') {
-                    $('.accessibility-count').text(' (' + arr[0].count + ')');
+                    if(facethash[options.thefilters[k].name]){
+                      $('#facet-check-accessibility').attr('checked','checked');
+                    };
+                    if(arr[0]){
+                      $('#facet-check-accessibility').removeAttr('disabled');
+                      $('.accessibility-count').text(' (' + arr[0].count + ')')
+                    } else {
+                      $('#facet-check-accessibility').attr('disabled', 'disabled');
+                      $('.accessibility-count').text(' (0)')
+                    }
+
                     continue;
                 };
                 if (options.thefilters[k].name === 'consortium') css = 'library-consortium';
