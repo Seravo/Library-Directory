@@ -499,7 +499,6 @@ var selectedOpts = {};
 
                     if(arr.length > 0){
                         selectize.enable();
-                        console.dir(arr)
                         for(var x in arr){
                             selectize.addOption(x);
                         }
