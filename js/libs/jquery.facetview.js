@@ -499,7 +499,10 @@ var selectedOpts = {};
 
                     if(arr.length > 0){
                         selectize.enable();
-                        selectize.addOption(arr);
+                        console.dir(arr)
+                        for(var x in arr){
+                            selectize.addOption(x);
+                        }
                     } else {
                         selectize.disable();
                     }
@@ -539,11 +542,12 @@ var selectedOpts = {};
                             }
                         }
                     });
-                     if(selectedOpts[options.thefilters[k].name]){
+                    // If something in facethash
+                     if(facethash[options.thefilters[k].name]){
                         var selectize = select[0].selectize;
                         selectize.off('item_add');
-                        for(var x in selectedOpts[options.thefilters[k].name]){
-                            selectize.addItem(selectedOpts[options.thefilters[k].name][x]);
+                        for(var x in facethash[options.thefilters[k].name]){
+                            selectize.addItem(facethash[options.thefilters[k].name][x]);
                         }
                         selectize.on('item_add', clickfilterchoice.bind(null, options.thefilters[k].name));
                     }
