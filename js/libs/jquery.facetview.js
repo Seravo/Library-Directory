@@ -532,7 +532,7 @@ var selectedOpts = {};
                     selectize.off('item_add');
 
                     for(var x in values){
-                        selectize.addItem(values[x]);
+                        selectize.addItem(decodeURIComponent(values[x]));
                     }
 
                     selectize.on('item_add', clickfilterchoice.bind(null, options.thefilters[k].name));
@@ -569,7 +569,7 @@ var selectedOpts = {};
                         var selectize = select[0].selectize;
                         selectize.off('item_add');
                         for(var x in facethash[options.thefilters[k].name]){
-                            selectize.addItem(facethash[options.thefilters[k].name][x]);
+                            selectize.addItem(decodeURIComponent(facethash[options.thefilters[k].name][x]));
                         }
                         selectize.on('item_add', clickfilterchoice.bind(null, options.thefilters[k].name));
                     }
@@ -1054,7 +1054,7 @@ var selectedOpts = {};
                 for(var value in selectedOpts[x]){
                   var obj = {'term':{}};
                   var value = selectedOpts[x][value];
-                  obj['term'][x] = value;
+                  obj['term'][x] = decodeURIComponent(value);
                   query_filters.push(obj);
                 }
             }
@@ -1160,7 +1160,7 @@ var selectedOpts = {};
             var value = data;
 
             if (!facethash[name]) facethash[name] = [];
-            facethash[name].push(value);
+            facethash[name].push(encodeURIComponent(value));
             ld_append_url_hash("f=" + JSON.stringify(facethash));
             options.paging.from = 0
 
@@ -1176,7 +1176,7 @@ var selectedOpts = {};
             var value = data;
 
             if(facethash[name]){
-              var index = $.inArray(value, facethash[name]);
+              var index = $.inArray(encodeURIComponent(value), facethash[name]);
               facethash[name].splice(index, 1);
               if(facethash[name].length === 0){
                 delete facethash[name];

@@ -22,7 +22,8 @@ function ld_parse_url_hash() {
 		var param = params[temp];
 		var args = param.split("=");
 
-		data[args[0]]=decodeURI(args[1]);
+		// data[args[0]]=decodeURIComponent(args[1]);
+		data[args[0]]=args[1];
 	}
 	return data;
 }
@@ -36,7 +37,7 @@ function ld_append_url_hash(param) {
 	var newKey = newParams[0];
 	var newVal = newParams[1];
 
-	// decode current hash data into object	
+	// decode current hash data into object
 	var newData = {};
 	if (curHash.indexOf("#") != -1) {
 		var params = curHash.slice(1).split("&");
@@ -44,17 +45,24 @@ function ld_append_url_hash(param) {
 		for (var temp in params) {
 			var param = params[temp];
 			var args = param.split("=");
-			newData[args[0]]=decodeURI(args[1]);
+			// newData[args[0]]=decodeURIComponent(args[1]);
+			newData[args[0]]=args[1];
 		}
 	}
 
 	// check for old key
 	if (newData[newKey] != undefined) {
 		if (newVal=='') delete newData[newKey];
-		else newData[newKey] = encodeURI(newVal);
+		// else newData[newKey] = encodeURIComponent(newVal);
+		else newData[newKey] = newVal;
 	}
 	// insert new key & val if value is nonempty
-	else if (newVal != '') newData[newKey] = encodeURI(newVal);
+	else {
+		if (newVal != ''){
+			// newData[newKey] = encodeURIComponent(newVal);
+			newData[newKey] = newVal;
+		}
+	}
 
 	// put new data into array
 	var newHash = [];
@@ -73,7 +81,7 @@ function ld_mapcontrol_init_geoloc(data) {
 	}
 
     // hide hero-unit if map visible
-	$("#introtext").slideUp();	
+	$("#introtext").slideUp();
 
 	/* initialize map canvas and set location for given coordinates */
 	$(window).scrollTop(0);
@@ -570,7 +578,7 @@ function ld_widget_wizard() {
 	})();
 }
 
-/* 
+/*
 Fix IOS scaling bug
 http://stackoverflow.com/questions/5434656/ipad-layout-scales-up-when-rotating-from-portrait-to-landcape
 */
@@ -622,12 +630,12 @@ $(document).on("click", "button.change-week", function(){
         mondayDate : mondayDate
       }
     }).fail(function (jqXHR, textStatus) {
-    	
-    }).done(function (data) {     
+
+    }).done(function (data) {
 
       var html;
       var calendarTitle;
-    
+
       if(!data._source.opening_hours.has_opening_hours){
         html = "<p>" + _("No results found") + "</p>";
         calendarTitle = _("Opening hours") + " " + mondayDate;
@@ -658,8 +666,8 @@ $(document).on("click", "button.change-week", function(){
         } else {
           calendarTitle = _("Opening hours this week");
         }
-				
-      }   
+
+      }
 
    		$('h3.week-label').text(calendarTitle);
       $('time[itemprop="openingHours"]').children().remove();
