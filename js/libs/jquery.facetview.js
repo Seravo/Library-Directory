@@ -1299,7 +1299,11 @@ var selectedOpts = {};
 
             // append the filters to the facetview object
             buildfilters();
-            $('#facetview_freetext',obj).bindWithDelay('keyup',dosearch,options.freetext_submit_delay);
+            $('#facetview_freetext',obj).bindWithDelay('keyup',function(value){
+                if($('#facetview_freetext').val().length > 2){
+                    dosearch();
+                }
+            },options.freetext_submit_delay);
 
             // trigger the search once on load, to get all results
             dosearch();
