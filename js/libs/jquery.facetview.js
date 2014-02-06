@@ -131,7 +131,7 @@ var selectedOpts = {};
             "display_images": true,
             "visualise_filters": false,
             "description":"",
-            "search_url": proto + "://localhost:8888/testink/organisation/_search?",
+            "search_url": proto + "://es-proxy.kirjastot.fi/testink/organisation/_search?",
             // TODO: if localhost unreachable, use public server
             // "search_url":"http://libdir.seravo.fi:8888/testink/_search?",
             "search_index":"elasticsearch",
