@@ -98,8 +98,10 @@
 		<p class="libdescription" itemprop="description">{{description__("locale")}}</p>
 	{{/description__("locale")}}
 
-	<ul class="nav nav-tabs">
+		<ul class="nav nav-tabs">
+
 		<li class="active"><a data-toggle="tab" href="#lib_services" data-toggle="tab">_("Services")</a></li>
+
 
 		{{#has_personnel}}
 			<li><a data-toggle="tab" href="#lib_personnel">_("Personnel")</a></li>
@@ -117,7 +119,10 @@
 			<li><a data-toggle="tab" href="#lib_accessibility">_("Accessibility")</a></li>
 		{{/accessibility_available}}
 
-		<li><a data-toggle="tab" href="#lib_extrainfo">_("Additional info")</a></li>
+		{{#additional_info}}
+			<li><a data-toggle="tab" href="#lib_extrainfo">_("Additional info")</a></li>
+		{{/additional_info}}
+
 	</ul>
 
 	<div class="tab-content">
@@ -268,7 +273,7 @@
 				</table>
 			</dd>
 				{{/unit_personnels}}
-			
+
 
 		</div>
 
@@ -349,10 +354,12 @@
 				<dt>_("Additional info")</dt>
 				<ul>
 				{{#extrainfo}}
-					<li>
-						{{property_label__("locale")}}<br>
-						<cite>{{property_value__("locale")}}</cite>
-					</li>
+					{{#property_label__("locale")}}
+						<li>
+							{{property_label__("locale")}}<br>
+							<cite>{{property_value__("locale")}}</cite>
+						</li>
+					{{/property_label__("locale")}}
 					<br>
 				{{/extrainfo}}
 				</ul>
@@ -409,7 +416,7 @@
 		{{#contact.web_library_url}}
 		<dt>_("Library catalogue")</dt>
 		<dd>
-			<i class="icon-search"></i> 
+			<i class="icon-search"></i>
 			<a href="{{contact.web_library_url}}">
 				{{contact.web_library_url}}</a>
 		</dd>

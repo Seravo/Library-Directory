@@ -351,7 +351,7 @@ app.post('/openTimeChangeWeek', function(req,res){
   } else {
     mondayDate.setDate(mondayDate.getDate() - 7);
   }
-  
+
   get_library_opening_times(req.body.id,
     {_source:{}},
     mondayDate,
@@ -935,6 +935,10 @@ function add_library_metadata(dataobj, callback){
         if (label == 'ifla-visit' || label == 'esteettömyys'){
           lib.additional_info.extrainfo.splice(len, 1);
         }
+
+        if(label === ''){
+          delete lib.additional_info.extrainfo[len]['property_label_'+_('locale')];
+        }
       }
     }
 
@@ -1027,8 +1031,12 @@ function add_library_metadata(dataobj, callback){
     }
     else {
       get_library_personnel(lib.id, function(err, personnel){
-        lib.personnel = personnel;
-        lib.has_personnel = true;
+
+        if(personnel){
+          lib.personnel = personnel;
+          lib.has_personnel = true;
+        }
+
         get_library_children(lib.id, dataobj, callback);
       });
     }
@@ -1177,7 +1185,7 @@ function getOrganizationById(person, callback) {
             callback(null, person);
           } else {
             callback(null, null);
-          }        
+          }
         });
       }).on('error', function(e) {
         callback(e);
@@ -1194,13 +1202,13 @@ function get_library_by_name(name, browser_req, callback) {
     {
       "size": 1,
       "sort": [ "_score" ],
-      "query": { 
+      "query": {
         "match": {
           "additional_info.slug" : name
         }
       }
      };
-    
+
     query = JSON.stringify(query);
     query = encodeURIComponent(query);
 
@@ -1301,14 +1309,14 @@ function get_library_children(id, library_data, callback) {
         }
 
         library.children = children;
-        library.has_children = true; 
-        
+        library.has_children = true;
+
       } else {
-        library.has_children = false;     
+        library.has_children = false;
       }
 
       get_centralized_services(id, library_data, callback);
-      
+
     });
   }).on('error', function(e) {
     rlog('Problem with request: ' + e.message);
@@ -1317,7 +1325,7 @@ function get_library_children(id, library_data, callback) {
 
 // get library's personnel by library id
 function get_library_personnel(id, callback) {
-  // Small hack to reuse this function in case of if object from 
+  // Small hack to reuse this function in case of if object from
   // elastic search result has been passed as parameter
   if(typeof id === 'object' && id.hasOwnProperty('_id')){
     id = id._id;
@@ -1371,8 +1379,8 @@ function get_library_personnel(id, callback) {
           personnel = obfuscate_email_addresses(personnel);
           return callback(null, personnel)
         }
-        
-      } 
+
+      }
 
       callback(null, null);
 
@@ -1673,8 +1681,8 @@ function getPersonnelOfUnitByLibrary (lib, callback) {
        catch(err)
        {
           return callback(lib);
-       }    
-      
+       }
+
       if(dataobj.hits.hits.length > 0){
 
         units = dataobj.hits.hits;
@@ -1720,14 +1728,14 @@ function getPersonnelOfUnitByLibrary (lib, callback) {
       } else {
         callback(lib);
       }
-      
+
     });
   }).on('error', function(e) {
     rlog('Problem with request: ' + e.message);
   });
 }
 
-// 
+//
 // function getParentPersonnel(dataobj, callback){
 //   if(!dataobj._source.parent_organisation){
 //         callback(dataobj);
