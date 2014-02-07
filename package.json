@@ -21,7 +21,7 @@
   "dependencies": {
     "connect" : "2.x",
     "express" : "2.x",
-    "express-form" : "0.6.x",
+    "express-form" : "0.9.x",
     "node-build-script": "https://github.com/h5bp/node-build-script/tarball/master",
     "grunt" : "0.3.x",
     "hogan.js" : "1.0.x",
@@ -30,7 +30,8 @@
     "gettext" : ">=0.0.1",
     "locale" : ">=0.0.12",
     "async" : ">=0.2.5",
-    "underscore" : ">=1.5.2"
+    "underscore" : ">=1.5.2",
+    "cookie-signature": ">=1.0.3"
   },
   "devDependencies": {
     "mocha" : ">=1.12.0",
