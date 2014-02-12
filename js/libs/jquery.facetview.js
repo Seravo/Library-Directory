@@ -887,9 +887,9 @@ var selectedOpts = {};
                 $('#facetview_increment').bind('click',increment)
                 data.found <= to ? $('#facetview_increment').html('..') : ""
             }
-            $("div.pagination").bind("click", function(){
-                $("#introtext").slideUp(); // no need to show this as soon as user makes first search
-            });
+            //$("div.pagination").bind("click", function(){
+            //    $("#introtext").slideUp(); // no need to show this as soon as user makes first search
+            //});
 
         }
 
@@ -1293,7 +1293,7 @@ var selectedOpts = {};
 			// freetext query param
 			if (url_data.q != undefined) {
 				// hide introtext if query parameter is present
-				$("#introtext").hide();
+				//$("#introtext").hide();
 				$('#facetview_freetext').val(url_data.q);
 			}
 

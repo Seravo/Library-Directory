@@ -81,7 +81,7 @@ function ld_mapcontrol_init_geoloc(data) {
 	}
 
     // hide hero-unit if map visible
-	$("#introtext").slideUp();
+	//$("#introtext").slideUp();
 
 	/* initialize map canvas and set location for given coordinates */
 	$(window).scrollTop(0);
@@ -695,3 +695,9 @@ if (!('indexOf' in Array.prototype)) {
     return -1;
   };
 }
+
+// toggle introtext
+$('#toggle_help').bind('click', function(event) {
+  event.preventDefault();
+  $('#introtext').slideToggle();
+});
