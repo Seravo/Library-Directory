@@ -1300,7 +1300,7 @@ var selectedOpts = {};
             // append the filters to the facetview object
             buildfilters();
             $('#facetview_freetext',obj).bindWithDelay('keyup',function(value){
-                if($('#facetview_freetext').val().length > 2){
+                if($('#facetview_freetext').val().length > 2 || $('#facetview_freetext').val().length === 0){
                     dosearch();
                 }
             },options.freetext_submit_delay);
