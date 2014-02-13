@@ -14,7 +14,7 @@ function ld_parse_url_hash() {
 
 	var data = {};
 	var params = [];
-	if (hash.indexOf("#") != -1) params = hash.slice(1).split("&");
+	if (hash.indexOf("#") != -1) params = decodeURIComponent(hash).slice(1).split("&");
 
 	if (params.length==0) return data;
 
