@@ -7,7 +7,7 @@ var proto = 'http';
 if (window.location.protocol == 'https:') {
   proto = 'https';
 }
-var url = proto + "://localhost:9000/";
+var url = proto + "://localhost:8080/";
 
 var jQuery;
 
