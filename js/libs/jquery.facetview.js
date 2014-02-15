@@ -120,7 +120,14 @@ var selectedOpts = {};
             "facets":[
 		{'field': 'contact.street_address.municipality_'+_("locale"), 'order':'term', 'display': _('City'), "size":400 },
 		{'field': 'services.name_'+_("locale"), 'order':'term', 'display': _('Services'), "size":500 },
-		{'field': 'accessibility.accessible_entry', 'display': _('Accessibility')},
+		// {'field': 'accessibility.accessibility_entry', 'display': _('Accessibility')},
+        {'field': 'accessibility.accessible_entry', 'display': _('Accessibile entry')},
+        {'field': 'accessibility.accessible_parking', 'display': _('Accessible parking')},
+        {'field': 'accessibility.accessible_toilet', 'display': _('Accessibile toilet')},
+        {'field': 'accessibility.induction_loop', 'display': _('Induction loop')},
+        {'field': 'accessibility.large_typeface_collection', 'display': _('Largt typeface collection')},
+        {'field': 'accessibility.lift', 'display': _('Lift')},
+        {'field': 'accessibility.extraaccessibilityinfo', 'display': _('Extra accessibility info')},
 		{'field': 'consortium', 'size': 100, 'order':'term', 'display': _('Library consortium')},
 		{'field': 'provincial_area', 'size': 100, 'order':'term', 'display': _('Provincial area')},
 		{'field': 'organisation_type', 'display': _('Type')},
@@ -313,7 +320,8 @@ var selectedOpts = {};
                   '<select id="facet-filters-cities" placeholder="' + _("Select...") + '" multiple></select>' +
                   '<label for="facet-filters-services">' + _("Services") + ':</label>' +
                   '<select id="facet-filters-services" placeholder="' + _("Select...") + '" multiple></select>' +
-                  // '<select id="facet-filters-accessibility" placeholder="' + _("Select...") + '" multiple></select>' +
+                  '<label for="facet-filters-accessibility">' + _("Accessibility") + ':</label>' +
+                  '<select id="facet-filters-accessibility" placeholder="' + _("Select...") + '" multiple></select>' +
                   '<label for="facet-filters-library-consortium">' + _("Library consortium") + ':</label>' +
                   '<select id="facet-filters-library-consortium" placeholder="' + _("Select...") + '" multiple></select>' +
                   '<label for="facet-filters-provincial-area">' + _("Provincial area") + ':</label>' +
@@ -321,10 +329,8 @@ var selectedOpts = {};
                   '<label for="facet-filters-types">' + _("Type") + ':</label>' +
                   '<select id="facet-filters-types" placeholder="' + _("Select...") + '" multiple></select>' +
                   '<label for="facet-filters-branchtypes">' + _("Branch type") + ':</label>' +
-                  '<select id="facet-filters-branchtypes" placeholder="' + _("Select...") + '" multiple></select>' +
-                  '<div class="checkbox"><label>' +
-                  '<input id="facet-check-accessibility" type="checkbox" name="accessibility.accessible_entry" value="T">' + _("Accessibility") +
-                  '<span class="accessibility-count"></span></label></div>';
+                  '<select id="facet-filters-branchtypes" placeholder="' + _("Select...") + '" multiple></select>';
+
 
             for ( var idx in filters ) {
 
@@ -351,22 +357,23 @@ var selectedOpts = {};
                     filter.display = filter.display.replace(/{{FILTER_DISPLAY}}/g, filters[idx]['field']);
                 }
 
-                thefilters.push(filter);
-                options.thefilters = thefilters;
+                if(filter.name.match(/accessibility*/)) {
+                    if(!thefilters.accessibility){
+                        thefilters.accessibility = [];
+                    } else {
+                        thefilters.accessibility.push(filter)
+                    }
+                } else {
+                    thefilters.push(filter);
+                }
 
+                options.thefilters = thefilters;
             }
 
             _filterTmpl += '</div>';
 
             $('#facetview_filters').html("").append(filterheader+_filterTmpl)
 
-            $('#facet-check-accessibility').click(function(){
-                if(this.checked){
-                    clickfilterchoice(this.name, this.value);
-                } else {
-                    clearfilter(this.name, this.value);
-                }
-            })
 
 	// get geolocation and show location-filter, if applicable
 	if (navigator.geolocation) {
@@ -412,8 +419,10 @@ var selectedOpts = {};
          var putvalsinfilters = function(data) {
             // for each filter setup, find the results for it and append them to the relevant filter
             var filterOpts = [];
+
             for ( var each in options.facets ) {
                 $('#facetview_' + options.facets[each].field.replace(/\./gi,'_')).children().remove();
+
                 var records = data["facets"][ options.facets[each].field ];
 
                 for ( var item in records ) {
@@ -431,6 +440,7 @@ var selectedOpts = {};
                     }
                     else {
                         var facetType = options.facets[each].field;
+
                         // do not display empty selectors
                         if (item=='') continue;
 
@@ -482,39 +492,60 @@ var selectedOpts = {};
                 var css;
                 var arr = [];
 
-                for(var x in filterOpts[options.thefilters[k].name]){
-                    arr.push(filterOpts[options.thefilters[k].name][x])
-                }
-
                 // define right selector
                 if(options.thefilters[k].name === 'contact.street_address.municipality_' + _('locale')) css = 'cities';
                 if(options.thefilters[k].name === 'services.name_' + _('locale')) css = 'services';
-                if (options.thefilters[k].name === 'accessibility.accessible_entry') {
-                    if(facethash[options.thefilters[k].name]){
-                      $('#facet-check-accessibility').attr('checked','checked');
-                    };
-                    if(arr[0]){
-                      $('#facet-check-accessibility').removeAttr('disabled');
-                      $('.accessibility-count').text(' (' + arr[0].count + ')')
-                    } else {
-                      $('#facet-check-accessibility').attr('disabled', 'disabled');
-                      $('.accessibility-count').text(' (0)')
-                    }
 
-                    continue;
-                };
                 if (options.thefilters[k].name === 'consortium') css = 'library-consortium';
                 if (options.thefilters[k].name === 'provincial_area') css = 'provincial-area';
                 if (options.thefilters[k].name === 'organisation_type') css = 'types';
                 if (options.thefilters[k].name === 'branch_type') css = 'branchtypes';
+
+                if($.isArray(options.thefilters[k])){
+
+                    css = 'accessibility';
+
+                    for(var x in options.thefilters[k]){
+                        var _filter = options.thefilters[k][x];
+                        if(filterOpts[_filter.name]){
+
+                            for(var f in filterOpts[_filter.name]){
+                                if(filterOpts[_filter.name][f].display === 'T'){
+                                    arr.push({
+                                        count: filterOpts[_filter.name][f].count,
+                                        display: filterOpts[_filter.name][f].rel,
+                                        rel: filterOpts[_filter.name][f].rel,
+                                        value: filterOpts[_filter.name][f].rel
+                                    })
+                                }
+                            }
+
+                        }
+                    }
+                } else {
+                    for(var x in filterOpts[options.thefilters[k].name]){
+                        arr.push(filterOpts[options.thefilters[k].name][x])
+                    }
+                }
 
                 // Check if selectized has been initialized
                 if($('#facet-filters-' + css).hasClass('selectized')){
 
                     var select = $('#facet-filters-' + css).selectize();
                     var selectize = select[0].selectize;
+                    var values = [];
 
-                    var values = facethash[options.thefilters[k].name];
+                    if($.isArray(options.thefilters[k])){
+                        for(var x in options.thefilters[k]){
+
+                            if(facethash[options.thefilters[k][x].name]){
+                                values.push(options.thefilters[k][x].name)
+                            }
+
+                        }
+                    } else {
+                        values = facethash[options.thefilters[k].name];
+                    }
 
                     selectize.clearOptions();
 
@@ -522,7 +553,6 @@ var selectedOpts = {};
                         selectize.enable();
                         for(var x in arr){
                             selectize.addOption(arr[x]);
-                            // A bit illogical, but it works
                             selectize.updateOption(arr[x].value, arr[x]);
                         }
                     } else {
@@ -600,71 +630,8 @@ var selectedOpts = {};
                 vis = vis.replace(/{{VIS_TITLE}}/gi,$(this).attr('href'))
                 $('#facetview_rightcol').prepend(vis)
                 $('.facetview_removevis').bind('click',show_vis)
-                bubble($(this).attr('rel'),$('#facetview_rightcol').css('width').replace(/px/,'')-20)
+                // bubble($(this).attr('rel'),$('#facetview_rightcol').css('width').replace(/px/,'')-20)
             }
-        }
-
-        var bubble = function(facetidx,width) {
-            var facetkey = options.facets[facetidx]['field']
-            var facets = options.data.facets[facetkey]
-            data = {"children":[]};
-            var count = 0;
-            for (var fct in facets) {
-                var arr = {
-                    "className": fct,
-                    "packageName": count++,
-                    "value": facets[fct]
-                }
-                data["children"].push(arr);
-            }
-            var r = width,
-                format = d3.format(",d"),
-                fill = d3.scale.category20c();
-            var bubble = d3.layout.pack()
-                .sort(null)
-                .size([r, r]);
-            var vis = d3.select("#facetview_visualisation > .modal-body").append("svg:svg")
-                .attr("width", r)
-                .attr("height", r)
-                .attr("class", "bubble")
-            var node = vis.selectAll("g.node")
-                .data(bubble(data)
-                .filter(function(d) { return !d.children; }))
-                .enter().append("svg:g")
-                .attr("class", "node")
-                .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-            node.append("svg:title")
-                .text(function(d) { return d.data.className + ": " + format(d.value); })
-            node.append("svg:circle")
-                .attr("r", function(d) { return d.r; })
-                .style("fill", function(d) { return fill(d.data.packageName); })
-            node.append("svg:text")
-                .attr("text-anchor", "middle")
-                .attr("dy", ".3em")
-                .text(function(d) { return d.data.className.substr(0,10) + ".. (" + d.data.value + ")"; })
-            node.on('click',function(d) {
-                clickbubble(facetkey,d.data.className)
-            })
-        };
-
-	var clickextrabubble = function(facetkey,facetvalue) {
-		options.paging.from = 0
-		dosearch()
-		$('#facetview_visualisation').remove() }
-
-        var clickbubble = function(facetkey,facetvalue) {
-            var newobj = '<a class="facetview_filterselected facetview_clear ' +
-                'btn btn-info" rel="' + facetkey +
-                '" alt="remove" title="remove"' +
-                ' href="' + facetvalue + '">' +
-                facetvalue + ' <i class="icon-remove"></i></a>'
-
-            $('#facetview_selectedfilters').append(newobj)
-            $('.facetview_filterselected').unbind('click',clearfilter)
-            $('.facetview_filterselected').bind('click',clearfilter)
-            options.paging.from = 0
-            dosearch()
-            $('#facetview_visualisation').remove()
         }
 
         // ===============================================
@@ -962,7 +929,7 @@ var selectedOpts = {};
         showresults = function(sdata) {
             // get the data and parse from the solr / es layout
             var data = parseresults(sdata);
-            options.data = data
+            options.data = data;
 
             // change filter options
             putvalsinfilters(data);
@@ -1156,8 +1123,14 @@ var selectedOpts = {};
         // trigger a search when a filter choice is clicked
         var clickfilterchoice = function(term, data, item) {
 
-            var name = term;
             var value = data;
+            var name = term;
+
+            // handling accessibility cases
+            if(data.match(/accessibility*/)){
+                name = data
+                value = 'T'
+            }
 
             if (!facethash[name]) facethash[name] = [];
             facethash[name].push(encodeURIComponent(value));
@@ -1174,6 +1147,12 @@ var selectedOpts = {};
 
             var name = term;
             var value = data;
+
+            // handling accessibility cases
+            if(data.match(/accessibility*/)){
+                name = data
+                value = 'T'
+            }
 
             if(facethash[name]){
               var index = $.inArray(encodeURIComponent(value), facethash[name]);
