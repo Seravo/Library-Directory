@@ -366,7 +366,6 @@ var selectedOpts = {};
                 } else {
                     thefilters.push(filter);
                 }
-
                 options.thefilters = thefilters;
             }
 
@@ -488,6 +487,7 @@ var selectedOpts = {};
                 }
             }
 
+
             for (var k in options.thefilters){
                 var css;
                 var arr = [];
@@ -508,12 +508,11 @@ var selectedOpts = {};
                     for(var x in options.thefilters[k]){
                         var _filter = options.thefilters[k][x];
                         if(filterOpts[_filter.name]){
-
                             for(var f in filterOpts[_filter.name]){
                                 if(filterOpts[_filter.name][f].display === 'T'){
                                     arr.push({
                                         count: filterOpts[_filter.name][f].count,
-                                        display: filterOpts[_filter.name][f].rel,
+                                        display: options.thefilters[k][x].display,
                                         rel: filterOpts[_filter.name][f].rel,
                                         value: filterOpts[_filter.name][f].rel
                                     })
