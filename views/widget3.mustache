@@ -348,19 +348,19 @@
 		{{#contact.web_library_url}}
 		<dt>_("Library catalogue")</dt>
 		<dd>
-			<i class="icon-search"></i> 
-			<a href="{{contact.web_library_url}}">
+			<i class="icon-search"></i>
+			<a target="_blank" href="{{contact.web_library_url}}">
 				{{contact.web_library_url}}</a>
 		</dd>
 		{{/contact.web_library_url}}
         <dt>_("Homepage")</dt>
         <dd>
 		{{#contact.homepage__("locale")}}
-            <i class="icon-home"></i> <a href="{{contact.homepage__("locale")}}">
+            <i class="icon-home"></i> <a target="_blank" href="{{contact.homepage__("locale")}}">
 			{{contact.homepage__("locale")}}</a><br>
 	    {{/contact.homepage__("locale")}}
         {{#contact.internet}}
-            <a href="{{url__("locale")}}"
+            <a target="_blank" href="{{url__("locale")}}"
                 title="{{url_description__("locale")}}" class="iconless-link">
 			{{name__("locale")}}</a><br>
         {{/contact.internet}}
@@ -417,12 +417,12 @@
 	{{#parent_organisation}}
 		{{#consortium}}
 			<dt>_("Library consortium")</dt>
-			<dd><a href="{{consortium_url}}" itemprop="branchOf">{{consortium}}</a></dd>
+			<dd><a target="_blank" href="{{consortium_url}}" itemprop="branchOf">{{consortium}}</a></dd>
 		{{/consortium}}
 	{{/parent_organisation}}
 	</div>
 
-	<p><small><a href="{{slug}}" itemprop="url">hakemisto.kirjastot.fi/{{slug}}</a> _("last modified"): {{meta.modified}}</small></p>
+	<p><small><a href="{{slug}}" target="_blank" itemprop="url">hakemisto.kirjastot.fi/{{slug}}</a> _("last modified"): {{meta.modified}}</small></p>
 
   </div>
 
