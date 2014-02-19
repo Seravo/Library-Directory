@@ -1037,7 +1037,7 @@ var selectedOpts = {};
 			// add freetext search as normal query or else match all documents
 			var freetext = $('#facetview_freetext').val()
 			if (freetext.length!='') {
-				query_fields = ["name_*", "name_short_*", "contact.street_address.municipality_*", "contact.street_address.post_code*", "services.name_*" ]
+				query_fields = ["name_*", "name_short_*", "contact.street_address.municipality_*", "contact.street_address.post_code*", "services.name_*", "description_*" ]
 				query_string = {'query_string': { 'fields': query_fields, 'query': freetext + "*", 'default_operator': "AND" } }
 			} else {
 				query_string = {'match_all': {}}
