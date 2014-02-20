@@ -593,27 +593,42 @@ if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) 
 }
 
 /* personnel search as ajax get */
-function ld_personnel_search() {
-  $.ajax({
-    url: "/personnel-search",
-    cache: false,
-    type: 'POST',
-    data: { sstr: $('#personnel-sstr').val() },
-    success: function(html) {
-      $("#personnel-search-results").html(html);
-    }
-  });
+function ld_personnel_search(data) {
+		$('#personnel-search-go').attr('disabled', 'disabled');
+		$.ajax({
+			url: "/personnel-search",
+			cache: false,
+			type: 'POST',
+			data: { sstr: data },
+			success: function(html) {
+				$('#personnel-search-go').removeAttr('disabled');
+				$("#personnel-search-results").html(html);
+			},
+			error: function(jqXHR, status){
+				// console.dir(jqXHR);
+				// console.dir(status);
+			}
+		});
 }
 
 $('#personnel-search-go').bind('click', function(e) {
-  ld_personnel_search();
+	if($('#personnel-sstr').val().length > 0){
+		ld_personnel_search($('#personnel-sstr').val());
+	} else {
+		$('.searchForm').addClass('error');
+	}
 });
 
 $('#personnel-sstr').bind('keypress', function(e) {
+	$('.searchForm').removeClass('error');
   if (e.which == 13) {
-    e.preventDefault();
-    ld_personnel_search();
-  }
+	  	if($(this).val().length ){
+		    e.preventDefault();
+		    ld_personnel_search($(this).val());
+			} else {
+				$('.searchForm').addClass('error');
+			}
+	  }
 });
 
 // Change calendar week on /{library-name}/
