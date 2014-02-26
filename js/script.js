@@ -592,9 +592,20 @@ if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i)) 
     }
 }
 
+
 /* personnel search as ajax get */
+var ajaxIsRunning = false;
+
 function ld_personnel_search(data) {
+
 		$('#personnel-search-go').attr('disabled', 'disabled');
+
+		if(ajaxIsRunning){
+			return;
+		}
+
+		ajaxIsRunning = true;
+
 		$.ajax({
 			url: "/personnel-search",
 			cache: false,
@@ -603,6 +614,9 @@ function ld_personnel_search(data) {
 			success: function(html) {
 				$('#personnel-search-go').removeAttr('disabled');
 				$("#personnel-search-results").html(html);
+			},
+			complete: function(){
+				ajaxIsRunning = false;
 			},
 			error: function(jqXHR, status){
 				// console.dir(jqXHR);
@@ -631,7 +645,8 @@ $('#personnel-sstr').bind('keypress', function(e) {
 	  }
 });
 
-// Change calendar week on /{library-name}/
+
+// Change calendar week on /{library-name}/ page
 $(document).on("click", "button.change-week", function(){
     var id = $('h1.lib_details_name').attr('id');
     var mondayDate = $(this).attr('monday');

@@ -304,7 +304,7 @@ app.post('/preview', function(req, res) {
 
 app.post('/personnel-search', function(req, res) {
   var sstr = req.body.sstr;
-  get_personnel(sstr,function(data) {
+  get_personnel(sstr, true, function(data) {
     if (data.length > 0) {
       res.local('personnel_status', true);
       res.local('people', []);
@@ -1072,7 +1072,7 @@ function get_library_by_id(id, callback) {
   }
 
 // get personnel by search via ajax get
-function get_personnel(sstr, callback) {
+function get_personnel(sstr, ajax,callback) {
    // reformat the search string to match better
   var stemp = sstr.split(/ /);
   for (var item in stemp) {
@@ -1138,64 +1138,58 @@ function get_personnel(sstr, callback) {
     });
     res.on('end', function() {
       dataobj = JSON.parse(data);
-      async.mapSeries(dataobj.hits.hits, getOrganizationById, function(err, persons){
-        if(err){
-          rlog(err);
-        } else {
-          callback(persons)
-        }
-      })
+      callback(dataobj.hits.hits);
     });
   }).on('error', function(e) {
     rlog('Problem with request: ' + e.message);
   });
 }
 
-function getOrganizationById(person, callback) {
-  var id = person._source.organisation;
-  if(id){
+// function getOrganizationById(person, callback) {
+//   var id = person._source.organisation;
+//   if(id){
 
-    // TODO limit result, only one possible
-    var query = {
-      'size': 9999,
-      'query' : {
-        "ids" : { 'values' : [id] }
-      }
-    };
+//     // TODO limit result, only one possible
+//     var query = {
+//       'size': 9999,
+//       'query' : {
+//         "ids" : { 'values' : [id] }
+//       }
+//     };
 
-    query = JSON.stringify(query);
-    query = encodeURIComponent(query);
+//     query = JSON.stringify(query);
+//     query = encodeURIComponent(query);
 
-    var options = {
-      host: conf.proxy_config.host,
-      port: conf.proxy_config.port,
-      path: '/testink/organisation/_search?source='+query,
-      method: 'GET'
-    };
+//     var options = {
+//       host: conf.proxy_config.host,
+//       port: conf.proxy_config.port,
+//       path: '/testink/organisation/_search?source='+query,
+//       method: 'GET'
+//     };
 
-    var req = http.get(options, function(res) {
-          res.setEncoding('utf8');
-          data = '';
-        res.on('data', function(chunk){
-          data += chunk;
-        });
-        res.on('end', function() {
-          data = JSON.parse(data);
-          if(data.hits.hits[0]){
-            person._source.organisation = data.hits.hits[0]._source;
-            callback(null, person);
-          } else {
-            callback(null, null);
-          }
-        });
-      }).on('error', function(e) {
-        callback(e);
-      });
+//     var req = http.get(options, function(res) {
+//           res.setEncoding('utf8');
+//           data = '';
+//         res.on('data', function(chunk){
+//           data += chunk;
+//         });
+//         res.on('end', function() {
+//           data = JSON.parse(data);
+//           if(data.hits.hits[0]){
+//             person._source.organisation = data.hits.hits[0]._source;
+//             callback(null, person);
+//           } else {
+//             callback(null, null);
+//           }
+//         });
+//       }).on('error', function(e) {
+//         callback(e);
+//       });
 
-  } else {
-    callback(null, null);
-  }
-}
+//   } else {
+//     callback(null, null);
+//   }
+// }
 
 // get library by slug
 function get_library_by_name(name, browser_req, callback) {
