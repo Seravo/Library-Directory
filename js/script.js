@@ -469,7 +469,7 @@ function ld_widget_wizard() {
 			};
 
 		query = JSON.stringify(query2);
-		//console.log(query);
+
 
 		var showerror = function(msg) {
 			if (!msg){ msg = _("Error: unspecified"); }
