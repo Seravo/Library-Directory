@@ -304,7 +304,7 @@ app.post('/preview', function(req, res) {
 
 app.post('/personnel-search', function(req, res) {
   var sstr = req.body.sstr;
-  get_personnel(sstr, true, function(data) {
+  get_personnel(sstr, function(data) {
     if (data.length > 0) {
       res.local('personnel_status', true);
       res.local('people', []);
@@ -1072,7 +1072,7 @@ function get_library_by_id(id, callback) {
   }
 
 // get personnel by search via ajax get
-function get_personnel(sstr, ajax,callback) {
+function get_personnel(sstr, callback) {
    // reformat the search string to match better
   var stemp = sstr.split(/ /);
   for (var item in stemp) {
