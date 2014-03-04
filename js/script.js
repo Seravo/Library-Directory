@@ -18,7 +18,8 @@ function ld_parse_url_hash() {
 
 	if (params.length==0) return data;
 
-	for (var temp in params) {
+	// for (var temp in params) {
+	for (var temp=0;temp<params.length;temp++) {
 		var param = params[temp];
 		var args = param.split("=");
 
@@ -42,9 +43,11 @@ function ld_append_url_hash(param) {
 	if (curHash.indexOf("#") != -1) {
 		var params = curHash.slice(1).split("&");
 
-		for (var temp in params) {
+		// for (var temp in params) {
+		for (var temp=0;temp<params.length;temp++) {
 			var param = params[temp];
 			var args = param.split("=");
+
 			// newData[args[0]]=decodeURIComponent(args[1]);
 			newData[args[0]]=args[1];
 		}
@@ -137,7 +140,8 @@ function ld_mapcontrol_init_geoloc(data) {
 	var bounds = new OpenLayers.Bounds();
 
 	/* add all libraries from results */
-	for (var item in data) {
+	// for (var item in data) {
+	for (var item=0;item<data.length;item++) {
 		var rec = data[item];
 		if (rec.contact.coordinates != undefined && rec.contact.coordinates.length>2) {
 			var lat = rec.contact.coordinates.split(",")[0];
@@ -672,7 +676,8 @@ $(document).on("click", "button.change-week", function(){
       } else {
       	var days = data._source.opening_hours.open_hours_week;
       	html = '<table>';
-				for(var x in days){
+				// for(var x in days){
+				for (var x=0;x<days.length;x++) {
 					if(days[x].today && data._source.opening_hours.this_week){
 						html += '<tr class="opentimes_strong">';
 					} else {

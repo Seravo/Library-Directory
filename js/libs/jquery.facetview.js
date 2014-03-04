@@ -141,6 +141,8 @@ var selectedOpts = {};
             "search_url": proto + "://localhost:8888/testink/organisation/_search?",
             // TODO: if localhost unreachable, use public server
             // "search_url":"http://libdir.seravo.fi:8888/testink/_search?",
+
+            // "search_url": proto + "://es-proxy.kirjastot.fi/testink/organisation/_search?",
             "search_index":"elasticsearch",
             "default_url_params":{},
             "freetext_submit_delay":"1000",
@@ -419,12 +421,14 @@ var selectedOpts = {};
             // for each filter setup, find the results for it and append them to the relevant filter
             var filterOpts = [];
 
-            for ( var each in options.facets ) {
+            for (var each = 0; each < options.facets.length; each++) {
+
                 $('#facetview_' + options.facets[each].field.replace(/\./gi,'_')).children().remove();
 
                 var records = data["facets"][ options.facets[each].field ];
 
                 for ( var item in records ) {
+                // for (var item=0;item<records.length;item++) {
                     var append = "";
                     if (facetfilters.length>0 && $.inArray(item, facetfilters) != -1 ) {
                         var displayItem = "";
@@ -506,8 +510,11 @@ var selectedOpts = {};
                     css = 'accessibility';
 
                     for(var x in options.thefilters[k]){
+
                         var _filter = options.thefilters[k][x];
+
                         if(filterOpts[_filter.name]){
+
                             for(var f in filterOpts[_filter.name]){
                                 if(filterOpts[_filter.name][f].display === 'T'){
                                     arr.push({
@@ -520,6 +527,7 @@ var selectedOpts = {};
                             }
 
                         }
+
                     }
                 } else {
                     for(var x in filterOpts[options.thefilters[k].name]){
@@ -527,9 +535,9 @@ var selectedOpts = {};
                     }
                 }
 
+
                 // Check if selectized has been initialized
                 if($('#facet-filters-' + css).hasClass('selectized')){
-
                     var select = $('#facet-filters-' + css).selectize();
                     var selectize = select[0].selectize;
                     var values = [];
@@ -547,7 +555,6 @@ var selectedOpts = {};
                     }
 
                     selectize.clearOptions();
-
                     if(arr.length > 0){
                         selectize.enable();
                         for(var x in arr){
@@ -647,8 +654,8 @@ var selectedOpts = {};
             resultobj["facets"] = new Object();
             if ( options.search_index == "elasticsearch" ) {
 				var days = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" ];
-                for (var item in dataobj.hits.hits) {
 
+                for(var item = 0; item < dataobj.hits.hits.length; item++) {
 					var library_data = dataobj.hits.hits[item]._source;
 					var curtime = new Date();
 					var unixtime = curtime.getTime();
@@ -883,9 +890,11 @@ var selectedOpts = {};
             // add the record based on display template if available
             var display = options.result_display
             var lines = ''
-            for (var lineitem in display) {
+
+            for(var lineitem=0;lineitem<display.length;display++) {
                 line = ""
-                for (object in display[lineitem]) {
+
+                for(var object=0;object<display[lineitem].length;object++) {
 					/* printf-style multivalue formatting for search-result data */
 					var thekey = display[lineitem][object]['fields']
 					var format = display[lineitem][object]['format']
@@ -894,7 +903,8 @@ var selectedOpts = {};
 					var data = { }
 					var idx = 0
 
-					for (key in keys) {
+
+                    for(var key = 0; key < keys.length; key++) {
 						/* remove spaces and split fields from keys */
 						parts = keys[key].split(' ').join('').split('.')
 
@@ -960,7 +970,9 @@ var selectedOpts = {};
             });
 
 			var sStr = $('#facetview_freetext').val();
-			ld_append_url_hash("q=" + sStr);
+            if(sStr){
+                ld_append_url_hash("q=" + sStr);
+            }
         }
 
         // ===============================================
@@ -1016,8 +1028,11 @@ var selectedOpts = {};
 			var query_filters = [];
 			var query_string = "";
 
-            for(var x in selectedOpts){
-                for(var value in selectedOpts[x]){
+
+            // for (var x=0;x<selectedOpts.length;x++) {
+            for(var x in selectedOpts) {
+                // for(var value=0;value<selectedOpts[x].length;value++){
+                for(var value in selectedOpts[x]) {
                   var obj = {'term':{}};
                   var value = selectedOpts[x][value];
                   obj['term'][x] = decodeURIComponent(value);
@@ -1030,7 +1045,8 @@ var selectedOpts = {};
 
 			// add predefined filters from config options
 			var filters = options.predefined_filters;
-			for (var item in filters) {
+
+            for(var item=0;item<filters.length;filters++) {
 				query_filters.push(filters[item])
 			}
 
@@ -1092,7 +1108,8 @@ var selectedOpts = {};
             options.paging.size != 10 ? qs['size'] = options.paging.size : ""
             // set any facets
             qs['facets'] = {};
-            for (var item in options.facets) {
+
+            for(var item=0;item<options.facets.length;item++) {
                 var obj = options.facets[item]
                 delete obj['display']
                 qs['facets'][obj['field']] = {"terms":obj}
@@ -1104,16 +1121,16 @@ var selectedOpts = {};
         // execute a search
         var dosearch = function() {
             if ( options.search_index == "elasticsearch" ) {
-				// jsonp-request does not call the error function (by design) so use timeout instead
-				var searchTimer = window.setTimeout(function() { showerror(_("Could not connect to database. Please try again later.")) }, 7000);
-				$.ajax({
-					type: "get",
-					url: options.search_url,
-					data: { source: elasticsearchquery() },
-					dataType: "jsonp",
-					beforeSend: showspinner,
-					success: [ function() { window.clearTimeout(searchTimer) }, clearerror, hidespinner, showresults ]
-				});
+                // jsonp-request does not call the error function (by design) so use timeout instead
+                var searchTimer = window.setTimeout(function() { showerror(_("Could not connect to database. Please try again later.")) }, 7000);
+                $.ajax({
+                    type: "get",
+                    url: options.search_url,
+                    data: { source: elasticsearchquery() },
+                    dataType: "jsonp",
+                    beforeSend: showspinner,
+                    success: [ function() { window.clearTimeout(searchTimer) }, clearerror, hidespinner, showresults ]
+                });
             } else {
                 $.ajax( { type: "get", url: solrsearchquery(), dataType:"jsonp", jsonp:"json.wrf", success: function(data) { showresults(data) } } );
             }
