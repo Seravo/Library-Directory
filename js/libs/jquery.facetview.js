@@ -138,11 +138,11 @@ var selectedOpts = {};
             "display_images": true,
             "visualise_filters": false,
             "description":"",
-            "search_url": proto + "://localhost:8888/testink/organisation/_search?",
+            // "search_url": proto + "://localhost:8888/testink/organisation/_search?",
             // TODO: if localhost unreachable, use public server
             // "search_url":"http://libdir.seravo.fi:8888/testink/_search?",
 
-            // "search_url": proto + "://es-proxy.kirjastot.fi/testink/organisation/_search?",
+            "search_url": proto + "://es-proxy.kirjastot.fi/testink/organisation/_search?",
             "search_index":"elasticsearch",
             "default_url_params":{},
             "freetext_submit_delay":"1000",
@@ -316,7 +316,7 @@ var selectedOpts = {};
             var filters = options.facets;
 			var filterheader = "<h3 id='filter-by'>" + _("Filter results") + "</h3>";
 
-            var thefilters = [];
+            var thefilters = {};
             var _filterTmpl = '<div class="control-group">' +
                   '<label for="facet-filters-cities">' + _("City") + ':</label>' +
                   '<select id="facet-filters-cities" placeholder="' + _("Select...") + '" multiple></select>' +
@@ -334,7 +334,7 @@ var selectedOpts = {};
                   '<select id="facet-filters-branchtypes" placeholder="' + _("Select...") + '" multiple></select>';
 
 
-            for ( var idx in filters ) {
+            for(var idx in filters) {
 
                 var filter = {
                     name: '{{FILTER_NAME}}',
@@ -361,12 +361,14 @@ var selectedOpts = {};
 
                 if(filter.name.match(/accessibility*/)) {
                     if(!thefilters.accessibility){
-                        thefilters.accessibility = [];
+                        thefilters.accessibility = {
+                            name: 'accessibility'
+                        };
                     } else {
-                        thefilters.accessibility.push(filter)
+                        thefilters.accessibility[filter.display] = filter;
                     }
                 } else {
-                    thefilters.push(filter);
+                    thefilters[filter.name] = filter;
                 }
                 options.thefilters = thefilters;
             }
@@ -428,7 +430,6 @@ var selectedOpts = {};
                 var records = data["facets"][ options.facets[each].field ];
 
                 for ( var item in records ) {
-                // for (var item=0;item<records.length;item++) {
                     var append = "";
                     if (facetfilters.length>0 && $.inArray(item, facetfilters) != -1 ) {
                         var displayItem = "";
@@ -492,9 +493,14 @@ var selectedOpts = {};
             }
 
 
-            for (var k in options.thefilters){
+            for(var k in options.thefilters) {
+
                 var css;
                 var arr = [];
+
+                if(options.thefilters[k].name === 'undefined'){
+                    continue;
+                }
 
                 // define right selector
                 if(options.thefilters[k].name === 'contact.street_address.municipality_' + _('locale')) css = 'cities';
@@ -505,7 +511,7 @@ var selectedOpts = {};
                 if (options.thefilters[k].name === 'organisation_type') css = 'types';
                 if (options.thefilters[k].name === 'branch_type') css = 'branchtypes';
 
-                if($.isArray(options.thefilters[k])){
+                if(options.thefilters[k].name === 'accessibility') {
 
                     css = 'accessibility';
 
@@ -529,20 +535,22 @@ var selectedOpts = {};
                         }
 
                     }
-                } else {
-                    for(var x in filterOpts[options.thefilters[k].name]){
-                        arr.push(filterOpts[options.thefilters[k].name][x])
+                }
+
+                for(var x in filterOpts[options.thefilters[k].name]){
+                    if(filterOpts[options.thefilters[k].name][x].value !== 'undefined' &&
+                        typeof filterOpts[options.thefilters[k].name][x] === 'object'){
+                      arr.push(filterOpts[options.thefilters[k].name][x]);
                     }
                 }
 
-
                 // Check if selectized has been initialized
-                if($('#facet-filters-' + css).hasClass('selectized')){
+                if($('#facet-filters-' + css).hasClass('selectized')) {
                     var select = $('#facet-filters-' + css).selectize();
                     var selectize = select[0].selectize;
                     var values = [];
 
-                    if($.isArray(options.thefilters[k])){
+                    if(k === 'accessibility'){
                         for(var x in options.thefilters[k]){
 
                             if(facethash[options.thefilters[k][x].name]){
@@ -555,9 +563,11 @@ var selectedOpts = {};
                     }
 
                     selectize.clearOptions();
+
                     if(arr.length > 0){
                         selectize.enable();
-                        for(var x in arr){
+                        // for(var x in arr){
+                        for(var x=0;x<arr.length;x++) {
                             selectize.addOption(arr[x]);
                             selectize.updateOption(arr[x].value, arr[x]);
                         }
@@ -1031,8 +1041,8 @@ var selectedOpts = {};
 
             // for (var x=0;x<selectedOpts.length;x++) {
             for(var x in selectedOpts) {
-                // for(var value=0;value<selectedOpts[x].length;value++){
-                for(var value in selectedOpts[x]) {
+                for(var value=0;value<selectedOpts[x].length;value++){
+                // for(var value in selectedOpts[x]) {
                   var obj = {'term':{}};
                   var value = selectedOpts[x][value];
                   obj['term'][x] = decodeURIComponent(value);
