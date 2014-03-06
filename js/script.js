@@ -43,7 +43,6 @@ function ld_append_url_hash(param) {
 	if (curHash.indexOf("#") != -1) {
 		var params = curHash.slice(1).split("&");
 
-		// for (var temp in params) {
 		for (var temp=0;temp<params.length;temp++) {
 			var param = params[temp];
 			var args = param.split("=");
@@ -490,7 +489,8 @@ function ld_widget_wizard() {
 				results = new Object();
 				results["records"] = new Array();
 				var index=1;
-				for (var item in data.hits.hits) {
+
+				for(var item=0;item<data.hits.hits.length;item++) {
 					data.hits.hits[item]._source["id"] = data.hits.hits[item]._id;
 					data.hits.hits[item]._source["count"] = index;
 					results["records"].push(data.hits.hits[item]._source);
