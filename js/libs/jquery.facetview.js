@@ -901,7 +901,7 @@ var selectedOpts = {};
             var display = options.result_display
             var lines = ''
 
-            for(var lineitem=0;lineitem<display.length;display++) {
+            for(var lineitem=0;lineitem<display.length;lineitem++) {
                 line = ""
 
                 for(var object=0;object<display[lineitem].length;object++) {
@@ -909,12 +909,13 @@ var selectedOpts = {};
 					var thekey = display[lineitem][object]['fields']
 					var format = display[lineitem][object]['format']
 					var thevalue = ""
+
 					var keys = thekey.split(',')
 					var data = { }
 					var idx = 0
 
 
-                    for(var key = 0; key < keys.length; key++) {
+                    for(var key=0;key<keys.length;key++) {
 						/* remove spaces and split fields from keys */
 						parts = keys[key].split(' ').join('').split('.')
 
@@ -926,21 +927,26 @@ var selectedOpts = {};
 		                if (res && res.constructor.toString().indexOf("Array") == -1) { var thevalue = res[parts[counter]] }
 						else {
 	                        var thevalue = []
-	                        for (var row in res) { thevalue.push(res[row][parts[counter]]) }
-						}
+	                        for (var row in res) { thevalue.push(res[row][parts[counter]])
+                        }
+					}
+
 					/* add value to mustache data hash */
 					if ( (thevalue && thevalue.length) || (thevalue==true || thevalue==false) ) { data["d"+idx]=thevalue }
-					idx+=1;
+					   idx+=1;
 					}
-				format ? line += Mustache.render(format, data) : line += thevalue
+
+				    format ? line += Mustache.render(format, data) : line += thevalue
 				}
 
 				if (line) {
 					lines += line.replace(/^\s/,'').replace(/\s$/,'').replace(/\,$/,'') + "<br>"
 				}
 			}
+
 			lines ? result += lines : result += JSON.stringify(record,"","    ")
 			result += '</div></td></tr>'
+
 			return result;
 		}
 
@@ -1238,7 +1244,7 @@ var selectedOpts = {};
 			   </div> \
 			   ';
 		} else {
-			// the facet object for normal serach (filters first)
+			// the facet object for normal search (filters first)
 			thefacetview = ' \
 			   <div id="facetview"> \
 				 <div class="row-fluid"> \
