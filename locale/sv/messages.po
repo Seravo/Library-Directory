@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-29 18:50+0200\n"
-"PO-Revision-Date: 2014-01-29 19:00+0200\n"
+"POT-Creation-Date: 2014-03-11 22:01+0200\n"
+"PO-Revision-Date: 2014-03-11 22:03+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -37,28 +37,29 @@ msgstr "Hittas inte"
 #: server.js:812
 #: server.js:815
 #: server.js:816
-#: server.js:875
 #: server.js:876
 #: server.js:877
-#: server.js:917
-#: server.js:919
-#: server.js:934
-#: server.js:1013
-#: server.js:1580
+#: server.js:878
+#: server.js:918
+#: server.js:920
+#: server.js:935
+#: server.js:941
+#: server.js:1018
+#: server.js:1589
 #: js/libs/jquery.facetview.js:100
 #: js/libs/jquery.facetview.js:103
 #: js/libs/jquery.facetview.js:121
 #: js/libs/jquery.facetview.js:122
-#: js/libs/jquery.facetview.js:455
-#: js/libs/jquery.facetview.js:491
-#: js/libs/jquery.facetview.js:492
-#: js/libs/jquery.facetview.js:699
-#: js/libs/jquery.facetview.js:711
-#: js/libs/jquery.facetview.js:794
-#: js/libs/jquery.facetview.js:795
-#: js/libs/jquery.facetview.js:796
-#: js/libs/jquery.facetview.js:1100
-#: js/libs/jquery.facetview.js:1108
+#: js/libs/jquery.facetview.js:470
+#: js/libs/jquery.facetview.js:506
+#: js/libs/jquery.facetview.js:507
+#: js/libs/jquery.facetview.js:684
+#: js/libs/jquery.facetview.js:696
+#: js/libs/jquery.facetview.js:779
+#: js/libs/jquery.facetview.js:780
+#: js/libs/jquery.facetview.js:781
+#: js/libs/jquery.facetview.js:1096
+#: js/libs/jquery.facetview.js:1104
 #: locale/templates/LC_MESSAGES/gettext.tmpl:1
 msgid "locale"
 msgstr "sv"
@@ -80,7 +81,7 @@ msgstr "Namn"
 #: views/widget2.mustache:87
 #: views/contact.mustache:14
 #: views/widget3.mustache:411
-#: views/library_details.mustache:472
+#: views/library_details.mustache:479
 #: views/personnel-search-results.mustache:7
 msgid "E-mail"
 msgstr "E-mail"
@@ -97,7 +98,7 @@ msgstr "Feedback"
 #: server.js:517
 #: views/contact.mustache:5
 #: views/widget3.mustache:161
-#: views/library_details.mustache:164
+#: views/library_details.mustache:169
 msgid "Contact"
 msgstr "Feedback"
 
@@ -110,6 +111,8 @@ msgid "Feedback from library directory"
 msgstr "Feedback från bibliotekskatalogen"
 
 #: server.js:496
+#: views/header-dev.mustache:50
+#: views/header.mustache:46
 #: views/about.mustache:5
 msgid "About"
 msgstr "Om tjänsten"
@@ -121,8 +124,8 @@ msgstr "Bläddra alla"
 #: server.js:524
 #: views/widget3.mustache:106
 #: views/widget3.mustache:197
-#: views/library_details.mustache:105
-#: views/library_details.mustache:200
+#: views/library_details.mustache:107
+#: views/library_details.mustache:205
 msgid "Personnel"
 msgstr "Personal"
 
@@ -132,85 +135,85 @@ msgid "Feedback sent"
 msgstr "Feedback skickat"
 
 #: server.js:750
-#: server.js:947
+#: server.js:952
 msgid "branchlibrary"
 msgstr "bibliotek"
 
 #: server.js:753
-#: server.js:950
+#: server.js:955
 msgid "department"
 msgstr "avdelning"
 
 #: server.js:756
-#: server.js:953
+#: server.js:958
 msgid "library"
 msgstr "organisation"
 
 #: server.js:759
-#: server.js:956
+#: server.js:961
 msgid "mobile_stop"
 msgstr "bilbioteksbusshållplats"
 
 #: server.js:762
-#: server.js:959
+#: server.js:964
 msgid "organisation"
 msgstr "Organisation"
 
 #: server.js:765
-#: server.js:962
+#: server.js:967
 msgid "unit"
 msgstr "Enhet"
 
-#: server.js:1006
+#: server.js:1011
 msgid "service type device"
 msgstr "apparat"
 
-#: server.js:1007
+#: server.js:1012
 msgid "service type room"
 msgstr "utrymme"
 
-#: server.js:1008
+#: server.js:1013
 msgid "service type service"
 msgstr "tjänst"
 
-#: server.js:1009
+#: server.js:1014
 msgid "service type collection"
 msgstr "samling"
 
-#: server.js:1010
+#: server.js:1015
 msgid "service type network"
 msgstr "nättjänst"
 
-#: server.js:1481
+#: server.js:1490
 msgid "Monday"
 msgstr "Måndag"
 
-#: server.js:1482
+#: server.js:1491
 msgid "Tuesday"
 msgstr "Tisdag"
 
-#: server.js:1483
+#: server.js:1492
 msgid "Wednesday"
 msgstr "Onsdag"
 
-#: server.js:1484
+#: server.js:1493
 msgid "Thursday"
 msgstr "Torsdag"
 
-#: server.js:1485
+#: server.js:1494
 msgid "Friday"
 msgstr "Fredag"
 
-#: server.js:1486
+#: server.js:1495
 msgid "Saturday"
 msgstr "Lördag"
 
-#: server.js:1487
+#: server.js:1496
 msgid "Sunday"
 msgstr "Söndag"
 
-#: server.js:1587
 #: server.js:1596
+#: server.js:1605
 msgid "closed"
 msgstr "stängt"
 
@@ -228,8 +231,8 @@ msgstr "Fel"
 #: js/libs/jquery.facetview.js:76
 #: views/widget2.mustache:103
 #: views/widget3.mustache:318
-#: views/library_details.mustache:376
-#: views/json_widget_5.mustache:11
+#: views/library_details.mustache:383
+#: views/json_widget_5.mustache:12
 msgid "Open"
 msgstr "Öppet"
 
@@ -240,8 +243,8 @@ msgstr "idag"
 #: js/libs/jquery.facetview.js:78
 #: views/widget2.mustache:107
 #: views/widget3.mustache:322
-#: views/library_details.mustache:380
-#: views/json_widget_5.mustache:15
+#: views/library_details.mustache:387
+#: views/json_widget_5.mustache:16
 msgid "Closed"
 msgstr "Stängt"
 
@@ -251,129 +254,168 @@ msgstr "öppet idag"
 
 #: js/libs/jquery.facetview.js:96
 #: views/widget3.mustache:349
-#: views/library_details.mustache:410
+#: views/library_details.mustache:417
 msgid "Library catalogue"
 msgstr "Sök material"
 
 #: js/libs/jquery.facetview.js:121
-#: js/libs/jquery.facetview.js:314
+#: js/libs/jquery.facetview.js:321
 #: views/widget_wizard.mustache:45
 msgid "City"
 msgstr "Kommun"
 
 #: js/libs/jquery.facetview.js:122
-#: js/libs/jquery.facetview.js:316
+#: js/libs/jquery.facetview.js:323
 #: views/widget3.mustache:103
 #: views/widget3.mustache:125
-#: views/library_details.mustache:102
-#: views/library_details.mustache:128
+#: views/library_details.mustache:103
+#: views/library_details.mustache:133
 #: views/widget_wizard.mustache:30
 msgid "Services"
 msgstr "Tjänster"
 
 #: js/libs/jquery.facetview.js:123
-#: js/libs/jquery.facetview.js:318
-#: js/libs/jquery.facetview.js:1314
+#: js/libs/jquery.facetview.js:325
 #: views/widget3.mustache:114
 #: views/widget3.mustache:246
-#: views/library_details.mustache:117
-#: views/library_details.mustache:303
+#: views/library_details.mustache:119
+#: views/library_details.mustache:308
 msgid "Accessibility"
 msgstr "Tillgänglighet"
 
 #: js/libs/jquery.facetview.js:124
-#: js/libs/jquery.facetview.js:320
+#: views/widget3.mustache:249
+#: views/library_details.mustache:311
+msgid "Accessible entry"
+msgstr "Tillgänglig ingång"
+
+#: js/libs/jquery.facetview.js:125
+#: views/widget3.mustache:253
+#: views/library_details.mustache:315
+msgid "Accessible parking"
+msgstr "Parkering för rörelsehindrade"
+
+#: js/libs/jquery.facetview.js:126
+#: views/widget3.mustache:257
+#: views/library_details.mustache:319
+msgid "Accessible toilet"
+msgstr "Tillgänglig toalett"
+
+#: js/libs/jquery.facetview.js:127
+#: views/widget3.mustache:261
+#: views/library_details.mustache:323
+msgid "Induction loop"
+msgstr "Induktionsslinga"
+
+#: js/libs/jquery.facetview.js:128
+#: views/widget3.mustache:265
+#: views/library_details.mustache:327
+msgid "Large typeface collection"
+msgstr "Böcker med stor stil"
+
+#: js/libs/jquery.facetview.js:129
+#: views/widget3.mustache:269
+#: views/library_details.mustache:331
+msgid "Lift"
+msgstr "Hiss"
+
+#: js/libs/jquery.facetview.js:130
+msgid "Extra accessibility info"
+msgstr "Tillgänglighet-info"
+
+#: js/libs/jquery.facetview.js:131
+#: js/libs/jquery.facetview.js:327
 #: views/widget3.mustache:419
-#: views/library_details.mustache:480
+#: views/library_details.mustache:487
 #: views/widget_wizard.mustache:44
 msgid "Library consortium"
 msgstr "Biblioteksgrupp"
 
-#: js/libs/jquery.facetview.js:125
-#: js/libs/jquery.facetview.js:322
+#: js/libs/jquery.facetview.js:132
+#: js/libs/jquery.facetview.js:329
 msgid "Provincial area"
 msgstr "Landskap"
 
-#: js/libs/jquery.facetview.js:126
-#: js/libs/jquery.facetview.js:324
+#: js/libs/jquery.facetview.js:133
+#: js/libs/jquery.facetview.js:331
 msgid "Type"
 msgstr "Typ"
 
-#: js/libs/jquery.facetview.js:127
-#: js/libs/jquery.facetview.js:326
+#: js/libs/jquery.facetview.js:134
+#: js/libs/jquery.facetview.js:333
 msgid "Branch type"
 msgstr "Bibliotekstyp"
 
-#: js/libs/jquery.facetview.js:308
+#: js/libs/jquery.facetview.js:317
 msgid "Filter results"
 msgstr "Filtrera resultaten"
 
-#: js/libs/jquery.facetview.js:315
-#: js/libs/jquery.facetview.js:317
-#: js/libs/jquery.facetview.js:319
-#: js/libs/jquery.facetview.js:321
-#: js/libs/jquery.facetview.js:323
-#: js/libs/jquery.facetview.js:325
-#: js/libs/jquery.facetview.js:327
+#: js/libs/jquery.facetview.js:322
+#: js/libs/jquery.facetview.js:324
+#: js/libs/jquery.facetview.js:326
+#: js/libs/jquery.facetview.js:328
+#: js/libs/jquery.facetview.js:330
+#: js/libs/jquery.facetview.js:332
+#: js/libs/jquery.facetview.js:334
 msgid "Select..."
 msgstr "Välj..."
 
-#: js/libs/jquery.facetview.js:419
-#: js/libs/jquery.facetview.js:448
+#: js/libs/jquery.facetview.js:436
+#: js/libs/jquery.facetview.js:463
 #: locale/templates/LC_MESSAGES/gettext.tmpl:11
 msgid "yes"
 msgstr "beaktad"
 
-#: js/libs/jquery.facetview.js:862
+#: js/libs/jquery.facetview.js:847
 msgid "back"
 msgstr "tillbaka"
 
-#: js/libs/jquery.facetview.js:863
+#: js/libs/jquery.facetview.js:848
 msgid "of"
 msgstr "av"
 
-#: js/libs/jquery.facetview.js:864
+#: js/libs/jquery.facetview.js:849
 msgid "next"
 msgstr "nästa"
 
-#: js/libs/jquery.facetview.js:868
+#: js/libs/jquery.facetview.js:853
 #: views/personnel-search-results.mustache:29
 msgid "No results found"
 msgstr "Inga resultat fanns"
 
-#: js/libs/jquery.facetview.js:869
+#: js/libs/jquery.facetview.js:854
 msgid "Please try"
 msgstr "Vänligen pröva med att"
 
-#: js/libs/jquery.facetview.js:870
+#: js/libs/jquery.facetview.js:855
 msgid "Search with only the first 3-5 letters of your search word to get more matches."
 msgstr "Sök med endast 3-5 första bokstäverna av sökordet så att det kommer mera resultat."
 
-#: js/libs/jquery.facetview.js:871
+#: js/libs/jquery.facetview.js:856
 msgid "Remove all search words and drill down to your wanted results using only the search filters."
 msgstr "Ta bort alla sökord och borra dig fram till önskade resultat endast genom att följa passliga filter."
 
-#: js/libs/jquery.facetview.js:989
+#: js/libs/jquery.facetview.js:979
 msgid "One search result"
 msgstr "Ett resultat hittat"
 
-#: js/libs/jquery.facetview.js:990
+#: js/libs/jquery.facetview.js:980
 #, python-format
 msgid "%d search results"
 msgstr "%d resultat hittats"
 
-#: js/libs/jquery.facetview.js:1144
+#: js/libs/jquery.facetview.js:1141
 msgid "Could not connect to database. Please try again later."
 msgstr "Kan inte nå databasen. Försök pånytt senare."
 
-#: js/libs/jquery.facetview.js:1226
-#: js/libs/jquery.facetview.js:1252
+#: js/libs/jquery.facetview.js:1231
+#: js/libs/jquery.facetview.js:1257
 msgid "search starts automatically after 3 letters"
 msgstr "sökandet börjar automatiskt efter 3 bokstäver"
 
 # manually added
 #: locale/templates/LC_MESSAGES/gettext.tmpl:2
-#: views/personnel.mustache:8
+#: views/personnel.mustache:9
 #: views/widget_wizard.mustache:32
 msgid "Search"
 msgstr "Sök"
@@ -539,16 +581,19 @@ msgid "communications"
 msgstr "communications"
 
 #: views/index.mustache:7
+#: views/about.mustache:6
 #: views/widget1.mustache:7
 msgid "Find your library!"
 msgstr "Hitta ditt bibliotek!"
 
 #: views/index.mustache:8
+#: views/about.mustache:7
 #: views/widget1.mustache:8
 msgid "Enter the name of the library or the service you need. Enter city name or zip-code to find the closest libraries."
 msgstr "Skriv namnet på biblioteket eller tjänsten du behöver. Skriv en stads namn eller postnummer för att hitta närmaste biblioteken."
 
 #: views/index.mustache:9
+#: views/about.mustache:8
 #: views/widget1.mustache:9
 msgid "The library index does not yet contain the contact and service information to all Finnish libraries. The updating of the information about public libraries is going on. Links to university and other libraries can be found on page <a href='http://www.libraries.fi/libraries'>http://www.libraries.fi/libraries</a>"
 msgstr "Biblioteksregistret innehåller ännu inte alla uppgifter. Registret uppdateras kontinuerligt. Information om andra än allmänna bibliotek hittas på sidan <a href='http://www.biblioteken.fi/bibliotek'>http://www.biblioteken.fi/bibliotek</a>"
@@ -570,7 +615,7 @@ msgstr "Hur anlända"
 
 #: views/widget2.mustache:46
 #: views/widget3.mustache:370
-#: views/library_details.mustache:431
+#: views/library_details.mustache:438
 msgid "Telephone numbers"
 msgstr "Telefonnummer"
 
@@ -578,28 +623,27 @@ msgstr "Telefonnummer"
 #: views/widget2.mustache:72
 #: views/widget3.mustache:387
 #: views/widget3.mustache:396
-#: views/library_details.mustache:448
-#: views/library_details.mustache:457
+#: views/library_details.mustache:455
+#: views/library_details.mustache:464
 msgid "Mail address"
 msgstr "Postadress"
 
 #: views/widget2.mustache:65
 #: views/widget3.mustache:389
-#: views/library_details.mustache:450
+#: views/library_details.mustache:457
 msgid "P.O. Box"
 msgstr "PB"
 
 #: views/widget2.mustache:101
 #: views/widget3.mustache:316
-#: views/library_details.mustache:374
-#: views/json_widget_5.mustache:9
+#: views/library_details.mustache:381
 msgid "The library is now"
 msgstr "Biblioteket är nu"
 
 #: views/widget2.mustache:111
 #: views/widget3.mustache:326
-#: views/library_details.mustache:384
-#: views/json_widget_5.mustache:19
+#: views/library_details.mustache:391
+#: views/json_widget_5.mustache:20
 msgid "Opening hours this week"
 msgstr "Öppettider denna vecka"
 
@@ -616,29 +660,29 @@ msgstr "Sist uppdaterat"
 msgid "Library Directory"
 msgstr "Biblioteksregistret"
 
-#: views/header-dev.mustache:70
+#: views/header-dev.mustache:72
 #: views/contact.mustache:7
-#: views/header.mustache:66
+#: views/header.mustache:68
 msgid "Send us feedback!"
 msgstr "Skicka feedback!"
 
-#: views/header-dev.mustache:77
-#: views/header.mustache:73
+#: views/header-dev.mustache:79
+#: views/header.mustache:75
 msgid "Warning"
 msgstr "Warning"
 
-#: views/header-dev.mustache:78
-#: views/header.mustache:74
+#: views/header-dev.mustache:80
+#: views/header.mustache:76
 msgid "Your browser version is too old"
 msgstr "Your browser version is too old"
 
-#: views/header-dev.mustache:79
-#: views/header.mustache:75
+#: views/header-dev.mustache:81
+#: views/header.mustache:77
 msgid "please upgrade"
 msgstr "please upgrade"
 
-#: views/header-dev.mustache:80
-#: views/header.mustache:76
+#: views/header-dev.mustache:82
+#: views/header.mustache:78
 msgid "for best experience"
 msgstr "for best experience"
 
@@ -691,90 +735,60 @@ msgstr "Arkitekt"
 
 #: views/widget3.mustache:110
 #: views/widget3.mustache:233
-#: views/library_details.mustache:109
-#: views/library_details.mustache:278
+#: views/library_details.mustache:111
+#: views/library_details.mustache:283
 msgid "Departments"
 msgstr "Enheter"
 
 #: views/widget3.mustache:117
 #: views/widget3.mustache:292
-#: views/library_details.mustache:120
-#: views/library_details.mustache:349
+#: views/library_details.mustache:123
+#: views/library_details.mustache:354
 msgid "Additional info"
 msgstr "Tillägsinformation"
 
 #: views/widget3.mustache:154
-#: views/library_details.mustache:157
+#: views/library_details.mustache:162
 msgid "For loan"
 msgstr "Utlånas"
 
 #: views/widget3.mustache:175
-#: views/library_details.mustache:178
+#: views/library_details.mustache:183
 msgid "Library identificator and type"
 msgstr "Bibliotekets id och typ"
 
 #: views/widget3.mustache:178
-#: views/library_details.mustache:181
+#: views/library_details.mustache:186
 msgid "ID"
 msgstr "ID"
 
 #: views/widget3.mustache:179
-#: views/library_details.mustache:182
+#: views/library_details.mustache:187
 msgid "Branch"
 msgstr "Filial"
 
 #: views/widget3.mustache:180
-#: views/library_details.mustache:183
+#: views/library_details.mustache:188
 msgid "Organisation"
 msgstr "Organisation"
 
 #: views/widget3.mustache:184
-#: views/library_details.mustache:187
+#: views/library_details.mustache:192
 msgid "Centralized services"
 msgstr "Centraliserade tjänster"
 
-#: views/widget3.mustache:249
-#: views/library_details.mustache:306
-msgid "Accessible entry"
-msgstr "Tillgänglig ingång"
-
-#: views/widget3.mustache:253
-#: views/library_details.mustache:310
-msgid "Accessible parking"
-msgstr "Parkering för rörelsehindrade"
-
-#: views/widget3.mustache:257
-#: views/library_details.mustache:314
-msgid "Accessible toilet"
-msgstr "Tillgänglig toalett"
-
-#: views/widget3.mustache:261
-#: views/library_details.mustache:318
-msgid "Induction loop"
-msgstr "Induktionsslinga"
-
-#: views/widget3.mustache:265
-#: views/library_details.mustache:322
-msgid "Large typeface collection"
-msgstr "Böcker med stor stil"
-
-#: views/widget3.mustache:269
-#: views/library_details.mustache:326
-msgid "Lift"
-msgstr "Hiss"
-
 #: views/widget3.mustache:287
-#: views/library_details.mustache:344
+#: views/library_details.mustache:349
 msgid "Established year"
 msgstr "Grundat år"
 
 #: views/widget3.mustache:356
-#: views/library_details.mustache:417
+#: views/library_details.mustache:424
 msgid "Homepage"
 msgstr "Hemsida"
 
 #: views/widget3.mustache:425
-#: views/library_details.mustache:486
+#: views/library_details.mustache:493
 msgid "last modified"
 msgstr "sist uppdaterat"
 
@@ -794,20 +808,20 @@ msgstr "felskriven adress"
 msgid "an out-of-date link"
 msgstr "föråldrad link"
 
-#: views/library_details.mustache:113
-#: views/library_details.mustache:290
+#: views/library_details.mustache:115
+#: views/library_details.mustache:295
 msgid "Units"
 msgstr "Units"
 
-#: views/library_details.mustache:235
+#: views/library_details.mustache:240
 msgid "Personnel of same organisation level"
 msgstr "Personnel of same organisation level"
 
-#: views/library_details.mustache:396
+#: views/library_details.mustache:403
 msgid "Previous week"
 msgstr "Förra veckan"
 
-#: views/library_details.mustache:397
+#: views/library_details.mustache:404
 msgid "Next week"
 msgstr "Nästa veckan"
 
@@ -835,7 +849,11 @@ msgstr "Kompetensområden"
 msgid "Responsibilities"
 msgstr "Ansvarsområden"
 
-#: views/json_widget_5.mustache:35
+#: views/json_widget_5.mustache:10
+msgid "is"
+msgstr "är"
+
+#: views/json_widget_5.mustache:36
 msgid "To borrow from this library you need a <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a> card."
 msgstr "För att låna från detta bibliotek behöver man ett <a href='{{parent_organisation}}' itemprop='branchOf'>{{consortium}}</a>-kort."
 
@@ -846,10 +864,6 @@ msgstr "<strong>Feedback skickat.</strong> Tack!"
 #: views/personnel.mustache:5
 msgid "Search personnel"
 msgstr "Sök personal"
-
-#: views/about.mustache:6
-msgid "This is a really cool thing."
-msgstr "Dettä är en häftig sak."
 
 #: views/widget_wizard.mustache:15
 msgid "Build a widget"
@@ -918,6 +932,9 @@ msgstr "Totalt {{count}} bibliotek."
 #: views/browse.mustache:27
 msgid "nice URL slug missing"
 msgstr "snyggt URL-namn fattas"
+
+#~ msgid "This is a really cool thing."
+#~ msgstr "Dettä är en häftig sak."
 
 #~ msgid "Clear all filters"
 #~ msgstr "Töm filtren"
