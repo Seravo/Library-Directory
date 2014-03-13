@@ -56,12 +56,7 @@
 				<p itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
 					<meta itemprop="latitude" content="{{contact.coordinnates_lat}}">
 					<meta itemprop="longitude" content="{{contact.coordinnates_lon}}">
-					<div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div></div>
-					<script type="text/javascript">
-					<!--
-					function library_details_map() { ld_mapcontrol_init("{{contact.coordinates}}", ""); }
-					-->
-					</script>
+					<div id="mapcontainer" class="openlayers-map" data-coordinates="{{contact.coordinates}}"><div id="basicmap"></div></div>
 					<!-- {{contact.coordinates}} {{contact.map_url__("locale")}} -->
 				</p>
 			{{/contact.coordinates}}

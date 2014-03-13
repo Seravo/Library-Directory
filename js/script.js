@@ -189,7 +189,7 @@ function ld_mapcontrol_init_geoloc(data) {
 
 function ld_mapcontrol_init(coords, info) {
 	if (coords.length<2) {
-		alert("Error: coordinates are missing");
+		//alert("Error: coordinates are missing");
 		return true; }
 
 	var lat = coords.split(",")[0];
@@ -736,3 +736,14 @@ $('#toggle_help').bind('click', function(event) {
   event.preventDefault();
   $('#introtext').slideToggle();
 });
+
+function library_details_map() {
+  var coordinates = $('#mapcontainer').data('coordinates');
+
+  if (coordinates != undefined && coordinates !== "") {
+    ld_mapcontrol_init(coordinates, "");
+  } else {
+    return true;
+  }
+}
+

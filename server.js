@@ -1018,6 +1018,8 @@ function add_library_metadata(dataobj, callback){
       lib.services = sortByKeys(lib.services, 'type', 'name_'+_('locale'));
     }
 
+    if (lib.contact.coordinates === "") { delete lib.contact.coordinates; }
+
     if (lib.contact.coordinates !== undefined && lib.contact.coordinates !== '') {
       latlon = lib.contact.coordinates.split(',');
       lib.contact.coordinnates_lat = latlon[0];
