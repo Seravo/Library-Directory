@@ -604,9 +604,9 @@ function ld_personnel_search(data) {
 
 		$('#personnel-search-go').attr('disabled', 'disabled');
 
-		if(ajaxIsRunning){
-			return;
-		}
+		if(ajaxIsRunning) return;
+
+		if(!data) return;
 
 		ajaxIsRunning = true;
 

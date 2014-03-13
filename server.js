@@ -304,6 +304,11 @@ app.post('/preview', function(req, res) {
 
 app.post('/personnel-search', function(req, res) {
   var sstr = req.body.sstr;
+
+  if(!sstr){
+    return res.render('personnel-search-results', null);
+  }
+
   get_personnel(sstr, function(data) {
     if (data.length > 0) {
       res.local('personnel_status', true);
@@ -492,142 +497,142 @@ function render_static_page(page, req, res) {
 	// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
 	switch(page) {
-  case 'about':
-    res.local('header', header.render(req, {title: _('About'), about_active: true}));
-    res.local('footer', footer.render(req));
-    res.render('about', res.locals());
-    break;
+    case 'about':
+      res.local('header', header.render(req, {title: _('About'), about_active: true}));
+      res.local('footer', footer.render(req));
+      res.render('about', res.locals());
+      break;
 
-	case 'browse':
-		res.local('header', header.render(req, {title: _('Browse all'), browse_active: true}));
-		res.local('footer', footer.render(req));
-		get_libraries(function(data){
-			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
-			res.local('count', data.hits.total);
-			res.local('libraries', []);
-			for (var item in data.hits.hits) {
-				data.hits.hits[item]._source.id = data.hits.hits[item]._id;
-				res.local('libraries').push(data.hits.hits[item]._source);
-			}
-			res.render('browse', res.locals());
-		});
-    break;
+  	case 'browse':
+  		res.local('header', header.render(req, {title: _('Browse all'), browse_active: true}));
+  		res.local('footer', footer.render(req));
+  		get_libraries(function(data){
+  			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+  			res.local('count', data.hits.total);
+  			res.local('libraries', []);
+  			for (var item in data.hits.hits) {
+  				data.hits.hits[item]._source.id = data.hits.hits[item]._id;
+  				res.local('libraries').push(data.hits.hits[item]._source);
+  			}
+  			res.render('browse', res.locals());
+  		});
+      break;
 
-	case 'contact':
-		res.local('header', header.render(req, {title: _('Contact'),
-      contact_active: true}));
-		res.local('footer', footer.render(req));
-		res.render('contact', res.locals());
-		break;
+  	case 'contact':
+  		res.local('header', header.render(req, {title: _('Contact'),
+        contact_active: true}));
+  		res.local('footer', footer.render(req));
+  		res.render('contact', res.locals());
+  		break;
 
-  case 'personnel':
-    res.local('header', header.render(req, {title: _('Personnel'),
-      personnel_active: true}));
-    res.local('footer', footer.render(req,
-      {js_code: '', qualities: 'var QUALITIES = ' +
-        JSON.stringify(personQualityData) + ';' } ));
-    res.render('personnel', res.locals());
-    break;
+    case 'personnel':
+      res.local('header', header.render(req, {title: _('Personnel'),
+        personnel_active: true}));
+      res.local('footer', footer.render(req,
+        {js_code: '', qualities: 'var QUALITIES = ' +
+          JSON.stringify(personQualityData) + ';' } ));
+      res.render('personnel', res.locals());
+      break;
 
-	case 'search':
-	case '':
-		var cityfilter = req.query.city || '';
-		res.local('header', header.render(req, {search_active: true}));
-		res.local('footer', footer.render(req, {regions: 'var REGIONS = ' +
-      JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' +
-        JSON.stringify(consortiumData) + ';',
-          js_code: 'jQuery(document).ready(function($)'+
-            ' { $(".facet-view-simple").facetview({cityfilter: "' +
-              cityfilter + '"}); });',
-          js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
-		res.render('index', res.locals());
-		break;
+  	case 'search':
+  	case '':
+  		var cityfilter = req.query.city || '';
+  		res.local('header', header.render(req, {search_active: true}));
+  		res.local('footer', footer.render(req, {regions: 'var REGIONS = ' +
+        JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' +
+          JSON.stringify(consortiumData) + ';',
+            js_code: 'jQuery(document).ready(function($)'+
+              ' { $(".facet-view-simple").facetview({cityfilter: "' +
+                cityfilter + '"}); });',
+            js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+  		res.render('index', res.locals());
+  		break;
 
-	case 'feedback-sent':
-		//rlog(JSON.stringify(res.locals()));
-		res.local('header', header.render(req, {title: _('Feedback sent'), contact_active: true}));
-		res.local('footer', footer.render(req));
-		res.render('feedback-sent', res.locals());
-		break;
+  	case 'feedback-sent':
+  		//rlog(JSON.stringify(res.locals()));
+  		res.local('header', header.render(req, {title: _('Feedback sent'), contact_active: true}));
+  		res.local('footer', footer.render(req));
+  		res.render('feedback-sent', res.locals());
+  		break;
 
-	// widget creation wizard
-	case 'widget':
-		res.local('header', header.render(req, {title: 'Widget wizard', widget_active: true}));
-		res.local('footer', footer.render(req, {regions: 'var REGIONS = ' +
-      JSON.stringify(regionData) + ';',
-      consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';',
-      js_code:'jQuery(document).ready(function($) { ld_widget_wizard(); });'}));
-		res.render('widget_wizard', res.locals());
-		break;
+  	// widget creation wizard
+  	case 'widget':
+  		res.local('header', header.render(req, {title: 'Widget wizard', widget_active: true}));
+  		res.local('footer', footer.render(req, {regions: 'var REGIONS = ' +
+        JSON.stringify(regionData) + ';',
+        consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';',
+        js_code:'jQuery(document).ready(function($) { ld_widget_wizard(); });'}));
+  		res.render('widget_wizard', res.locals());
+  		break;
 
-	// search with consortium selection /widget1/?area=foo OR city selection /widget1/?city=bar
-	case 'widget1':
-		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
-		var areafilter = req.query.area || '';
-		var cityfilter = req.query.city || '';
-		var js_code = '';
-		if (areafilter !== '') js_code = 'jQuery(document).ready(function($) { $(".facet-view-simple").facetview({widget: true, areafilter: "' + areafilter + '"}); });';
-		else if (cityfilter !== '') js_code = 'jQuery(document).ready(function($) { $(".facet-view-simple").facetview({widget: true, cityfilter: "' + cityfilter + '"}); });';
-		else js_code = 'jQuery(document).ready(function($) { $(".facet-view-simple").facetview({widget: true}); });';
+  	// search with consortium selection /widget1/?area=foo OR city selection /widget1/?city=bar
+  	case 'widget1':
+  		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+  		var areafilter = req.query.area || '';
+  		var cityfilter = req.query.city || '';
+  		var js_code = '';
+  		if (areafilter !== '') js_code = 'jQuery(document).ready(function($) { $(".facet-view-simple").facetview({widget: true, areafilter: "' + areafilter + '"}); });';
+  		else if (cityfilter !== '') js_code = 'jQuery(document).ready(function($) { $(".facet-view-simple").facetview({widget: true, cityfilter: "' + cityfilter + '"}); });';
+  		else js_code = 'jQuery(document).ready(function($) { $(".facet-view-simple").facetview({widget: true}); });';
 
-		res.local('header', header.render(req, { nobanners: true }));
-		res.local('footer', footer.render(req, { nobanners: true, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
-		res.render('widget1', { lang: gettext.lang });
-		break;
+  		res.local('header', header.render(req, { nobanners: true }));
+  		res.local('footer', footer.render(req, { nobanners: true, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+  		res.render('widget1', { lang: gettext.lang });
+  		break;
 
-	// library details - lite
-	case 'widget2':
-		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
-		get_library_by_id(req.query.id, function(data) {
-			data._source['id'] = data._id;
-			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+  	// library details - lite
+  	case 'widget2':
+  		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+  		get_library_by_id(req.query.id, function(data) {
+  			data._source['id'] = data._id;
+  			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
-			res.local('header', header.render(req, { nobanners: true }));
-			res.local('footer', footer.render(req, { nobanners: true, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: 'jQuery(document).ready(function($) { library_details_map(); });', js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
-			res.render('widget2', { data: data._source });
-		});
-		break;
+  			res.local('header', header.render(req, { nobanners: true }));
+  			res.local('footer', footer.render(req, { nobanners: true, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: 'jQuery(document).ready(function($) { library_details_map(); });', js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+  			res.render('widget2', { data: data._source });
+  		});
+  		break;
 
-	// library details - full
-	case 'widget3':
-		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
-		get_library_by_id(req.query.id, function(data) {
-			data._source.id = data._id;
-			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+  	// library details - full
+  	case 'widget3':
+  		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+  		get_library_by_id(req.query.id, function(data) {
+  			data._source.id = data._id;
+  			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
-			res.local('header', header.render(req, { nobanners: true }));
-			res.local('footer', footer.render(req, { nobanners: true, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: 'jQuery(document).ready(function($) { library_details_map(); });', js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
-			res.render('widget3', { data: data._source } );
-		});
-		break;
+  			res.local('header', header.render(req, { nobanners: true }));
+  			res.local('footer', footer.render(req, { nobanners: true, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: 'jQuery(document).ready(function($) { library_details_map(); });', js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+  			res.render('widget3', { data: data._source } );
+  		});
+  		break;
 
-	case 'loadwidget':
-		// get library details for widget
-		if (req.query.id !== undefined) {
-			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
-			get_library_by_id(req.query.id, function(data) {
-				// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+  	case 'loadwidget':
+  		// get library details for widget
+  		if (req.query.id !== undefined) {
+  			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+  			get_library_by_id(req.query.id, function(data) {
+  				// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
-        if (data === undefined || data._source === undefined) {
-          jsondata = { html: 'Id does not exist: ' + req.query.id };
-          res.send(req.query.callback + '(' + JSON.stringify(jsondata) + ')');
-        } else {
-          data._source.id = data._id;
+          if (data === undefined || data._source === undefined) {
+            jsondata = { html: 'Id does not exist: ' + req.query.id };
+            res.send(req.query.callback + '(' + JSON.stringify(jsondata) + ')');
+          } else {
+            data._source.id = data._id;
 
-          var jsondata = {};
-          jsondata.html = widget.render(req, { data: data._source });
-          res.send(req.query.callback + '(' + JSON.stringify(jsondata) + ')');
-        }
-			});
-		}
-		break;
+            var jsondata = {};
+            jsondata.html = widget.render(req, { data: data._source });
+            res.send(req.query.callback + '(' + JSON.stringify(jsondata) + ')');
+          }
+  			});
+  		}
+  		break;
 
-	default:
-		res.local('header', header.render(req, {title: _('Not found') }));
-		res.local('footer', footer.render(req));
-		res.render('404', res.locals());
-		break;
-	}
+  	default:
+  		res.local('header', header.render(req, {title: _('Not found') }));
+  		res.local('footer', footer.render(req));
+  		res.render('404', res.locals());
+  		break;
+  	}
 }
 
 
