@@ -740,10 +740,10 @@ $('#toggle_help').bind('click', function(event) {
 function library_details_map() {
   var coordinates = $('#mapcontainer').data('coordinates');
 
-  if (coordinates != undefined && coordinates !== "") {
-    ld_mapcontrol_init(coordinates, "");
-  } else {
+  if (coordinates == undefined || coordinates == "") {
     return true;
+  } else {
+    ld_mapcontrol_init(coordinates, "");
   }
 }
 
