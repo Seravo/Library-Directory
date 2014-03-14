@@ -23,46 +23,6 @@
   <div class="span6">
 
 	<h1 class="lib_details_name" itemprop="name" id="{{id}}">{{name__("locale")}}</h1>
-    <div id="opentimes_small" class="opentimes">
-        {{#neveropen}}
-        {{/neveropen}}
-
-        {{^neveropen}}
-
-			{{#opening_hours.has_opening_hours}}
-            <h3>_("The library is now")
-		    {{#opening_hours.open_now}}
-	            <strong class="open">_("Open")</strong>
-		    {{/opening_hours.open_now}}
-
-		    {{^opening_hours.open_now}}
-	            <strong class="closed">_("Closed")</strong>
-	        {{/opening_hours.open_now}}
-		    </h3>
-		    <br>
-	        <h3 class="week-label">_("Opening hours this week")</h3>
-	        <time itemprop="openingHours">
-					<table>
-					{{#opening_hours.open_hours_week}}
-					{{#today}}
-						<tr class="opentimes_strong"><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
-					{{/today}}
-					{{^today}}
-					    <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
-					{{/today}}
-					{{/opening_hours.open_hours_week}}
-					</table>
-					<button class="btn btn-link change-week" monday="{{opening_hours.mondaydate}}" value="prev">_("Previous week")</button>
-					<button class="btn btn-link change-week" monday="{{opening_hours.mondaydate}}" value="next">_("Next week")</button>
-
-	        </time>
-            <br>
-			<p>{{opening_hours.period_description}}
-			{{/opening_hours.has_opening_hours}}
-			{{^opening_hours.has_opening_hours}}
-			{{/opening_hours.has_opening_hours}}
-        {{/neveropen}}
-    </div>
 	{{#contact.coordinates}}
         <p><strong class="address" itemprop="address"><i class="icon-map-marker"></i>
 	    <a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q" itemprop="map">
