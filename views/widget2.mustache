@@ -3,7 +3,7 @@
 {{#data}}
 <div class="row-fluid">
   <div class="span6">
-	
+
 	<h1>{{name__("locale")}}</h1>
 	{{#contact.coordinates}}
     <p><strong class="address"><i class="icon-map-marker"></i>
@@ -26,7 +26,7 @@
         <p>_("Directions"):
 			{{contact.directions__("locale")}}</p>
     {{/contact.directions__("locale")}}
-    
+
 	{{#contact.coordinates}}
 		<p>
 			<div id="mapcontainer" class="openlayers-map" data-coordinates="{{contact.coordinates}}"><div id="basicmap"></div></div>
@@ -35,7 +35,7 @@
 	{{/contact.coordinates}}
 
     <p class="libdescription"><strong class="quotesign">”</strong>{{description__("locale")}}</p>
-        		
+
 	<dl>
 		{{#contact.telephones.0.telephone_number}}
 	    <dt>_("Telephone numbers")</dt>
@@ -53,7 +53,7 @@
             {{/contact.telephones}}
 	    </dd>
 	    {{/contact.telephones.0.telephone_number}}
-	    
+
 		{{#contact.mail_address.post_box}}
 	    <dt>_("Mail address")</dt>
 	    <dd>
@@ -86,48 +86,47 @@
 
   </div>
 
-  <div class="span6">
-    <div class="opentimes">
+   <div class="span6">
+    <div id="opentimes_large" for="{{id}}" class="opentimes">
         {{#neveropen}}
         {{/neveropen}}
 
         {{^neveropen}}
-			{{#opening_hours.has_opening_hours}}
+
+      {{#opening_hours.has_opening_hours}}
             <h3>_("The library is now")
-		    {{#opening_hours.open_now}}
-	            <strong class="open">_("Open")</strong>
-		    {{/opening_hours.open_now}}
+        {{#opening_hours.open_now}}
+              <strong class="open">_("Open")</strong>
+        {{/opening_hours.open_now}}
 
-		    {{^opening_hours.open_now}}
-	            <strong class="closed">_("Closed")</strong>
-	        {{/opening_hours.open_now}}
-		    </h3>
-		    <br>
-	        <h3>_("Opening hours this week")</h3>
-	        <time itemprop="openingHours">
-	        <table>
-			    {{#opening_hours.open_hours_week}}
-					{{#today}}
-						<tr class="opentimes_strong"><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
-					{{/today}}
-					{{^today}}
-					    <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
-					{{/today}}
-			    {{/opening_hours.open_hours_week}}
-	        </table>
-	        </time>
+        {{^opening_hours.open_now}}
+              <strong class="closed">_("Closed")</strong>
+          {{/opening_hours.open_now}}
+        </h3>
+        <br>
+          <h3 class="week-label">_("Opening hours this week")</h3>
+          <time itemprop="openingHours">
+          <table>
+          {{#opening_hours.open_hours_week}}
+          {{#today}}
+            <tr class="opentimes_strong"><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
+          {{/today}}
+          {{^today}}
+              <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
+          {{/today}}
+          {{/opening_hours.open_hours_week}}
+          </table>
+          <button class="btn btn-link change-week" monday="{{opening_hours.mondaydate}}" value="prev">_("Previous week")</button>
+          <button class="btn btn-link change-week" monday="{{opening_hours.mondaydate}}" value="next">_("Next week")</button>
+
+          </time>
             <br>
-			<p>{{opening_hours.period_description}}
-			{{#consortium}}
-            <p>_("To borrow from this library you need a {{consortium}} card.")</p>
-			{{/consortium}}
-			{{/opening_hours.has_opening_hours}}
-			{{^opening_hours.has_opening_hours}}
-			{{/opening_hours.has_opening_hours}}
+      <p>{{opening_hours.period_description}}
+      {{/opening_hours.has_opening_hours}}
+      {{^opening_hours.has_opening_hours}}
+      {{/opening_hours.has_opening_hours}}
         {{/neveropen}}
-
     </div>
-  </div>
 
   <p><small>_("Last modified"): {{meta.modified}}</small></p>
 

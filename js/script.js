@@ -652,7 +652,7 @@ $('#personnel-sstr').bind('keypress', function(e) {
 
 // Change calendar week on /{library-name}/ page
 $(document).on("click", "button.change-week", function(){
-    var id = $('h1.lib_details_name').attr('id');
+    var id = $('div#opentimes_large').attr('for');
     var mondayDate = $(this).attr('monday');
 
     $.ajax({

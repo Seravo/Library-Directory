@@ -1494,6 +1494,9 @@ function get_monday(date){
 // get library's opening times by library id
 function get_library_opening_times(id, dataobj, fromDate, callback) {
 
+  if(!id) return;
+
+
 	var days_translated = [ _('Monday'),
 							_('Tuesday'),
 							_('Wednesday'),
