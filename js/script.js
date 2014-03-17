@@ -294,6 +294,9 @@ function ld_format_time(time) {
 	return hrs+":"+mins
 }
 
+
+var optionsArr = [];
+
 function ld_widget_wizard() {
 	// url for widgets/data
   // handle ssl-proxy
@@ -320,7 +323,7 @@ function ld_widget_wizard() {
 	$("#widget_style").prop('disabled', true);
 
 	// construct the widget code
-	function build_widget(numberOfLibsOnPage) {
+	function build_widget() {
 
 		var id = $("#widget_library").val();
 		var consortium = $("#widget_consortium").val();
@@ -331,7 +334,9 @@ function ld_widget_wizard() {
 		var code = "";
 		var widget_lang = $("#widget_lang").val();
 		var lang = "";
-		var size = numberOfLibsOnPage;
+		var size = $("input[name='radioAdjustNumberOfLibs']:checked").val();
+
+		// var size = numberOfLibsOnPage;
 
 		// apply default css for iframe-widget
 		if (type=="1" || type=="2" || type=="3") {
@@ -348,10 +353,24 @@ function ld_widget_wizard() {
 			case "1":
 				if (lang != '') lang+="/";
 				var code =	'<iframe src="' + url + lang + 'widget1';
-				if (filter == 'area' && consortium != '') code += '?area='+consortium+'"';
-				if (size) code+='?size='+size+'"'
-				else if (filter == 'city') code += '?city='+city+'"';
-				else code += '"';
+
+				if (filter == 'area' && consortium != '') optionsArr.push('area='+consortium);
+				if (size) optionsArr.push('size='+size);
+				if (filter == 'city') optionsArr.push('city='+city);
+
+				for(var x=0;x<optionsArr.length;x++){
+					if (x === 0) code+= '?'
+					code += optionsArr[x];
+					if (x!==optionsArr.length-1) code+= '&'
+				}
+
+
+				code+='"';
+
+				optionsArr = [];
+
+				// code += '?area=helmet&size=2"'
+
 				if (style != '') code += ' style="' + style + '"';
 				code += '></iframe>';
 				break;
@@ -457,8 +476,9 @@ function ld_widget_wizard() {
 		}, 800);
 	});
 
-	$("input[name='radioAdjustNumberOfLibs']").change(function(e){
-    build_widget($(this).val());
+	$("input[name='radioAdjustNumberOfLibs']").change(function(event){
+		event.preventDefault();
+    build_widget();
 	});
 
 
