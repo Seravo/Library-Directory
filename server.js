@@ -493,8 +493,12 @@ app.post('/contact', // Route
       }
     );
 
+
 function render_static_page(page, req, res) {
 	// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+  var NUMBEROFRESULTS = 50;
+
+  req.query.size ? NUMBEROFRESULTS = req.query.size : null
 
 	switch(page) {
     case 'about':
@@ -538,7 +542,8 @@ function render_static_page(page, req, res) {
   	case '':
   		var cityfilter = req.query.city || '';
   		res.local('header', header.render(req, {search_active: true}));
-  		res.local('footer', footer.render(req, {regions: 'var REGIONS = ' +
+  		res.local('footer', footer.render(req, { numberOfResults: 'var NUMBEROFRESULTS = ' + NUMBEROFRESULTS,
+        regions: 'var REGIONS = ' +
         JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' +
           JSON.stringify(consortiumData) + ';',
             js_code: 'jQuery(document).ready(function($)'+
@@ -558,7 +563,8 @@ function render_static_page(page, req, res) {
   	// widget creation wizard
   	case 'widget':
   		res.local('header', header.render(req, {title: 'Widget wizard', widget_active: true}));
-  		res.local('footer', footer.render(req, {regions: 'var REGIONS = ' +
+  		res.local('footer', footer.render(req, { numberOfResults: 'var NUMBEROFRESULTS = ' + NUMBEROFRESULTS,
+        regions: 'var REGIONS = ' +
         JSON.stringify(regionData) + ';',
         consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';',
         js_code:'jQuery(document).ready(function($) { ld_widget_wizard(); });'}));
@@ -576,7 +582,7 @@ function render_static_page(page, req, res) {
   		else js_code = 'jQuery(document).ready(function($) { $(".facet-view-simple").facetview({widget: true}); });';
 
   		res.local('header', header.render(req, { nobanners: true }));
-  		res.local('footer', footer.render(req, { nobanners: true, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+  		res.local('footer', footer.render(req, { nobanners: true, numberOfResults: 'var NUMBEROFRESULTS = ' + NUMBEROFRESULTS, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
   		res.render('widget1', { lang: gettext.lang });
   		break;
 

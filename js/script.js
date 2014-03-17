@@ -320,7 +320,7 @@ function ld_widget_wizard() {
 	$("#widget_style").prop('disabled', true);
 
 	// construct the widget code
-	function build_widget() {
+	function build_widget(numberOfLibsOnPage) {
 
 		var id = $("#widget_library").val();
 		var consortium = $("#widget_consortium").val();
@@ -331,6 +331,7 @@ function ld_widget_wizard() {
 		var code = "";
 		var widget_lang = $("#widget_lang").val();
 		var lang = "";
+		var size = numberOfLibsOnPage;
 
 		// apply default css for iframe-widget
 		if (type=="1" || type=="2" || type=="3") {
@@ -348,6 +349,7 @@ function ld_widget_wizard() {
 				if (lang != '') lang+="/";
 				var code =	'<iframe src="' + url + lang + 'widget1';
 				if (filter == 'area' && consortium != '') code += '?area='+consortium+'"';
+				if (size) code+='?size='+size+'"'
 				else if (filter == 'city') code += '?city='+city+'"';
 				else code += '"';
 				if (style != '') code += ' style="' + style + '"';
@@ -384,6 +386,7 @@ function ld_widget_wizard() {
 				code += 'id="libdir_widget-' + uuid + '"' + '></div>';
 				break;
 		}
+
 		$("#widget_code").val(code);
 
 		// update preview for jsonp-widgets
@@ -396,8 +399,12 @@ function ld_widget_wizard() {
 			$("#widget_preview").html(code);
 
 			var jsonp_url = "";
-			if (lang != "") jsonp_url = url + lang + "/loadwidget?id="+id+"&type="+type+"&callback=?";
-			else jsonp_url = url + "loadwidget?id="+id+"&type="+type+"&callback=?";
+			if (lang != "") {
+				jsonp_url = url + lang + "/loadwidget?id="+id+"&type="+type+"&callback=?";
+			} else {
+				jsonp_url = url + "loadwidget?id="+id+"&type="+type+"&callback=?";
+			}
+
 			$.getJSON(jsonp_url, function(data) { $('#libdir_widget-' + uuid).html(data.html); });
 		}
 		// update preview for iframe-widgets
@@ -449,6 +456,11 @@ function ld_widget_wizard() {
 			build_widget();
 		}, 800);
 	});
+
+	$("input[name='radioAdjustNumberOfLibs']").change(function(e){
+    build_widget($(this).val());
+	});
+
 
 	$(document).bind('search', function(event, data) {
     // handle ssl-proxy
@@ -746,4 +758,6 @@ function library_details_map() {
     ld_mapcontrol_init(coordinates, "");
   }
 }
+
+
 

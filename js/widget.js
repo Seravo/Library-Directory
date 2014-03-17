@@ -35,10 +35,10 @@ if (window.jQuery === undefined || window.jQuery.fn.jquery !== '1.7.2') {
 
 function scriptLoadHandler() {
     jQuery = window.jQuery.noConflict(true);
-    main(); 
+    main();
 }
 
-function main() { 
+function main() {
     jQuery(document).ready(function($) {
 		// skip if widgets are already loaded
 		if (libdir_widgets_loaded) return;
@@ -52,13 +52,13 @@ function main() {
 			var widget_params = widget.attr("data-params");
 			var widget_lang = "";
 			if (widget.attr("data-lang")) widget_lang = widget.attr("data-lang") + "/";
-				
+
 			var jsonp_url = url + widget_lang + "loadwidget?"+widget_params+"&type="+widget_type+"&callback=?";
 
 			// load widget css
-			var css_link = $("<link>", { 
-				rel: "stylesheet", 
-				type: "text/css", 
+			var css_link = $("<link>", {
+				rel: "stylesheet",
+				type: "text/css",
 				href: url + "css/json_widget" + widget_type + ".css" });
 			css_link.appendTo('head');
 
@@ -70,4 +70,3 @@ function main() {
 }
 
 })();
-

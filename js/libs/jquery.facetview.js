@@ -118,21 +118,21 @@ var selectedOpts = {};
 	var settings = {
             "config_file": false,
             "facets":[
-		{'field': 'contact.street_address.municipality_'+_("locale"), 'order':'term', 'display': _('City'), "size":400 },
-		{'field': 'services.name_'+_("locale"), 'order':'term', 'display': _('Services'), "size":500 },
-		// {'field': 'accessibility.accessibility_entry', 'display': _('Accessibility')},
-        {'field': 'accessibility.accessible_entry', 'display': _('Accessible entry')},
-        {'field': 'accessibility.accessible_parking', 'display': _('Accessible parking')},
-        {'field': 'accessibility.accessible_toilet', 'display': _('Accessible toilet')},
-        {'field': 'accessibility.induction_loop', 'display': _('Induction loop')},
-        {'field': 'accessibility.large_typeface_collection', 'display': _('Large typeface collection')},
-        {'field': 'accessibility.lift', 'display': _('Lift')},
-        {'field': 'accessibility.extraaccessibilityinfo', 'display': _('Extra accessibility info')},
-		{'field': 'consortium', 'size': 100, 'order':'term', 'display': _('Library consortium')},
-		{'field': 'provincial_area', 'size': 100, 'order':'term', 'display': _('Provincial area')},
-		{'field': 'organisation_type', 'display': _('Type')},
-		{'field': 'branch_type', 'display': _('Branch type')}
-		],
+                {'field': 'contact.street_address.municipality_'+_("locale"), 'order':'term', 'display': _('City'), "size":400 },
+                {'field': 'services.name_'+_("locale"), 'order':'term', 'display': _('Services'), "size":500 },
+                // {'field': 'accessibility.accessibility_entry', 'display': _('Accessibility')},
+                {'field': 'accessibility.accessible_entry', 'display': _('Accessible entry')},
+                {'field': 'accessibility.accessible_parking', 'display': _('Accessible parking')},
+                {'field': 'accessibility.accessible_toilet', 'display': _('Accessible toilet')},
+                {'field': 'accessibility.induction_loop', 'display': _('Induction loop')},
+                {'field': 'accessibility.large_typeface_collection', 'display': _('Large typeface collection')},
+                {'field': 'accessibility.lift', 'display': _('Lift')},
+                {'field': 'accessibility.extraaccessibilityinfo', 'display': _('Extra accessibility info')},
+                {'field': 'consortium', 'size': 100, 'order':'term', 'display': _('Library consortium')},
+                {'field': 'provincial_area', 'size': 100, 'order':'term', 'display': _('Provincial area')},
+                {'field': 'organisation_type', 'display': _('Type')},
+                {'field': 'branch_type', 'display': _('Branch type')}
+            ],
             "addremovefacets": false,
             "result_display": search_results,
             "display_images": true,
@@ -154,7 +154,8 @@ var selectedOpts = {};
 					{ "term": { "meta.document_state" : "published" } }
 				]
 				,
-            "paging":{ from: 0, size: 50 }
+            // "paging" : { from: 0, size:  }
+            "paging":{ from: 0, size: NUMBEROFRESULTS }
         };
 
 		// container for active facetview filters for visualisation purposes
@@ -1122,6 +1123,7 @@ var selectedOpts = {};
             // set any paging
             options.paging.from != 0 ? qs['from'] = options.paging.from : ""
             options.paging.size != 10 ? qs['size'] = options.paging.size : ""
+
             // set any facets
             qs['facets'] = {};
 
