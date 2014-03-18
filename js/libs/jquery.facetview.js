@@ -335,6 +335,11 @@ var selectedOpts = {};
                   '<select id="facet-filters-branchtypes" placeholder="' + _("Select...") + '" multiple></select>';
 
 
+            _filterTmpl += '<label class="checkbox">' +
+              '<input id="main-libraries" type="checkbox">' +
+                'Show main libraries first' +
+              '</label>'
+
             for(var idx in filters) {
 
                 var filter = {
@@ -377,6 +382,11 @@ var selectedOpts = {};
             _filterTmpl += '</div>';
 
             $('#facetview_filters').html("").append(filterheader+_filterTmpl)
+
+            $('input#main-libraries').click(function(evt){
+                dosearch();
+            })
+
 
 
 	// get geolocation and show location-filter, if applicable
@@ -1078,11 +1088,11 @@ var selectedOpts = {};
 
 			// sort results by geolocation, if available and requested
 			if (ld_position) {
-				var lat = ld_position_coords.latitude
-				var lon = ld_position_coords.longitude
+    			var lat = ld_position_coords.latitude
+    			var lon = ld_position_coords.longitude
 
-				qs.sort = [ { "_geo_distance": { "contact.coordinates": { "lat": lat, "lon": lon }, "order": "asc" } } ]
-				}
+    			qs.sort = [ { "_geo_distance": { "contact.coordinates": { "lat": lat, "lon": lon }, "order": "asc" } } ]
+			}
 
 			// consortium pre-selection from widget #1
 			if (options.areafilter != undefined && options.areafilter != "") {
@@ -1131,6 +1141,24 @@ var selectedOpts = {};
                 var obj = options.facets[item]
                 delete obj['display']
                 qs['facets'][obj['field']] = {"terms":obj}
+            }
+
+            if ($('input#main-libraries').is(':checked')) {
+              qs.sort = {}
+
+              qs.rescore = {
+                "query": {
+                  "rescore_query": {
+                    "match": {
+                      "branch_type": {
+                      "query": "main_library"
+                      }
+                    }
+                  },
+                  "query_weight": 0.7,
+                  "rescore_query_weight": 1.2
+                  }
+                }
             }
 
             return JSON.stringify(qs)
