@@ -364,12 +364,8 @@ function ld_widget_wizard() {
 					if (x!==optionsArr.length-1) code+= '&'
 				}
 
-
 				code+='"';
-
 				optionsArr = [];
-
-				// code += '?area=helmet&size=2"'
 
 				if (style != '') code += ' style="' + style + '"';
 				code += '></iframe>';

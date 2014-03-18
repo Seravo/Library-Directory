@@ -19,11 +19,11 @@ try {
 
 var request = require('supertest');
 var chai = require('chai');
-var chaiHttp = require('chai-http');
-chai.use(chaiHttp);
+chai.use(require('chai-http'));
 
 var app = conf.server_host + ':' + conf.server_port;
-var elasticsearch = 'localhost:8888/testink/organisation/_search?'
+var elasticsearch = conf.proxy_config.host + ':' + conf.proxy_config.port +
+  '/testink/organisation/_search?'
 
 describe('Libdir tests', function(){
 
@@ -176,34 +176,31 @@ describe('Widget tests', function(){
       });
   });
 
-  // it('Expect GET "/widget2" returns 200', function(done){
-  //   chai.request(app)
-  //     .get('/widget2')
-  //     .req(function (req) {
-  //       // req.set('jquery:id', LibraryId)
-  //       req.send({sstr:'body'})
-  //     })
-  //     .res(function (res) {
-  //       chai.expect(res).to.have.status(200);
-  //       chai.expect(res).to.be.html;
-  //       done();
-  //     });
-  // });
+  it('Expect GET "/widget1" with options "size" and "area" returns 200', function(done){
+    chai.request(app)
+      .get('/widget1?size=30&area=helmet')
+      .req(function (req) {
+        // req.set('jquery:id', LibraryId)
+        // req.send({sstr:'body'})
+      })
+      .res(function (res) {
+        chai.expect(res).to.have.status(200);
+        chai.expect(res).to.be.html;
+        done();
+      });
+  });
 
-  // it('Expect GET "/widget3" returns 200', function(done){
-  //   chai.request(app)
-  //     .get('/widget3')
-  //     .req(function (req) {
-  //       req.send({query:{
-  //         id: LibraryId
-  //       }});
-  //     })
-  //     .res(function (res) {
-  //       chai.expect(res).to.have.status(200);
-  //       chai.expect(res).to.be.html;
-  //       done();
-  //     });
-  // });
+  it('Expect GET "/widget2" returns 200', function(done){
+    chai.request(app)
+      .get('/widget2?id=goQMRZg5TEOmxx1cibj--A')
+      .req(function (req) {
+      })
+      .res(function (res) {
+        chai.expect(res).to.have.status(200);
+        chai.expect(res).to.be.html;
+        done();
+      });
+  });
 
 });
 
