@@ -1071,9 +1071,9 @@ var selectedOpts = {};
 			qs.sort = [ { "name_fi" : {} } ];
 
 			// add predefined filters from config options
-			var filters = options.predefined_filters;
+      var filters = options.predefined_filters;
 
-            for(var item=0;item<filters.length;filters++) {
+      for (var item=0; item<filters.length; item++) {
 				query_filters.push(filters[item])
 			}
 
