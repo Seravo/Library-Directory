@@ -15,7 +15,6 @@
     "commit": "96f3bf5161612f9c6bc8760eb4e18cc287057f54"
   },
   "_source": "git://github.com/jozefizso/bower-bootstrap-less.git",
-  "_target": "~2.3.2",
-  "_originalSource": "bootstrap-less",
-  "_direct": true
+  "_target": ">=2.3.2",
+  "_originalSource": "bootstrap-less"
 }
