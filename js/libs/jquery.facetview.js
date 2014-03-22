@@ -334,12 +334,6 @@ var selectedOpts = {};
                   '<label for="facet-filters-branchtypes">' + _("Branch type") + ':</label>' +
                   '<select id="facet-filters-branchtypes" placeholder="' + _("Select...") + '" multiple></select>';
 
-
-            _filterTmpl += '<label class="checkbox">' +
-              '<input id="main-libraries" type="checkbox">' +
-                'Show main libraries first' +
-              '</label>'
-
             for(var idx in filters) {
 
                 var filter = {
@@ -383,11 +377,6 @@ var selectedOpts = {};
 
             $('#facetview_filters').html("").append(filterheader+_filterTmpl)
 
-            $('input#main-libraries').click(function(evt){
-                dosearch();
-            })
-
-
 
 	// get geolocation and show location-filter, if applicable
 	if (navigator.geolocation) {
@@ -418,6 +407,24 @@ var selectedOpts = {};
 	else {
 		 /* showerror("Geolocation not supported"); */
 		}
+
+
+            $("#sort_select").on('click', 'li a', function(){
+
+                if(this.text === 'Geolocation' && !ld_position) {
+                    alert('Please turn on geolocation features in your browser');
+                    return;
+                }
+
+                if(this.text === 'Main libraries first'){
+                  $('a#current-sort').text(this.text + ' ');
+                } else {
+                  $('a#current-sort').text('Sort by ' + this.text.charAt(0).toLowerCase() + this.text.slice(1) + ' ');
+                }
+                $('<span class="caret"></span>').appendTo('a#current-sort')
+                $("#sort_select").val(this.text);
+                dosearch();
+           });
 
             options.visualise_filters ? $('.facetview_visualise').bind('click',show_vis) : ""
             $('.facetview_morefacetvals').bind('click',morefacetvals)
@@ -1087,7 +1094,8 @@ var selectedOpts = {};
 			}
 
 			// sort results by geolocation, if available and requested
-			if (ld_position) {
+			if (ld_position && $('ul#sort_select').val() === 'Geolocation') {
+                // $('<span class="caret"></span>').appendTo('a#current-sort');
     			var lat = ld_position_coords.latitude
     			var lon = ld_position_coords.longitude
 
@@ -1143,7 +1151,8 @@ var selectedOpts = {};
                 qs['facets'][obj['field']] = {"terms":obj}
             }
 
-            if ($('input#main-libraries').is(':checked')) {
+            if ($('ul#sort_select').val() === 'Main libraries first') {
+
               qs.sort = {}
 
               qs.rescore = {
@@ -1256,10 +1265,22 @@ var selectedOpts = {};
 			   <div id="facetview"> \
 				 <div class="row-fluid"> \
 				   <div class="span9" id="facetview_rightcol"> \
-					   <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend"> \
+					   <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend input-append"> \
 					   <span class="add-on"><i id="search_static" class="icon-search"></i><img id="search_spinner" src="img/spinner.gif" style="display: hidden;" alt="[spinner]"> </span> \
 					   <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("search starts automatically after 3 letters") + '" autofocus /> \
-					   </div> \
+					   <div class="btn-group"> \
+                          <a id="current-sort" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> \
+                            Sort by alphabet\
+                            <span class="caret"></span> \
+                          </a> \
+                          <ul id="sort_select" class="dropdown-menu"> \
+                            <li><a>Alphabet</a></li> \
+                            <li><a>Geolocation</a></li> \
+                            <li class="divider"></li> \
+                            <li><a>Main libraries first</a></li> \
+                          </ul> \
+                        </div> \
+                       </div> \
 					   <div id="search_status" style="clear: both;"></div> \
 					   <div style="float:left;" id="facetview_selectedfilters"></div> \
 					   <div style="float:left;" id="facetview_selectedextrafilters"></div> \
@@ -1282,10 +1303,22 @@ var selectedOpts = {};
 					 <div id="facetview_filters"></div> \
 				   </div> \
 				   <div class="span9" id="facetview_rightcol"> \
-					   <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend"> \
+					   <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend input-append"> \
 					   <span class="add-on"><i id="search_static" class="icon-search"></i><img id="search_spinner" src="img/spinner.gif" style="display: hidden;" alt="[spinner]"> </span> \
 					   <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("search starts automatically after 3 letters") + '" autofocus /> \
-					   </div> \
+					    <div class="btn-group"> \
+                          <a id="current-sort" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> \
+                            Sort by alphabet\
+                            <span class="caret"></span> \
+                          </a> \
+                          <ul id="sort_select" class="dropdown-menu"> \
+                            <li><a>Alphabet</a></li> \
+                            <li><a>Geolocation</a></li> \
+                            <li class="divider"></li> \
+                            <li><a>Main libraries first</a></li> \
+                          </ul> \
+                        </div> \
+                       </div> \
 					   <div id="search_status" style="clear: both;"></div> \
 					   <div style="float:left;" id="facetview_selectedfilters"></div> \
 					   <div style="float:left;" id="facetview_selectedextrafilters"></div> \
@@ -1307,8 +1340,8 @@ var selectedOpts = {};
             // resize the searchbar
             function freetext_resize(){
                 var thewidth = $('#facetview_searchbar').parent().width()
-                $('#facetview_searchbar').css('width',thewidth - 50 + 'px')
-                $('#facetview_freetext').css('width', thewidth - 88 + 'px')
+                $('#facetview_searchbar').css('width',thewidth - 60 + 'px')
+                $('#facetview_freetext').css('width', thewidth - 200 + 'px')
             }
             freetext_resize(); // run on initial page load
 

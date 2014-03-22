@@ -39,7 +39,6 @@
 		          <strong class="closed">_("Closed")</strong>
 		      {{/opening_hours.open_now}}
 		    </h3>
-		    <br>
 		      <h3 class="week-label">_("Opening hours this week")</h3>
 		      <time itemprop="openingHours">
 		      <table>
@@ -422,7 +421,6 @@
 		          <strong class="closed">_("Closed")</strong>
 		      {{/opening_hours.open_now}}
 		    </h3>
-		    <br>
 		      <h3 class="week-label">_("Opening hours this week")</h3>
 		      <time itemprop="openingHours">
 		      <table>
@@ -435,8 +433,8 @@
 		      {{/today}}
 		      {{/opening_hours.open_hours_week}}
 		      </table>
-		      <button class="btn btn-link change-week" monday="{{opening_hours.mondaydate}}" value="prev">_("Previous week")</button>
-		      <button class="btn btn-link change-week" monday="{{opening_hours.mondaydate}}" value="next">_("Next week")</button>
+		      <button class="btn change-week" monday="{{opening_hours.mondaydate}}" value="prev">_("Previous week")</button>
+		      <button class="btn change-week" monday="{{opening_hours.mondaydate}}" value="next">_("Next week")</button>
 
 		      </time>
 		        <br>

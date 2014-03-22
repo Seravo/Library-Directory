@@ -716,10 +716,10 @@ $(document).on("click", "button.change-week", function(){
             '<span class="hidden">, </span></tr>'
 				}
 
-	      html += '</table><button class="btn btn-link change-week"' +
+	      html += '</table><button class="btn change-week"' +
 	       'monday="'+data._source.opening_hours.mondaydate+'"' +
          'value="prev">' + _("Previous week") + '</button> ' +
-				 '<button class="btn btn-link change-week"' +
+				 '<button class="btn change-week"' +
 				 'monday="'+data._source.opening_hours.mondaydate+'"' +
          'value="next">' + _("Next week") + '</button>';
 
