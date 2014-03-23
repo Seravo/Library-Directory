@@ -11,6 +11,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-less": ">=2.3.2"
+    "bootstrap-less": ">=2.3.2",
+    "spin.js": "~2.0.0"
   }
 }

@@ -55,7 +55,7 @@ module.exports = function(grunt) {
         tasks: 'default'
       }
     },
-    
+
     pkg: '<json:package.json>',
     meta: {
       banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
@@ -79,6 +79,7 @@ module.exports = function(grunt) {
         'js/libs/bootstrap/button.js',
 //        'js/libs/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js',
         'js/libs/mustache/mustache.js',
+        '/bower_components/spin.js/spin.js',
         'js/libs/selectize.js',
 //        'js/libs/linkify/1.0/jquery.linkify-1.0-min.js',
 //        'js/libs/d3/d3.min.js',
@@ -87,7 +88,7 @@ module.exports = function(grunt) {
         'js/libs/json2.js',
         'js/libs/jquery.facetview.js',
 //        'js/libs/openlayers/openlayers.js',
-		'js/libs/gettext.js',
+		    'js/libs/gettext.js',
         'js/plugins.js',
         'js/script.js'
         ],
@@ -127,7 +128,7 @@ module.exports = function(grunt) {
 //  grunt.registerTask('default', 'intro clean mkdirs concat less css min img rev usemin manifest copy time');
   grunt.registerTask('default', 'intro clean mkdirs concat min css img rev usemin manifest copy time');
   grunt.registerTask('reload', 'default watch:reload');
-  
+
   // if "h5bp reload" fails with message "Error: watch EMFILE"
   // it means the number of open files has exceeded
   // lift limit by runnig as root

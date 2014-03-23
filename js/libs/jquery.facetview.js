@@ -17,6 +17,26 @@
 
 var selectedOpts = {};
 
+// Spinner options
+var opts = {
+  lines: 17, // The number of lines to draw
+  length: 26, // The length of each line
+  width: 8, // The line thickness
+  radius: 34, // The radius of the inner circle
+  corners: 1, // Corner roundness (0..1)
+  rotate: 0, // The rotation offset
+  direction: 1, // 1: clockwise, -1: counterclockwise
+  color: '#000', // #rgb or #rrggbb or array of colors
+  speed: 1.9, // Rounds per second
+  trail: 100, // Afterglow percentage
+  shadow: true, // Whether to render a shadow
+  hwaccel: true, // Whether to use hardware acceleration
+  className: 'spinner', // The CSS class to assign to the spinner
+  zIndex: 2e9, // The z-index (defaults to 2000000000)
+  // top: '400px', // Top position relative to parent in px
+  // left: '700px' // Left position relative to parent in px
+};
+
 (function($) {
     $.fn.bindWithDelay = function( type, data, fn, timeout, throttle ) {
     var wait = null;
@@ -1175,6 +1195,9 @@ var selectedOpts = {};
 
         // execute a search
         var dosearch = function() {
+
+            var spinner = new Spinner(opts).spin(document.getElementById('facetview_results'));
+
             if ( options.search_index == "elasticsearch" ) {
                 // jsonp-request does not call the error function (by design) so use timeout instead
                 var searchTimer = window.setTimeout(function() { showerror(_("Could not connect to database. Please try again later.")) }, 7000);
@@ -1184,7 +1207,7 @@ var selectedOpts = {};
                     data: { source: elasticsearchquery() },
                     dataType: "jsonp",
                     beforeSend: showspinner,
-                    success: [ function() { window.clearTimeout(searchTimer) }, clearerror, hidespinner, showresults ]
+                    success: [ function() { window.clearTimeout(searchTimer) }, clearerror, hidespinner, showresults, function() {spinner.stop()} ]
                 });
             } else {
                 $.ajax( { type: "get", url: solrsearchquery(), dataType:"jsonp", jsonp:"json.wrf", success: function(data) { showresults(data) } } );
@@ -1300,7 +1323,8 @@ var selectedOpts = {};
 			   <div id="facetview"> \
 				 <div class="row-fluid"> \
 				   <div class="span3"> \
-					 <div id="facetview_filters"></div> \
+					 <div id="facetview_filters"> \
+                     </div> \
 				   </div> \
 				   <div class="span9" id="facetview_rightcol"> \
 					   <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend input-append"> \
@@ -1323,7 +1347,8 @@ var selectedOpts = {};
 					   <div style="float:left;" id="facetview_selectedfilters"></div> \
 					   <div style="float:left;" id="facetview_selectedextrafilters"></div> \
 					   <div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div><div id="mapcontrol"></div></div> \
-					 <table class="table table-striped" id="facetview_results"></table> \
+					 <table class="table table-striped" id="facetview_results"> \
+                     </table> \
 					 <div id="facetview_metadata"></div> \
 				   </div> \
 				 </div> \
