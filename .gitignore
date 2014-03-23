@@ -8,3 +8,4 @@ locale/**/*.mo
 node_modules
 */*-banner.*
 .DS_Store
+bower_components
