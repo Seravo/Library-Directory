@@ -65,7 +65,7 @@ module.exports = function(grunt) {
         ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
     },
     lint: {
-      files: ['grunt.js', 'js/**/*.js', 'test/**/*.js', 'bower_components/**/*.js']
+      files: ['grunt.js', 'js/**/*.js', 'test/**/*.js']
     },
     qunit: {
       files: ['test/**/*.html']
@@ -80,7 +80,7 @@ module.exports = function(grunt) {
 //        'js/libs/jquery-ui-1.8.18.custom/jquery-ui-1.8.18.custom.min.js',
         'js/libs/mustache/mustache.js',
         'js/libs/selectize.js',
-        'components/spin.js/spin.js',
+        'js/libs/spin.js/spin.js',
 //        'js/libs/linkify/1.0/jquery.linkify-1.0-min.js',
 //        'js/libs/d3/d3.min.js',
 //        'js/libs/d3/d3.geom.min.js',
