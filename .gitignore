@@ -9,4 +9,3 @@ node_modules
 */*-banner.*
 .DS_Store
 components
-js/libs
