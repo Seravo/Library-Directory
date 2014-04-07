@@ -101,11 +101,6 @@ Instructions for Ubuntu 12.04, where the required dependencies can be installed 
 Generating CSS from LESS
 ------------------------
 
-#### Install bower globally and get all dependencies
-
-    $ npm install -g bower
-    $ bower install
-
 #### Compile .less into .css
 
     $ cd css
