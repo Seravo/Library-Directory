@@ -405,7 +405,10 @@ var opts = {
 				// activate automatic geolocation, if available
 				ld_position=true;
 				ld_position_coords=position.coords;
-        dosearch();
+                $('a#current-sort').text('Sort by geolocation ');
+                $('<span class="caret"></span>').appendTo('a#current-sort');
+                $("#sort_select").val('Geolocation');
+                dosearch();
 			},
 		// the error callback that never gets called (in firefox?)
 		function (error) {
