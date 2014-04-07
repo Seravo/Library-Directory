@@ -19,10 +19,10 @@ var selectedOpts = {};
 
 // Spinner options
 var opts = {
-  lines: 17, // The number of lines to draw
-  length: 26, // The length of each line
+  lines: 9, // The number of lines to draw
+  length: 14, // The length of each line
   width: 8, // The line thickness
-  radius: 34, // The radius of the inner circle
+  radius: 15, // The radius of the inner circle
   corners: 1, // Corner roundness (0..1)
   rotate: 0, // The rotation offset
   direction: 1, // 1: clockwise, -1: counterclockwise

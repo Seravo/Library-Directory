@@ -21,6 +21,39 @@
 	{{^nobanners}}
 	<style type="text/css" media="all">{{{header_banner_css}}}</style>
 	{{/nobanners}}
+
+  <style>
+
+    body {
+      font-size: 13px;
+      line-height: 18px;
+    }
+
+    .navbar-inverse .brand {
+      color: #ffffff;
+    }
+
+    .navbar-inverse .navbar-inner {
+      -webkit-border-radius: 0 !important;
+         -moz-border-radius: 0 !important;
+              border-radius: 0 !important;
+      background-image: linear-gradient(to bottom, #333333, #222222);
+    }
+
+    @media (max-width: 767px) {
+      body {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+
+      .container {
+        padding: 10px;
+      }
+
+    }
+
+  </style>
+
 	<link rel="gettext" type="application/x-po" href="/locale/{{lang}}/messages.po" />
 	<script src="/js/libs/modernizr-2.5.3-respond-1.1.0.min.js"></script>
 </head>
@@ -29,7 +62,6 @@
 {{^nobanners}}
 {{{header_banner}}}
 
-  
     <div class="navbar navbar-inverse">
       <div class="navbar-inner">
         <div class="container">
