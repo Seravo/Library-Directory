@@ -405,7 +405,7 @@ var opts = {
 				// activate automatic geolocation, if available
 				ld_position=true;
 				ld_position_coords=position.coords;
-                $('a#current-sort').text(_('Geolocation'));
+                $('a#current-sort').text(_('Geolocation') + ' ');
                 $('<span class="caret"></span>').appendTo('a#current-sort');
                 $("#sort_select").val(_('Geolocation'));
                 dosearch();
@@ -434,16 +434,12 @@ var opts = {
 
             $("#sort_select").on('click', 'li a', function(){
 
-                if(this.text === 'Geolocation' && !ld_position) {
+                if(this.text === _('Geolocation') && !ld_position) {
                     alert('Please turn on geolocation features in your browser');
                     return;
                 }
 
-                if(this.text === 'Main libraries first'){
-                  $('a#current-sort').text(this.text + ' ');
-                } else {
-                  $('a#current-sort').text(this.text.charAt(0).toLowerCase() + this.text.slice(1) + ' ');
-                }
+                $('a#current-sort').text(this.text + ' ');
                 $('<span class="caret"></span>').appendTo('a#current-sort')
                 $("#sort_select").val(this.text);
                 dosearch();
@@ -1117,7 +1113,7 @@ var opts = {
 			}
 
 			// sort results by geolocation, if available and requested
-			if (ld_position && $('ul#sort_select').val() === 'Geolocation') {
+			if (ld_position && $('ul#sort_select').val() === _('Geolocation')) {
                 // $('<span class="caret"></span>').appendTo('a#current-sort');
     			var lat = ld_position_coords.latitude
     			var lon = ld_position_coords.longitude
@@ -1174,7 +1170,7 @@ var opts = {
                 qs['facets'][obj['field']] = {"terms":obj}
             }
 
-            if ($('ul#sort_select').val() === 'Main libraries first') {
+            if ($('ul#sort_select').val() === _('Main libraries first')) {
 
               qs.sort = {}
 
