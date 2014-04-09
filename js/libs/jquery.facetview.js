@@ -435,7 +435,7 @@ var opts = {
             $("#sort_select").on('click', 'li a', function(){
 
                 if(this.text === _('Geolocation') && !ld_position) {
-                    alert('Please turn on geolocation features in your browser');
+                    alert('Please turn on geolocation features in your browser or reload the page');
                     return;
                 }
 
