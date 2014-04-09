@@ -69,19 +69,19 @@ var opts = {
 (function($){
     // commons functions
     var showspinner = function() {
-	    $('#search_static').hide();
-	    $('#search_spinner').show();
+        $('#search_static').hide();
+        $('#search_spinner').show();
     }
 
     var hidespinner = function() {
-	    $('#search_spinner').hide();
-	    $('#search_static').show();
+        $('#search_spinner').hide();
+        $('#search_static').show();
     }
 
     var showerror = function(msg) {
         if (!msg){ msg = _("Error: unspecified"); }
-	    hidespinner();
-	    $('#facetview_results').before('<div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>' + _("Error") + ':</strong> '+msg+'</div>');
+        hidespinner();
+        $('#facetview_results').before('<div id="errormsg" class="alert alert-error"><i class="icon-warning-sign"></i> <strong>' + _("Error") + ':</strong> '+msg+'</div>');
     }
 
     var clearerror = function() {
@@ -90,25 +90,25 @@ var opts = {
 
     $.fn.facetview = function(options) {
 
-	var opening_hours_format =
-		"{{#d2}}" +
-		"<i class='icon-time'></i> "+
-		"{{#d0}}<span style='color: green;'>" + _("Open") +
-		 "</span> " + _("today") + " {{d1}} {{/d0}}" +
-		"{{^d0}}<span style='color: red; font-style: italic;'>" + _("Closed") +	"</span> " +
-		"{{#d1}}(" + _("open today") + " {{d1}}){{/d1}} {{/d0}}" +
-		"{{/d2}}";
+    var opening_hours_format =
+        "{{#d2}}" +
+        "<i class='icon-time'></i> "+
+        "{{#d0}}<span style='color: green;'>" + _("Open") +
+         "</span> " + _("today") + " {{d1}} {{/d0}}" +
+        "{{^d0}}<span style='color: red; font-style: italic;'>" + _("Closed") + "</span> " +
+        "{{#d1}}(" + _("open today") + " {{d1}}){{/d1}} {{/d0}}" +
+        "{{/d2}}";
 
-	var coordinate_format = "\
-		{{#d2}} \
-		<i class='icon-map-marker'></i> \
-		{{#d0}}<a href=\"\" onclick='ld_mapcontrol_init(\"{{d0}}\", \"{{d1}}\"); return false;'>{{/d0}}" +
-		"{{/d2}}";
+    var coordinate_format = "\
+        {{#d2}} \
+        <i class='icon-map-marker'></i> \
+        {{#d0}}<a href=\"\" onclick='ld_mapcontrol_init(\"{{d0}}\", \"{{d1}}\"); return false;'>{{/d0}}" +
+        "{{/d2}}";
 
-	var address_format =
-		"{{#d3}}" +
-		"{{d0}}, {{d1}} {{d2}}</a>" +
-		"{{/d3}}";
+    var address_format =
+        "{{#d3}}" +
+        "{{d0}}, {{d1}} {{d2}}</a>" +
+        "{{/d3}}";
 
   var web_library_format = "\
     {{#d0}} \
@@ -116,15 +116,15 @@ var opts = {
     <a href=\"{{d0}}\">" + _('Library catalogue') + "</a>\
     {{/d0}}";
 
-	var search_results = [
-		[ { "fields": "id, additional_info.slug,  name_" + _("locale"), "format": "<h3><a href='{{#d1}}{{d1}}{{/d1}}{{^d1}}{{d0}}{{/d1}}'>{{d2}}</a></h3>" } ],
-		[ { "fields": "contact.coordinates, map_popup_html, show_address_entry",
-		    "format": coordinate_format },
-		  { "fields": "contact.street_address.street_" + _("locale")+", contact.street_address.post_code, contact.street_address.municipality_"+ _("locale") + ", show_address_entry", "format": address_format } ],
-		[ { "fields": "open_now, opening_hours, show_opening_hours", "format": opening_hours_format } ],
-		[ { "fields": "contact.web_library_url", "format": web_library_format } ]
-	]
-/*		[ { "field": "services" } ], */
+    var search_results = [
+        [ { "fields": "id, additional_info.slug,  name_" + _("locale"), "format": "<h3><a href='{{#d1}}{{d1}}{{/d1}}{{^d1}}{{d0}}{{/d1}}'>{{d2}}</a></h3>" } ],
+        [ { "fields": "contact.coordinates, map_popup_html, show_address_entry",
+            "format": coordinate_format },
+          { "fields": "contact.street_address.street_" + _("locale")+", contact.street_address.post_code, contact.street_address.municipality_"+ _("locale") + ", show_address_entry", "format": address_format } ],
+        [ { "fields": "open_now, opening_hours, show_opening_hours", "format": opening_hours_format } ],
+        [ { "fields": "contact.web_library_url", "format": web_library_format } ]
+    ]
+/*      [ { "field": "services" } ], */
 /* optimal would be not to show list of services, but rather just icons for the most important services */
 /* the result entry should be a link to a page with more details */
 
@@ -134,8 +134,8 @@ var opts = {
     proto = 'https';
   }
 
-	// library-directory default settings
-	var settings = {
+    // library-directory default settings
+    var settings = {
             "config_file": false,
             "facets":[
                 {'field': 'contact.street_address.municipality_'+_("locale"), 'order':'term', 'display': _('City'), "size":400 },
@@ -169,28 +169,28 @@ var opts = {
             "query_parameter":"q",
             "q":"*:*",
             "predefined_filters":
-				[
-					{ "terms": { "organisation_type" : [ "branchlibrary", "library" ] } },
-					{ "term": { "meta.document_state" : "published" } }
-				]
-				,
+                [
+                    { "terms": { "organisation_type" : [ "branchlibrary", "library" ] } },
+                    { "term": { "meta.document_state" : "published" } }
+                ]
+                ,
             // "paging" : { from: 0, size:  }
             "paging":{ from: 0, size: NUMBEROFRESULTS }
         };
 
-		// container for active facetview filters for visualisation purposes
-		var facetfilters = [];
+        // container for active facetview filters for visualisation purposes
+        var facetfilters = [];
 
         // and add in any overrides from the call
         var options = $.extend(settings, options);
 
-		var hashParams = ld_parse_url_hash();
+        var hashParams = ld_parse_url_hash();
 
-		// remove consortium facet if consortium-filter is active
-		if ( (options.areafilter != undefined && options.areafilter != "") || hashParams.area != undefined ) settings.facets.splice(3,1);
+        // remove consortium facet if consortium-filter is active
+        if ( (options.areafilter != undefined && options.areafilter != "") || hashParams.area != undefined ) settings.facets.splice(3,1);
 
-		// remove city facet if city-filter is active
-		if ( (options.cityfilter != undefined && options.cityfilter != "") || hashParams.city != undefined ) settings.facets.splice(0,1);
+        // remove city facet if city-filter is active
+        if ( (options.cityfilter != undefined && options.cityfilter != "") || hashParams.city != undefined ) settings.facets.splice(0,1);
 
         // ===============================================
         // functions to do with filters
@@ -318,14 +318,14 @@ var opts = {
             })
             values = values.sort()
             $( "#facetview_slider" ).slider({
-	            range: true,
-	            min: 0,
-	            max: values.length-1,
-	            values: [0,values.length-1],
-	            slide: function( event, ui ) {
-		            $('#facetview_rangechoices .facetview_lowrangeval').html( values[ ui.values[0] ] )
-		            $('#facetview_rangechoices .facetview_highrangeval').html( values[ ui.values[1] ] )
-	            }
+                range: true,
+                min: 0,
+                max: values.length-1,
+                values: [0,values.length-1],
+                slide: function( event, ui ) {
+                    $('#facetview_rangechoices .facetview_lowrangeval').html( values[ ui.values[0] ] )
+                    $('#facetview_rangechoices .facetview_highrangeval').html( values[ ui.values[1] ] )
+                }
             })
             $('#facetview_rangechoices .facetview_lowrangeval').html( values[0] )
             $('#facetview_rangechoices .facetview_highrangeval').html( values[ values.length-1] )
@@ -335,7 +335,7 @@ var opts = {
         // pass a list of filters to be displayed
         var buildfilters = function() {
             var filters = options.facets;
-			var filterheader = "<h3 id='filter-by'>" + _("Filter results") + "</h3>";
+            var filterheader = "<h3 id='filter-by'>" + _("Filter results") + "</h3>";
 
             var thefilters = {};
             var _filterTmpl = '<div class="control-group">' +
@@ -398,38 +398,40 @@ var opts = {
             $('#facetview_filters').html("").append(filterheader+_filterTmpl)
 
 
-	// get geolocation and show location-filter, if applicable
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(
-			function (position) {
-				// activate automatic geolocation, if available
-				ld_position=true;
-				ld_position_coords=position.coords;
-                $('a#current-sort').text(_('Geolocation') + ' ');
-                $('<span class="caret"></span>').appendTo('a#current-sort');
-                $("#sort_select").val(_('Geolocation'));
-                dosearch();
-			},
-		// the error callback that never gets called (in firefox?)
-		function (error) {
-			switch(error.code) {
-				case error.TIMEOUT:
-					/*showerror('Geolocation: Timeout');*/
-					break;
-				case error.POSITION_UNAVAILABLE:
-					/*showerror('Geolocation: Position unavailable');*/
-					break;
-				case error.PERMISSION_DENIED:
-					/*showerror('Geolocation: Permission denied');*/
-					break;
-				case error.UNKNOWN_ERROR:
-					/*showerror('Geolocation: Unknown error');*/
-					break; }
-		        } );
-		}
-	else {
-		 /* showerror("Geolocation not supported"); */
-		}
+    // get geolocation and show location-filter, if applicable
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    // activate automatic geolocation, if available
+                    ld_position=true;
+                    ld_position_coords=position.coords;
+                    $("#sort_select").append('<li><a>' + _('Geolocation') + '</a></li>');
+                    $('a#current-sort').text(_('Geolocation') + ' ');
+                    $('<span class="caret"></span>').appendTo('a#current-sort');
+                    $("#sort_select").val(_('Geolocation'));
+                    dosearch();
+                },
+            // the error callback that never gets called (in firefox?)
+            function (error) {
+                switch(error.code) {
+                    case error.TIMEOUT:
+                        /*showerror('Geolocation: Timeout');*/
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        /*showerror('Geolocation: Position unavailable');*/
+                        break;
+                    case error.PERMISSION_DENIED:
+                        /*showerror('Geolocation: Permission denied');*/
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        /*showerror('Geolocation: Unknown error');*/
+                        break; }
+                    } );
+        }  else {
+             /* showerror("Geolocation not supported"); */
+             // $("sort_select").children().find('_("Geolocation")').remove();
+        }
 
 
             $("#sort_select").on('click', 'li a', function(){
@@ -700,22 +702,22 @@ var opts = {
             resultobj["found"] = "";
             resultobj["facets"] = new Object();
             if ( options.search_index == "elasticsearch" ) {
-				var days = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" ];
+                var days = [ "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" ];
 
                 for(var item = 0; item < dataobj.hits.hits.length; item++) {
-					var library_data = dataobj.hits.hits[item]._source;
-					var curtime = new Date();
-					var unixtime = curtime.getTime();
-					var daynum = curtime.getDay();
+                    var library_data = dataobj.hits.hits[item]._source;
+                    var curtime = new Date();
+                    var unixtime = curtime.getTime();
+                    var daynum = curtime.getDay();
 
-					/* js daynum is 0-6 starting from sunday, libdir daynum is 0-6 starting from monday, fix it */
-					if (daynum==0) daynum = 7;
-					daynum = daynum-1;
+                    /* js daynum is 0-6 starting from sunday, libdir daynum is 0-6 starting from monday, fix it */
+                    if (daynum==0) daynum = 7;
+                    daynum = daynum-1;
 
-					/* show opening times on front page only if organisation type is branch */
+                    /* show opening times on front page only if organisation type is branch */
           // also if branch_type != mobile
-					library_data.show_opening_hours = true;
-					if (library_data.organisation_type == 'library' || library_data.branch_type == 'mobile') library_data.show_opening_hours = false;
+                    library_data.show_opening_hours = true;
+                    if (library_data.organisation_type == 'library' || library_data.branch_type == 'mobile') library_data.show_opening_hours = false;
 
           /* if locale address is not present, copy over fi-locale data */
           var locale = _("locale");
@@ -728,72 +730,72 @@ var opts = {
           if (address === undefined || address === '') { library_data.contact.street_address["street_" + locale ] = contact.street_address.street_fi; }
           if (city === undefined || city === '') { library_data.contact.street_address["municipality_" + locale ] = contact.street_address.municipality_fi; }
 
-					/* show address entry only if it is present */
-					library_data.show_address_entry = true;
-					//if (library_data.contact.street_address["street_"+_("locale")]=="") library_data.show_address_entry = false;
+                    /* show address entry only if it is present */
+                    library_data.show_address_entry = true;
+                    //if (library_data.contact.street_address["street_"+_("locale")]=="") library_data.show_address_entry = false;
 
-					/* library is not open until proven otherwise */
-					library_data.open_now = false;
-					library_data.opening_hours = false;
+                    /* library is not open until proven otherwise */
+                    library_data.open_now = false;
+                    library_data.opening_hours = false;
 
-					// store matching opening times period length
-					library_data.period_length=Infinity;
+                    // store matching opening times period length
+                    library_data.period_length=Infinity;
 
-					var periods = library_data.period;
+                    var periods = library_data.period;
 
-					for (var i in periods) {
-						var p = periods[i]
-						for (var j=0; j<7; j++) {
-							var start = p[days[j]+"_start"];
-							var end = p[days[j]+"_end"];
-							/* find a matching time frame within period and apply specific open/close state */
+                    for (var i in periods) {
+                        var p = periods[i]
+                        for (var j=0; j<7; j++) {
+                            var start = p[days[j]+"_start"];
+                            var end = p[days[j]+"_end"];
+                            /* find a matching time frame within period and apply specific open/close state */
 
-							/* workaround for IE8 Date.parse issues */
-							var start_time = false;
-							var end_time = false;
-							var diff_time = 0;
+                            /* workaround for IE8 Date.parse issues */
+                            var start_time = false;
+                            var end_time = false;
+                            var diff_time = 0;
 
-							if (p.start != null) {
-								var s_date = p.start.split("T")[0];
-								var s_year = s_date.split("-")[0];
-								var s_month = s_date.split("-")[1];
-								var s_day = s_date.split("-")[2];
+                            if (p.start != null) {
+                                var s_date = p.start.split("T")[0];
+                                var s_year = s_date.split("-")[0];
+                                var s_month = s_date.split("-")[1];
+                                var s_day = s_date.split("-")[2];
 
-								s_month = parseInt(s_month)-1;
+                                s_month = parseInt(s_month)-1;
 
-								var e_date, e_year, e_month, e_day;
+                                var e_date, e_year, e_month, e_day;
 
-								// if period has no end defined, assume today + 1 year
-								if (p.end == null) {
-									var now = new Date();
-									e_year = now.getFullYear()+1;
-									e_month = now.getMonth();
-									e_day = now.getDate();
-								}
-								else {
-									e_date = p.end.split("T")[0];
-									e_year = e_date.split("-")[0];
-									e_month = e_date.split("-")[1];
-									e_day = e_date.split("-")[2];
+                                // if period has no end defined, assume today + 1 year
+                                if (p.end == null) {
+                                    var now = new Date();
+                                    e_year = now.getFullYear()+1;
+                                    e_month = now.getMonth();
+                                    e_day = now.getDate();
+                                }
+                                else {
+                                    e_date = p.end.split("T")[0];
+                                    e_year = e_date.split("-")[0];
+                                    e_month = e_date.split("-")[1];
+                                    e_day = e_date.split("-")[2];
 
-									e_month = parseInt(e_month)-1;
-								}
+                                    e_month = parseInt(e_month)-1;
+                                }
 
-								start_time = unixtime >= new Date(s_year, s_month, s_day, 0, 0, 0, 0);
-								end_time = unixtime <= new Date(e_year, e_month, e_day, 23, 59, 59, 0);
-								diff_time = new Date(e_year, e_month, e_day, 23, 59, 59, 0) - new Date(s_year, s_month, s_day, 0, 0, 0, 0);
-							}
+                                start_time = unixtime >= new Date(s_year, s_month, s_day, 0, 0, 0, 0);
+                                end_time = unixtime <= new Date(e_year, e_month, e_day, 23, 59, 59, 0);
+                                diff_time = new Date(e_year, e_month, e_day, 23, 59, 59, 0) - new Date(s_year, s_month, s_day, 0, 0, 0, 0);
+                            }
 
-							if ( start_time && end_time ) {
-								// if period has open status for current day
-								if ( (start!=0 && end!=0) && (start!= null && end!= null) && j==daynum ) {
-									// if everything else matches, apply only if period length is smaller than previus match
-									if (diff_time <= library_data.period_length) {
-									  library_data.period_length = diff_time;
-									  library_data.open_now = ld_open_now( { start: start, end: end } );
-									  library_data.opening_hours = ld_format_time(start) + " - " + ld_format_time(end);
-								  }
-								}
+                            if ( start_time && end_time ) {
+                                // if period has open status for current day
+                                if ( (start!=0 && end!=0) && (start!= null && end!= null) && j==daynum ) {
+                                    // if everything else matches, apply only if period length is smaller than previus match
+                                    if (diff_time <= library_data.period_length) {
+                                      library_data.period_length = diff_time;
+                                      library_data.open_now = ld_open_now( { start: start, end: end } );
+                                      library_data.opening_hours = ld_format_time(start) + " - " + ld_format_time(end);
+                                  }
+                                }
 
                 // if period is closed completely
                 if (p.closed_completely==true) {
@@ -802,20 +804,20 @@ var opts = {
                   break;
                 }
 
-								// if period has closed status for current day
-								if ( (start==0 && end==0) && j==daynum ) {
-									library_data.open_now = false;
-									library_data.opening_hours = false;
-								}
-							}
-						}
-					}
+                                // if period has closed status for current day
+                                if ( (start==0 && end==0) && j==daynum ) {
+                                    library_data.open_now = false;
+                                    library_data.opening_hours = false;
+                                }
+                            }
+                        }
+                    }
 
-					var lib = library_data;
-					lib.map_popup_html =
-						"<strong>" + lib["name_" + _("locale")] + "</strong>" + "<br>" +
-						lib.contact.street_address["street_"+_("locale")] + "<br>" +
-						lib.contact.street_address.post_code + " " + lib.contact.street_address["municipality_" + _("locale")];
+                    var lib = library_data;
+                    lib.map_popup_html =
+                        "<strong>" + lib["name_" + _("locale")] + "</strong>" + "<br>" +
+                        lib.contact.street_address["street_"+_("locale")] + "<br>" +
+                        lib.contact.street_address.post_code + " " + lib.contact.street_address["municipality_" + _("locale")];
 
                     dataobj.hits.hits[item]._source["id"] = dataobj.hits.hits[item]._id;
                     resultobj["records"].push(dataobj.hits.hits[item]._source);
@@ -865,7 +867,7 @@ var opts = {
             event.preventDefault()
             if ( $(this).html() != '..' ) {
                 options.paging.from = parseInt($(this).attr('href'))
-		$(window).scrollTop(0)
+        $(window).scrollTop(0)
                 dosearch()
             }
         }
@@ -917,21 +919,21 @@ var opts = {
         var buildrecord = function(index) {
             var record = options.data['records'][index]
 
-			// clean up missing or malformed slug
-			if (record.additional_info.slug == undefined || record.additional_info.slug == '') record.additional_info.slug=record.id;
+            // clean up missing or malformed slug
+            if (record.additional_info.slug == undefined || record.additional_info.slug == '') record.additional_info.slug=record.id;
 
             var result = '<tr><td>';
-			if (typeof record.default_attachment != 'undefined' && record.default_attachment != null) {
-				var index = record.default_attachment;
-				var base = record.attachments[index].file;
-				var image = "http://kirkanta.kirjastot.fi/media/image_content/small/"+base;
+            if (typeof record.default_attachment != 'undefined' && record.default_attachment != null) {
+                var index = record.default_attachment;
+                var base = record.attachments[index].file;
+                var image = "http://kirkanta.kirjastot.fi/media/image_content/small/"+base;
 
-				result += '<a href="' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:100px;" src="' + image + '" /></a>';
-			}
-			else {
-				var image = "/img/missing.jpg";
-				result += '<a href="' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:100px;" src="' + image + '" /></a>';
-			}
+                result += '<a href="' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:100px;" src="' + image + '" /></a>';
+            }
+            else {
+                var image = "/img/missing.jpg";
+                result += '<a href="' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:100px;" src="' + image + '" /></a>';
+            }
             // container for data
             result += '<div class="result-data">'
             // add the record based on display template if available
@@ -942,50 +944,50 @@ var opts = {
                 line = ""
 
                 for(var object=0;object<display[lineitem].length;object++) {
-					/* printf-style multivalue formatting for search-result data */
-					var thekey = display[lineitem][object]['fields']
-					var format = display[lineitem][object]['format']
-					var thevalue = ""
+                    /* printf-style multivalue formatting for search-result data */
+                    var thekey = display[lineitem][object]['fields']
+                    var format = display[lineitem][object]['format']
+                    var thevalue = ""
 
-					var keys = thekey.split(',')
-					var data = { }
-					var idx = 0
+                    var keys = thekey.split(',')
+                    var data = { }
+                    var idx = 0
 
 
                     for(var key=0;key<keys.length;key++) {
-						/* remove spaces and split fields from keys */
-						parts = keys[key].split(' ').join('').split('.')
+                        /* remove spaces and split fields from keys */
+                        parts = keys[key].split(' ').join('').split('.')
 
-						if (parts.length == 1) { var res = record }
-						else if (parts.length == 2) { var res = record[parts[0]] }
-						else if (parts.length == 3) { var res = record[parts[0]][parts[1]] }
+                        if (parts.length == 1) { var res = record }
+                        else if (parts.length == 2) { var res = record[parts[0]] }
+                        else if (parts.length == 3) { var res = record[parts[0]][parts[1]] }
 
-						var counter = parts.length - 1
-		                if (res && res.constructor.toString().indexOf("Array") == -1) { var thevalue = res[parts[counter]] }
-						else {
-	                        var thevalue = []
-	                        for (var row in res) { thevalue.push(res[row][parts[counter]])
+                        var counter = parts.length - 1
+                        if (res && res.constructor.toString().indexOf("Array") == -1) { var thevalue = res[parts[counter]] }
+                        else {
+                            var thevalue = []
+                            for (var row in res) { thevalue.push(res[row][parts[counter]])
                         }
-					}
+                    }
 
-					/* add value to mustache data hash */
-					if ( (thevalue && thevalue.length) || (thevalue==true || thevalue==false) ) { data["d"+idx]=thevalue }
-					   idx+=1;
-					}
+                    /* add value to mustache data hash */
+                    if ( (thevalue && thevalue.length) || (thevalue==true || thevalue==false) ) { data["d"+idx]=thevalue }
+                       idx+=1;
+                    }
 
-				    format ? line += Mustache.render(format, data) : line += thevalue
-				}
+                    format ? line += Mustache.render(format, data) : line += thevalue
+                }
 
-				if (line) {
-					lines += line.replace(/^\s/,'').replace(/\s$/,'').replace(/\,$/,'') + "<br>"
-				}
-			}
+                if (line) {
+                    lines += line.replace(/^\s/,'').replace(/\s$/,'').replace(/\,$/,'') + "<br>"
+                }
+            }
 
-			lines ? result += lines : result += JSON.stringify(record,"","    ")
-			result += '</div></td></tr>'
+            lines ? result += lines : result += JSON.stringify(record,"","    ")
+            result += '</div></td></tr>'
 
-			return result;
-		}
+            return result;
+        }
 
         // put the results on the page
         showresults = function(sdata) {
@@ -1002,7 +1004,7 @@ var opts = {
             $('#facetview_results').html("");
             var infofiltervals = new Array();
 
-			if (!$.isEmptyObject(selectedOpts) ||
+            if (!$.isEmptyObject(selectedOpts) ||
                     $('#facetview_freetext').val() != "" ||
                     ld_position==true ||
                     $('svg').length){
@@ -1012,17 +1014,17 @@ var opts = {
             }
             // TODO Hide map if all false
 
-			var count = data.found;
-			if (count==1) $('#search_status').html( _("One search result"));
-			else if (count>1) $('#search_status').html( _("%d search results").replace("%d", count) );
-			else $('#search_status').html("");
+            var count = data.found;
+            if (count==1) $('#search_status').html( _("One search result"));
+            else if (count>1) $('#search_status').html( _("%d search results").replace("%d", count) );
+            else $('#search_status').html("");
 
             $.each(data.records, function(index, value) {
                 // write them out to the results div
                 $('#facetview_results').append( buildrecord(index) );
             });
 
-			var sStr = $('#facetview_freetext').val();
+            var sStr = $('#facetview_freetext').val();
             if(sStr){
                 ld_append_url_hash("q=" + sStr);
             }
@@ -1077,9 +1079,9 @@ var opts = {
         // build the search query URL based on current params
         var elasticsearchquery = function() {
 
-			var qs = {};
-			var query_filters = [];
-			var query_string = "";
+            var qs = {};
+            var query_filters = [];
+            var query_string = "";
 
 
             // for (var x=0;x<selectedOpts.length;x++) {
@@ -1093,69 +1095,69 @@ var opts = {
                 }
             }
 
-			// set default search result ordering
-			qs.sort = [ { "name_fi" : {} } ];
+            // set default search result ordering
+            qs.sort = [ { "name_fi" : {} } ];
 
-			// add predefined filters from config options
+            // add predefined filters from config options
       var filters = options.predefined_filters;
 
       for (var item=0; item<filters.length; item++) {
-				query_filters.push(filters[item])
-			}
+                query_filters.push(filters[item])
+            }
 
-			// add freetext search as normal query or else match all documents
-			var freetext = $('#facetview_freetext').val()
-			if (freetext.length!='') {
-				query_fields = ["name_*", "name_short_*", "contact.street_address.municipality_*", "contact.street_address.post_code*", "services.name_*", "description_*" ]
-				query_string = {'query_string': { 'fields': query_fields, 'query': freetext + "*", 'default_operator': "AND" } }
-			} else {
-				query_string = {'match_all': {}}
-			}
+            // add freetext search as normal query or else match all documents
+            var freetext = $('#facetview_freetext').val()
+            if (freetext.length!='') {
+                query_fields = ["name_*", "name_short_*", "contact.street_address.municipality_*", "contact.street_address.post_code*", "services.name_*", "description_*" ]
+                query_string = {'query_string': { 'fields': query_fields, 'query': freetext + "*", 'default_operator': "AND" } }
+            } else {
+                query_string = {'match_all': {}}
+            }
 
-			// sort results by geolocation, if available and requested
-			if (ld_position && $('ul#sort_select').val() === _('Geolocation')) {
+            // sort results by geolocation, if available and requested
+            if (ld_position && $('ul#sort_select').val() === _('Geolocation')) {
                 // $('<span class="caret"></span>').appendTo('a#current-sort');
-    			var lat = ld_position_coords.latitude
-    			var lon = ld_position_coords.longitude
+                var lat = ld_position_coords.latitude
+                var lon = ld_position_coords.longitude
 
-    			qs.sort = [ { "_geo_distance": { "contact.coordinates": { "lat": lat, "lon": lon }, "order": "asc" } } ]
-			}
+                qs.sort = [ { "_geo_distance": { "contact.coordinates": { "lat": lat, "lon": lon }, "order": "asc" } } ]
+            }
 
-			// consortium pre-selection from widget #1
-			if (options.areafilter != undefined && options.areafilter != "") {
-				var obj = {'term':{}}
-				obj['term']['consortium'] = options.areafilter;
-				query_filters.push(obj);
-			}
+            // consortium pre-selection from widget #1
+            if (options.areafilter != undefined && options.areafilter != "") {
+                var obj = {'term':{}}
+                obj['term']['consortium'] = options.areafilter;
+                query_filters.push(obj);
+            }
 
-			// optional city filter from get-parameter
-			if (options.cityfilter != undefined && options.cityfilter != "") {
-				var obj = {'term':{}}
-				obj['term']['contact.street_address.municipality_'+_("locale")] = options.cityfilter;
-				query_filters.push(obj);
-			}
+            // optional city filter from get-parameter
+            if (options.cityfilter != undefined && options.cityfilter != "") {
+                var obj = {'term':{}}
+                obj['term']['contact.street_address.municipality_'+_("locale")] = options.cityfilter;
+                query_filters.push(obj);
+            }
 
-			// city pre-selection from url hash
-			var hash = ld_parse_url_hash();
-			if (hash.city != undefined) {
-				var obj = {'term':{}}
-				obj['term']['contact.street_address.municipality_'+_("locale")] = hash.city;
-				query_filters.push(obj);
-			}
+            // city pre-selection from url hash
+            var hash = ld_parse_url_hash();
+            if (hash.city != undefined) {
+                var obj = {'term':{}}
+                obj['term']['contact.street_address.municipality_'+_("locale")] = hash.city;
+                query_filters.push(obj);
+            }
 
-			// consortium pre-selection from url hash
-			var hash = ld_parse_url_hash();
-			if (hash.area != undefined) {
-				var obj = {'term':{}}
-				obj['term']['consortium'] = hash.area;
-				query_filters.push(obj);
-			}
+            // consortium pre-selection from url hash
+            var hash = ld_parse_url_hash();
+            if (hash.area != undefined) {
+                var obj = {'term':{}}
+                obj['term']['consortium'] = hash.area;
+                query_filters.push(obj);
+            }
 
-			// build the final query object
-			qs.query = {}
-			qs.query.filtered = {}
-			qs.query.filtered.query = query_string
-			qs.query.filtered.filter = { "and": query_filters }
+            // build the final query object
+            qs.query = {}
+            qs.query.filtered = {}
+            qs.query.filtered.query = query_string
+            qs.query.filtered.filter = { "and": query_filters }
 
             // set any paging
             options.paging.from != 0 ? qs['from'] = options.paging.from : ""
@@ -1257,10 +1259,10 @@ var opts = {
 
             selectedOpts = facethash;
 
-			if ($.isEmptyObject(facethash)){
+            if ($.isEmptyObject(facethash)){
                 ld_append_url_hash("f=");
             }
-			else {
+            else {
                 ld_append_url_hash("f=" + JSON.stringify(facethash));
             }
 
@@ -1280,80 +1282,76 @@ var opts = {
             }
         }
 
-		var thefacetview = "";
-		if ( (options.widget != undefined && options.widget == true) ) {
-			// facet object for search widget (map first)
-			thefacetview = ' \
-			   <div id="facetview"> \
-				 <div class="row-fluid"> \
-				   <div class="span9" id="facetview_rightcol"> \
-					   <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend input-append"> \
-					   <span class="add-on"><i id="search_static" class="icon-search"></i><img id="search_spinner" src="img/spinner.gif" style="display: hidden;" alt="[spinner]"> </span> \
-					   <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("search starts automatically after 3 letters") + '" autofocus /> \
-					   <div class="btn-group"> \
+        var thefacetview = "";
+        if ( (options.widget != undefined && options.widget == true) ) {
+            // facet object for search widget (map first)
+            thefacetview = ' \
+               <div id="facetview"> \
+                 <div class="row-fluid"> \
+                   <div class="span9" id="facetview_rightcol"> \
+                       <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend input-append"> \
+                       <span class="add-on"><i id="search_static" class="icon-search"></i><img id="search_spinner" src="img/spinner.gif" style="display: hidden;" alt="[spinner]"> </span> \
+                       <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("search starts automatically after 3 letters") + '" autofocus /> \
+                       <div class="btn-group"> \
                           <a id="current-sort" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> \
                             ' + _("Alphabet") + '\
                             <span class="caret"></span> \
                           </a> \
                           <ul id="sort_select" class="dropdown-menu"> \
                             <li><a>' + _("Alphabet") + '</a></li> \
-                            <li><a>' + _("Geolocation") + '</a></li> \
-                            <li class="divider"></li> \
                             <li><a>' + _("Main libraries first") + '</a></li> \
                           </ul> \
                         </div> \
                        </div> \
-					   <div id="search_status" style="clear: both;"></div> \
-					   <div style="float:left;" id="facetview_selectedfilters"></div> \
-					   <div style="float:left;" id="facetview_selectedextrafilters"></div> \
-					   <div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div><div id="mapcontrol"></div></div> \
-					 <table class="table table-striped" id="facetview_results"></table> \
-					 <div id="facetview_metadata"></div> \
-				   </div> \
-				   <div class="span3"> \
-					 <div id="facetview_filters"></div> \
-				   </div> \
-				 </div> \
-			   </div> \
-			   ';
-		} else {
-			// the facet object for normal search (filters first)
-			thefacetview = ' \
-			   <div id="facetview"> \
-				 <div class="row-fluid"> \
-				   <div class="span3"> \
-					 <div id="facetview_filters"> \
+                       <div id="search_status" style="clear: both;"></div> \
+                       <div style="float:left;" id="facetview_selectedfilters"></div> \
+                       <div style="float:left;" id="facetview_selectedextrafilters"></div> \
+                       <div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div><div id="mapcontrol"></div></div> \
+                     <table class="table table-striped" id="facetview_results"></table> \
+                     <div id="facetview_metadata"></div> \
+                   </div> \
+                   <div class="span3"> \
+                     <div id="facetview_filters"></div> \
+                   </div> \
+                 </div> \
+               </div> \
+               ';
+        } else {
+            // the facet object for normal search (filters first)
+            thefacetview = ' \
+               <div id="facetview"> \
+                 <div class="row-fluid"> \
+                   <div class="span3"> \
+                     <div id="facetview_filters"> \
                      </div> \
-				   </div> \
-				   <div class="span9" id="facetview_rightcol"> \
-					   <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend input-append"> \
-					   <span class="add-on"><i id="search_static" class="icon-search"></i><img id="search_spinner" src="img/spinner.gif" style="display: hidden;" alt="[spinner]"> </span> \
-					   <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("search starts automatically after 3 letters") + '" autofocus /> \
-					    <div class="btn-group"> \
+                   </div> \
+                   <div class="span9" id="facetview_rightcol"> \
+                       <div id="facetview_searchbar" style="display:inline; float:left;" class="input-prepend input-append"> \
+                       <span class="add-on"><i id="search_static" class="icon-search"></i><img id="search_spinner" src="img/spinner.gif" style="display: hidden;" alt="[spinner]"> </span> \
+                       <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("search starts automatically after 3 letters") + '" autofocus /> \
+                        <div class="btn-group"> \
                           <a id="current-sort" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> \
                             ' + _("Alphabet") + '\
                             <span class="caret"></span> \
                           </a> \
                           <ul id="sort_select" class="dropdown-menu"> \
                             <li><a>' + _("Alphabet") + '</a></li> \
-                            <li><a>' + _("Geolocation") + '</a></li> \
-                            <li class="divider"></li> \
                             <li><a>' + _("Main libraries first") + '</a></li> \
                           </ul> \
                         </div> \
                        </div> \
-					   <div id="search_status" style="clear: both;"></div> \
-					   <div style="float:left;" id="facetview_selectedfilters"></div> \
-					   <div style="float:left;" id="facetview_selectedextrafilters"></div> \
-					   <div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div><div id="mapcontrol"></div></div> \
-					 <table class="table table-striped" id="facetview_results"> \
+                       <div id="search_status" style="clear: both;"></div> \
+                       <div style="float:left;" id="facetview_selectedfilters"></div> \
+                       <div style="float:left;" id="facetview_selectedextrafilters"></div> \
+                       <div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div><div id="mapcontrol"></div></div> \
+                     <table class="table table-striped" id="facetview_results"> \
                      </table> \
-					 <div id="facetview_metadata"></div> \
-				   </div> \
-				 </div> \
-			   </div> \
-			   ';
-		}
+                     <div id="facetview_metadata"></div> \
+                   </div> \
+                 </div> \
+               </div> \
+               ';
+        }
 
         // what to do when ready to go
         var whenready = function() {
@@ -1378,22 +1376,22 @@ var opts = {
             !options.paging.size ? options.paging.size = 10 : ""
             !options.paging.from ? options.paging.from = 0 : ""
 
-			// check and apply url hash parameters
-			var url_data = ld_parse_url_hash();
+            // check and apply url hash parameters
+            var url_data = ld_parse_url_hash();
 
-			// facet parameters
-			if (url_data.f != undefined) {
-				facethash = JSON.parse(url_data.f);
+            // facet parameters
+            if (url_data.f != undefined) {
+                facethash = JSON.parse(url_data.f);
                 selectedOpts = facethash;
                 options.paging.from = 0;
-			}
+            }
 
-			// freetext query param
-			if (url_data.q != undefined) {
-				// hide introtext if query parameter is present
-				//$("#introtext").hide();
-				$('#facetview_freetext').val(url_data.q);
-			}
+            // freetext query param
+            if (url_data.q != undefined) {
+                // hide introtext if query parameter is present
+                //$("#introtext").hide();
+                $('#facetview_freetext').val(url_data.q);
+            }
 
             // append the filters to the facetview object
             buildfilters();
