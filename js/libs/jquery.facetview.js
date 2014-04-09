@@ -405,9 +405,9 @@ var opts = {
 				// activate automatic geolocation, if available
 				ld_position=true;
 				ld_position_coords=position.coords;
-                $('a#current-sort').text('Sort by geolocation ');
+                $('a#current-sort').text(_('Geolocation'));
                 $('<span class="caret"></span>').appendTo('a#current-sort');
-                $("#sort_select").val('Geolocation');
+                $("#sort_select").val(_('Geolocation'));
                 dosearch();
 			},
 		// the error callback that never gets called (in firefox?)
@@ -442,7 +442,7 @@ var opts = {
                 if(this.text === 'Main libraries first'){
                   $('a#current-sort').text(this.text + ' ');
                 } else {
-                  $('a#current-sort').text('Sort by ' + this.text.charAt(0).toLowerCase() + this.text.slice(1) + ' ');
+                  $('a#current-sort').text(this.text.charAt(0).toLowerCase() + this.text.slice(1) + ' ');
                 }
                 $('<span class="caret"></span>').appendTo('a#current-sort')
                 $("#sort_select").val(this.text);
@@ -1296,14 +1296,14 @@ var opts = {
 					   <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("search starts automatically after 3 letters") + '" autofocus /> \
 					   <div class="btn-group"> \
                           <a id="current-sort" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> \
-                            Sort by alphabet\
+                            ' + _("Alphabet") + '\
                             <span class="caret"></span> \
                           </a> \
                           <ul id="sort_select" class="dropdown-menu"> \
-                            <li><a>Alphabet</a></li> \
-                            <li><a>Geolocation</a></li> \
+                            <li><a>' + _("Alphabet") + '</a></li> \
+                            <li><a>' + _("Geolocation") + '</a></li> \
                             <li class="divider"></li> \
-                            <li><a>Main libraries first</a></li> \
+                            <li><a>' + _("Main libraries first") + '</a></li> \
                           </ul> \
                         </div> \
                        </div> \
@@ -1335,14 +1335,14 @@ var opts = {
 					   <input class="span4" id="facetview_freetext" name="q" value="" placeholder="' + _("search starts automatically after 3 letters") + '" autofocus /> \
 					    <div class="btn-group"> \
                           <a id="current-sort" class="btn dropdown-toggle" data-toggle="dropdown" href="#"> \
-                            Sort by alphabet\
+                            ' + _("Alphabet") + '\
                             <span class="caret"></span> \
                           </a> \
                           <ul id="sort_select" class="dropdown-menu"> \
-                            <li><a>Alphabet</a></li> \
-                            <li><a>Geolocation</a></li> \
+                            <li><a>' + _("Alphabet") + '</a></li> \
+                            <li><a>' + _("Geolocation") + '</a></li> \
                             <li class="divider"></li> \
-                            <li><a>Main libraries first</a></li> \
+                            <li><a>' + _("Main libraries first") + '</a></li> \
                           </ul> \
                         </div> \
                        </div> \
