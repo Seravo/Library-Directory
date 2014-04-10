@@ -64,7 +64,6 @@ var opts = {
     }
 })(jQuery);
 
-
 // now the facetview function
 (function($){
     // commons functions
@@ -398,52 +397,70 @@ var opts = {
             $('#facetview_filters').html("").append(filterheader+_filterTmpl)
 
 
-    // get geolocation and show location-filter, if applicable
+        // get geolocation and show location-filter, if applicable
 
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                function (position) {
-                    // activate automatic geolocation, if available
-                    ld_position=true;
-                    ld_position_coords=position.coords;
-                    $("#sort_select").append('<li><a>' + _('Geolocation') + '</a></li>');
+          navigator.geolocation.getCurrentPosition(
+              function (position) {
+                  // activate automatic geolocation, if available
+                  $("#sort_select").append('<li><a>' + _('Geolocation') + '</a></li>');
+                  ld_position=true;
+                  ld_position_coords=position.coords;
+
+                  var hash = ld_parse_url_hash();
+
+                  if(hash.s === _('Geolocation') || !hash.s){
                     $('a#current-sort').text(_('Geolocation') + ' ');
                     $('<span class="caret"></span>').appendTo('a#current-sort');
-                    $("#sort_select").val(_('Geolocation'));
-                    dosearch();
-                },
-            // the error callback that never gets called (in firefox?)
-            function (error) {
-                switch(error.code) {
-                    case error.TIMEOUT:
-                        /*showerror('Geolocation: Timeout');*/
-                        break;
-                    case error.POSITION_UNAVAILABLE:
-                        /*showerror('Geolocation: Position unavailable');*/
-                        break;
-                    case error.PERMISSION_DENIED:
-                        /*showerror('Geolocation: Permission denied');*/
-                        break;
-                    case error.UNKNOWN_ERROR:
-                        /*showerror('Geolocation: Unknown error');*/
-                        break; }
-                    } );
+                    $("#sort_select").val(_('Geolocation'));    
+                  }
+
+                  dosearch();
+              },
+              // the error callback that never gets called (in firefox?)
+              function (error) {
+                  switch(error.code) {
+                      case error.TIMEOUT:
+                          /*showerror('Geolocation: Timeout');*/
+                          break;
+                      case error.POSITION_UNAVAILABLE:
+                          /*showerror('Geolocation: Position unavailable');*/
+                          break;
+                      case error.PERMISSION_DENIED:
+                          /*showerror('Geolocation: Permission denied');*/
+                          break;
+                      case error.UNKNOWN_ERROR:
+                          /*showerror('Geolocation: Unknown error');*/
+                          break; }
+                      } );
         }  else {
-             /* showerror("Geolocation not supported"); */
-             // $("sort_select").children().find('_("Geolocation")').remove();
+             /* showerror("Geolocation not supported"); */        
         }
 
 
-            $("#sort_select").on('click', 'li a', function(){
+            $("#sort_select").on('click', 'li a', function() {
+                // if(this.text === _('Geolocation') && !ld_position) {
+                //     alert('Please turn on geolocation features in your browser or reload the page');
+                //     return;
+                // }
 
-                if(this.text === _('Geolocation') && !ld_position) {
-                    alert('Please turn on geolocation features in your browser or reload the page');
-                    return;
-                }
+                // var find = \s;
+                // var re = new RegExp('\s', 'g');
 
                 $('a#current-sort').text(this.text + ' ');
                 $('<span class="caret"></span>').appendTo('a#current-sort')
                 $("#sort_select").val(this.text);
+
+                // if(this.text === _('Main libraries first')) {
+                //     ld_append_url_hash('#s=main_libraries_first');
+                // } else {
+
+
+                // ld_append_url_hash('#s=' + replaced);
+
+                ld_append_url_hash('s=' + encodeURIComponent(this.text));
+                
+
                 dosearch();
            });
 
@@ -1083,11 +1100,10 @@ var opts = {
             var query_filters = [];
             var query_string = "";
 
+            var hash = ld_parse_url_hash();
 
-            // for (var x=0;x<selectedOpts.length;x++) {
             for(var x in selectedOpts) {
                 for(var value=0;value<selectedOpts[x].length;value++){
-                // for(var value in selectedOpts[x]) {
                   var obj = {'term':{}};
                   var value = selectedOpts[x][value];
                   obj['term'][x] = decodeURIComponent(value);
@@ -1095,18 +1111,16 @@ var opts = {
                 }
             }
 
-            // set default search result ordering
-            qs.sort = [ { "name_fi" : {} } ];
-
             // add predefined filters from config options
-      var filters = options.predefined_filters;
+            var filters = options.predefined_filters;
 
-      for (var item=0; item<filters.length; item++) {
+            for (var item=0; item<filters.length; item++) {
                 query_filters.push(filters[item])
             }
 
             // add freetext search as normal query or else match all documents
             var freetext = $('#facetview_freetext').val()
+            
             if (freetext.length!='') {
                 query_fields = ["name_*", "name_short_*", "contact.street_address.municipality_*", "contact.street_address.post_code*", "services.name_*", "description_*" ]
                 query_string = {'query_string': { 'fields': query_fields, 'query': freetext + "*", 'default_operator': "AND" } }
@@ -1114,14 +1128,7 @@ var opts = {
                 query_string = {'match_all': {}}
             }
 
-            // sort results by geolocation, if available and requested
-            if (ld_position && $('ul#sort_select').val() === _('Geolocation')) {
-                // $('<span class="caret"></span>').appendTo('a#current-sort');
-                var lat = ld_position_coords.latitude
-                var lon = ld_position_coords.longitude
-
-                qs.sort = [ { "_geo_distance": { "contact.coordinates": { "lat": lat, "lon": lon }, "order": "asc" } } ]
-            }
+           
 
             // consortium pre-selection from widget #1
             if (options.areafilter != undefined && options.areafilter != "") {
@@ -1138,7 +1145,6 @@ var opts = {
             }
 
             // city pre-selection from url hash
-            var hash = ld_parse_url_hash();
             if (hash.city != undefined) {
                 var obj = {'term':{}}
                 obj['term']['contact.street_address.municipality_'+_("locale")] = hash.city;
@@ -1146,7 +1152,6 @@ var opts = {
             }
 
             // consortium pre-selection from url hash
-            var hash = ld_parse_url_hash();
             if (hash.area != undefined) {
                 var obj = {'term':{}}
                 obj['term']['consortium'] = hash.area;
@@ -1172,8 +1177,12 @@ var opts = {
                 qs['facets'][obj['field']] = {"terms":obj}
             }
 
-            if ($('ul#sort_select').val() === _('Main libraries first')) {
+            // Sorting
 
+            // set default search result ordering
+            qs.sort = [ { "name_fi" : {} } ];
+
+            if(hash.s === _('Main libraries first')) {
               qs.sort = {}
 
               qs.rescore = {
@@ -1189,6 +1198,14 @@ var opts = {
                   "rescore_query_weight": 1.2
                   }
                 }
+            }
+
+            // sort results by geolocation, if available and requested
+            if(ld_position && !hash.s || ld_position && hash.s === _('Geolocation')) {
+              var lat = ld_position_coords.latitude
+              var lon = ld_position_coords.longitude
+
+              qs.sort = [ { "_geo_distance": { "contact.coordinates": { "lat": lat, "lon": lon }, "order": "asc" } } ]
             }
 
             return JSON.stringify(qs)
@@ -1391,6 +1408,12 @@ var opts = {
                 // hide introtext if query parameter is present
                 //$("#introtext").hide();
                 $('#facetview_freetext').val(url_data.q);
+            }
+
+             if (url_data.s != undefined) {
+                $('a#current-sort').text(decodeURIComponent(url_data.s) + ' ');
+                $('<span class="caret"></span>').appendTo('a#current-sort')
+                $("#sort_select").val(decodeURIComponent(url_data.s));
             }
 
             // append the filters to the facetview object
