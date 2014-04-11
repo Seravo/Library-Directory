@@ -8,7 +8,8 @@
           {{^neveropen}}
 
         {{#opening_hours.has_opening_hours}}
-              <h3>_("The library is now")
+		<h3>{{name__("locale")}}
+		_(" is now")
           {{#opening_hours.open_now}}
                 <strong class="open">_("Open")</strong>
           {{/opening_hours.open_now}}
