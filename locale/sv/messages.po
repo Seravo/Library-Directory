@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-11 12:47+0300\n"
-"PO-Revision-Date: 2014-04-11 12:48+0200\n"
+"PO-Revision-Date: 2014-04-11 13:47+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -127,7 +127,7 @@ msgstr "Bläddra alla"
 #: views/library_details.mustache:141
 #: views/library_details.mustache:239
 msgid "Personnel"
-msgstr "Personal"
+msgstr "Enhetens personal"
 
 #: server.js:558
 #: views/feedback-sent.mustache:5
@@ -850,11 +850,11 @@ msgstr "föråldrad link"
 #: views/library_details.mustache:149
 #: views/library_details.mustache:329
 msgid "Units"
-msgstr "Units"
+msgstr "Enheter"
 
 #: views/library_details.mustache:274
 msgid "Personnel of same organisation level"
-msgstr "Personnel of same organisation level"
+msgstr "Hela personalen"
 
 #: views/personnel-search-results.mustache:1
 msgid "Search results"
