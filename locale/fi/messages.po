@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-09 14:41+0300\n"
-"PO-Revision-Date: 2014-04-09 14:41+0200\n"
+"POT-Creation-Date: 2014-04-11 12:47+0300\n"
+"PO-Revision-Date: 2014-04-11 12:48+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -46,20 +46,20 @@ msgstr "Ei hakutuloksia"
 #: server.js:952
 #: server.js:1029
 #: server.js:1605
-#: js/libs/jquery.facetview.js:120
-#: js/libs/jquery.facetview.js:123
+#: js/libs/jquery.facetview.js:119
+#: js/libs/jquery.facetview.js:122
+#: js/libs/jquery.facetview.js:140
 #: js/libs/jquery.facetview.js:141
-#: js/libs/jquery.facetview.js:142
-#: js/libs/jquery.facetview.js:511
-#: js/libs/jquery.facetview.js:547
-#: js/libs/jquery.facetview.js:548
-#: js/libs/jquery.facetview.js:725
-#: js/libs/jquery.facetview.js:737
-#: js/libs/jquery.facetview.js:820
-#: js/libs/jquery.facetview.js:821
-#: js/libs/jquery.facetview.js:822
-#: js/libs/jquery.facetview.js:1138
-#: js/libs/jquery.facetview.js:1146
+#: js/libs/jquery.facetview.js:526
+#: js/libs/jquery.facetview.js:562
+#: js/libs/jquery.facetview.js:563
+#: js/libs/jquery.facetview.js:740
+#: js/libs/jquery.facetview.js:752
+#: js/libs/jquery.facetview.js:835
+#: js/libs/jquery.facetview.js:836
+#: js/libs/jquery.facetview.js:837
+#: js/libs/jquery.facetview.js:1143
+#: js/libs/jquery.facetview.js:1150
 #: locale/templates/LC_MESSAGES/gettext.tmpl:1
 msgid "locale"
 msgstr "fi"
@@ -217,57 +217,57 @@ msgstr "Sunnuntai"
 msgid "closed"
 msgstr "kiinni"
 
-#: js/libs/jquery.facetview.js:82
+#: js/libs/jquery.facetview.js:81
 msgid "Error: unspecified"
 msgstr "Määrittelemätön virhetilanne"
 
-#: js/libs/jquery.facetview.js:84
+#: js/libs/jquery.facetview.js:83
 #: views/contact.mustache:13
 #: views/contact.mustache:19
 #: views/contact.mustache:27
 msgid "Error"
 msgstr "Virhe"
 
-#: js/libs/jquery.facetview.js:96
+#: js/libs/jquery.facetview.js:95
 #: views/widget2.mustache:99
 #: views/widget3.mustache:315
 #: views/library_details.mustache:35
 #: views/library_details.mustache:417
-#: views/json_widget_5.mustache:13
+#: views/json_widget_5.mustache:14
 msgid "Open"
 msgstr "Auki"
 
-#: js/libs/jquery.facetview.js:97
+#: js/libs/jquery.facetview.js:96
 msgid "today"
 msgstr "tänään"
 
-#: js/libs/jquery.facetview.js:98
+#: js/libs/jquery.facetview.js:97
 #: views/widget2.mustache:103
 #: views/widget3.mustache:319
 #: views/library_details.mustache:39
 #: views/library_details.mustache:421
-#: views/json_widget_5.mustache:17
+#: views/json_widget_5.mustache:18
 msgid "Closed"
 msgstr "Kiinni"
 
-#: js/libs/jquery.facetview.js:99
+#: js/libs/jquery.facetview.js:98
 msgid "open today"
 msgstr "avoinna tänään"
 
-#: js/libs/jquery.facetview.js:116
+#: js/libs/jquery.facetview.js:115
 #: views/widget3.mustache:349
 #: views/library_details.mustache:450
 msgid "Library catalogue"
 msgstr "Aineistohaku, varaukset, omat lainat, uusiminen"
 
-#: js/libs/jquery.facetview.js:141
-#: js/libs/jquery.facetview.js:342
+#: js/libs/jquery.facetview.js:140
+#: js/libs/jquery.facetview.js:341
 #: views/widget_wizard.mustache:45
 msgid "City"
 msgstr "Paikkakunta"
 
-#: js/libs/jquery.facetview.js:142
-#: js/libs/jquery.facetview.js:344
+#: js/libs/jquery.facetview.js:141
+#: js/libs/jquery.facetview.js:343
 #: views/widget3.mustache:98
 #: views/widget3.mustache:120
 #: views/library_details.mustache:137
@@ -276,8 +276,8 @@ msgstr "Paikkakunta"
 msgid "Services"
 msgstr "Palvelut"
 
-#: js/libs/jquery.facetview.js:143
-#: js/libs/jquery.facetview.js:346
+#: js/libs/jquery.facetview.js:142
+#: js/libs/jquery.facetview.js:345
 #: views/widget3.mustache:109
 #: views/widget3.mustache:241
 #: views/library_details.mustache:153
@@ -285,154 +285,158 @@ msgstr "Palvelut"
 msgid "Accessibility"
 msgstr "Esteettömyys"
 
-#: js/libs/jquery.facetview.js:144
+#: js/libs/jquery.facetview.js:143
 #: views/widget3.mustache:244
 #: views/library_details.mustache:345
 msgid "Accessible entry"
 msgstr "Esteetön sisäänpääsy"
 
-#: js/libs/jquery.facetview.js:145
+#: js/libs/jquery.facetview.js:144
 #: views/widget3.mustache:248
 #: views/library_details.mustache:349
 msgid "Accessible parking"
 msgstr "Invapysäköinti"
 
-#: js/libs/jquery.facetview.js:146
+#: js/libs/jquery.facetview.js:145
 #: views/widget3.mustache:252
 #: views/library_details.mustache:353
 msgid "Accessible toilet"
 msgstr "Inva-wc"
 
-#: js/libs/jquery.facetview.js:147
+#: js/libs/jquery.facetview.js:146
 #: views/widget3.mustache:256
 #: views/library_details.mustache:357
 msgid "Induction loop"
 msgstr "Induktiosilmukka"
 
-#: js/libs/jquery.facetview.js:148
+#: js/libs/jquery.facetview.js:147
 #: views/widget3.mustache:260
 #: views/library_details.mustache:361
 msgid "Large typeface collection"
 msgstr "Suuren kirjasinkoon kokoelma"
 
-#: js/libs/jquery.facetview.js:149
+#: js/libs/jquery.facetview.js:148
 #: views/widget3.mustache:264
 #: views/library_details.mustache:365
 msgid "Lift"
 msgstr "Hissi"
 
-#: js/libs/jquery.facetview.js:150
+#: js/libs/jquery.facetview.js:149
 msgid "Extra accessibility info"
 msgstr "Esteettömyys-lisätietoja"
 
-#: js/libs/jquery.facetview.js:151
-#: js/libs/jquery.facetview.js:348
+#: js/libs/jquery.facetview.js:150
+#: js/libs/jquery.facetview.js:347
 #: views/widget3.mustache:419
 #: views/library_details.mustache:520
 #: views/widget_wizard.mustache:44
 msgid "Library consortium"
 msgstr "Seutuyhteistyö"
 
-#: js/libs/jquery.facetview.js:152
-#: js/libs/jquery.facetview.js:350
+#: js/libs/jquery.facetview.js:151
+#: js/libs/jquery.facetview.js:349
 msgid "Provincial area"
 msgstr "Maakunta"
 
-#: js/libs/jquery.facetview.js:153
-#: js/libs/jquery.facetview.js:352
+#: js/libs/jquery.facetview.js:152
+#: js/libs/jquery.facetview.js:351
 msgid "Type"
 msgstr "Tyyppi"
 
-#: js/libs/jquery.facetview.js:154
-#: js/libs/jquery.facetview.js:354
+#: js/libs/jquery.facetview.js:153
+#: js/libs/jquery.facetview.js:353
 msgid "Branch type"
 msgstr "Toimipisteen tyyppi"
 
-#: js/libs/jquery.facetview.js:338
+#: js/libs/jquery.facetview.js:337
 msgid "Filter results"
 msgstr "Rajaa haun tuloksia"
 
-#: js/libs/jquery.facetview.js:343
-#: js/libs/jquery.facetview.js:345
-#: js/libs/jquery.facetview.js:347
-#: js/libs/jquery.facetview.js:349
-#: js/libs/jquery.facetview.js:351
-#: js/libs/jquery.facetview.js:353
-#: js/libs/jquery.facetview.js:355
+#: js/libs/jquery.facetview.js:342
+#: js/libs/jquery.facetview.js:344
+#: js/libs/jquery.facetview.js:346
+#: js/libs/jquery.facetview.js:348
+#: js/libs/jquery.facetview.js:350
+#: js/libs/jquery.facetview.js:352
+#: js/libs/jquery.facetview.js:354
 msgid "Select..."
 msgstr "Valitse..."
 
-#: js/libs/jquery.facetview.js:408
-#: js/libs/jquery.facetview.js:410
-#: js/libs/jquery.facetview.js:1304
-#: js/libs/jquery.facetview.js:1343
+#: js/libs/jquery.facetview.js:406
+#: js/libs/jquery.facetview.js:412
+#: js/libs/jquery.facetview.js:413
+#: js/libs/jquery.facetview.js:415
+#: js/libs/jquery.facetview.js:442
+#: js/libs/jquery.facetview.js:1204
 msgid "Geolocation"
 msgstr "Sijainti"
 
-#: js/libs/jquery.facetview.js:477
-#: js/libs/jquery.facetview.js:504
+#: js/libs/jquery.facetview.js:454
+#: js/libs/jquery.facetview.js:1185
+#: js/libs/jquery.facetview.js:1319
+#: js/libs/jquery.facetview.js:1356
+msgid "Main libraries first"
+msgstr "Pääkirjastot ensin"
+
+#: js/libs/jquery.facetview.js:492
+#: js/libs/jquery.facetview.js:519
 #: locale/templates/LC_MESSAGES/gettext.tmpl:11
 msgid "yes"
 msgstr "huomioitu"
 
-#: js/libs/jquery.facetview.js:888
+#: js/libs/jquery.facetview.js:903
 msgid "back"
 msgstr "edelliset"
 
-#: js/libs/jquery.facetview.js:889
+#: js/libs/jquery.facetview.js:904
 msgid "of"
 msgstr "/"
 
-#: js/libs/jquery.facetview.js:890
+#: js/libs/jquery.facetview.js:905
 msgid "next"
 msgstr "seuraavat"
 
-#: js/libs/jquery.facetview.js:894
+#: js/libs/jquery.facetview.js:909
 #: views/personnel-search-results.mustache:29
 msgid "No results found"
 msgstr "Ei hakutuloksia"
 
-#: js/libs/jquery.facetview.js:895
+#: js/libs/jquery.facetview.js:910
 msgid "Please try"
 msgstr "Ole hyvä ja kokeile"
 
-#: js/libs/jquery.facetview.js:896
+#: js/libs/jquery.facetview.js:911
 msgid "Search with only the first 3-5 letters of your search word to get more matches."
 msgstr "Lyhennä hakua ja hae vain 3-5 ensimmäisellä kirjaimella, jolloin tulee enemmän osumia."
 
-#: js/libs/jquery.facetview.js:897
+#: js/libs/jquery.facetview.js:912
 msgid "Remove all search words and drill down to your wanted results using only the search filters."
 msgstr "Poista kaikki hakusanat ja poraudu haluttuun tulokseen käyttämällä yksinomaan rajauksia."
 
-#: js/libs/jquery.facetview.js:1020
+#: js/libs/jquery.facetview.js:1035
 msgid "One search result"
 msgstr "Yksi hakutulos"
 
-#: js/libs/jquery.facetview.js:1021
+#: js/libs/jquery.facetview.js:1036
 #, python-format
 msgid "%d search results"
 msgstr "Yhteensä %d hakutulosta"
 
-#: js/libs/jquery.facetview.js:1206
+#: js/libs/jquery.facetview.js:1221
 msgid "Could not connect to database. Please try again later."
 msgstr "Yhteyttä tietokantaan ei saatu, yritä hetken kuluttua uudelleen."
 
-#: js/libs/jquery.facetview.js:1296
-#: js/libs/jquery.facetview.js:1335
+#: js/libs/jquery.facetview.js:1311
+#: js/libs/jquery.facetview.js:1348
 msgid "search starts automatically after 3 letters"
 msgstr "haku käynnistyy 3 kirjaimen jälkeen"
 
-#: js/libs/jquery.facetview.js:1299
-#: js/libs/jquery.facetview.js:1303
-#: js/libs/jquery.facetview.js:1338
-#: js/libs/jquery.facetview.js:1342
+#: js/libs/jquery.facetview.js:1314
+#: js/libs/jquery.facetview.js:1318
+#: js/libs/jquery.facetview.js:1351
+#: js/libs/jquery.facetview.js:1355
 msgid "Alphabet"
 msgstr "Aakkosjärjestys"
-
-#: js/libs/jquery.facetview.js:1306
-#: js/libs/jquery.facetview.js:1345
-msgid "Main libraries first"
-msgstr "Pääkirjastot ensin"
 
 # manually added
 #: locale/templates/LC_MESSAGES/gettext.tmpl:2
@@ -659,7 +663,6 @@ msgstr "PL"
 #: views/widget3.mustache:313
 #: views/library_details.mustache:33
 #: views/library_details.mustache:415
-#: views/json_widget_5.mustache:11
 msgid "The library is now"
 msgstr "Kirjasto on nyt"
 
@@ -667,7 +670,7 @@ msgstr "Kirjasto on nyt"
 #: views/widget3.mustache:323
 #: views/library_details.mustache:42
 #: views/library_details.mustache:424
-#: views/json_widget_5.mustache:21
+#: views/json_widget_5.mustache:22
 msgid "Opening hours this week"
 msgstr "Aukioloajat tällä viikolla"
 
@@ -675,7 +678,7 @@ msgstr "Aukioloajat tällä viikolla"
 #: views/widget3.mustache:335
 #: views/library_details.mustache:54
 #: views/library_details.mustache:436
-#: views/json_widget_5.mustache:33
+#: views/json_widget_5.mustache:34
 msgid "Previous week"
 msgstr "Edellinen viikko"
 
@@ -683,7 +686,7 @@ msgstr "Edellinen viikko"
 #: views/widget3.mustache:336
 #: views/library_details.mustache:55
 #: views/library_details.mustache:437
-#: views/json_widget_5.mustache:34
+#: views/json_widget_5.mustache:35
 msgid "Next week"
 msgstr "Seuraava viikko"
 
@@ -876,6 +879,10 @@ msgstr "Osaamisalueet"
 #: views/personnel-search-results.mustache:12
 msgid "Responsibilities"
 msgstr "Vastuualueet"
+
+#: views/json_widget_5.mustache:12
+msgid " is now"
+msgstr "on"
 
 #: views/feedback-sent.mustache:7
 msgid "<strong>Feedback sent.</strong> Thank you!"
