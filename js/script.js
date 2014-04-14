@@ -654,6 +654,8 @@ function ld_personnel_search(data) {
 
     if(!data) return;
 
+    data = data.trim();
+
     ajaxIsRunning = true;
 
     $.ajax({
