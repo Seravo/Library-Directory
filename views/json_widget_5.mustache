@@ -24,10 +24,10 @@
             <table>
             {{#opening_hours.open_hours_week}}
             {{#today}}
-              <tr class="opentimes_strong"><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
+              <tr style="font-weight: bold;" class="opentimes_strong"><td>{{day}}<td>&nbsp;<td>{{time}}<span style="display: none;" class="hidden">, </span></tr>
             {{/today}}
             {{^today}}
-                <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
+                <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span style="display: none;" class="hidden">, </span></tr>
             {{/today}}
             {{/opening_hours.open_hours_week}}
             </table>
