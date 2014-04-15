@@ -309,8 +309,130 @@ app.post('/personnel-search', function(req, res) {
     return res.render('personnel-search-results', null);
   }
 
+  sstr = sstr.trim();
+
   get_personnel(sstr, function(data) {
-    if (data.length > 0) {
+    renderPersonnel(req, res, data);
+  });
+});
+
+
+
+app.get('/personnel-from-hash', function(req, res){
+  var lib = req.query.lib;
+  // By slug
+  if (lib.match(/^[a-z][a-z][a-z0-9-_]+$/)) {
+
+    var query =
+      {
+        "size": 1,
+        "sort": [ "_score" ],
+        "query": {
+          "match": {
+            "additional_info.slug" : lib
+          }
+        }
+       };
+
+      query = JSON.stringify(query);
+      query = encodeURIComponent(query);
+
+      var options = {
+        host: conf.proxy_config.host,
+        port: conf.proxy_config.port,
+        path: '/testink/organisation/_search?source='+query,
+        method: 'GET'
+      };
+
+      var req = http.get(options, function(_res) {
+        _res.setEncoding('utf8');
+        data = '';
+        _res.on('data', function(chunk){
+          data += chunk;
+        });
+        _res.on('end', function() {
+            dataobj = JSON.parse(data);
+            if (dataobj.hits.total>0){
+              getPersonnelFromHash(dataobj.hits.hits[0]._id, function(err, personnel){
+                if (personnel) {
+                  renderPersonnel(req, res, personnel);
+                }
+              });
+            } else {
+              renderPersonnel(req, res, null);
+              rlog('Problem with request: Wrong name');
+            }
+          });
+      }).on('error', function(e) {
+        rlog('Problem with request: ' + e.message);
+      });
+  }
+
+  // By id
+  if (lib.match(/(^[a-zA-Z0-9_-]{22}$)|(^[bm][0-9]+$)/)) {
+    getPersonnelFromHash(lib, function(err, personnel){
+       if (personnel) {
+        renderPersonnel(req, res, personnel);
+       } else {
+        renderPersonnel(req, res, null);
+       }
+    });
+  }
+
+})
+
+var getPersonnelFromHash = function(id, callback){
+ 
+ var query = {
+    "size": 999,
+    "sort": [ { "last_name" : {} } ],
+    "query": {
+      "filtered": {
+          "query": { "match": {"organisation" : id} },
+          "filter": {
+              "and": [
+                  {
+                    "term": { "meta.document_state" : "published" }
+                  }
+                ]
+              }
+            }
+          }
+        };
+
+  query = JSON.stringify(query);
+  query = encodeURIComponent(query);
+
+  var options = {
+    host: conf.proxy_config.host,
+    port: conf.proxy_config.port,
+    path: '/testink/person/_search?source='+query,
+    method: 'GET'
+  };
+
+  var req = http.get(options, function(res) {
+    res.setEncoding('utf8');
+    data = '';
+    res.on('data', function(chunk){
+      data += chunk;
+    });
+    res.on('end', function() {
+      dataobj = JSON.parse(data);
+      async.mapSeries(dataobj.hits.hits, getOrganizationById, function(err, persons){
+        if(err){
+          rlog(err);
+        } else {
+          callback(null, persons)
+        }
+      })
+    });
+  }).on('error', function(e) {
+    rlog('Problem with request: ' + e.message);
+  });
+}
+
+var renderPersonnel = function(req, res, data) {
+    if (data && data.length > 0) {
       res.local('personnel_status', true);
       res.local('people', []);
 
@@ -345,8 +467,8 @@ app.post('/personnel-search', function(req, res) {
       res.local('personnel_status', false);
     }
     res.render('personnel-search-results', res.locals());
-  });
-});
+}
+
 
 app.post('/openTimeChangeWeek', function(req,res){
   var mondayDate = new Date(req.body.mondayDate);
@@ -1339,7 +1461,7 @@ function get_library_children(id, library_data, callback) {
 
 // get library's personnel by library id
 function get_library_personnel(id, callback) {
-  // Small hack to reuse this function in case of if object from
+  // Small hack to reuse this function, if object from
   // elastic search result has been passed as parameter
   if(typeof id === 'object' && id.hasOwnProperty('_id')){
     id = id._id;

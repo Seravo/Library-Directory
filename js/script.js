@@ -654,8 +654,6 @@ function ld_personnel_search(data) {
 
     if(!data) return;
 
-    data = data.trim();
-
     ajaxIsRunning = true;
 
     $.ajax({
@@ -796,4 +794,26 @@ function library_details_map() {
 }
 
 
+$( document ).ready(function() {
+    var url = ld_parse_url_hash();
+    
+    if (url.lib) {
+      $.ajax({
+        url: "/personnel-from-hash",
+        cache: false,
+        type: 'GET',
+        data: {"lib": url.lib},
+        success: function(html) {
+          $("#personnel-search-results").html(html);
+        },
+        complete: function(){
+        },
+        error: function(jqXHR, status){
+          // console.dir(jqXHR);
+          // console.dir(status);
+        }
+      });
+    } 
+
+});
 
