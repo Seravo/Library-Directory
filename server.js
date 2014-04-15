@@ -15,7 +15,7 @@ try {
     throw('Please set up your configuration by copying the config.json-template');
   }
 try {
-	var conf = JSON.parse(content);
+  var conf = JSON.parse(content);
 } catch (err) {
     util.debug(err);
     throw 'Syntax error in config.json';
@@ -31,11 +31,11 @@ gettext.setlocale('LC_ALL', conf.default_lang); // initial language (when server
 
 // load all localizations at once
 gettext.loadLocaleDirectory('locale', function(){
-	var languages = [];
-	for (var key in gettext.data) {
-		languages.push(key);
-	}
-	rlog('Loaded messages for: ' + languages.join(' '));
+  var languages = [];
+  for (var key in gettext.data) {
+    languages.push(key);
+  }
+  rlog('Loaded messages for: ' + languages.join(' '));
 });
 
 function rlog(str) { console.log(str); }
@@ -165,32 +165,32 @@ function get_person_qualities_data () {
 function switch_locale(req) {
 // turn of language headers sniffing, since / should always return
 // the Finnish version, both to end users, Varnish cache and crawlers
-//	var browser_lang = req.locale;   // accept-language: fi;q=1
-	var path_lang = req.params.lang; // /fi/about
-	var get_lang = req.query.lang;   // /about?lang=fi
+//  var browser_lang = req.locale;   // accept-language: fi;q=1
+  var path_lang = req.params.lang; // /fi/about
+  var get_lang = req.query.lang;   // /about?lang=fi
 
-	//rlog(browser_lang, path_lang, get_lang);
-	// locale precedence:
-	// 1) get var 2) re''est path 3) browser setting
-	var locale = '';
-//	if (browser_lang !== undefined) locale = browser_lang;
-	if(path_lang !== undefined) {
+  //rlog(browser_lang, path_lang, get_lang);
+  // locale precedence:
+  // 1) get var 2) re''est path 3) browser setting
+  var locale = '';
+//  if (browser_lang !== undefined) locale = browser_lang;
+  if(path_lang !== undefined) {
     locale = path_lang;
   }
-	if(get_lang !== undefined) {
+  if(get_lang !== undefined) {
     locale = get_lang;
   }
 
-	// set default application locale if request is hairy
-	if(!locale.match(/^(fi|en|sv)$/)) {
+  // set default application locale if request is hairy
+  if(!locale.match(/^(fi|en|sv)$/)) {
     locale = conf.default_lang;
   }
 
-	gettext.setlocale('LC_ALL', locale);
+  gettext.setlocale('LC_ALL', locale);
 
-	if (locale == conf.default_lang) {
+  if (locale == conf.default_lang) {
     req.locale_url_prefix = '/';
-	} else {
+  } else {
     req.locale_url_prefix = '/' + locale + '/';
   }
   rlog('Language: ' + locale);
@@ -203,8 +203,8 @@ var adapter = require('hogan-express');
 
 var connect = require('connect');
 var express = require('express');
-var	locale = require('locale');
-var	supported_locales = ['en', 'fi', 'sv'];
+var locale = require('locale');
+var supported_locales = ['en', 'fi', 'sv'];
 
 var app = express.createServer(locale(supported_locales)),
     form = require('express-form'),
@@ -271,8 +271,8 @@ app.configure(function(){
 
 // route handler for all dynamic data with language path
 app.get('/:lang(en|sv)/:resource(*)',function(req,res,next) {
-	// rlog(':lang/:resource -->');
-	route_parser(req,res,next);
+  // rlog(':lang/:resource -->');
+  route_parser(req,res,next);
 });
 
 // remove default lang from url
@@ -490,8 +490,8 @@ app.post('/openTimeChangeWeek', function(req,res){
 // route handler for all dynamic data without language path
 // as this has the most generic matcher it should be last
 app.get('/:resource(*)',function(req,res,next) {
-	// rlog(':resource -->');
-	route_parser(req,res,next);
+  // rlog(':resource -->');
+  route_parser(req,res,next);
 });
 
 function route_parser(req,res,next) {
@@ -533,13 +533,13 @@ function route_parser(req,res,next) {
     // get library by slug
     // must start with at least two characters, otherwise conflict with IDs of form 'b620'
     else if (page.match(/^[a-z][a-z][a-z0-9-_]+$/)) {
-      //	rlog('Route slug: ' + page);
+      //  rlog('Route slug: ' + page);
       render_library_by_slug(page, req, res);
     }
 
     // get library by id
     else if (page.match(/(^[a-zA-Z0-9_-]{22}$)|(^[bm][0-9]+$)/)) {
-      	rlog('Route id: ' + page);
+        rlog('Route id: ' + page);
       render_library_by_id(page, req, res);
     }
 
@@ -617,39 +617,39 @@ app.post('/contact', // Route
 
 
 function render_static_page(page, req, res) {
-	// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+  // might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
   var NUMBEROFRESULTS = 50;
 
   req.query.size ? NUMBEROFRESULTS = req.query.size : null
 
-	switch(page) {
+  switch(page) {
     case 'about':
       res.local('header', header.render(req, {title: _('About'), about_active: true}));
       res.local('footer', footer.render(req));
       res.render('about', res.locals());
       break;
 
-  	case 'browse':
-  		res.local('header', header.render(req, {title: _('Browse all'), browse_active: true}));
-  		res.local('footer', footer.render(req));
-  		get_libraries(function(data){
-  			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
-  			res.local('count', data.hits.total);
-  			res.local('libraries', []);
-  			for (var item in data.hits.hits) {
-  				data.hits.hits[item]._source.id = data.hits.hits[item]._id;
-  				res.local('libraries').push(data.hits.hits[item]._source);
-  			}
-  			res.render('browse', res.locals());
-  		});
+    case 'browse':
+      res.local('header', header.render(req, {title: _('Browse all'), browse_active: true}));
+      res.local('footer', footer.render(req));
+      get_libraries(function(data){
+        // might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+        res.local('count', data.hits.total);
+        res.local('libraries', []);
+        for (var item in data.hits.hits) {
+          data.hits.hits[item]._source.id = data.hits.hits[item]._id;
+          res.local('libraries').push(data.hits.hits[item]._source);
+        }
+        res.render('browse', res.locals());
+      });
       break;
 
-  	case 'contact':
-  		res.local('header', header.render(req, {title: _('Contact'),
+    case 'contact':
+      res.local('header', header.render(req, {title: _('Contact'),
         contact_active: true}));
-  		res.local('footer', footer.render(req));
-  		res.render('contact', res.locals());
-  		break;
+      res.local('footer', footer.render(req));
+      res.render('contact', res.locals());
+      break;
 
     case 'personnel':
       res.local('header', header.render(req, {title: _('Personnel'),
@@ -660,11 +660,11 @@ function render_static_page(page, req, res) {
       res.render('personnel', res.locals());
       break;
 
-  	case 'search':
-  	case '':
-  		var cityfilter = req.query.city || '';
-  		res.local('header', header.render(req, {search_active: true}));
-  		res.local('footer', footer.render(req, { numberOfResults: 'var NUMBEROFRESULTS = ' + NUMBEROFRESULTS,
+    case 'search':
+    case '':
+      var cityfilter = req.query.city || '';
+      res.local('header', header.render(req, {search_active: true}));
+      res.local('footer', footer.render(req, { numberOfResults: 'var NUMBEROFRESULTS = ' + NUMBEROFRESULTS,
         regions: 'var REGIONS = ' +
         JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' +
           JSON.stringify(consortiumData) + ';',
@@ -672,74 +672,74 @@ function render_static_page(page, req, res) {
               ' { $(".facet-view-simple").facetview({cityfilter: "' +
                 cityfilter + '"}); });',
             js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
-  		res.render('index', res.locals());
-  		break;
+      res.render('index', res.locals());
+      break;
 
-  	case 'feedback-sent':
-  		//rlog(JSON.stringify(res.locals()));
-  		res.local('header', header.render(req, {title: _('Feedback sent'), contact_active: true}));
-  		res.local('footer', footer.render(req));
-  		res.render('feedback-sent', res.locals());
-  		break;
+    case 'feedback-sent':
+      //rlog(JSON.stringify(res.locals()));
+      res.local('header', header.render(req, {title: _('Feedback sent'), contact_active: true}));
+      res.local('footer', footer.render(req));
+      res.render('feedback-sent', res.locals());
+      break;
 
-  	// widget creation wizard
-  	case 'widget':
-  		res.local('header', header.render(req, {title: 'Widget wizard', widget_active: true}));
-  		res.local('footer', footer.render(req, { numberOfResults: 'var NUMBEROFRESULTS = ' + NUMBEROFRESULTS,
+    // widget creation wizard
+    case 'widget':
+      res.local('header', header.render(req, {title: 'Widget wizard', widget_active: true}));
+      res.local('footer', footer.render(req, { numberOfResults: 'var NUMBEROFRESULTS = ' + NUMBEROFRESULTS,
         regions: 'var REGIONS = ' +
         JSON.stringify(regionData) + ';',
         consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';',
         js_code:'jQuery(document).ready(function($) { ld_widget_wizard(); });'}));
-  		res.render('widget_wizard', res.locals());
-  		break;
+      res.render('widget_wizard', res.locals());
+      break;
 
-  	// search with consortium selection /widget1/?area=foo OR city selection /widget1/?city=bar
-  	case 'widget1':
-  		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
-  		var areafilter = req.query.area || '';
-  		var cityfilter = req.query.city || '';
-  		var js_code = '';
-  		if (areafilter !== '') js_code = 'jQuery(document).ready(function($) { $(".facet-view-simple").facetview({widget: true, areafilter: "' + areafilter + '"}); });';
-  		else if (cityfilter !== '') js_code = 'jQuery(document).ready(function($) { $(".facet-view-simple").facetview({widget: true, cityfilter: "' + cityfilter + '"}); });';
-  		else js_code = 'jQuery(document).ready(function($) { $(".facet-view-simple").facetview({widget: true}); });';
+    // search with consortium selection /widget1/?area=foo OR city selection /widget1/?city=bar
+    case 'widget1':
+      // might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+      var areafilter = req.query.area || '';
+      var cityfilter = req.query.city || '';
+      var js_code = '';
+      if (areafilter !== '') js_code = 'jQuery(document).ready(function($) { $(".facet-view-simple").facetview({widget: true, areafilter: "' + areafilter + '"}); });';
+      else if (cityfilter !== '') js_code = 'jQuery(document).ready(function($) { $(".facet-view-simple").facetview({widget: true, cityfilter: "' + cityfilter + '"}); });';
+      else js_code = 'jQuery(document).ready(function($) { $(".facet-view-simple").facetview({widget: true}); });';
 
-  		res.local('header', header.render(req, { nobanners: true }));
-  		res.local('footer', footer.render(req, { nobanners: true, numberOfResults: 'var NUMBEROFRESULTS = ' + NUMBEROFRESULTS, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
-  		res.render('widget1', { lang: gettext.lang });
-  		break;
+      res.local('header', header.render(req, { nobanners: true }));
+      res.local('footer', footer.render(req, { nobanners: true, numberOfResults: 'var NUMBEROFRESULTS = ' + NUMBEROFRESULTS, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: js_code, js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+      res.render('widget1', { lang: gettext.lang });
+      break;
 
-  	// library details - lite
-  	case 'widget2':
-  		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
-  		get_library_by_id(req.query.id, function(data) {
-  			data._source['id'] = data._id;
-  			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+    // library details - lite
+    case 'widget2':
+      // might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+      get_library_by_id(req.query.id, function(data) {
+        data._source['id'] = data._id;
+        // might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
-  			res.local('header', header.render(req, { nobanners: true }));
-  			res.local('footer', footer.render(req, { nobanners: true, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: 'jQuery(document).ready(function($) { library_details_map(); });', js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
-  			res.render('widget2', { data: data._source });
-  		});
-  		break;
+        res.local('header', header.render(req, { nobanners: true }));
+        res.local('footer', footer.render(req, { nobanners: true, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: 'jQuery(document).ready(function($) { library_details_map(); });', js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+        res.render('widget2', { data: data._source });
+      });
+      break;
 
-  	// library details - full
-  	case 'widget3':
-  		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
-  		get_library_by_id(req.query.id, function(data) {
-  			data._source.id = data._id;
-  			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+    // library details - full
+    case 'widget3':
+      // might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+      get_library_by_id(req.query.id, function(data) {
+        data._source.id = data._id;
+        // might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
-  			res.local('header', header.render(req, { nobanners: true }));
-  			res.local('footer', footer.render(req, { nobanners: true, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: 'jQuery(document).ready(function($) { library_details_map(); });', js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
-  			res.render('widget3', { data: data._source } );
-  		});
-  		break;
+        res.local('header', header.render(req, { nobanners: true }));
+        res.local('footer', footer.render(req, { nobanners: true, regions: 'var REGIONS = ' + JSON.stringify(regionData) + ';', consortiums: 'var CONSORTIUMS = ' + JSON.stringify(consortiumData) + ';', js_code: 'jQuery(document).ready(function($) { library_details_map(); });', js_files: [{src: 'js/libs/openlayers/openlayers.js'}]}));
+        res.render('widget3', { data: data._source } );
+      });
+      break;
 
-  	case 'loadwidget':
-  		// get library details for widget
-  		if (req.query.id !== undefined) {
-  			// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
-  			get_library_by_id(req.query.id, function(data) {
-  				// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+    case 'loadwidget':
+      // get library details for widget
+      if (req.query.id !== undefined) {
+        // might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+        get_library_by_id(req.query.id, function(data) {
+          // might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
           if (data === undefined || data._source === undefined) {
             jsondata = { html: 'Id does not exist: ' + req.query.id };
@@ -751,24 +751,24 @@ function render_static_page(page, req, res) {
             jsondata.html = widget.render(req, { data: data._source });
             res.send(req.query.callback + '(' + JSON.stringify(jsondata) + ')');
           }
-  			});
-  		}
-  		break;
+        });
+      }
+      break;
 
-  	default:
-  		res.local('header', header.render(req, {title: _('Not found') }));
-  		res.local('footer', footer.render(req));
-  		res.render('404', res.locals());
-  		break;
-  	}
+    default:
+      res.local('header', header.render(req, {title: _('Not found') }));
+      res.local('footer', footer.render(req));
+      res.render('404', res.locals());
+      break;
+    }
 }
 
 
 function render_library_by_id(page, req, res) {
-	// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+  // might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
     rlog('Requested id: '+page);
     get_library_by_id(page, function(data){
-		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+    // might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
         // return 404 if no library was returned
         // TODO: is this the most elegant place to check for results and render 404?
@@ -797,7 +797,7 @@ function render_library_by_id(page, req, res) {
 
 
 function render_library_by_slug(slug, req, res) {
-	// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+  // might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
 
     rlog('Requested slug: '+req.params);
     get_library_by_name(slug, req, function(data){
@@ -805,7 +805,7 @@ function render_library_by_slug(slug, req, res) {
       if (req.header('Referrer') !== undefined && req.header('Referrer').indexOf('widget') !== -1){
         nobanners = true;
       }
-		// might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
+    // might be needed to mitigate concurrency issue, as gettext reads lang from global variable: switch_locale(req);
       rlog('Total results: '+data.hits.total);
       if (data.hits.total > 0) {
         data.hits.hits[0]._source.id = data.hits.hits[0]._id;
@@ -830,10 +830,10 @@ function render_library_by_slug(slug, req, res) {
 var http = require('http');
 function get_libraries(callback) {
 
-	var query = {
-		'size': 999,
-		'sort': [ { 'name_fi' : {} } ],
-		'query' : {
+  var query = {
+    'size': 999,
+    'sort': [ { 'name_fi' : {} } ],
+    'query' : {
         'filtered' : {
           'query' : {'match_all':{}},
           'filter' : {
@@ -846,8 +846,8 @@ function get_libraries(callback) {
           }
         };
 
-	query = JSON.stringify(query);
-	query = encodeURIComponent(query);
+  query = JSON.stringify(query);
+  query = encodeURIComponent(query);
 
   var options = {
       host: conf.proxy_config.host,
@@ -875,38 +875,38 @@ function get_libraries(callback) {
 }
 
 function add_library_metadata_for_browse(dataobj, callback) {
-	for (var temp in dataobj.hits.hits) {
-		var lib = dataobj.hits.hits[temp]._source;
+  for (var temp in dataobj.hits.hits) {
+    var lib = dataobj.hits.hits[temp]._source;
 
-		// localize organisation types
-		if (lib.organisation_type === 'branchlibrary'){
+    // localize organisation types
+    if (lib.organisation_type === 'branchlibrary'){
       lib.organisation_type = _('branchlibrary');
     }
-		if (lib.organisation_type === 'department'){
+    if (lib.organisation_type === 'department'){
       lib.organisation_type = _('department');
     }
-		if (lib.organisation_type === 'library'){
+    if (lib.organisation_type === 'library'){
       lib.organisation_type = _('library');
     }
-		if (lib.organisation_type === 'mobile_stop'){
+    if (lib.organisation_type === 'mobile_stop'){
       lib.organisation_type = _('mobile_stop');
     }
-		if (lib.organisation_type === 'organisaatio'){
+    if (lib.organisation_type === 'organisaatio'){
       lib.organisation_type = _('organisation');
     }
-		if (lib.organisation_type === 'unit'){
+    if (lib.organisation_type === 'unit'){
       lib.organisation_type = _('unit');
     }
 
-		// delete empty names, default to name_fi in views if missing
-		if (lib.name_en === ''){
+    // delete empty names, default to name_fi in views if missing
+    if (lib.name_en === ''){
       delete lib.name_en;
     }
-		if (lib.name_sv === ''){
+    if (lib.name_sv === ''){
       delete lib.name_sv;
     }
-	}
-	callback(dataobj);
+  }
+  callback(dataobj);
 }
 
 // enrich result meta data
@@ -945,27 +945,27 @@ function add_library_metadata(dataobj, callback){
       lib.contact.street_address['municipality_' + _('locale')] = lib.contact.street_address.municipality_fi;
     }
 
-	var rf_street = lib.contact.street_address['street_' + _('locale')];
-	var rf_municipality = lib.contact.street_address['municipality_' + _('locale')];
+  var rf_street = lib.contact.street_address['street_' + _('locale')];
+  var rf_municipality = lib.contact.street_address['municipality_' + _('locale')];
 
-	rf_street = encodeURI(rf_street);
-	rf_street = rf_street.replace(/%C3%85/g,"%C5"); // Å
-	rf_street = rf_street.replace(/%C3%84/g,"%C4"); // Ä
-	rf_street = rf_street.replace(/%C3%96/g,"%D6"); // Ö
-	rf_street = rf_street.replace(/%C3%A5/g,"%E5"); // å
-	rf_street = rf_street.replace(/%C3%A4/g,"%E4"); // ä
-	rf_street = rf_street.replace(/%C3%B6/g,"%F6"); // ö
+  rf_street = encodeURI(rf_street);
+  rf_street = rf_street.replace(/%C3%85/g,"%C5"); // Å
+  rf_street = rf_street.replace(/%C3%84/g,"%C4"); // Ä
+  rf_street = rf_street.replace(/%C3%96/g,"%D6"); // Ö
+  rf_street = rf_street.replace(/%C3%A5/g,"%E5"); // å
+  rf_street = rf_street.replace(/%C3%A4/g,"%E4"); // ä
+  rf_street = rf_street.replace(/%C3%B6/g,"%F6"); // ö
 
-	rf_municipality = encodeURI(rf_municipality);
-	rf_municipality = rf_municipality.replace(/%C3%85/g,"%C5"); // Å
-	rf_municipality = rf_municipality.replace(/%C3%84/g,"%C4"); // Ä
-	rf_municipality = rf_municipality.replace(/%C3%96/g,"%D6"); // Ö
-	rf_municipality = rf_municipality.replace(/%C3%A5/g,"%E5"); // å
-	rf_municipality = rf_municipality.replace(/%C3%A4/g,"%E4"); // ä
-	rf_municipality = rf_municipality.replace(/%C3%B6/g,"%F6"); // ö
+  rf_municipality = encodeURI(rf_municipality);
+  rf_municipality = rf_municipality.replace(/%C3%85/g,"%C5"); // Å
+  rf_municipality = rf_municipality.replace(/%C3%84/g,"%C4"); // Ä
+  rf_municipality = rf_municipality.replace(/%C3%96/g,"%D6"); // Ö
+  rf_municipality = rf_municipality.replace(/%C3%A5/g,"%E5"); // å
+  rf_municipality = rf_municipality.replace(/%C3%A4/g,"%E4"); // ä
+  rf_municipality = rf_municipality.replace(/%C3%B6/g,"%F6"); // ö
 
-	lib.contact.routefinder_street = rf_street;
-	lib.contact.routefinder_municipality = rf_municipality;
+  lib.contact.routefinder_street = rf_street;
+  lib.contact.routefinder_municipality = rf_municipality;
 
     for (var item in lib.contact.internet) {
       var temp = lib.contact.internet[item];
@@ -1010,7 +1010,7 @@ function add_library_metadata(dataobj, callback){
     lib.contact.street_address['street_'+_('locale')] + '<br>' +
     lib.contact.street_address.post_code + ' ' + lib.contact.street_address['municipality_' + _('locale')];
 
-	// if post box is empty, delete it
+  // if post box is empty, delete it
     if (typeof lib.contact.mail_address.post_box !== 'undefined') {
       if (lib.contact.mail_address.post_box === ''){
         delete lib.contact.mail_address.post_box;
@@ -1061,7 +1061,7 @@ function add_library_metadata(dataobj, callback){
       }
     }
 
-	// delete ifla-visit & accessibility code from fi-locale extrainfo
+  // delete ifla-visit & accessibility code from fi-locale extrainfo
     if (typeof lib.additional_info !== 'undefined' && typeof lib.additional_info.extrainfo !== 'undefined') {
       var len = lib.additional_info.extrainfo.length;
       while (len--) {
@@ -1255,8 +1255,8 @@ function get_personnel(sstr, callback) {
   }
 
 
-	query = JSON.stringify(query);
-	query = encodeURIComponent(query);
+  query = JSON.stringify(query);
+  query = encodeURIComponent(query);
 
   var options = {
     host: conf.proxy_config.host,
@@ -1403,7 +1403,7 @@ function get_library_children(id, library_data, callback) {
   };
 
   query = JSON.stringify(query);
-	query = encodeURIComponent(query);
+  query = encodeURIComponent(query);
 
   var options = {
     host: conf.proxy_config.host,
@@ -1467,10 +1467,10 @@ function get_library_personnel(id, callback) {
     id = id._id;
   }
 
-	var query = {
-		"size": 999,
-		"sort": [ { "last_name" : {} } ],
-		"query": {
+  var query = {
+    "size": 999,
+    "sort": [ { "last_name" : {} } ],
+    "query": {
       "filtered": {
           "query": { "match": {"organisation" : id} },
           "filter": {
@@ -1528,21 +1528,21 @@ function get_library_personnel(id, callback) {
 
 // get library's centralized services by library id
 function get_centralized_services(id, library_data, callback) {
-	var query = {
-		'size': 999,
-		'sort': [ { 'name_fi' : {} } ],
-		'query': {
+  var query = {
+    'size': 999,
+    'sort': [ { 'name_fi' : {} } ],
+    'query': {
       'filtered': {
         'query': { 'match_all': {} },
         'filter': {
           'and': [
             {'term': { 'parent_organisation' : id } },
             {'term': { 'organisation_type' : 'unit' } }
-					]
+          ]
         }
-			}
-		}
-	};
+      }
+    }
+  };
 
   query = JSON.stringify(query);
   query = encodeURIComponent(query);
@@ -1625,21 +1625,21 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
   if(!id) return;
 
 
-	var days_translated = [ _('Monday'),
-							_('Tuesday'),
-							_('Wednesday'),
-							_('Thursday'),
-							_('Friday'),
-							_('Saturday'),
-							_('Sunday') ];
+  var days_translated = [ _('Monday'),
+              _('Tuesday'),
+              _('Wednesday'),
+              _('Thursday'),
+              _('Friday'),
+              _('Saturday'),
+              _('Sunday') ];
 
-	// container for formatted opening times data
-	var opening_hours = new Object();
-	opening_hours.has_opening_hours = false;
-	opening_hours.open_now = false;
+  // container for formatted opening times data
+  var opening_hours = new Object();
+  opening_hours.has_opening_hours = false;
+  opening_hours.open_now = false;
 
 
-	var curtime = new Date();
+  var curtime = new Date();
 
   if(fromDate){
     if(get_monday(fromDate) !== get_monday(curtime)){
@@ -1651,7 +1651,7 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
 
   var mondaydate = get_monday(curtime);
 
-	var daynum = curtime.getDay();
+  var daynum = curtime.getDay();
 
   if (daynum===0){
     daynum = 7;
@@ -1659,9 +1659,9 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
 
   daynum = daynum-1;
 
-	var query = {
-		'size': 999,
-		'query': {
+  var query = {
+    'size': 999,
+    'query': {
       'filtered': {
         'query': { 'match_all': {} },
         'filter': {
@@ -1965,11 +1965,11 @@ var footer = new function () {
 }
 
 var widget = new function() {
-	this.render = function (req, options) {
-		var widget_id = req.query.type;
-		var widgetdata = fs.readFileSync(__dirname + '/views/json_widget_' + widget_id + '.mustache', 'utf-8');
-		return adapter.init(hogan).compile(widgetdata)(options);
-	}
+  this.render = function (req, options) {
+    var widget_id = req.query.type;
+    var widgetdata = fs.readFileSync(__dirname + '/views/json_widget_' + widget_id + '.mustache', 'utf-8');
+    return adapter.init(hogan).compile(widgetdata)(options);
+  }
 }
 
 // obfuscate displayed email-addresses a bit to avoid harvester bots
