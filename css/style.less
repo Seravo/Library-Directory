@@ -13,6 +13,29 @@ td.personnel-spacer {
 	padding-top: .5em;
 }
 
+#mobile_filter_toggle {
+  display: none;
+}
+
+button.mobile_toggler {
+  margin-right: 1em;
+}
+
+/* Hide search result filtering for small screens, show toggle buttons */
+@media (max-width: 640px) {
+
+  #mobile_filter_toggle {
+    display: block;
+  }
+
+  #facetview_filters, #mapcontainer_front {
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+    top: -999px;
+  }
+}
+
 // hide hero-unit and filters for really small screens
 @media (max-width: 480px) {
 

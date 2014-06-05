@@ -1323,11 +1323,13 @@ var opts = {
                        <div id="search_status" style="clear: both;"></div> \
                        <div style="float:left;" id="facetview_selectedfilters"></div> \
                        <div style="float:left;" id="facetview_selectedextrafilters"></div> \
-                       <div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div><div id="mapcontrol"></div></div> \
+                       <div id="mapcontainer_front" class="openlayers-map"><div id="basicmap"></div><div id="mapcontrol"></div></div> \
                      <table class="table table-striped" id="facetview_results"></table> \
                      <div id="facetview_metadata"></div> \
                    </div> \
                    <div class="span3"> \
+				     <div id="mobile_filter_toggle"> \
+					 </div> \
                      <div id="facetview_filters"></div> \
                    </div> \
                  </div> \
@@ -1357,10 +1359,12 @@ var opts = {
                           </ul> \
                         </div> \
                        </div> \
+				     <div id="mobile_filter_toggle"> \
+					 </div> \
                        <div id="search_status" style="clear: both;"></div> \
                        <div style="float:left;" id="facetview_selectedfilters"></div> \
                        <div style="float:left;" id="facetview_selectedextrafilters"></div> \
-                       <div id="mapcontainer" class="openlayers-map"><div id="basicmap"></div><div id="mapcontrol"></div></div> \
+                       <div id="mapcontainer_front" class="openlayers-map"><div id="basicmap"></div><div id="mapcontrol"></div></div> \
                      <table class="table table-striped" id="facetview_results"> \
                      </table> \
                      <div id="facetview_metadata"></div> \
@@ -1415,6 +1419,43 @@ var opts = {
                 $('<span class="caret"></span>').appendTo('a#current-sort')
                 $("#sort_select").val(decodeURIComponent(url_data.s));
             }
+
+			// mobile view triggers and functions
+			$('#mobile_filter_toggle').append('<button class="btn mobile_toggler" id="mobile_map_toggle">' + _('Map') + '</button>');
+			$('#mobile_filter_toggle').append('<button class="btn mobile_toggler" id="mobile_filters_toggle">' + _('Filter results') + '</button>');
+
+			$('#mobile_map_toggle').bind('click', function(e) {
+				e.preventDefault();
+
+				var elem = $('#mapcontainer_front');
+				if (elem.css('visibility') == 'hidden') {
+					elem.hide();
+					elem.css('visibility', 'visible');
+					elem.css('position', 'static');
+					elem.css('top', 'auto');
+					elem.slideToggle();
+				} else {
+					elem.css('visibility', 'hidden');
+					elem.css('position', 'absolute');
+					elem.css('top', '-999px');
+				}
+			});
+
+			$('#mobile_filters_toggle').bind('click', function(e) {
+				e.preventDefault();
+
+				var elem = $('#facetview_filters');
+
+				if (elem.css('visibility') == 'hidden') {
+					elem.hide();
+					elem.css('visibility', 'visible');
+					elem.css('position', 'static');
+					elem.css('top', 'auto');
+					elem.slideToggle();
+				} else {
+					elem.slideToggle();
+				}
+			});
 
             // append the filters to the facetview object
             buildfilters();
