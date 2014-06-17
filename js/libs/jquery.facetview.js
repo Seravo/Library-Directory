@@ -412,7 +412,7 @@ var opts = {
                   if(hash.s === _('Geolocation') || !hash.s){
                     $('a#current-sort').text(_('Geolocation') + ' ');
                     $('<span class="caret"></span>').appendTo('a#current-sort');
-                    $("#sort_select").val(_('Geolocation'));    
+                    $("#sort_select").val(_('Geolocation'));
                   }
 
                   dosearch();
@@ -434,7 +434,7 @@ var opts = {
                           break; }
                       } );
         }  else {
-             /* showerror("Geolocation not supported"); */        
+             /* showerror("Geolocation not supported"); */
         }
 
 
@@ -459,7 +459,7 @@ var opts = {
                 // ld_append_url_hash('#s=' + replaced);
 
                 ld_append_url_hash('s=' + encodeURIComponent(this.text));
-                
+
 
                 dosearch();
            });
@@ -778,7 +778,7 @@ var opts = {
                                 var s_month = s_date.split("-")[1];
                                 var s_day = s_date.split("-")[2];
 
-                                s_month = parseInt(s_month)-1;
+                                s_month = parseInt(s_month, 10)-1;
 
                                 var e_date, e_year, e_month, e_day;
 
@@ -795,7 +795,7 @@ var opts = {
                                     e_month = e_date.split("-")[1];
                                     e_day = e_date.split("-")[2];
 
-                                    e_month = parseInt(e_month)-1;
+                                    e_month = parseInt(e_month, 10)-1;
                                 }
 
                                 start_time = unixtime >= new Date(s_year, s_month, s_day, 0, 0, 0, 0);
@@ -1120,7 +1120,7 @@ var opts = {
 
             // add freetext search as normal query or else match all documents
             var freetext = $('#facetview_freetext').val()
-            
+
             if (freetext.length!='') {
                 query_fields = ["name_*", "name_short_*", "contact.street_address.municipality_*", "contact.street_address.post_code*", "services.name_*", "description_*" ]
                 query_string = {'query_string': { 'fields': query_fields, 'query': freetext + "*", 'default_operator': "AND" } }
@@ -1128,7 +1128,7 @@ var opts = {
                 query_string = {'match_all': {}}
             }
 
-           
+
 
             // consortium pre-selection from widget #1
             if (options.areafilter != undefined && options.areafilter != "") {
