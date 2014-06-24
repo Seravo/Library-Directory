@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-18 17:53+0300\n"
-"PO-Revision-Date: 2014-06-18 17:54+0200\n"
+"POT-Creation-Date: 2014-06-24 14:03+0300\n"
+"PO-Revision-Date: 2014-06-24 14:03+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -45,7 +45,7 @@ msgstr "Ei hakutuloksia"
 #: server.js:1068
 #: server.js:1074
 #: server.js:1151
-#: server.js:1727
+#: server.js:1729
 #: js/libs/jquery.facetview.js:119
 #: js/libs/jquery.facetview.js:122
 #: js/libs/jquery.facetview.js:140
@@ -81,7 +81,7 @@ msgstr "Nimi"
 #: views/widget2.mustache:82
 #: views/contact.mustache:16
 #: views/widget3.mustache:411
-#: views/library_details.mustache:167
+#: views/library_details.mustache:171
 #: views/personnel-search-results.mustache:7
 msgid "E-mail"
 msgstr "Sähköposti"
@@ -98,7 +98,7 @@ msgstr "Palaute"
 #: server.js:648
 #: views/contact.mustache:5
 #: views/widget3.mustache:156
-#: views/library_details.mustache:297
+#: views/library_details.mustache:301
 msgid "Contact"
 msgstr "Palaute"
 
@@ -124,8 +124,8 @@ msgstr "Selaa kaikkia"
 #: server.js:655
 #: views/widget3.mustache:101
 #: views/widget3.mustache:192
-#: views/library_details.mustache:235
-#: views/library_details.mustache:333
+#: views/library_details.mustache:239
+#: views/library_details.mustache:337
 msgid "Personnel"
 msgstr "Henkilökunta"
 
@@ -212,8 +212,8 @@ msgstr "Lauantai"
 msgid "Sunday"
 msgstr "Sunnuntai"
 
-#: server.js:1734
-#: server.js:1743
+#: server.js:1736
+#: server.js:1745
 msgid "closed"
 msgstr "kiinni"
 
@@ -254,7 +254,7 @@ msgstr "avoinna tänään"
 
 #: js/libs/jquery.facetview.js:115
 #: views/widget3.mustache:349
-#: views/library_details.mustache:203
+#: views/library_details.mustache:207
 msgid "Library catalogue"
 msgstr "Aineistohaku, varaukset, omat lainat, uusiminen"
 
@@ -268,8 +268,8 @@ msgstr "Paikkakunta"
 #: js/libs/jquery.facetview.js:343
 #: views/widget3.mustache:98
 #: views/widget3.mustache:120
-#: views/library_details.mustache:232
-#: views/library_details.mustache:261
+#: views/library_details.mustache:236
+#: views/library_details.mustache:265
 #: views/widget_wizard.mustache:32
 msgid "Services"
 msgstr "Palvelut"
@@ -278,44 +278,44 @@ msgstr "Palvelut"
 #: js/libs/jquery.facetview.js:345
 #: views/widget3.mustache:109
 #: views/widget3.mustache:241
-#: views/library_details.mustache:247
-#: views/library_details.mustache:436
+#: views/library_details.mustache:251
+#: views/library_details.mustache:440
 msgid "Accessibility"
 msgstr "Esteettömyys"
 
 #: js/libs/jquery.facetview.js:143
 #: views/widget3.mustache:244
-#: views/library_details.mustache:439
+#: views/library_details.mustache:443
 msgid "Accessible entry"
 msgstr "Esteetön sisäänpääsy"
 
 #: js/libs/jquery.facetview.js:144
 #: views/widget3.mustache:248
-#: views/library_details.mustache:443
+#: views/library_details.mustache:447
 msgid "Accessible parking"
 msgstr "Invapysäköinti"
 
 #: js/libs/jquery.facetview.js:145
 #: views/widget3.mustache:252
-#: views/library_details.mustache:447
+#: views/library_details.mustache:451
 msgid "Accessible toilet"
 msgstr "Inva-wc"
 
 #: js/libs/jquery.facetview.js:146
 #: views/widget3.mustache:256
-#: views/library_details.mustache:451
+#: views/library_details.mustache:455
 msgid "Induction loop"
 msgstr "Induktiosilmukka"
 
 #: js/libs/jquery.facetview.js:147
 #: views/widget3.mustache:260
-#: views/library_details.mustache:455
+#: views/library_details.mustache:459
 msgid "Large typeface collection"
 msgstr "Suuren kirjasinkoon kokoelma"
 
 #: js/libs/jquery.facetview.js:148
 #: views/widget3.mustache:264
-#: views/library_details.mustache:459
+#: views/library_details.mustache:463
 msgid "Lift"
 msgstr "Hissi"
 
@@ -326,7 +326,7 @@ msgstr "Esteettömyys-lisätietoja"
 #: js/libs/jquery.facetview.js:150
 #: js/libs/jquery.facetview.js:347
 #: views/widget3.mustache:419
-#: views/library_details.mustache:478
+#: views/library_details.mustache:482
 #: views/widget_wizard.mustache:44
 msgid "Library consortium"
 msgstr "Seutuyhteistyö"
@@ -602,7 +602,7 @@ msgid "statistics"
 msgstr "Tilastot"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:42
-#: views/library_details.mustache:199
+#: views/library_details.mustache:203
 msgid "web_services"
 msgstr "Verkkopalvelut"
 
@@ -630,7 +630,7 @@ msgstr "Kirjastohakemistossa ei ole vielä kaikkien kirjastojen yhteys- ja palve
 
 #: views/widget2.mustache:15
 #: views/widget3.mustache:34
-#: views/library_details.mustache:94
+#: views/library_details.mustache:98
 msgid "View larger map"
 msgstr "Isompi kartta"
 
@@ -638,14 +638,14 @@ msgstr "Isompi kartta"
 #: views/widget2.mustache:26
 #: views/widget3.mustache:41
 #: views/widget3.mustache:45
-#: views/library_details.mustache:101
 #: views/library_details.mustache:105
+#: views/library_details.mustache:109
 msgid "Directions"
 msgstr "Saapumisohjeet"
 
 #: views/widget2.mustache:41
 #: views/widget3.mustache:370
-#: views/library_details.mustache:126
+#: views/library_details.mustache:130
 msgid "Telephone numbers"
 msgstr "Puhelinnumerot"
 
@@ -653,14 +653,14 @@ msgstr "Puhelinnumerot"
 #: views/widget2.mustache:67
 #: views/widget3.mustache:387
 #: views/widget3.mustache:396
-#: views/library_details.mustache:143
-#: views/library_details.mustache:152
+#: views/library_details.mustache:147
+#: views/library_details.mustache:156
 msgid "Mail address"
 msgstr "Postiosoite"
 
 #: views/widget2.mustache:60
 #: views/widget3.mustache:389
-#: views/library_details.mustache:145
+#: views/library_details.mustache:149
 msgid "P.O. Box"
 msgstr "PL"
 
@@ -742,86 +742,86 @@ msgid "This is preview mode"
 msgstr "Tämä on esikatselutila"
 
 #: views/widget3.mustache:51
-#: views/library_details.mustache:82
+#: views/library_details.mustache:86
 msgid "Images"
 msgstr "Kuvat"
 
 #: views/widget3.mustache:66
-#: views/library_details.mustache:110
+#: views/library_details.mustache:114
 msgid "Parking"
 msgstr "Pysäköinti"
 
 #: views/widget3.mustache:78
-#: views/library_details.mustache:179
+#: views/library_details.mustache:183
 msgid "Building"
 msgstr "Rakennus"
 
 #: views/widget3.mustache:82
-#: views/library_details.mustache:183
+#: views/library_details.mustache:187
 msgid "Built"
 msgstr "Rakennettu"
 
 #: views/widget3.mustache:85
-#: views/library_details.mustache:186
+#: views/library_details.mustache:190
 msgid "Architect"
 msgstr "Arkkitehti"
 
 #: views/widget3.mustache:105
 #: views/widget3.mustache:228
-#: views/library_details.mustache:239
-#: views/library_details.mustache:411
+#: views/library_details.mustache:243
+#: views/library_details.mustache:415
 msgid "Departments"
 msgstr "Toimipisteet"
 
 #: views/widget3.mustache:112
 #: views/widget3.mustache:287
-#: views/library_details.mustache:251
-#: views/library_details.mustache:489
+#: views/library_details.mustache:255
+#: views/library_details.mustache:493
 msgid "Additional info"
 msgstr "Lisätietoja"
 
 #: views/widget3.mustache:149
-#: views/library_details.mustache:290
+#: views/library_details.mustache:294
 msgid "For loan"
 msgstr "Lainattavissa"
 
 #: views/widget3.mustache:170
-#: views/library_details.mustache:311
+#: views/library_details.mustache:315
 msgid "Library identificator and type"
 msgstr "Kirjaston tunniste ja laji"
 
 #: views/widget3.mustache:173
-#: views/library_details.mustache:314
+#: views/library_details.mustache:318
 msgid "ID"
 msgstr "Tunniste"
 
 #: views/widget3.mustache:174
-#: views/library_details.mustache:315
+#: views/library_details.mustache:319
 msgid "Branch"
 msgstr "Osasto"
 
 #: views/widget3.mustache:175
-#: views/library_details.mustache:316
+#: views/library_details.mustache:320
 msgid "Organisation"
 msgstr "Organisaatio"
 
 #: views/widget3.mustache:179
-#: views/library_details.mustache:320
+#: views/library_details.mustache:324
 msgid "Centralized services"
 msgstr "Keskitetyt palvelut"
 
 #: views/widget3.mustache:282
-#: views/library_details.mustache:484
+#: views/library_details.mustache:488
 msgid "Established year"
 msgstr "Perustamisvuosi"
 
 #: views/widget3.mustache:356
-#: views/library_details.mustache:210
+#: views/library_details.mustache:214
 msgid "Homepage"
 msgstr "Verkkosivut"
 
 #: views/widget3.mustache:425
-#: views/library_details.mustache:516
+#: views/library_details.mustache:520
 msgid "last modified"
 msgstr "muokattu viimeksi"
 
@@ -846,20 +846,25 @@ msgstr "seuraamasi linkki on vanhentunut"
 msgid "Opening times"
 msgstr "Aukioloajat"
 
-#: views/library_details.mustache:80
+#: views/library_details.mustache:75
+#, fuzzy
+msgid "No opening hours found"
+msgstr "Aukioloaikoja ei löytynyt"
+
+#: views/library_details.mustache:84
 msgid "Location"
 msgstr "Sijainti"
 
-#: views/library_details.mustache:81
+#: views/library_details.mustache:85
 msgid "Contacts"
 msgstr "Yhteystiedot"
 
-#: views/library_details.mustache:243
-#: views/library_details.mustache:423
+#: views/library_details.mustache:247
+#: views/library_details.mustache:427
 msgid "Units"
 msgstr "Yksiköt"
 
-#: views/library_details.mustache:368
+#: views/library_details.mustache:372
 msgid "Personnel of same organisation level"
 msgstr "Organisaation henkilöstö"
 

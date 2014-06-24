@@ -71,6 +71,10 @@
         <p>{{opening_hours.period_description}}
         {{/opening_hours.has_opening_hours}}
         {{^opening_hours.has_opening_hours}}
+          <div>
+            _("No opening hours found")
+          </div>
+          <br>
         {{/opening_hours.has_opening_hours}}
           {{/neveropen}}
       </div>
