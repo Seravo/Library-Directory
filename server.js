@@ -1719,7 +1719,7 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
 
         // include info about "current day" in opening hours data for week
         var today_status = false;
-        if (parseInt(idx) == daynum){
+        if (parseInt(idx, 10) == daynum){
           today_status = true;
         }
 
@@ -1735,7 +1735,7 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
           continue;
         }
 
-        if (parseInt(idx) === daynum && day.closed === true) {
+        if (parseInt(idx, 10) === daynum && day.closed === true) {
           opening_hours.open_now = false;
         }
 
@@ -1753,7 +1753,7 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
           };
         }
 
-        if (parseInt(idx) === daynum && day.closed === false) {
+        if (parseInt(idx, 10) === daynum && day.closed === false) {
           var opens = format_time(day.opens);
           var closes = format_time(day.closes);
           var tzoffset = curtime.getTimezoneOffset();
