@@ -1,25 +1,25 @@
 
-div.libdir_widget_5 .opentimes {
+div.libdir_widget_6 .opentimes {
   border: 5px solid #ccc;
   padding: 24px;
   max-width: 300px;
   margin-bottom: 12px;
   position: relative;
 }
-div.libdir_widget_5 .opentimes .icon-time {
+div.libdir_widget_6 .opentimes .icon-time {
   position: absolute;
   top: 2px;
   left: 2px;
 }
-div.libdir_widget_5 .opentimes strong {
+div.libdir_widget_6 .opentimes strong {
   font-size: 32pt;
   display: block;
   line-height: 40px;
   font-weight: bold;
 }
-div.libdir_widget_5 .opentimes strong.open {
+div.libdir_widget_6 .opentimes strong.open {
   color: green;
 }
-div.libdir_widget_5 .opentimes strong.closed {
+div.libdir_widget_6 .opentimes strong.closed {
   color: red;
 }
