@@ -471,6 +471,7 @@ var renderPersonnel = function(req, res, data) {
 
 
 app.post('/openTimeChangeWeek', function(req,res){
+  res.header("Access-Control-Allow-Origin", "*");
   var mondayDate = new Date(req.body.mondayDate);
 
   if(req.body.value === 'next'){
