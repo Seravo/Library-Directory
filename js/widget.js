@@ -39,6 +39,33 @@ function scriptLoadHandler() {
 }
 
 function main() {
+	$=jQuery;
+	// Change calendar week on /{library-name}/ page
+	$(document).on("click", "button.change-week", function(){
+		var id = $('div#opentimes_large').attr('for');
+		var mondayDate = $(this).attr('monday');
+
+		$.ajax({
+		  type: 'POST',
+		  url: url+'openTimeChangeWeek',
+		  data: {
+			id: id,
+			value: this.value,
+			mondayDate : mondayDate
+		  }
+		}).fail(function (jqXHR, textStatus) {
+
+		}).done(function (data) {
+
+		  var htmlData = data._source.opening_hours;
+
+		  $('h3.week-label').text(htmlData.title);
+		  $('time[itemprop="openingHours"]').children().remove();
+		  $('time[itemprop="openingHours"]').append(htmlData.html);
+
+	   });
+	});
+
     jQuery(document).ready(function($) {
 		// skip if widgets are already loaded
 		if (libdir_widgets_loaded) return;

@@ -713,46 +713,11 @@ $(document).on("click", "button.change-week", function(){
 
     }).done(function (data) {
 
-      var html;
-      var calendarTitle;
+	  var htmlData = data._source.opening_hours;
 
-      if(!data._source.opening_hours.has_opening_hours){
-        html = "<p>" + _("No results found") + "</p>";
-        calendarTitle = _("Opening hours") + " " + mondayDate;
-      } else {
-        var days = data._source.opening_hours.open_hours_week;
-        html = '<table>';
-        // for(var x in days){
-        for (var x=0;x<days.length;x++) {
-          if(days[x].today && data._source.opening_hours.this_week){
-            html += '<tr class="opentimes_strong">';
-          } else {
-            html += '<tr>';
-          }
-
-          html += '<td>'+days[x].day+'<td>&nbsp;<td>'+days[x].time+
-            '<span class="hidden">, </span></tr>'
-        }
-
-        html += '</table><button class="btn change-week"' +
-         'monday="'+data._source.opening_hours.mondaydate+'"' +
-         'value="prev">' + _("Previous week") + '</button> ' +
-         '<button class="btn change-week"' +
-         'monday="'+data._source.opening_hours.mondaydate+'"' +
-         'value="next">' + _("Next week") + '</button>';
-
-        if(!data._source.opening_hours.this_week){
-          date = data._source.opening_hours.mondaydate
-          calendarTitle = _("Opening hours") + " " + date;
-        } else {
-          calendarTitle = _("Opening hours this week");
-        }
-
-      }
-
-      $('h3.week-label').text(calendarTitle);
+      $('h3.week-label').text(data.title);
       $('time[itemprop="openingHours"]').children().remove();
-      $('time[itemprop="openingHours"]').append(html);
+      $('time[itemprop="openingHours"]').append(data.html);
 
    });
 

@@ -483,7 +483,47 @@ app.post('/openTimeChangeWeek', function(req,res){
     {_source:{}},
     mondayDate,
     function(openingTimes) {
-    res.send(openingTimes)
+      var html;
+      var calendarTitle;
+
+      var data = openingTimes;
+
+      if(!data._source.opening_hours.has_opening_hours){
+        html = "<p>" + _("No results found") + "</p>";
+        calendarTitle = _("Opening hours") + " " + mondayDate;
+      } else {
+        var days = data._source.opening_hours.open_hours_week;
+        html = '<table>';
+        // for(var x in days){
+        for (var x=0;x<days.length;x++) {
+          if(days[x].today && data._source.opening_hours.this_week){
+            html += '<tr class="opentimes_strong">';
+          } else {
+            html += '<tr>';
+          }
+
+          html += '<td>'+days[x].day+'<td>&nbsp;<td>'+days[x].time+
+            '<span class="hidden">, </span></tr>'
+        }
+
+        html += '</table><button class="btn change-week"' +
+         'monday="'+data._source.opening_hours.mondaydate+'"' +
+         'value="prev">' + _("Previous week") + '</button> ' +
+         '<button class="btn change-week"' +
+         'monday="'+data._source.opening_hours.mondaydate+'"' +
+         'value="next">' + _("Next week") + '</button>';
+
+        if(!data._source.opening_hours.this_week){
+          date = data._source.opening_hours.mondaydate
+          calendarTitle = _("Opening hours") + " " + date;
+        } else {
+          calendarTitle = _("Opening hours this week");
+        }
+      }
+    openingTimes._source.opening_hours.html = html;
+    openingTimes._source.opening_hours.title = calendarTitle;
+
+    res.send(openingTimes);
   });
 });
 
