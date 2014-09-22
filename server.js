@@ -504,7 +504,7 @@ app.post('/openTimeChangeWeek', function(req,res){
           }
 
           html += '<td>'+days[x].day+'<td>&nbsp;<td>'+days[x].time+
-            '<span class="hidden">, </span></tr>'
+            '</tr>'
         }
 
         html += '</table><button class="btn change-week"' +
