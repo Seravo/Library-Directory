@@ -317,6 +317,7 @@ function ld_widget_wizard() {
   // preload jsonp-widget css
   load_widget_css(4);
   load_widget_css(5);
+  load_widget_css(6);
 
   $(".langselector").prop('disabled', true);
   $(".typeselector").prop('disabled', true);
@@ -412,7 +413,7 @@ function ld_widget_wizard() {
     $("#widget_code").val(code);
 
     // update preview for jsonp-widgets
-    if (type=="4" || type=="5") {
+    if (type=="4" || type=="5" || type=="6" ) {
       var code = "";
       code += '<div class="libdir_widget_' + type + '" ';
       if (style!="") code += 'style="' + style + '" ';
