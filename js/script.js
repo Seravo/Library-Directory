@@ -716,9 +716,9 @@ $(document).on("click", "button.change-week", function(){
 
 	  var htmlData = data._source.opening_hours;
 
-      $('h3.week-label').text(data.title);
+      $('h3.week-label').text(htmlData.title);
       $('time[itemprop="openingHours"]').children().remove();
-      $('time[itemprop="openingHours"]').append(data.html);
+      $('time[itemprop="openingHours"]').append(htmlData.html);
 
    });
 
