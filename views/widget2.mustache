@@ -121,10 +121,15 @@
 
           </time>
             <br>
-      <p>{{opening_hours.period_description}}
+      <p>
+	  <span id="period_description">
+	    {{opening_hours.period_description}}
+	  </span>
+	  {{opening_hours.period_description}}
       {{/opening_hours.has_opening_hours}}
       {{^opening_hours.has_opening_hours}}
       {{/opening_hours.has_opening_hours}}
+	  </p>
         {{/neveropen}}
     </div>
 
