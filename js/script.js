@@ -719,6 +719,7 @@ $(document).on("click", "button.change-week", function(){
       $('h3.week-label').text(htmlData.title);
       $('time[itemprop="openingHours"]').children().remove();
       $('time[itemprop="openingHours"]').append(htmlData.html);
+      $('span#period_description').html(htmlData.desc);
 
    });
 

@@ -68,7 +68,10 @@
 
             </time>
               <br>
-        <p>{{opening_hours.period_description}}
+        <p>
+		<span id="period_description">
+		{{opening_hours.period_description}}
+		<span>
         {{/opening_hours.has_opening_hours}}
         {{^opening_hours.has_opening_hours}}
           <div>
@@ -77,6 +80,7 @@
           <br>
         {{/opening_hours.has_opening_hours}}
           {{/neveropen}}
+		</p>
       </div>
     </div>
     <div class="span7">

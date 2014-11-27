@@ -485,9 +485,11 @@ app.post('/openTimeChangeWeek', function(req,res){
     mondayDate,
     function(openingTimes) {
       var html;
+      var desc = "";
       var calendarTitle;
 
       var data = openingTimes;
+
 
       if(!data._source.opening_hours.has_opening_hours){
         html = "<p>" + _("No results found") + "</p>";
@@ -514,6 +516,10 @@ app.post('/openTimeChangeWeek', function(req,res){
          'monday="'+data._source.opening_hours.mondaydate+'"' +
          'value="next">' + _("Next week") + '</button>';
 
+        if (typeof data._source.opening_hours.period_description != 'undefined') {
+          desc = data._source.opening_hours.period_description;
+        }
+
         if(!data._source.opening_hours.this_week){
           date = data._source.opening_hours.mondaydate
           calendarTitle = _("Opening hours") + " " + date;
@@ -522,6 +528,7 @@ app.post('/openTimeChangeWeek', function(req,res){
         }
       }
     openingTimes._source.opening_hours.html = html;
+    openingTimes._source.opening_hours.desc = desc;
     openingTimes._source.opening_hours.title = calendarTitle;
 
     res.send(openingTimes);
