@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-11-28 07:38+0200\n"
-"PO-Revision-Date: 2014-12-05 09:03+0200\n"
+"PO-Revision-Date: 2014-12-22 11:42+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -96,7 +96,7 @@ msgstr "Förra veckan"
 #: views/library_details.mustache:67
 #: views/json_widget_6.mustache:36
 msgid "Next week"
-msgstr "Nästa veckan"
+msgstr "Nästa vecka"
 
 #: server.js:527
 #: views/widget2.mustache:107
@@ -638,7 +638,7 @@ msgstr "statistics"
 #: locale/templates/LC_MESSAGES/gettext.tmpl:43
 #: views/library_details.mustache:207
 msgid "web_services"
-msgstr "web_services"
+msgstr "webbtjänster"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:44
 msgid "communications"
@@ -702,7 +702,7 @@ msgstr "PB"
 #: views/widget3.mustache:313
 #: views/library_details.mustache:45
 msgid "The library is now"
-msgstr "Biblioteket är nu"
+msgstr "Biblioteket är"
 
 #: views/widget2.mustache:135
 msgid "Last modified"
