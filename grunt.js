@@ -25,7 +25,7 @@ module.exports = function(grunt) {
     // concat css/**/*.css files, inline @import, output a single minified css
     // Otto: but minify does not seem to work?
     css: {
-      'css/compressed.css': ['css/style.css', 'js/libs/facetview.css', 'js/libs/jquery-ui-1.8.18.custom/*.css', 'css/selectize.bootstrap3.css', 'css/selectize.default.css' ]
+      'css/compressed.css': ['css/style.css', 'js/libs/facetview.css', 'js/libs/jquery-ui-1.8.18.custom/*.css', 'css/selectize.bootstrap3.css', 'css/selectize.default.css', 'css/magnific-popup.css' ]
       // no openlayers included
     },
     // Renames JS/CSS to prepend a hash of their contents for easier
@@ -89,6 +89,7 @@ module.exports = function(grunt) {
         'js/libs/jquery.facetview.js',
 //        'js/libs/openlayers/openlayers.js',
 		    'js/libs/gettext.js',
+        'js/libs/jquery.magnific-popup.js',
         'js/plugins.js',
         'js/script.js'
         ],

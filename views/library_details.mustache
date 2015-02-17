@@ -192,9 +192,13 @@
           {{/contact.building_architect}}
           <td><th colspan="2">&nbsp;</td></tr>
           </table>
-          {{#image_url}}
-          <img src="{{.}}" alt="{{name__("locale")}}" itemprop="image photo">
-          {{/image_url}}
+          <div id="lib_imagecontainer">
+            {{#image_url}}
+              <a class="lib_imagegallery" href="http://kirkanta.kirjastot.fi/media/image_content/large/{{.}}">
+                <img src="http://kirkanta.kirjastot.fi/media/image_content/small/{{.}}" alt="{{name__("locale")}}" itemprop="image photo">
+              </a>
+            {{/image_url}}
+          </div>
         </div>
       </div>
     </div>

@@ -784,3 +784,13 @@ $( document ).ready(function() {
 
 });
 
+// lib details image gallery
+$( document ).ready(function() {
+  $('a.lib_imagegallery').magnificPopup({
+    type: 'image',
+    gallery: {
+      enabled: true,
+      tCounter: '<span>%curr% / %total%</span>'
+    }
+  });
+});

@@ -1035,8 +1035,7 @@ function add_library_metadata(dataobj, callback){
 
       if (typeof attachment !== 'undefined' && attachment.file != '') {
         var base = attachment.file;
-        var image = 'http://kirkanta.kirjastot.fi/media/image_content/medium/'+base;
-        lib.image_url.push(image);
+        lib.image_url.push(base);
       }
     }
 
