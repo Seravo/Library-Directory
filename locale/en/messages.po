@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-28 07:38+0200\n"
-"PO-Revision-Date: 2014-12-05 09:06+0200\n"
+"POT-Creation-Date: 2015-04-16 17:18+0300\n"
+"PO-Revision-Date: 2015-04-16 17:19+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -78,7 +78,7 @@ msgstr "No results found"
 
 #: server.js:496
 #: server.js:525
-#: locale/templates/LC_MESSAGES/gettext.tmpl:17
+#: locale/templates/LC_MESSAGES/gettext.tmpl:19
 msgid "Opening hours"
 msgstr "Opening hours"
 
@@ -135,7 +135,7 @@ msgstr "Feedback"
 #: server.js:696
 #: views/contact.mustache:5
 #: views/widget3.mustache:156
-#: views/library_details.mustache:305
+#: views/library_details.mustache:309
 msgid "Contact"
 msgstr "Contact"
 
@@ -148,7 +148,7 @@ msgid "Feedback from library directory"
 msgstr "Feedback from library directory"
 
 #: server.js:675
-#: views/header-dev.mustache:50
+#: views/header-dev.mustache:52
 #: views/header.mustache:46
 #: views/about.mustache:5
 msgid "About"
@@ -161,8 +161,8 @@ msgstr "Browse all"
 #: server.js:703
 #: views/widget3.mustache:101
 #: views/widget3.mustache:192
-#: views/library_details.mustache:243
-#: views/library_details.mustache:341
+#: views/library_details.mustache:247
+#: views/library_details.mustache:345
 msgid "Personnel"
 msgstr "Personnel"
 
@@ -293,7 +293,7 @@ msgstr "open today"
 
 #: js/libs/jquery.facetview.js:115
 #: views/widget3.mustache:353
-#: views/library_details.mustache:211
+#: views/library_details.mustache:215
 msgid "Library catalogue"
 msgstr "Library catalogue"
 
@@ -307,8 +307,8 @@ msgstr "City"
 #: js/libs/jquery.facetview.js:343
 #: views/widget3.mustache:98
 #: views/widget3.mustache:120
-#: views/library_details.mustache:240
-#: views/library_details.mustache:269
+#: views/library_details.mustache:244
+#: views/library_details.mustache:273
 #: views/widget_wizard.mustache:32
 msgid "Services"
 msgstr "Services"
@@ -317,44 +317,44 @@ msgstr "Services"
 #: js/libs/jquery.facetview.js:345
 #: views/widget3.mustache:109
 #: views/widget3.mustache:241
-#: views/library_details.mustache:255
-#: views/library_details.mustache:444
+#: views/library_details.mustache:259
+#: views/library_details.mustache:448
 msgid "Accessibility"
 msgstr "Accessibility"
 
 #: js/libs/jquery.facetview.js:143
 #: views/widget3.mustache:244
-#: views/library_details.mustache:447
+#: views/library_details.mustache:451
 msgid "Accessible entry"
 msgstr "Accessible entry"
 
 #: js/libs/jquery.facetview.js:144
 #: views/widget3.mustache:248
-#: views/library_details.mustache:451
+#: views/library_details.mustache:455
 msgid "Accessible parking"
 msgstr "Accessible parking"
 
 #: js/libs/jquery.facetview.js:145
 #: views/widget3.mustache:252
-#: views/library_details.mustache:455
+#: views/library_details.mustache:459
 msgid "Accessible toilet"
 msgstr "Accessible toilet"
 
 #: js/libs/jquery.facetview.js:146
 #: views/widget3.mustache:256
-#: views/library_details.mustache:459
+#: views/library_details.mustache:463
 msgid "Induction loop"
 msgstr "Induction loop"
 
 #: js/libs/jquery.facetview.js:147
 #: views/widget3.mustache:260
-#: views/library_details.mustache:463
+#: views/library_details.mustache:467
 msgid "Large typeface collection"
 msgstr "Large typeface collection"
 
 #: js/libs/jquery.facetview.js:148
 #: views/widget3.mustache:264
-#: views/library_details.mustache:467
+#: views/library_details.mustache:471
 msgid "Lift"
 msgstr "Lift"
 
@@ -365,7 +365,7 @@ msgstr "Extra accessibility info"
 #: js/libs/jquery.facetview.js:150
 #: js/libs/jquery.facetview.js:347
 #: views/widget3.mustache:423
-#: views/library_details.mustache:486
+#: views/library_details.mustache:490
 #: views/widget_wizard.mustache:45
 msgid "Library consortium"
 msgstr "Library consortium"
@@ -418,7 +418,7 @@ msgstr "Main libraries first"
 
 #: js/libs/jquery.facetview.js:492
 #: js/libs/jquery.facetview.js:519
-#: locale/templates/LC_MESSAGES/gettext.tmpl:12
+#: locale/templates/LC_MESSAGES/gettext.tmpl:14
 msgid "yes"
 msgstr "yes"
 
@@ -508,139 +508,147 @@ msgid "special_library"
 msgstr "research library"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:9
+msgid "polytechnic_library"
+msgstr "Polytechnic library"
+
+#: locale/templates/LC_MESSAGES/gettext.tmpl:10
+msgid "joint_library"
+msgstr "Joint library"
+
+#: locale/templates/LC_MESSAGES/gettext.tmpl:11
 msgid "music_library"
 msgstr "music library"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:10
+#: locale/templates/LC_MESSAGES/gettext.tmpl:12
 msgid "mobile"
 msgstr "mobile library"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:11
+#: locale/templates/LC_MESSAGES/gettext.tmpl:13
 msgid "home_service"
 msgstr "home library"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:13
+#: locale/templates/LC_MESSAGES/gettext.tmpl:15
 msgid "The Finnish Library Directory"
 msgstr "The Finnish Library Directory"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:14
+#: locale/templates/LC_MESSAGES/gettext.tmpl:16
 msgid "My Location"
 msgstr "My Location"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:15
+#: locale/templates/LC_MESSAGES/gettext.tmpl:17
 msgid "routefinder locale"
 msgstr "en"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:16
+#: locale/templates/LC_MESSAGES/gettext.tmpl:18
 msgid "Name, email, title, qualities ..."
 msgstr "Name, email, title, qualities ..."
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:18
+#: locale/templates/LC_MESSAGES/gettext.tmpl:20
 msgid "av_production"
 msgstr "AV production"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:19
+#: locale/templates/LC_MESSAGES/gettext.tmpl:21
 msgid "e_publifications"
 msgstr "Digital publishing"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:20
+#: locale/templates/LC_MESSAGES/gettext.tmpl:22
 msgid "seeking_library_work"
 msgstr "Seeking library work"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:21
+#: locale/templates/LC_MESSAGES/gettext.tmpl:23
 msgid "human_resources"
 msgstr "Human resources"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:22
+#: locale/templates/LC_MESSAGES/gettext.tmpl:24
 msgid "international_cooperation"
 msgstr "International cooperation"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:23
+#: locale/templates/LC_MESSAGES/gettext.tmpl:25
 msgid "remote_services"
 msgstr "Remote services"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:24
+#: locale/templates/LC_MESSAGES/gettext.tmpl:26
 msgid "literature"
 msgstr "Literature"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:25
+#: locale/templates/LC_MESSAGES/gettext.tmpl:27
 msgid "mobile_libraries"
 msgstr "Mobile libraries"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:26
+#: locale/templates/LC_MESSAGES/gettext.tmpl:28
 msgid "library_systems"
 msgstr "Library systems"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:27
+#: locale/templates/LC_MESSAGES/gettext.tmpl:29
 msgid "book_tips"
 msgstr "Book tips"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:28
+#: locale/templates/LC_MESSAGES/gettext.tmpl:30
 msgid "education"
 msgstr "Education"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:29
+#: locale/templates/LC_MESSAGES/gettext.tmpl:31
 msgid "education_planning"
 msgstr "Education planning"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:30
+#: locale/templates/LC_MESSAGES/gettext.tmpl:32
 msgid "library_facility_work"
 msgstr "Library facility work"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:31
+#: locale/templates/LC_MESSAGES/gettext.tmpl:33
 msgid "children_library"
 msgstr "Children's library work"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:32
+#: locale/templates/LC_MESSAGES/gettext.tmpl:34
 msgid "indexing"
 msgstr "Indexing"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:33
+#: locale/templates/LC_MESSAGES/gettext.tmpl:35
 msgid "immigrant_library_work"
 msgstr "Immigrant library work"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:34
+#: locale/templates/LC_MESSAGES/gettext.tmpl:36
 msgid "media_education"
 msgstr "Media education"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:35
+#: locale/templates/LC_MESSAGES/gettext.tmpl:37
 msgid "music_library_work"
 msgstr "Music library work"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:36
+#: locale/templates/LC_MESSAGES/gettext.tmpl:38
 msgid "youth_library_work"
 msgstr "Youth library work"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:37
+#: locale/templates/LC_MESSAGES/gettext.tmpl:39
 msgid "pedagogy"
 msgstr "Pedagogy"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:38
+#: locale/templates/LC_MESSAGES/gettext.tmpl:40
 msgid "games"
 msgstr "Games"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:39
+#: locale/templates/LC_MESSAGES/gettext.tmpl:41
 msgid "finances"
 msgstr "Finances"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:40
+#: locale/templates/LC_MESSAGES/gettext.tmpl:42
 msgid "information_retrieval"
 msgstr "Information retrieval"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:41
+#: locale/templates/LC_MESSAGES/gettext.tmpl:43
 msgid "information_technology"
 msgstr "Information technology"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:42
+#: locale/templates/LC_MESSAGES/gettext.tmpl:44
 msgid "statistics"
 msgstr "Statistics"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:43
-#: views/library_details.mustache:207
+#: locale/templates/LC_MESSAGES/gettext.tmpl:45
+#: views/library_details.mustache:211
 msgid "web_services"
 msgstr "Web services"
 
-#: locale/templates/LC_MESSAGES/gettext.tmpl:44
+#: locale/templates/LC_MESSAGES/gettext.tmpl:46
 msgid "communications"
 msgstr "Communications"
 
@@ -708,27 +716,27 @@ msgstr "The library is now"
 msgid "Last modified"
 msgstr "Last modified"
 
-#: views/header-dev.mustache:41
+#: views/header-dev.mustache:43
 #: views/header.mustache:37
 msgid "Library Directory"
 msgstr "Library Directory"
 
-#: views/header-dev.mustache:75
+#: views/header-dev.mustache:77
 #: views/header.mustache:71
 msgid "Warning"
 msgstr "Warning"
 
-#: views/header-dev.mustache:76
+#: views/header-dev.mustache:78
 #: views/header.mustache:72
 msgid "Your browser version is too old"
 msgstr "Your browser version is too old"
 
-#: views/header-dev.mustache:77
+#: views/header-dev.mustache:79
 #: views/header.mustache:73
 msgid "please upgrade"
 msgstr "please upgrade"
 
-#: views/header-dev.mustache:78
+#: views/header-dev.mustache:80
 #: views/header.mustache:74
 msgid "for best experience"
 msgstr "for best experience"
@@ -765,76 +773,76 @@ msgid "Parking"
 msgstr "Parking"
 
 #: views/widget3.mustache:78
-#: views/library_details.mustache:187
+#: views/library_details.mustache:184
 msgid "Building"
 msgstr "Building"
 
 #: views/widget3.mustache:82
-#: views/library_details.mustache:191
+#: views/library_details.mustache:188
 msgid "Built"
 msgstr "Built"
 
 #: views/widget3.mustache:85
-#: views/library_details.mustache:194
+#: views/library_details.mustache:191
 msgid "Architect"
 msgstr "Architect"
 
 #: views/widget3.mustache:105
 #: views/widget3.mustache:228
-#: views/library_details.mustache:247
-#: views/library_details.mustache:419
+#: views/library_details.mustache:251
+#: views/library_details.mustache:423
 msgid "Departments"
 msgstr "Departments"
 
 #: views/widget3.mustache:112
 #: views/widget3.mustache:287
-#: views/library_details.mustache:259
-#: views/library_details.mustache:497
+#: views/library_details.mustache:263
+#: views/library_details.mustache:501
 msgid "Additional info"
 msgstr "Additional info"
 
 #: views/widget3.mustache:149
-#: views/library_details.mustache:298
+#: views/library_details.mustache:302
 msgid "For loan"
 msgstr "For loan"
 
 #: views/widget3.mustache:170
-#: views/library_details.mustache:319
+#: views/library_details.mustache:323
 msgid "Library identificator and type"
 msgstr "Library identificator and type"
 
 #: views/widget3.mustache:173
-#: views/library_details.mustache:322
+#: views/library_details.mustache:326
 msgid "ID"
 msgstr "ID"
 
 #: views/widget3.mustache:174
-#: views/library_details.mustache:323
+#: views/library_details.mustache:327
 msgid "Branch"
 msgstr "Branch"
 
 #: views/widget3.mustache:175
-#: views/library_details.mustache:324
+#: views/library_details.mustache:328
 msgid "Organisation"
 msgstr "Organisation"
 
 #: views/widget3.mustache:179
-#: views/library_details.mustache:328
+#: views/library_details.mustache:332
 msgid "Centralized services"
 msgstr "Centralized services"
 
 #: views/widget3.mustache:282
-#: views/library_details.mustache:492
+#: views/library_details.mustache:496
 msgid "Established year"
 msgstr "Established year"
 
 #: views/widget3.mustache:360
-#: views/library_details.mustache:218
+#: views/library_details.mustache:222
 msgid "Homepage"
 msgstr "Homepage"
 
 #: views/widget3.mustache:429
-#: views/library_details.mustache:524
+#: views/library_details.mustache:528
 msgid "last modified"
 msgstr "last modified"
 
@@ -872,12 +880,12 @@ msgstr "Location"
 msgid "Contacts"
 msgstr "Contacts"
 
-#: views/library_details.mustache:251
-#: views/library_details.mustache:431
+#: views/library_details.mustache:255
+#: views/library_details.mustache:435
 msgid "Units"
 msgstr "Units"
 
-#: views/library_details.mustache:376
+#: views/library_details.mustache:380
 msgid "Personnel of same organisation level"
 msgstr "Personnel of same organisation level"
 
