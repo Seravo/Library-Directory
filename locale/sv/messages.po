@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-16 17:18+0300\n"
-"PO-Revision-Date: 2015-04-16 17:19+0200\n"
+"PO-Revision-Date: 2015-04-16 17:32+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: \n"
@@ -509,7 +509,7 @@ msgstr "specialbibliotek"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:9
 msgid "polytechnic_library"
-msgstr "Yrkeshögskolebibliotek"
+msgstr "yrkeshögskolebibliotek"
 
 #: locale/templates/LC_MESSAGES/gettext.tmpl:10
 msgid "joint_library"
