@@ -509,12 +509,13 @@ app.post('/openTimeChangeWeek', function(req,res){
             '</tr>'
         }
 
-        html += '</table><button class="btn change-week"' +
+        html += '</table><div id="ld_week_browser_buttons">'+
+         '<button class="btn change-week"' +
          'monday="'+data._source.opening_hours.mondaydate+'"' +
          'value="prev">' + _("Previous week") + '</button> ' +
          '<button class="btn change-week"' +
          'monday="'+data._source.opening_hours.mondaydate+'"' +
-         'value="next">' + _("Next week") + '</button>';
+         'value="next">' + _("Next week") + '</button></div>';
 
         if (typeof data._source.opening_hours.period_description != 'undefined') {
           desc = data._source.opening_hours.period_description;
