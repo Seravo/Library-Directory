@@ -523,6 +523,10 @@ app.post('/openTimeChangeWeek', function(req,res){
 
         if(!data._source.opening_hours.this_week){
           date = data._source.opening_hours.mondaydate
+          // format date
+          date = new Date(date);
+          date = date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear();
+
           calendarTitle = _("Opening hours") + " " + date;
         } else {
           calendarTitle = _("Opening hours this week");
