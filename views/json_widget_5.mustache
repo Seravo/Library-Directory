@@ -8,17 +8,6 @@
           {{^neveropen}}
 
         {{#opening_hours.has_opening_hours}}
-		<h3>{{name__("locale")}}
-		_(" is now")
-          {{#opening_hours.open_now}}
-                <strong class="open">_("Open")</strong>
-          {{/opening_hours.open_now}}
-
-          {{^opening_hours.open_now}}
-                <strong class="closed">_("Closed")</strong>
-            {{/opening_hours.open_now}}
-          </h3>
-          <br>
             <h3 class="week-label">_("Opening hours this week")</h3>
             <time itemprop="openingHours">
             <table>
