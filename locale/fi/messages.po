@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Library Directory\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-10 15:09+0300\n"
-"PO-Revision-Date: 2015-09-10 15:22+0200\n"
+"PO-Revision-Date: 2015-09-10 15:25+0200\n"
 "Last-Translator: Tero Auvinen <tero@seravo.fi>\n"
 "Language-Team: \n"
 "Language: fi_FI\n"
@@ -632,11 +632,11 @@ msgstr "Verkkosivut"
 #: views/library_details.mustache:242 views/library_details.mustache:414
 #: views/widget3.mustache:105 views/widget3.mustache:228
 msgid "Departments"
-msgstr "Toimipisteet"
+msgstr "Osastot"
 
 #: views/library_details.mustache:246 views/library_details.mustache:426
 msgid "Units"
-msgstr "Yksiköt"
+msgstr "Toimipisteet"
 
 #: views/library_details.mustache:254 views/library_details.mustache:492
 #: views/widget3.mustache:112 views/widget3.mustache:287
