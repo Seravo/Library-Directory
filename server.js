@@ -884,7 +884,7 @@ var http = require('http');
 function get_libraries(callback) {
 
   var query = {
-    'size': 999,
+    'size': 5000,
     'sort': [ { 'name_fi' : {} } ],
     'query' : {
         'filtered' : {
