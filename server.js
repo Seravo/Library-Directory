@@ -382,7 +382,7 @@ app.get('/personnel-from-hash', function(req, res){
 })
 
 var getPersonnelFromHash = function(id, callback){
- 
+
  var query = {
     "size": 999,
     "sort": [ { "last_name" : {} } ],
@@ -1109,7 +1109,7 @@ function add_library_metadata(dataobj, callback){
 
     // TODO: Change data model to have own extrainfo branches for each language
     if (typeof lib.additional_info !== 'undefined' && typeof lib.additional_info.extrainfo !== 'undefined') {
-      if (lib.additional_info.extrainfo[0].property_label_fi === '') {
+      if (lib.additional_info.extrainfo.length && lib.additional_info.extrainfo[0].property_label_fi === '') {
         delete lib.additional_info;
       }
     }
@@ -2075,4 +2075,3 @@ get_region_data();
 get_person_qualities_data();
 
 rlog('Server started at port ' + conf.server_port);
-
