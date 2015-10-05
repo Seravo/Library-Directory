@@ -1289,8 +1289,8 @@ function get_personnel(sstr, callback) {
         'query' : {
           'bool': {
             'should': [
-              { 'bool': { 'should': [ { 'field': { 'first_name*': firstName } },
-                { 'field': { 'last_name*': lastName } } ] } },
+              { 'bool': { 'should': [ { 'term': { 'first_name*': firstName } },
+                { 'term': { 'last_name*': lastName } } ] } },
               { 'query_string': { 'fields': query_fields_1, 'query': wild } },
               { 'query_string': { 'fields': query_fields_2, 'query': wild } },
               { 'query_string': { 'fields': query_fields_3, 'query': wild } }
