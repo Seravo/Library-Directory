@@ -42,6 +42,17 @@
           {{^neveropen}}
 
         {{#opening_hours.has_opening_hours}}
+		<div class="ld_open_now" style="display: none;">
+              <h3>_("The library is now")
+          {{#opening_hours.open_now}}
+                <strong class="open">_("Open")</strong>
+          {{/opening_hours.open_now}}
+
+          {{^opening_hours.open_now}}
+                <strong class="closed">_("Closed")</strong>
+            {{/opening_hours.open_now}}
+          </h3>
+		  </div>
             <h3 class="week-label">_("Opening hours this week")</h3>
             <time itemprop="openingHours">
             <table>
