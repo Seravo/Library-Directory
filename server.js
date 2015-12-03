@@ -1247,7 +1247,7 @@ function get_library_by_id(id, callback) {
       });
       es_res.on('end', function() {
           dataobj = JSON.parse(data);
-          if (dataobj.exists) {
+          if (dataobj.exists || dataobj.found) {
             add_library_metadata(dataobj, callback);
           } else {
             rlog('Library with id ' + id + ' does not exist.');
