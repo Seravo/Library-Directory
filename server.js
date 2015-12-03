@@ -1095,7 +1095,7 @@ function add_library_metadata(dataobj, callback){
       }
     }
 
-    if (lib.contact.telephones[0].telephone_number === '') {
+    if (lib.contact.telephones.length && lib.contact.telephones[0].telephone_number === '') {
       delete lib.contact.telephones;
     }
 
