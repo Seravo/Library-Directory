@@ -471,6 +471,10 @@ var renderPersonnel = function(req, res, data) {
 
 
 app.post('/openTimeChangeWeek', function(req,res){
+  // set language explicitly for post request
+  // this was previously inherited from previous request(!)
+  switch_locale(req);
+
   res.header("Access-Control-Allow-Origin", "*");
   var mondayDate = new Date(req.body.mondayDate);
 
