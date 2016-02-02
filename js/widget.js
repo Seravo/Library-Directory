@@ -43,6 +43,7 @@ function main() {
 	// Change calendar week on /{library-name}/ page
 	$(document).on("click", "button.change-week", function(){
 		var id = $('div#opentimes_large').attr('for');
+		var lang = $('div#opentimes_large').attr('data-lang');
 		var mondayDate = $(this).attr('monday');
 
 		$.ajax({
@@ -50,6 +51,7 @@ function main() {
 		  url: url+'openTimeChangeWeek',
 		  data: {
 			id: id,
+			lang: lang,
 			value: this.value,
 			mondayDate : mondayDate
 		  }
