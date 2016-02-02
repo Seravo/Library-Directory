@@ -168,6 +168,7 @@ function switch_locale(req) {
 //  var browser_lang = req.locale;   // accept-language: fi;q=1
   var path_lang = req.params.lang; // /fi/about
   var get_lang = req.query.lang;   // /about?lang=fi
+  var post_lang = req.body.lang; // POST lang=fi
 
   //rlog(browser_lang, path_lang, get_lang);
   // locale precedence:
@@ -179,6 +180,9 @@ function switch_locale(req) {
   }
   if(get_lang !== undefined) {
     locale = get_lang;
+  }
+  if(post_lang !== undefined) {
+    locale = post_lang;
   }
 
   // set default application locale if request is hairy
