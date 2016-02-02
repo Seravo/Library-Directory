@@ -77,10 +77,10 @@ function main() {
 			var widget_id = widget.attr("data-id");
 			var widget_type = widget.attr("data-type");
 			var widget_params = widget.attr("data-params");
-			var widget_lang = "";
+			var widget_lang = widget.attr("data-lang");
 			if (widget.attr("data-lang")) widget_lang = widget.attr("data-lang") + "/";
 
-			var jsonp_url = url + widget_lang + "loadwidget?"+widget_params+"&type="+widget_type+"&callback=?";
+			var jsonp_url = url + widget_lang + "loadwidget?"+widget_params+"&type="+widget_type+"&lang="+widget_lang+"&callback=?";
 
 			// load widget css
 			var css_link = $("<link>", {
