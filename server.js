@@ -807,6 +807,7 @@ function render_static_page(page, req, res) {
             res.send(req.query.callback + '(' + JSON.stringify(jsondata) + ')');
           } else {
             data._source.id = data._id;
+            data._source.lang = req.query.lang;
 
             var jsondata = {};
             jsondata.html = widget.render(req, { data: data._source });
