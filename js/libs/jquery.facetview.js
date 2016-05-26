@@ -137,8 +137,8 @@ var opts = {
     var settings = {
             "config_file": false,
             "facets":[
-                {'field': 'contact.street_address.municipality_'+_("locale"), 'order':'term', 'display': _('City'), "size":400 },
-                {'field': 'services.name_'+_("locale"), 'order':'term', 'display': _('Services'), "size":500 },
+                {'field': 'contact.street_address.municipality_'+_("locale"), 'order':'term', 'display': _('City'), "size":600 },
+                {'field': 'services.name_'+_("locale"), 'order':'term', 'display': _('Services'), "size":1000 },
                 // {'field': 'accessibility.accessibility_entry', 'display': _('Accessibility')},
                 {'field': 'accessibility.accessible_entry', 'display': _('Accessible entry')},
                 {'field': 'accessibility.accessible_parking', 'display': _('Accessible parking')},
