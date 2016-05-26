@@ -1591,7 +1591,7 @@ function get_library_personnel(id, callback) {
 // get library's centralized services by library id
 function get_centralized_services(id, library_data, callback) {
   var query = {
-    'size': 999,
+    'size': 4999,
     'sort': [ { 'name_fi' : {} } ],
     'query': {
       'filtered': {
