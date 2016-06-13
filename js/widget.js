@@ -7,16 +7,16 @@ var proto = 'http';
 if (window.location.protocol == 'https:') {
   proto = 'https';
 }
-var url = proto + "://localhost:8080/";
+var url = proto + "://192.168.1.8:9000/";
 
 var jQuery;
 
 // load jquery if not yet available
-if (window.jQuery === undefined || window.jQuery.fn.jquery !== '1.7.2') {
+if (window.jQuery === undefined || window.jQuery.fn.jquery !== '2.1.1') {
     var script_tag = document.createElement('script');
     script_tag.setAttribute("type","text/javascript");
     // omit protocol for ssl support
-    script_tag.setAttribute("src",proto+"://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js");
+    script_tag.setAttribute("src",proto+"://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js");
     if (script_tag.readyState) {
       script_tag.onreadystatechange = function () { // for old ie
           if (this.readyState == 'complete' || this.readyState == 'loaded') {
