@@ -12,7 +12,7 @@ var url = proto + "://localhost:8080/";
 var jQuery;
 
 // load jquery if not yet available
-if (window.jQuery === undefined) {
+if (window.jQuery === undefined || window.jQuery.fn.jquery !== '1.12.4') {
     var script_tag = document.createElement('script');
     script_tag.setAttribute("type","text/javascript");
     // omit protocol for ssl support
