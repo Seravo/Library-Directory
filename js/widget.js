@@ -16,7 +16,7 @@ if (window.jQuery === undefined) {
     var script_tag = document.createElement('script');
     script_tag.setAttribute("type","text/javascript");
     // omit protocol for ssl support
-    script_tag.setAttribute("src",proto+"://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js");
+    script_tag.setAttribute("src",proto+"://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js");
     if (script_tag.readyState) {
       script_tag.onreadystatechange = function () { // for old ie
           if (this.readyState == 'complete' || this.readyState == 'loaded') {
