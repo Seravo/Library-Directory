@@ -12,7 +12,7 @@ var url = proto + "://192.168.1.8:9000/";
 var jQuery;
 
 // load jquery if not yet available
-if (window.jQuery === undefined || window.jQuery.fn.jquery !== '2.1.1') {
+if (window.jQuery === undefined) {
     var script_tag = document.createElement('script');
     script_tag.setAttribute("type","text/javascript");
     // omit protocol for ssl support
