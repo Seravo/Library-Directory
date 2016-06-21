@@ -1651,6 +1651,7 @@ function get_centralized_services(id, library_data, callback) {
         rlog('Services size: ' + results.length);
       }
       get_library_opening_times(id, library_data, null, callback);
+      get_library_selfservice_opening_times(id, library_data, null, callback);
     });
   }).on('error', function(e) {
     rlog('Problem with request: ' + e.message);
@@ -1837,6 +1838,167 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
       dataobj._source.opening_hours.mondaydate = mondaydate;
 
       getPersonnelOfUnitByLibrary(dataobj, callback);
+
+    });
+  }).on('error', function(e) {
+    rlog('Problem with request: ' + e.message);
+  });
+}
+
+// get library's self service opening times by library id
+function get_library_selfservice_opening_times(id, dataobj, fromDate, callback) {
+
+  if(!id) return;
+
+
+  var days_translated = [ _('Monday'),
+              _('Tuesday'),
+              _('Wednesday'),
+              _('Thursday'),
+              _('Friday'),
+              _('Saturday'),
+              _('Sunday') ];
+
+  // container for formatted opening times data
+  var opening_hours = new Object();
+  opening_hours.has_opening_hours = false;
+  opening_hours.open_now = false;
+
+
+  var curtime = new Date();
+
+  if(fromDate){
+    if(get_monday(fromDate) !== get_monday(curtime)){
+      curtime = new Date(fromDate);
+    } else {
+      opening_hours.this_week = true;
+    }
+  }
+
+  var mondaydate = get_monday(curtime);
+
+  var daynum = curtime.getDay();
+
+  if (daynum===0){
+    daynum = 7;
+  }
+
+  daynum = daynum-1;
+
+  var query = {
+    'size': 999,
+    'query': {
+      'filtered': {
+        'query': { 'match_all': {} },
+        'filter': {
+            'and': [
+              {'term': { 'organisation' : id } },
+              {'term': { '_type' : 'week_alt' } },
+              {'term': { '_id' : id + '::' + mondaydate } }
+            ]
+          }
+        }
+      }
+    };
+
+  query = JSON.stringify(query);
+  query = encodeURIComponent(query);
+
+  var options = {
+    host: conf.proxy_config.host,
+    port: conf.proxy_config.port,
+    path: '/production_libdir_hours/_search?source='+query,
+    method: 'GET'
+  };
+
+  var req = http.get(options, function(res) {
+    rlog('Requested opening times for: ' + id + ' from monday ' + mondaydate);
+
+    res.setEncoding('utf8');
+    data = '';
+    res.on('data', function(chunk){
+      data += chunk;
+    });
+    res.on('end', function() {
+      data=JSON.parse(data);
+
+      if (data.hits.total===0) {
+        dataobj._source.opening_hours = opening_hours;
+        callback(dataobj);
+        return;
+      }
+
+      var opening_times = data.hits.hits[0]._source.days;
+
+      // extract HH:MM time from ecmascript timestamp
+      function format_time(str) {
+        var idx = str.indexOf('T')+1;
+        return str.slice(idx).slice(0,5);
+      }
+
+      // extract opening times for use in view templates
+      opening_hours.open_hours_week = [];
+      opening_hours.has_opening_hours = true;
+      var ot = opening_times;
+      for (var idx in ot) {
+        var day = ot[idx];
+
+        // include info about "current day" in opening hours data for week
+        var today_status = false;
+        if (parseInt(idx, 10) == daynum){
+          today_status = true;
+        }
+
+        // take copy of period description for lib details view template
+        var desc = day['period_description_' +_ ('locale')];
+        if (desc !== undefined && desc !== '') {
+          opening_hours.period_description = desc;
+        }
+
+        // try to handle missing or corrupt opening times data gracefully, assume closed status if so
+        if (day.date===undefined || day.opens===undefined || day.closes===undefined) {
+          opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: _('closed'), today: today_status };
+          continue;
+        }
+
+        if (parseInt(idx, 10) === daynum && day.closed === true) {
+          opening_hours.open_now = false;
+        }
+
+        if (day.closed===true) {
+          opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: _('closed'), today: today_status };
+          continue;
+        }
+        else {
+          var opens = format_time(day.opens);
+          var closes = format_time(day.closes);
+          opening_hours.open_hours_week[idx] = {
+            day: days_translated[idx],
+            time: opens + ' - ' + closes,
+            today: today_status
+          };
+        }
+
+        if (parseInt(idx, 10) === daynum && day.closed === false) {
+          var opens = format_time(day.opens);
+          var closes = format_time(day.closes);
+          var tzoffset = curtime.getTimezoneOffset();
+          var opentime = new Date(day.opens).getTime()+tzoffset*60*1000;
+          var closetime = new Date(day.closes).getTime()+tzoffset*60*1000;
+
+          if (curtime >= opentime && curtime <= closetime){
+            opening_hours.open_now = true;
+          }
+
+          // If fromDate isn't null, then open_hours_today is irrelevant
+          if (!fromDate){
+            opening_hours.open_hours_today = opens + ' - ' + closes;
+          }
+        }
+      }
+
+      dataobj._source.selfservice_opening_hours = opening_hours;
+      dataobj._source.selfservice_opening_hours.mondaydate = mondaydate;
 
     });
   }).on('error', function(e) {

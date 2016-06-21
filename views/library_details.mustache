@@ -32,57 +32,105 @@
   <div class="span8">
     <div class="span5">
       <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#lib_opening_times" data-toggle="tab">_("Opening times")</a></li>
+        <li class="active"><a data-toggle="tab" href="#opentimes_large" data-toggle="tab">_("Opening times")</a></li>
+        <li><a data-toggle="tab" href="#lib_selfservice_opening_times" data-toggle="tab">_("Self service opening times")</a></li>
       </ul>
 
-      <div id="opentimes_large" for="{{id}}" data-lang='_("locale")' class="opentimes">
-          {{#neveropen}}
-          {{/neveropen}}
+      <div class="tab-content">
+        <div id="lib_selfservice_opening_times" for="{{id}}" data-lang='_("locale")' class="opentimes tab-pane">
+          {{#selfservice_opening_hours.has_opening_hours}}
+            <div class="ld_open_now" style="display: none;">
+                  <h3>_("The library is now")
+              {{#selfservice_opening_hours.open_now}}
+                    <strong class="open">_("Open")</strong>
+              {{/selfservice_opening_hours.open_now}}
 
-          {{^neveropen}}
+              {{^selfservice_opening_hours.open_now}}
+                    <strong class="closed">_("Closed")</strong>
+                {{/selfservice_opening_hours.open_now}}
+              </h3>
+              </div>
+                <h3 class="week-label">_("Opening hours this week")</h3>
+                <time itemprop="openingHours">
+                <table>
+                {{#selfservice_opening_hours.open_hours_week}}
+                {{#today}}
+                  <tr class="opentimes_strong"><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
+                {{/today}}
+                {{^today}}
+                    <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
+                {{/today}}
+                {{/selfservice_opening_hours.open_hours_week}}
+                </table>
+                <!-- self service week browser disabled for now
+                <button class="btn change-week" monday="{{selfservice_opening_hours.mondaydate}}" value="prev">_("Previous week")</button>
+                <button class="btn change-week" monday="{{selfservice_opening_hours.mondaydate}}" value="next">_("Next week")</button>
+                -->
 
-        {{#opening_hours.has_opening_hours}}
-		<div class="ld_open_now" style="display: none;">
-              <h3>_("The library is now")
-          {{#opening_hours.open_now}}
-                <strong class="open">_("Open")</strong>
-          {{/opening_hours.open_now}}
-
-          {{^opening_hours.open_now}}
-                <strong class="closed">_("Closed")</strong>
-            {{/opening_hours.open_now}}
-          </h3>
-		  </div>
-            <h3 class="week-label">_("Opening hours this week")</h3>
-            <time itemprop="openingHours">
-            <table>
-            {{#opening_hours.open_hours_week}}
-            {{#today}}
-              <tr class="opentimes_strong"><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
-            {{/today}}
-            {{^today}}
-                <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
-            {{/today}}
-            {{/opening_hours.open_hours_week}}
-            </table>
-            <button class="btn change-week" monday="{{opening_hours.mondaydate}}" value="prev">_("Previous week")</button>
-            <button class="btn change-week" monday="{{opening_hours.mondaydate}}" value="next">_("Next week")</button>
-
-            </time>
+                </time>
+                  <br>
+            <p>
+            <span id="period_description">
+            {{selfservice_opening_hours.period_description}}
+            </span>
+            {{/selfservice_opening_hours.has_opening_hours}}
+            {{^selfservice_opening_hours.has_opening_hours}}
+              <div>
+                _("No opening hours found")
+              </div>
               <br>
-        <p>
-		<span id="period_description">
-		{{opening_hours.period_description}}
-		</span>
-        {{/opening_hours.has_opening_hours}}
-        {{^opening_hours.has_opening_hours}}
-          <div>
-            _("No opening hours found")
-          </div>
-          <br>
-        {{/opening_hours.has_opening_hours}}
-		</p>
-          {{/neveropen}}
+          {{/selfservice_opening_hours.has_opening_hours}}
+        </div>
+
+        <div id="opentimes_large" for="{{id}}" data-lang='_("locale")' class="opentimes tab-pane active">
+            {{#neveropen}}
+            {{/neveropen}}
+
+            {{^neveropen}}
+
+          {{#opening_hours.has_opening_hours}}
+          <div class="ld_open_now" style="display: none;">
+                <h3>_("The library is now")
+            {{#opening_hours.open_now}}
+                  <strong class="open">_("Open")</strong>
+            {{/opening_hours.open_now}}
+
+            {{^opening_hours.open_now}}
+                  <strong class="closed">_("Closed")</strong>
+              {{/opening_hours.open_now}}
+            </h3>
+            </div>
+              <h3 class="week-label">_("Opening hours this week")</h3>
+              <time itemprop="openingHours">
+              <table>
+              {{#opening_hours.open_hours_week}}
+              {{#today}}
+                <tr class="opentimes_strong"><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
+              {{/today}}
+              {{^today}}
+                  <tr><td>{{day}}<td>&nbsp;<td>{{time}}<span class="hidden">, </span></tr>
+              {{/today}}
+              {{/opening_hours.open_hours_week}}
+              </table>
+              <button class="btn change-week" monday="{{opening_hours.mondaydate}}" value="prev">_("Previous week")</button>
+              <button class="btn change-week" monday="{{opening_hours.mondaydate}}" value="next">_("Next week")</button>
+
+              </time>
+                <br>
+          <p>
+          <span id="period_description">
+          {{opening_hours.period_description}}
+          </span>
+          {{/opening_hours.has_opening_hours}}
+          {{^opening_hours.has_opening_hours}}
+            <div>
+              _("No opening hours found")
+            </div>
+            <br>
+          {{/opening_hours.has_opening_hours}}
+          </p>
+            {{/neveropen}}
+        </div>
       </div>
     </div>
     <div class="span7">
