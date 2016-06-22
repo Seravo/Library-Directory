@@ -1651,7 +1651,6 @@ function get_centralized_services(id, library_data, callback) {
         rlog('Services size: ' + results.length);
       }
       get_library_opening_times(id, library_data, null, callback);
-      get_library_selfservice_opening_times(id, library_data, null, callback);
     });
   }).on('error', function(e) {
     rlog('Problem with request: ' + e.message);
@@ -1837,7 +1836,9 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
       dataobj._source.opening_hours = opening_hours;
       dataobj._source.opening_hours.mondaydate = mondaydate;
 
-      getPersonnelOfUnitByLibrary(dataobj, callback);
+      var library_data = dataobj;
+
+      get_library_selfservice_opening_times(id, library_data, null, callback);
 
     });
   }).on('error', function(e) {
@@ -1999,6 +2000,8 @@ function get_library_selfservice_opening_times(id, dataobj, fromDate, callback) 
 
       dataobj._source.selfservice_opening_hours = opening_hours;
       dataobj._source.selfservice_opening_hours.mondaydate = mondaydate;
+
+      getPersonnelOfUnitByLibrary(dataobj, callback);
 
     });
   }).on('error', function(e) {
