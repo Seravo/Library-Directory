@@ -1836,9 +1836,7 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
       dataobj._source.opening_hours = opening_hours;
       dataobj._source.opening_hours.mondaydate = mondaydate;
 
-      var library_data = dataobj;
-
-      get_library_selfservice_opening_times(id, library_data, null, callback);
+      get_library_selfservice_opening_times(id, dataobj, null, callback);
 
     });
   }).on('error', function(e) {
@@ -1850,7 +1848,6 @@ function get_library_opening_times(id, dataobj, fromDate, callback) {
 function get_library_selfservice_opening_times(id, dataobj, fromDate, callback) {
 
   if(!id) return;
-
 
   var days_translated = [ _('Monday'),
               _('Tuesday'),
@@ -1864,7 +1861,6 @@ function get_library_selfservice_opening_times(id, dataobj, fromDate, callback) 
   var opening_hours = new Object();
   opening_hours.has_opening_hours = false;
   opening_hours.open_now = false;
-
 
   var curtime = new Date();
 
@@ -1923,8 +1919,9 @@ function get_library_selfservice_opening_times(id, dataobj, fromDate, callback) 
     res.on('end', function() {
       data=JSON.parse(data);
 
+      // if no self service opening times are found, stop further processing and proceed with gathered data
       if (data.hits.total===0) {
-        dataobj._source.opening_hours = opening_hours;
+        dataobj._source.selfservice_opening_hours = opening_hours;
         callback(dataobj);
         return;
       }
