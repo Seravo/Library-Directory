@@ -751,83 +751,19 @@ var opts = {
                     library_data.show_address_entry = true;
                     //if (library_data.contact.street_address["street_"+_("locale")]=="") library_data.show_address_entry = false;
 
-                    /* library is not open until proven otherwise */
+                    /* library is closed by default */
                     library_data.open_now = false;
                     library_data.opening_hours = false;
+                    var schedule = undefined;
 
-                    // store matching opening times period length
-                    library_data.period_length=Infinity;
+                    // current day opening times
+                    if (library_data.schedules !== undefined) {
+                      schedule = library_data.schedules[0];
+                    }
 
-                    var periods = library_data.period;
-
-                    for (var i in periods) {
-                        var p = periods[i]
-                        for (var j=0; j<7; j++) {
-                            var start = p[days[j]+"_start"];
-                            var end = p[days[j]+"_end"];
-                            /* find a matching time frame within period and apply specific open/close state */
-
-                            /* workaround for IE8 Date.parse issues */
-                            var start_time = false;
-                            var end_time = false;
-                            var diff_time = 0;
-
-                            if (p.start != null) {
-                                var s_date = p.start.split("T")[0];
-                                var s_year = s_date.split("-")[0];
-                                var s_month = s_date.split("-")[1];
-                                var s_day = s_date.split("-")[2];
-
-                                s_month = parseInt(s_month, 10)-1;
-
-                                var e_date, e_year, e_month, e_day;
-
-                                // if period has no end defined, assume today + 1 year
-                                if (p.end == null) {
-                                    var now = new Date();
-                                    e_year = now.getFullYear()+1;
-                                    e_month = now.getMonth();
-                                    e_day = now.getDate();
-                                }
-                                else {
-                                    e_date = p.end.split("T")[0];
-                                    e_year = e_date.split("-")[0];
-                                    e_month = e_date.split("-")[1];
-                                    e_day = e_date.split("-")[2];
-
-                                    e_month = parseInt(e_month, 10)-1;
-                                }
-
-                                start_time = unixtime >= new Date(s_year, s_month, s_day, 0, 0, 0, 0);
-                                end_time = unixtime <= new Date(e_year, e_month, e_day, 23, 59, 59, 0);
-                                diff_time = new Date(e_year, e_month, e_day, 23, 59, 59, 0) - new Date(s_year, s_month, s_day, 0, 0, 0, 0);
-                            }
-
-                            if ( start_time && end_time ) {
-                                // if period has open status for current day
-                                if ( (start!=0 && end!=0) && (start!= null && end!= null) && j==daynum ) {
-                                    // if everything else matches, apply only if period length is smaller than previus match
-                                    if (diff_time <= library_data.period_length) {
-                                      library_data.period_length = diff_time;
-                                      library_data.open_now = ld_open_now( { start: start, end: end } );
-                                      library_data.opening_hours = ld_format_time(start) + " - " + ld_format_time(end);
-                                  }
-                                }
-
-                // if period is closed completely
-                if (p.closed_completely==true) {
-                  library_data.open_now = false;
-                  library_data.opening_hours = false;
-                  break;
-                }
-
-                                // if period has closed status for current day
-                                if ( (start==0 && end==0) && j==daynum ) {
-                                    library_data.open_now = false;
-                                    library_data.opening_hours = false;
-                                }
-                            }
-                        }
+                    if (schedule !== undefined && schedule.closed === false) {
+                      library_data.open_now = true;
+                      library_data.opening_hours = schedule.opens + " - " + schedule.closes;
                     }
 
                     var lib = library_data;
