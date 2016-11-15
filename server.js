@@ -1909,7 +1909,7 @@ function get_library_selfservice_opening_times(id, dataobj, fromDate, callback) 
   };
 
   var req = http.get(options, function(res) {
-    rlog('Requested opening times for: ' + id + ' from monday ' + mondaydate);
+    rlog('Requested self serv opening times for: ' + id + ' from monday ' + mondaydate);
 
     res.setEncoding('utf8');
     data = '';
@@ -1955,7 +1955,8 @@ function get_library_selfservice_opening_times(id, dataobj, fromDate, callback) 
 
         // try to handle missing or corrupt opening times data gracefully, assume closed status if so
         if (day.date===undefined || day.opens===undefined || day.closes===undefined) {
-          opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: _('closed'), today: today_status };
+          // dont show anything if self service opening times are undefined
+          //opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: _('closed'), today: today_status };
           continue;
         }
 
@@ -1964,7 +1965,8 @@ function get_library_selfservice_opening_times(id, dataobj, fromDate, callback) 
         }
 
         if (day.closed===true) {
-          opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: _('closed'), today: today_status };
+          // dont show anything if self service opening times are undefined
+          //opening_hours.open_hours_week[idx] = { day: days_translated[idx], time: _('closed'), today: today_status };
           continue;
         }
         else {
