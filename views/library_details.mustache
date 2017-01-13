@@ -144,7 +144,7 @@
       <div class="tab-pane active" id="lib_map">
         {{#contact.coordinates}}
               <p><strong class="address" itemprop="address"><i class="icon-map-marker"></i>
-            <a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q" itemprop="map">
+            <a href="https://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q" itemprop="map">
             {{contact.street_address.street__("locale")}},
             {{contact.street_address.area__("locale")}}
             {{contact.street_address.post_code}}
@@ -244,8 +244,8 @@
           </table>
           <div id="lib_imagecontainer">
             {{#image_url}}
-              <a class="lib_imagegallery" href="http://kirkanta.kirjastot.fi/media/image_content/large/{{.}}" target="_blank">
-                <img src="http://kirkanta.kirjastot.fi/media/image_content/small/{{.}}" alt="{{name__("locale")}}" itemprop="image photo">
+              <a class="lib_imagegallery" href="//kirkanta.kirjastot.fi/media/image_content/large/{{.}}" target="_blank">
+                <img src="//kirkanta.kirjastot.fi/media/image_content/small/{{.}}" alt="{{name__("locale")}}" itemprop="image photo">
               </a>
             {{/image_url}}
           </div>
