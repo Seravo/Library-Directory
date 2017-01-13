@@ -879,7 +879,7 @@ var opts = {
             if (typeof record.default_attachment != 'undefined' && record.default_attachment != null) {
                 var index = record.default_attachment;
                 var base = record.attachments[index].file;
-                var image = "http://kirkanta.kirjastot.fi/media/image_content/small/"+base;
+                var image = "//kirkanta.kirjastot.fi/media/image_content/small/"+base;
 
                 result += '<a href="' + record.additional_info.slug + '"><img class="thumbnail" style="float:left; width:100px; margin:0 5px 10px 0; max-height:100px;" src="' + image + '" /></a>';
             }
