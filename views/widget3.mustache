@@ -20,13 +20,13 @@
     </div>
 {{/preview_mode}}
 
-<div class="row-fluid" itemscope itemtype="http://schema.org/Library">
+<div class="row-fluid" itemscope itemtype="//schema.org/Library">
   <div class="span6">
 
 	<h1 class="lib_details_name" itemprop="name" id="{{id}}">{{name__("locale")}}</h1>
 	{{#contact.coordinates}}
         <p><strong class="address" itemprop="address"><i class="icon-map-marker"></i>
-	    <a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q" itemprop="map">
+	    <a href="//www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q" itemprop="map">
 	    {{contact.street_address.street__("locale")}},
 	    {{contact.street_address.area__("locale")}}
 	    {{contact.street_address.post_code}}
@@ -35,7 +35,7 @@
 	{{/contact.coordinates}}
 
 	<p><strong><i class="icon-move"></i>
-	<a target="_blank" href='https://opas.matka.fi/_("routefinder locale")/?to=
+	<a target="_blank" href='//opas.matka.fi/_("routefinder locale")/?to=
 {{contact.routefinder_street}},
 {{contact.routefinder_municipality}}'>
 	_("Directions")</a>
@@ -54,7 +54,7 @@
 	<div class="tab-content">
 		<div class="tab-pane active" id="lib_map">
 			{{#contact.coordinates}}
-				<p itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+				<p itemprop="geo" itemscope itemtype="//schema.org/GeoCoordinates">
 					<meta itemprop="latitude" content="{{contact.coordinnates_lat}}">
 					<meta itemprop="longitude" content="{{contact.coordinnates_lon}}">
 					<div id="mapcontainer" class="openlayers-map" data-coordinates="{{contact.coordinates}}"><div id="basicmap"></div></div>
@@ -121,7 +121,7 @@
 				<meta itemprop="currenciesAccepted" content="EUR">
 				<dd>
 					 {{#services}}
-						<div itemscope itemtype="http://schema.org/Product">
+						<div itemscope itemtype="//schema.org/Product">
 							{{#contact.url__("locale")}}
 							<a href='{{contact.url__("locale")}}'>
 							<span title="Model: {{model}}" itemprop="name">{{name__("locale")}}</span></a>
@@ -141,7 +141,7 @@
 									{{/description_long__("locale")}}
 								</li>
 								{{/description_short__("locale")}}
-								<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+								<div itemprop="offers" itemscope itemtype="//schema.org/Offer">
 									{{#price}}
 										<li itemprop="price">{{price}}</li>
 									{{/price}}

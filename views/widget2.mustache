@@ -7,7 +7,7 @@
 	<h1>{{name__("locale")}}</h1>
 	{{#contact.coordinates}}
     <p><strong class="address"><i class="icon-map-marker"></i>
-	<a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q">
+	<a href="//www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q">
 	{{contact.street_address.street__("locale")}},
 	{{contact.street_address.area__("locale")}}
 	{{contact.street_address.post_code}}
@@ -16,7 +16,7 @@
 	{{/contact.coordinates}}
 
 	<p><strong><i class="icon-move"></i>
-	<a target="_blank" href='https://opas.matka.fi/_("routefinder locale")/?to=
+	<a target="_blank" href='//opas.matka.fi/_("routefinder locale")/?to=
 {{contact.routefinder_street}},
 {{contact.routefinder_municipality}}'>
 	_("Directions")</a>

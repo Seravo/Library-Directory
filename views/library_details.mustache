@@ -21,14 +21,14 @@
 {{/preview_mode}}
 
 <!-- row 1 -->
-<div class="row-fluid" itemscope itemtype="http://schema.org/Library">
+<div class="row-fluid" itemscope itemtype="//schema.org/Library">
   <div class="span12">
 	  <h1 class="lib_details_name" itemprop="name" id="{{id}}">{{name__("locale")}}</h1>
   </div>
 </div>
 
 <!-- row 2 -->
-<div class="row-fluid" itemscope itemtype="http://schema.org/Library">
+<div class="row-fluid" itemscope itemtype="//schema.org/Library">
   <div class="span8">
     <div class="span5">
       <ul class="nav nav-tabs">
@@ -144,7 +144,7 @@
       <div class="tab-pane active" id="lib_map">
         {{#contact.coordinates}}
               <p><strong class="address" itemprop="address"><i class="icon-map-marker"></i>
-            <a href="http://www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q" itemprop="map">
+            <a href="//www.openstreetmap.org/?mlat={{contact.coordinnates_lat}}&mlon={{contact.coordinnates_lon}}&zoom=15&layers=Q" itemprop="map">
             {{contact.street_address.street__("locale")}},
             {{contact.street_address.area__("locale")}}
             {{contact.street_address.post_code}}
@@ -153,7 +153,7 @@
         {{/contact.coordinates}}
 
     <p><strong><i class="icon-move"></i>
-    <a target="_blank" href='https://opas.matka.fi/_("routefinder locale")/?to=
+    <a target="_blank" href='//opas.matka.fi/_("routefinder locale")/?to=
 {{contact.routefinder_street}},
 {{contact.routefinder_municipality}}'>
     _("Directions")</a>
@@ -170,7 +170,7 @@
         {{/contact.parking__("locale")}}
 
         {{#contact.coordinates}}
-          <p itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+          <p itemprop="geo" itemscope itemtype="//schema.org/GeoCoordinates">
             <meta itemprop="latitude" content="{{contact.coordinnates_lat}}">
             <meta itemprop="longitude" content="{{contact.coordinnates_lon}}">
             <div id="mapcontainer" class="openlayers-map" data-coordinates="{{contact.coordinates}}"><div id="basicmap"></div></div>
@@ -244,8 +244,8 @@
           </table>
           <div id="lib_imagecontainer">
             {{#image_url}}
-              <a class="lib_imagegallery" href="http://kirkanta.kirjastot.fi/media/image_content/large/{{.}}" target="_blank">
-                <img src="http://kirkanta.kirjastot.fi/media/image_content/small/{{.}}" alt="{{name__("locale")}}" itemprop="image photo">
+              <a class="lib_imagegallery" href="//kirkanta.kirjastot.fi/media/image_content/large/{{.}}" target="_blank">
+                <img src="//kirkanta.kirjastot.fi/media/image_content/small/{{.}}" alt="{{name__("locale")}}" itemprop="image photo">
               </a>
             {{/image_url}}
           </div>
@@ -288,7 +288,7 @@
 </div>
 
 <!-- row 3 -->
-<div class="row-fluid" itemscope itemtype="http://schema.org/Library">
+<div class="row-fluid" itemscope itemtype="//schema.org/Library">
   <div class="span8">
 		<ul class="nav nav-tabs">
 		<li class="active"><a data-toggle="tab" href="#lib_services" data-toggle="tab">_("Services")</a></li>
@@ -324,7 +324,7 @@
 				<meta itemprop="currenciesAccepted" content="EUR">
 				<dd>
 					 {{#services}}
-						<div itemscope itemtype="http://schema.org/Product">
+						<div itemscope itemtype="//schema.org/Product">
 							{{#contact.url__("locale")}}
 							<a href='{{contact.url__("locale")}}'>
 							<span title="Model: {{model}}" itemprop="name">{{name__("locale")}}</span></a>
@@ -344,7 +344,7 @@
 									{{/description_long__("locale")}}
 								</li>
 								{{/description_short__("locale")}}
-								<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+								<div itemprop="offers" itemscope itemtype="//schema.org/Offer">
 									{{#price}}
 										<li itemprop="price">{{price}}</li>
 									{{/price}}
@@ -573,7 +573,7 @@
 </div>
 
 <!-- row 4 -->
-<div class="row-fluid" itemscope itemtype="http://schema.org/Library">
+<div class="row-fluid" itemscope itemtype="//schema.org/Library">
   <div class="span12">
 	  <p><small><a target="_blank" href="{{slug}}" itemprop="url">hakemisto.kirjastot.fi/{{slug}}</a> _("last modified"): {{meta.modified}}</small></p>
   </div>
